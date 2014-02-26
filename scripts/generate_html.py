@@ -38,7 +38,7 @@ for program in active_content:
    
     splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
 
-  program_page += "<br><br><h2>Software:</h2>"
+  program_page += "<br><br>"
   if program['Software File'] == "":
     program_page += "None published yet.<br>"
   else:
@@ -66,7 +66,7 @@ for program in active_content:
 
       instructional_material = ""
       if 'Instructional Material' in software.keys():
-        category = software['Category']
+        instructional_material = software['Instructional Material']
       if re.search('^http',instructional_material):
         program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
       else:

@@ -15,18 +15,18 @@
         "Program Name": "MADCAT",
         "Program File": "MADCAT-program.json",
         "Pubs File": "MADCAT-pubs.json",
-        "Software File": ""
+        "Software File": "MADCAT-software.json"
 },
 {
         "Program Name": "RATS",
         "Program File": "RATS-program.json",
         "Pubs File": "RATS-pubs.json",
-        "Software File": ""
+        "Software File": "RATS-software.json"
 },
 {
         "Program Name": "XDATA",
         "Program File": "XDATA-program.json",
         "Pubs File": "XDATA-pubs.json",
-        "Software File": ""
+        "Software File": "XDATA-software.json"
 }
 ]

@@ -1,0 +1,6 @@
+#!/bin/bash
+filename=`date +"%Y-%m-%d"`-$1.tgz
+echo writing to $filename
+tar -cvzf $filename $1
+echo uploading $filename
+scp -i ~/.ssh/amazon_key $filename ubuntu@www.ddfproject.com:~/
