@@ -1,0 +1,32 @@
+[
+{
+        "Program Name": "BOLT",
+        "Program File": "BOLT-program.json",
+        "Pubs File": "BOLT-pubs.json",
+        "Software File": ""
+},
+{
+        "Program Name": "CFT",
+        "Program File": "CFT-program.json",
+        "Pubs File": "",
+        "Software File": "CFT-software.json"
+},
+{
+        "Program Name": "MADCAT",
+        "Program File": "MADCAT-program.json",
+        "Pubs File": "MADCAT-pubs.json",
+        "Software File": ""
+},
+{
+        "Program Name": "RATS",
+        "Program File": "RATS-program.json",
+        "Pubs File": "RATS-pubs.json",
+        "Software File": ""
+},
+{
+        "Program Name": "XDATA",
+        "Program File": "XDATA-program.json",
+        "Pubs File": "XDATA-pubs.json",
+        "Software File": ""
+}
+]

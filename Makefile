@@ -1,8 +1,18 @@
-OC_DATA_DIR=./darpa_open_catalog
-OC_SCRIPTS_DIR=./scripts
-OC_TEMPLATE_DUR=./table_page_template
-OC_BUILD_DIR=./build
+OC_DATA_DIR=$(shell pwd)/darpa_open_catalog/
+OC_SCRIPTS_DIR=$(shell pwd)/scripts/
+OC_DEFAULT_TEMPLATE_DIR=$(shell pwd)/templates/simple_sortable_table/
+OC_BUILD_DIR=$(shell pwd)/build
+OC_ACTIVE_CONTENT_FILE=$(shell pwd)/active_content.json
 
-website: 
-	echo "Success! $(OC_DATA_DIR)"
+clean: $(OC_BUILD_DIR)
+	rm -rf $(OC_BUILD_DIR)
+
+website: $(OC_DEFAULT_TEMPLATE_DIR) 
+	mkdir $(OC_BUILD_DIR)
+	cp -r $(OC_DEFAULT_TEMPLATE_DIR)/* $(OC_BUILD_DIR)
+
+html:
+
+debug:
+	$(OC_SCRIPTS_DIR)generate_html.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR)
 
