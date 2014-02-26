@@ -37,3 +37,7 @@ table.tablesorter thead tr .headerSortDown {
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 background-color: #8dbdd8;
 }
+/* table alternating row highlight */
+      tr:nth-child(odd) {
+     background-color: #D8D8D8;
+}
