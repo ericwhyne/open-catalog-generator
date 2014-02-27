@@ -3,7 +3,7 @@
         "Program Name": "BOLT",
         "Program File": "BOLT-program.json",
         "Pubs File": "BOLT-pubs.json",
-        "Software File": ""
+        "Software File": "BOLT-software.json"
 },
 {
         "Program Name": "CFT",
@@ -28,5 +28,23 @@
         "Program File": "XDATA-program.json",
         "Pubs File": "XDATA-pubs.json",
         "Software File": "XDATA-software.json"
+},
+{
+        "Program Name": "AA",
+        "Program File": "AA-program.json",
+        "Pubs File": "AA-pubs.json",
+        "Software File": "AA-software.json"
+},
+{
+        "Program Name": "DEFT",
+        "Program File": "DEFT-program.json",
+        "Pubs File": "DEFT-pubs.json",
+        "Software File": ""
+},
+{
+        "Program Name": "FLASHLIGHT",
+        "Program File": "FLASHLIGHT-program.json",
+        "Pubs File": "",
+        "Software File": "FLASHLIGHT-software.json"
 }
 ]

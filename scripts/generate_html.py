@@ -8,6 +8,7 @@ from pprint import pprint
 active_content_file = sys.argv[1]
 data_dir = sys.argv[2]
 build_dir = sys.argv[3]
+darpa_links = sys.argv[4]
 
 print """
 Active content file: %s
@@ -19,6 +20,7 @@ print "Attempting to load %s" %  active_content_file
 active_content = json.load(open(active_content_file))
 
 splash_page = doc.catalog_page_header()
+splash_page += doc.logo()
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
 
@@ -32,15 +34,18 @@ for program in active_content:
   else:
     print "Attempting to load %s" %  program['Program File']
     program_details = json.load(open(data_dir + program['Program File']))
-    program_page += "<table><tr><td><img height=50 src=\"darpa.png\"></td><td valign=center><h2>Open Catalog</h2></td></tr></table><br>"
-    program_page += "<h2>%s</h2>" % program_details['DARPA Program Name']
-    program_page += "<br>%s<br><br>" % program_details['Description']
+    program_page += doc.logo()
+    if re.search('^http',program_details['Link']):
+      program_page += "  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
+    else:
+      program_page += "<h2>%s</h2>" % program_details['Long Name']
+    program_page += "<p>%s<p><br>" % program_details['Description']
    
     splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
 
-  program_page += "<br><br>"
+  program_page += "<h2>Software:</h2>"
   if program['Software File'] == "":
-    program_page += "None published yet.<br>"
+    program_page += "<p>None published yet.</p>"
   else:
     print "Attempting to load %s" %  program['Software File']
     softwares = json.load(open(data_dir + program['Software File']))
@@ -49,12 +54,16 @@ for program in active_content:
       program_page += "<TR>\n  <TD>"
       for team in software['Program Teams']:
         program_page += team + ", "
+      program_page = program_page[:-2]
       program_page += "</TD>\n "
       elink = ""
       if 'External Link' in software.keys():
         elink = software['External Link']
       if re.search('^http',elink) and elink != "":
-        program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + elink + "</a></TD>\n"
+        if darpa_links == "darpalinks":
+          program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
+        else:
+          program_page += "  <TD><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
       else:
         program_page += "  <TD>" + software['Software'] + "</TD>\n"
 
@@ -62,13 +71,17 @@ for program in active_content:
       if 'Categories' in software.keys():
         for category in software['Categories']:
           categories += category + ", "
+        categories = categories[:-2]
       program_page += "  <TD>" + categories + "</TD>\n"
 
       instructional_material = ""
       if 'Instructional Material' in software.keys():
         instructional_material = software['Instructional Material']
       if re.search('^http',instructional_material):
-        program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
+        if darpa_links == "darpalinks":
+          program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
+        else:
+          program_page += "  <TD><a href='" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
       else:
         program_page += "  <TD>" + instructional_material + "</TD>\n"
 
@@ -84,7 +97,7 @@ for program in active_content:
 
   program_page += "<br><br><h2>Publications:</h2>"
   if program['Pubs File'] == "":
-    program_page += "None published yet.<br>"
+    program_page += "<p>None published yet.</p>"
   else:
     print "Attempting to load %s" %  program['Pubs File']
     pubs = json.load(open(data_dir + program['Pubs File']))
@@ -92,11 +105,15 @@ for program in active_content:
     for pub in pubs:
       program_page += "<TR>\n  <TD>"
       for team in pub['Program Teams']:
-        program_page += team + "<a name='" + team + "'>"
+        program_page += team + "<a name='" + team + "'>, "
+      program_page = program_page[:-2]
       program_page += "</TD>\n  <TD>" + pub['Title'] + "</TD>\n"
       link = pub['Link']
       if re.search('^http',link):
-        program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
+        if darpa_links == "darpalinks":
+          program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
+        else:
+          program_page += "  <TD><a href='" + link + "'>" + link + "</a></TD>\n"
       else:
         program_page += "  <TD>" + link + "</TD>\n"
       program_page += "</TR>\n"

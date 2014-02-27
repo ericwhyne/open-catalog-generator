@@ -1,6 +1,6 @@
 #!/bin/bash
-filename=`date +"%Y-%m-%d"`-$1.tgz
+filename=`date +"%Y-%m-%d"`-build.tgz
 echo writing to $filename
-tar -cvzf $filename $1
+tar -czf $filename build
 echo uploading $filename
 scp -i ~/.ssh/amazon_key $filename ubuntu@www.ddfproject.com:~/
