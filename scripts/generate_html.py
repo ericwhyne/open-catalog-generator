@@ -40,7 +40,7 @@ for program in active_content:
     else:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
     program_page += "<p>%s<p><br>" % program_details['Description']
-   
+    program_page += "<p>The DARPA Open Catalog contains lists of software and publications which link to an external project pages and, where applicable, the code repository for the project.</p>"
     splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
 
   
@@ -73,16 +73,16 @@ for program in active_content:
         categories = categories[:-2]
       program_page += "  <TD>" + categories + "</TD>\n"
 
-      instructional_material = ""
-      if 'Instructional Material' in software.keys():
-        instructional_material = software['Instructional Material']
-      if re.search('^http',instructional_material):
-        if darpa_links == "darpalinks":
-          program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
-        else:
-          program_page += "  <TD><a href='" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
-      else:
-        program_page += "  <TD>" + instructional_material + "</TD>\n"
+#      instructional_material = ""
+#      if 'Instructional Material' in software.keys():
+#        instructional_material = software['Instructional Material']
+#      if re.search('^http',instructional_material):
+#        if darpa_links == "darpalinks":
+#          program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
+#        else:
+#          program_page += "  <TD><a href='" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
+#      else:
+#        program_page += "  <TD>" + instructional_material + "</TD>\n"
 
       clink = ""
       if 'Public Code Repo' in software.keys():
