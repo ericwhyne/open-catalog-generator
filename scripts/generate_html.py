@@ -39,8 +39,10 @@ for program in active_content:
       program_page += "  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
-    program_page += "<p>%s<p><br>" % program_details['Description']
-    program_page += "<p>The DARPA Open Catalog contains lists of software and publications which link to an external project pages and, where applicable, the code repository for the project.</p>"
+    program_page += "<p>%s<p>" % program_details['Description']
+    program_page += "<p>Program Manager: %s<p>" % program_details['Project Manager']
+    program_page += "<p>Contact: %s<p>" % program_details['Project Manager contact']
+    program_page += "<p>The DARPA Open Catalog adds links to external pages for software and publications as they are approved for public release. Software includes links to external project pages, and, where applicable, the code repository for the project. Publications link out to the published locations or indicate where publication is expected.</p>"
     splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
 
   
