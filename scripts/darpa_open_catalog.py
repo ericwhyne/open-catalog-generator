@@ -1,7 +1,7 @@
 #!/usr/bin/python
 def logo():
   return """
-<table><tr><td><a href="http://www.darpa.mil"><img height=50 src="darpa.png"></a></td><td valign=center><h2><a href='index.html' class='topheaderlink'>Open Catalog</a></h2></td></tr></table>
+<table><tr><td><a href="http://www.darpa.mil/"><img height=50 src="darpa.png"></a></td><td valign=center><h2><a href='index.html' class='topheaderlink'>Open Catalog</a></h2></td></tr></table>
 """
 
 def catalog_splash_content():
@@ -19,7 +19,7 @@ def catalog_splash_content():
 
 def splash_table_header():
   return """
-<h2>Catalog Programs:</h2>
+<h2>Current Catalog Programs:</h2>
 <table id='splash' class='tablesorter'> 
 <thead> 
 <tr> 
