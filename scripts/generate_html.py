@@ -43,10 +43,9 @@ for program in active_content:
    
     splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
 
-  program_page += "<h2>Software:</h2>"
-  if program['Software File'] == "":
-    program_page += "<p>None published yet.</p>"
-  else:
+  
+  if program['Software File'] != "":
+    program_page += "<h2>Software:</h2>"
     print "Attempting to load %s" %  program['Software File']
     softwares = json.load(open(data_dir + program['Software File']))
     program_page += doc.software_table_header()
@@ -95,10 +94,7 @@ for program in active_content:
       program_page += " <TD> " + software['License'] + " </TD>\n </TR>\n"
     program_page += doc.software_table_footer()
 
-  program_page += "<br><br><h2>Publications:</h2>"
-  if program['Pubs File'] == "":
-    program_page += "<p>None published yet.</p>"
-  else:
+  if program['Pubs File'] != "":
     print "Attempting to load %s" %  program['Pubs File']
     pubs = json.load(open(data_dir + program['Pubs File']))
     program_page += doc.pubs_table_header()
