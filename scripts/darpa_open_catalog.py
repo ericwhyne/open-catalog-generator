@@ -2,7 +2,7 @@
 import time
 def logo():
   return """
-<table><tr><td><a href="http://www.darpa.mil/"><img height=50 src="darpa.png"></a></td><td valign=center><h2><a href='index.html' class='topheaderlink'>Open Catalog</a></h2></td></tr></table>
+<a href="http://www.darpa.mil/"><img style="float: left; margin: 0px 15px 15px 0px;" height=50 src="darpa.png"></a><h2><a href='index.html' class='topheaderlink'>Open Catalog</a></h2>
 """
 
 def catalog_splash_content():
@@ -14,7 +14,7 @@ def catalog_splash_content():
 <p>The table on this page lists the programs currently participating in the catalog. This list will be updated every two weeks with new entries.</p>
 <p>The Open Catalog is operating under the purview of the I2O XDATA program. With questions or concerns, please contact the Program Manager:<br>
 Dr. Christopher White<br>
-christopher.white@darpa.mil
+christopher.white@darpa.mil</p>
 <p>Last updated: """ 
   splash += date + "</p>"
   return splash
