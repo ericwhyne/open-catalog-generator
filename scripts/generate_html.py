@@ -40,88 +40,81 @@ for program in active_content:
       program_page += "  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
-<<<<<<< HEAD
-    program_page += "<p>%s<p><br>" % program_details['Description']
-    software_columns = program_details['Display Software Columns']
+    program_page += "<p>%s<p>" % program_details['Description']
+    program_page += "<p>Program Manager: %s<p>" % program_details['Program Manager']
+    program_page += "<p>Contact: %s<p>" % program_details['Program Manager contact']
+    program_page += "<p>The DARPA Open Catalog adds links to external pages for software and publications as they are approved for public release. Software includes links to external project pages, and, where applicable, the code repository for the project. Publications link out to the published locations or indicate where publication is expected.</p>"
+
     splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
+
+    software_columns = program_details['Display Software Columns']
 
 ###### SOFTWARE
-  program_page += "<h2>Software:</h2>"
-  if program['Software File'] == "":
-    program_page += "<p>None published yet.</p>"
-  else:
-=======
-    program_page += "<p>%s<p>" % program_details['Description']
-    program_page += "<p>Program Manager: %s<p>" % program_details['Project Manager']
-    program_page += "<p>Contact: %s<p>" % program_details['Project Manager contact']
-    program_page += "<p>The DARPA Open Catalog adds links to external pages for software and publications as they are approved for public release. Software includes links to external project pages, and, where applicable, the code repository for the project. Publications link out to the published locations or indicate where publication is expected.</p>"
-    splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
-
-  
+# ["Team","Software","Category","Code","Description","License"]
+   
   if program['Software File'] != "":
     program_page += "<h2>Software:</h2>"
->>>>>>> 6cecb8478528d1ddac41d4c55724a5b55b198c57
     print "Attempting to load %s" %  program['Software File']
-    softwares = json.load(open(data_dir + program['Software File']))
-    
+    softwares = json.load(open(data_dir + program['Software File']))   
     program_page += doc.software_table_header(software_columns)
-    print program_page
-    sys.exit()
-
     for software in softwares:
-      program_page += "<TR>\n  <TD>"
-      for team in software['Program Teams']:
-        program_page += team + ", "
-      program_page = program_page[:-2]
-      program_page += "</TD>\n "
-      elink = ""
-      if 'External Link' in software.keys():
-        elink = software['External Link']
-      if re.search('^http',elink) and elink != "":
-        if darpa_links == "darpalinks":
-          program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
-        else:
-          program_page += "  <TD><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
-      else:
-        program_page += "  <TD>" + software['Software'] + "</TD>\n"
-
-      categories = ""
-      if 'Categories' in software.keys():
-        for category in software['Categories']:
-          categories += category + ", "
-        categories = categories[:-2]
-      program_page += "  <TD>" + categories + "</TD>\n"
-
-#      instructional_material = ""
-#      if 'Instructional Material' in software.keys():
-#        instructional_material = software['Instructional Material']
-#      if re.search('^http',instructional_material):
-#        if darpa_links == "darpalinks":
-#          program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
-#        else:
-#          program_page += "  <TD><a href='" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
-#      else:
-#        program_page += "  <TD>" + instructional_material + "</TD>\n"
-
-      clink = ""
-      if 'Public Code Repo' in software.keys():
-        clink = software['Public Code Repo']
-      program_page += "  <TD> " + clink + " </TD>\n"
-
-      program_page += " <TD> " + software['Description'] + " </TD>\n"
-      
-      program_page += " <TD> " + software['License'] + " </TD>\n </TR>\n"
+      for column in software_columns:
+        # Team
+        if column == "Team":
+          program_page += "<TR>\n  <TD>"
+          for team in software['Program Teams']:
+            program_page += team + ", "
+          program_page = program_page[:-2]
+          program_page += "</TD>\n "
+        # Software
+        if column == "Software":
+          elink = ""
+          if 'External Link' in software.keys():
+            elink = software['External Link']
+          if re.search('^http',elink) and elink != "":
+            if darpa_links == "darpalinks":
+              program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
+            else:
+              program_page += "  <TD><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
+          else:
+            program_page += "  <TD>" + software['Software'] + "</TD>\n"
+        # Category
+        if column == "Category":
+          categories = ""
+          if 'Categories' in software.keys():
+            for category in software['Categories']:
+              categories += category + ", "
+            categories = categories[:-2]
+          program_page += "  <TD>" + categories + "</TD>\n"
+        # Instructional Material
+        if column == "Instructional Material":
+          instructional_material = ""
+          if 'Instructional Material' in software.keys():
+            instructional_material = software['Instructional Material']
+          if re.search('^http',instructional_material):
+            if darpa_links == "darpalinks":
+              program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
+            else:
+              program_page += "  <TD><a href='" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
+          else:
+            program_page += "  <TD>" + instructional_material + "</TD>\n"
+        # Code
+        if column == "Code":
+          clink = ""
+          if 'Public Code Repo' in software.keys():
+            clink = software['Public Code Repo']
+          program_page += "  <TD> " + clink + " </TD>\n"
+        # Description
+        if column == "Description":
+          program_page += " <TD> " + software['Description'] + " </TD>\n"
+        # License
+        if column == "License":
+          program_page += " <TD> " + software['License'] + " </TD>\n </TR>\n"
     program_page += doc.software_table_footer()
 
-<<<<<<< HEAD
 ####### Publications
-  program_page += "<br><br><h2>Publications:</h2>"
-  if program['Pubs File'] == "":
-    program_page += "<p>None published yet.</p>"
-  else:
-=======
   if program['Pubs File'] != "":
->>>>>>> 6cecb8478528d1ddac41d4c55724a5b55b198c57
+    program_page += "<br><br><h2>Publications:</h2>"
     print "Attempting to load %s" %  program['Pubs File']
     pubs = json.load(open(data_dir + program['Pubs File']))
     program_page += doc.pubs_table_header()
