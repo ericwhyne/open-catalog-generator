@@ -51,7 +51,6 @@ for program in active_content:
 
 ###### SOFTWARE
 # ["Team","Software","Category","Code","Description","License"]
-   
   if program['Software File'] != "":
     program_page += "<h2>Software:</h2>"
     print "Attempting to load %s" %  program['Software File']
@@ -104,6 +103,11 @@ for program in active_content:
           if 'Public Code Repo' in software.keys():
             clink = software['Public Code Repo']
           program_page += "  <TD> " + clink + " </TD>\n"
+        # Stats
+        if column == "Stats":
+          if 'Stats' in software.keys():
+            slink = software['Stats']
+          program_page += "  <TD> <a href='" + slink + "/index.html'> stats </TD>\n"
         # Description
         if column == "Description":
           program_page += " <TD> " + software['Description'] + " </TD>\n"
