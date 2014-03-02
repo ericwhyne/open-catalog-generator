@@ -28,6 +28,7 @@ for program in active_content:
   program_name = program['Program Name']
   program_page_filename = program_name + ".html"
   program_page = doc.catalog_page_header()
+  software_columns = []
   if program['Program File'] == "":
     print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
     sys.exit(1)
@@ -40,16 +41,21 @@ for program in active_content:
     else:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
     program_page += "<p>%s<p><br>" % program_details['Description']
-   
+    software_columns = program_details['Display Software Columns']
     splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
 
+###### SOFTWARE
   program_page += "<h2>Software:</h2>"
   if program['Software File'] == "":
     program_page += "<p>None published yet.</p>"
   else:
     print "Attempting to load %s" %  program['Software File']
     softwares = json.load(open(data_dir + program['Software File']))
-    program_page += doc.software_table_header()
+    
+    program_page += doc.software_table_header(software_columns)
+    print program_page
+    sys.exit()
+
     for software in softwares:
       program_page += "<TR>\n  <TD>"
       for team in software['Program Teams']:
@@ -95,6 +101,7 @@ for program in active_content:
       program_page += " <TD> " + software['License'] + " </TD>\n </TR>\n"
     program_page += doc.software_table_footer()
 
+####### Publications
   program_page += "<br><br><h2>Publications:</h2>"
   if program['Pubs File'] == "":
     program_page += "<p>None published yet.</p>"

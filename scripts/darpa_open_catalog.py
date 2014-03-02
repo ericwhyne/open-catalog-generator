@@ -38,22 +38,12 @@ def splash_table_footer():
 """
 
 
-def software_table_header():
-  return """
-<table id='software' class='tablesorter'> 
-<thead> 
-<tr> 
-    <th>Team</th> 
-    <th>Software</th> 
-    <th>Category</th>
-    <th>Instructional Material</th>
-    <th>Code</th> 
-    <th>Description</th> 
-    <th>License</th> 
-</tr> 
-</thead> 
-<tbody> 
-"""
+def software_table_header(columns):
+  header = "<table id='software' class='tablesorter'>\n <thead>\n <tr>"
+  for column in columns:
+    header += "<th>%s</th>" % column
+  header += "</tr>\n </thead>\n <tbody>"
+  return header
 
 def software_table_footer():
   return """
