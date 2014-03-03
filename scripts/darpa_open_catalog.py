@@ -14,7 +14,7 @@ def catalog_splash_content():
 <p>The table on this page lists the programs currently participating in the catalog.</p>
 <p>The Open Catalog is operating under the purview of the I2O XDATA program. With questions or concerns, please contact the Program Manager:<br>
 Dr. Christopher White<br>
-christopher.white@darpa.mil</p>
+<a href='mailto:christopher.white@darpa.mil'>christopher.white@darpa.mil</a></p>
 <p>Last updated: """ 
   splash += date + "</p>"
   return splash
