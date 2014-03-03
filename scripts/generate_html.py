@@ -44,7 +44,6 @@ for program in active_content:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
     program_page += "<p>%s<p>" % program_details['Description']
     if 'Image' in program_details.keys():
-      print "IMAGE IMAGE IMAGE!!!"
       if program_details['Image'] != "":
         program_page += "\n<br style='clear:both' /> <img style=\"float: right; margin: 0px 0px 15px 15px;\" src=\"%s\" width=\"200\" />" % program_details['Image']
     
