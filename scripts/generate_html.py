@@ -63,7 +63,7 @@ for program in active_content:
     software_columns = program_details['Display Software Columns']
 
 ###### SOFTWARE
-# ["Team","Software","Category","Code","Description","License"]
+# ["Team","Software","Category","Code","Stats","Description","License"]
   if program['Software File'] != "":
     program_page += "<h2>Software:</h2>"
     print "Attempting to load %s" %  program['Software File']
@@ -119,8 +119,14 @@ for program in active_content:
         # Stats
         if column == "Stats":
           if 'Stats' in software.keys():
-            slink = software['Stats']
-          program_page += "  <TD> <a href='stats/" + slink + "/index.html'> stats </TD>\n"
+            if software['Stats'] != "":
+              slink = software['Stats']
+              program_page += "  <TD> <a href='stats/" + slink + "/index.html'> stats </TD>\n"
+            else: 
+              program_page += "  <TD></TD>\n"
+          else:
+            program_page += "  <TD></TD>\n"
+    
         # Description
         if column == "Description":
           program_page += " <TD> " + software['Description'] + " </TD>\n"
