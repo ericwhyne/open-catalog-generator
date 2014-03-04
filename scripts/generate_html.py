@@ -56,6 +56,7 @@ for program in active_content:
       program_page += "<p>The Software Table lists performers with one row per piece of software. Each piece of software has licensing information, a link to an external project page or contact information, and where possible a link to the code repository for the project.<p>"
     if program['Pubs File'] != "":
       program_page += "<p>The Publications Table contains author(s), title, and links to peer-reviewed articles related to specific DARPA programs.</p>"
+    program_page += "<p>Report a problem: <a href="mailto:opencatalog@darpa.mil">opencatalog@darpa.mil</a></p>
     program_page += "<p>Last updated: %s</p>" % date
     banner = ""
     if "Banner" in program.keys():
