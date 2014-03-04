@@ -45,7 +45,7 @@ for program in active_content:
     program_page += "<p>%s<p>" % program_details['Description']
     if 'Image' in program_details.keys():
       if program_details['Image'] != "":
-        program_page += "\n<br style='clear:both' /> <img style=\"float: right; margin: 0px 0px 15px 15px;\" src=\"%s\" width=\"200\" />" % program_details['Image']
+        program_page += "\n<img style=\"float: right; margin: 0px 0px 15px 15px;\" src=\"%s\" width=\"200\" />" % program_details['Image']
     
 
     program_page += "<p>Program Manager: %s<p>" % program_details['Program Manager']
@@ -57,8 +57,11 @@ for program in active_content:
     if program['Pubs File'] != "":
       program_page += "<p>The Publications Table contains author(s), title, and links to peer-reviewed articles related to specific DARPA programs.</p>"
     program_page += "<p>Last updated: %s</p>" % date
-
-    splash_page += "<TR>\n <TD><a href='%s'>%s</a></TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], program_details['Description'])  
+    banner = ""
+    if "Banner" in program.keys():
+      if program['Banner'] == "New":
+        banner = "<img src='new.png' height=35 width=35 align=right alt='new content'>"
+    splash_page += "<TR>\n <TD width=130><a href='%s'>%s</a> %s</TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], banner, program_details['Description'])  
 
     software_columns = program_details['Display Software Columns']
 
