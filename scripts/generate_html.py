@@ -42,7 +42,7 @@ for program in active_content:
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
-    program_page += "<h3><a href="http://www.darpa.mil/Our_Work/I2O/"' class='programlink'>Information Innovation Office</a></h3>
+    program_page += "<h3><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink'>Information Innovation Office</a></h3>"
     program_page += "<p>%s<p>" % program_details['Description']
     if 'Image' in program_details.keys():
       if program_details['Image'] != "":
@@ -57,6 +57,7 @@ for program in active_content:
       program_page += "<ul><li>The Software Table lists performers with one row per piece of software. Each piece of software has licensing information, a link to an external project page or contact information, and where possible a link to the code repository for the project.</li></ul>"
     if program['Pubs File'] != "":
       program_page += "<ul><li>The Publications Table contains author(s), title, and links to peer-reviewed articles related to specific DARPA programs.</li></ul>"
+    program_page += "<p>Report a problem: <a href=\"mailto:opencatalog@darpa.mil\">opencatalog@darpa.mil</a></p>"
     program_page += "<p>Last updated: %s</p>" % date
     banner = ""
     if "Banner" in program.keys():
