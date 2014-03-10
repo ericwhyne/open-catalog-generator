@@ -1,0 +1,29 @@
+[
+{
+        "Program Name": "CFT",
+        "Program File": "CFT-program.json",
+        "Pubs File": "",
+        "Software File": "CFT-software.json",
+        "Banner":"Coming soon"
+},
+{
+        "Program Name": "XDATA",
+        "Program File": "XDATA-program.json",
+        "Pubs File": "XDATA-pubs.json",
+        "Software File": "XDATA-software.json"
+},
+{
+        "Program Name": "AA",
+        "Program File": "AA-program.json",
+        "Pubs File": "AA-pubs.json",
+        "Software File": "AA-software.json",
+        "Banner":"Coming soon"
+},
+{
+        "Program Name": "DEFT",
+        "Program File": "DEFT-program.json",
+        "Pubs File": "DEFT-pubs.json",
+        "Software File": "DEFT-software.json",
+        "Banner":"New"
+}
+]

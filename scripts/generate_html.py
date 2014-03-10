@@ -62,10 +62,14 @@ for program in active_content:
     program_page += "<p>Report a problem: <a href=\"mailto:opencatalog@darpa.mil\">opencatalog@darpa.mil</a></p>"
     program_page += "<p>Last updated: %s</p>" % date
     banner = ""
+    program_link = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     if "Banner" in program.keys():
       if program['Banner'] == "New":
         banner = "<img src='new.png' height=35 width=35 align=right alt='new content'>"
-    splash_page += "<TR>\n <TD width=130><a href='%s'>%s</a> %s</TD>\n <TD>%s</TD>\n</TR>" % (program_page_filename, program_details['DARPA Program Name'], banner, program_details['Description'])  
+      if program['Banner'] == "Coming soon":
+        program_link = "%s <br> (Coming soon)" % program_details['DARPA Program Name']
+    splash_page += "<TR>\n <TD width=130>%s %s</TD>\n <TD>%s</TD>\n</TR>" % (program_link, banner, program_details['Description'])  
+
 
     software_columns = program_details['Display Software Columns']
 
@@ -155,7 +159,7 @@ for program in active_content:
       program_page = program_page[:-2]
       program_page += "</TD>\n  <TD>" + pub['Title'] + "</TD>\n"
       link = pub['Link']
-      if re.search('^http',link):
+      if re.search('^http',link) or re.search('^ftp',link):
         if darpa_links == "darpalinks":
           program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
         else:
