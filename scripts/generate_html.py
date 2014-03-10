@@ -64,12 +64,13 @@ for program in active_content:
     banner = ""
     program_link = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     if "Banner" in program.keys():
-      if program['Banner'] == "New":
-        banner = "<img src='new.png' height=35 width=35 align=right alt='new content'>"
+      if program['Banner'] == "NEW":
+        banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])
+		splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
       if program['Banner'] == "Coming soon":
+		banner = "<img src='new.png' height=35 width=35 align=right alt='new content'>"
         program_link = "%s <br> (Coming soon)" % program_details['DARPA Program Name']
-    splash_page += "<TR>\n <TD width=130>%s %s</TD>\n <TD>%s</TD>\n</TR>" % (program_link, banner, program_details['Description'])  
-
+		splash_page += "<TR>\n <TD width=130>%s %s</TD>\n <TD>%s</TD>\n</TR>" % (program_link, banner, program_details['Description'])  
 
     software_columns = program_details['Display Software Columns']
 

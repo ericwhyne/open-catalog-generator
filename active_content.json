@@ -4,28 +4,28 @@
         "Program File": "BOLT-program.json",
         "Pubs File": "BOLT-pubs.json",
         "Software File": "BOLT-software.json",
-        "Banner":"New"
+        "Banner":"NEW"
 },
 {
         "Program Name": "CFT",
         "Program File": "CFT-program.json",
         "Pubs File": "",
         "Software File": "CFT-software.json",
-        "Banner":"New"
+        "Banner":"NEW"
 },
 {
         "Program Name": "MADCAT",
         "Program File": "MADCAT-program.json",
         "Pubs File": "MADCAT-pubs.json",
         "Software File": "MADCAT-software.json",
-        "Banner":"New"
+        "Banner":"NEW"
 },
 {
         "Program Name": "RATS",
         "Program File": "RATS-program.json",
         "Pubs File": "RATS-pubs.json",
         "Software File": "RATS-software.json",
-        "Banner":"New"
+        "Banner":"NEW"
 },
 {
         "Program Name": "XDATA",
@@ -38,20 +38,20 @@
         "Program File": "AA-program.json",
         "Pubs File": "AA-pubs.json",
         "Software File": "AA-software.json",
-        "Banner":"New"
+        "Banner":"NEW"
 },
 {
         "Program Name": "DEFT",
         "Program File": "DEFT-program.json",
         "Pubs File": "DEFT-pubs.json",
         "Software File": "DEFT-software.json",
-        "Banner":"New"
+        "Banner":"NEW"
 },
 {
         "Program Name": "FLASHLIGHT",
         "Program File": "FLASHLIGHT-program.json",
         "Pubs File": "",
         "Software File": "FLASHLIGHT-software.json",
-        "Banner":"New"
+        "Banner":"NEW"
 }
 ]
