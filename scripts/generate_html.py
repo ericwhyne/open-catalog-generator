@@ -22,7 +22,7 @@ print "Attempting to load %s" %  active_content_file
 active_content = json.load(open(active_content_file))
 
 splash_page = doc.catalog_page_header()
-splash_page += doc.logo()
+splash_page += doc.logo("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
 
@@ -37,12 +37,14 @@ for program in active_content:
   else:
     print "Attempting to load %s" %  program['Program File']
     program_details = json.load(open(data_dir + program['Program File']))
-    program_page += doc.logo()
+ 
+    program_page += doc.logo("<a href=\"http://www.darpa.mil/Our_Work/I2O/\"' style=\"color: #EBAF00;\"class='programlink'>Information Innovation Office (I2O)</a>")
     if re.search('^http',program_details['Link']):
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
-    program_page += "<h3><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink'>Information Innovation Office</a></h3>"
+    
+    #program_page += "<h3><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink'>Information Innovation Office</a></h3>"
     program_page += "<p>%s<p>" % program_details['Description']
     if 'Image' in program_details.keys():
       if program_details['Image'] != "":
