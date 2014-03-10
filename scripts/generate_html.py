@@ -126,7 +126,7 @@ for program in active_content:
           if 'Stats' in software.keys():
             if software['Stats'] != "":
               slink = software['Stats']
-              program_page += "  <TD> <a href='stats/" + slink + "/index.html'> stats </TD>\n"
+              program_page += "  <TD> <a href='stats/" + slink + "/activity.html'>stats</a> </TD>\n"
             else: 
               program_page += "  <TD></TD>\n"
           else:
