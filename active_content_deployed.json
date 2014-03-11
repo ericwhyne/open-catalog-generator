@@ -10,7 +10,8 @@
         "Program Name": "XDATA",
         "Program File": "XDATA-program.json",
         "Pubs File": "XDATA-pubs.json",
-        "Software File": "XDATA-software.json"
+        "Software File": "XDATA-software.json",
+        "Banner":"Updated"
 },
 {
         "Program Name": "AA",
