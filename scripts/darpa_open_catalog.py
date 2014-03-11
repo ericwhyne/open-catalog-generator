@@ -79,6 +79,7 @@ def catalog_page_header():
   return """
 <html>
 <link rel='stylesheet' href='style.css' type='text/css'/>
+<link rel='stylesheet' href='banner_style.css' type='text/css'/>
 <script type='text/javascript' src='jquery-latest.js'></script> 
 <script type='text/javascript' src='jquery.tablesorter.min.js'></script> 
 <script type='text/javascript'>
