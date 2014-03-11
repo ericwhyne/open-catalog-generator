@@ -78,7 +78,7 @@ for program in active_content:
 ###### SOFTWARE
 # ["Team","Software","Category","Code","Stats","Description","License"]
   if program['Software File'] != "":
-    program_page += "<h2>Software:</h2>"
+    program_page += "<div width=100%><h2>Software:</h2>"
     print "Attempting to load %s" %  program['Software File']
     softwares = json.load(open(data_dir + program['Software File']))   
     program_page += doc.software_table_header(software_columns)
@@ -169,8 +169,8 @@ for program in active_content:
       else:
         program_page += "  <TD>" + link + "</TD>\n"
       program_page += "</TR>\n"
-    program_page += doc.pubs_table_footer()
-
+    program_page += doc.pubs_table_footer() + "</div><br>\n"
+	
   program_page += doc.catalog_page_footer()
   print "Writing to %s" % build_dir + '/' + program_page_filename
   program_outfile = open(build_dir + '/' + program_page_filename, 'w')

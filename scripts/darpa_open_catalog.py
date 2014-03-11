@@ -52,7 +52,6 @@ def software_table_footer():
   return """
 </tbody> 
 </table>
-<br>
 """
 
 def pubs_table_header():

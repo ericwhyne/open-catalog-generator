@@ -1,12 +1,22 @@
 /* tables */
+body{
+
+	width:98%;
+	height: 98%;
+	z-index: -5000;
+}
 
 table.tablesorter {
 	font-family:Arial, Helvetica, sans-serif;
 	background-color: #CDCDCD;
-	margin:10px 80pt 15px;
+	/*margin:10px 80pt 15px;*/
 	font-size: 10pt;
-	width: 90%;
-	text-align: left;	
+	width: 96%;
+	text-align: left;
+	z-index: -5000;
+	margin-left:auto;
+	margin-right:auto;
+	
 
 }
 
@@ -50,27 +60,31 @@ table.tablesorter tbody tr:nth-child(even) {
 }
 
 /* readability improvements */
-      h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5 {
 text-shadow:0 0 1px transparent;
 font: bold Georgia, Utopia, serif;
 max-width:70%;
-      padding-left:10px}
+}
 
-      p {
+p {
 font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
 line-height:1.5em;
 margin-bottom: 1.5em;
-max-width:70%;
-padding-left:100px;
-      }
+max-width:100%;
+}
 
-      ol, ul {
+ol, ul {
 font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
 line-height:1.25em;
 margin-bottom: 1.1em;
 max-width:70%;
-padding-left:150px;
-      }
+}
+
+td a{
+display: inline-block; 
+max-width: 670px;
+vertical-align: top;
+}
 
 /* link formatting */
 .topheaderlink {
@@ -85,15 +99,17 @@ color:black;
 .left-paragraph{
 float:left; 
 width:70%;
+padding-left:2%;
+padding-right:2%;
 }
 
 .right-image{
 float:left; 
-width:20%;  
-margin-left:100px;
+width:24%;  
+padding-top:20px;
 }
 
 .right-image img{
 float: right;
-width: 320px;
+width: 90%;
 }
