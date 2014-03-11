@@ -1,6 +1,5 @@
 /* tables */
 body{
-
 	width:98%;
 	height: 98%;
 	z-index: -5000;
@@ -64,6 +63,7 @@ h1, h2, h3, h4, h5 {
 text-shadow:0 0 1px transparent;
 font: bold Georgia, Utopia, serif;
 max-width:70%;
+padding-left:10px;
 }
 
 p {
@@ -71,6 +71,7 @@ font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
 line-height:1.5em;
 margin-bottom: 1.5em;
 max-width:100%;
+
 }
 
 ol, ul {
@@ -78,6 +79,7 @@ font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
 line-height:1.25em;
 margin-bottom: 1.1em;
 max-width:70%;
+padding-left:100px;
 }
 
 td a{
