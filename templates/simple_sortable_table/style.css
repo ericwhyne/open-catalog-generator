@@ -81,3 +81,19 @@ color:black;
 text-decoration:none;
 color:black;
 }
+
+.left-paragraph{
+float:left; 
+width:70%;
+}
+
+.right-image{
+float:left; 
+width:20%;  
+margin-left:100px;
+}
+
+.right-image img{
+float: right;
+width: 320px;
+}
