@@ -45,7 +45,7 @@ for program in active_content:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
     
     #program_page += "<h3><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink'>Information Innovation Office</a></h3>"
-    program_page += "<div 'left-paragraph'><p>%s<p>" % program_details['Description']
+    program_page += "<div class='left-paragraph'><p>%s<p>" % program_details['Description']
 
     program_page += "<p>Program Manager: %s<p>" % program_details['Program Manager']
     program_page += "<p>Contact: <a href='mailto:%s'>%s</a><p>" % (program_details['Program Manager Email'], program_details['Program Manager Email'])
