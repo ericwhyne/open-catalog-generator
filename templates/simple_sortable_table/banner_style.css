@@ -8,6 +8,11 @@
   padding: 2px 0 0 2px;
 }
 
+.wrapper a{
+	padding-right: 80px;
+}
+
+
 .ribbon-wrapper {
   width: 75px;
   height: 72px;
