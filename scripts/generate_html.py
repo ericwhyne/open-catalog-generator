@@ -63,17 +63,15 @@ for program in active_content:
     program_page += "<p>Last updated: %s</p>" % date
     banner = ""
     program_link = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
-    if "Banner" in program.keys():
-      if program['Banner'] == "NEW":
-        banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])
-      if program['Banner'] == "COMING SOON":
-		#banner = "<img src='new.png' height=35 width=35 align=right alt='new content'>"
-        #program_link = "%s <br> (Coming soon)" % program_details['DARPA Program Name']
-		#splash_page += "<TR>\n <TD width=130>%s %s</TD>\n <TD>%s</TD>\n</TR>" % (program_link, banner, program_details['Description'])
-        banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])		
-      if program['Banner'] == "UPDATED":
-        banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])		
-	splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
+    if program['Banner'].upper() == "NEW":
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])
+    elif program['Banner'].upper() == "COMING SOON":
+      banner = "<div class='wrapper'>%s<div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_details['DARPA Program Name'], program['Banner'])		
+    elif program['Banner'].upper() == "UPDATED":
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])		
+    else:
+     banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
+    splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
     software_columns = program_details['Display Software Columns']
 
 ###### SOFTWARE
