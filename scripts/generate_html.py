@@ -45,11 +45,7 @@ for program in active_content:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
     
     #program_page += "<h3><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink'>Information Innovation Office</a></h3>"
-    program_page += "<p>%s<p>" % program_details['Description']
-    if 'Image' in program_details.keys():
-      if program_details['Image'] != "":
-        program_page += "\n<img style=\"float: right; margin: 0px 0px 15px 15px;\" src=\"%s\" width=\"200\" />" % program_details['Image']
-    
+    program_page += "<div class='left-paragraph'><p>%s<p>" % program_details['Description']
 
     program_page += "<p>Program Manager: %s<p>" % program_details['Program Manager']
     program_page += "<p>Contact: <a href='mailto:%s'>%s</a><p>" % (program_details['Program Manager Email'], program_details['Program Manager Email'])
@@ -60,24 +56,29 @@ for program in active_content:
     if program['Pubs File'] != "":
       program_page += "<ul><li>The Publications Table contains author(s), title, and links to peer-reviewed articles related to specific DARPA programs.</li></ul>"
     program_page += "<p>Report a problem: <a href=\"mailto:opencatalog@darpa.mil\">opencatalog@darpa.mil</a></p>"
-    program_page += "<p>Last updated: %s</p>" % date
+    program_page += "<p>Last updated: %s</p></div>" % date
+	
+	if 'Image' in program_details.keys():
+      if program_details['Image'] != "":
+        program_page += "\n<div class='right-image'><img src=\"%s\"/></div>" % program_details['Image']
+    
     banner = ""
     program_link = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     if program['Banner'].upper() == "NEW":
-      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'].upper())
     elif program['Banner'].upper() == "COMING SOON":
       banner = "<div class='wrapper'>%s<div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_details['DARPA Program Name'], program['Banner'])		
     elif program['Banner'].upper() == "UPDATED":
-      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])		
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'].upper())		
     else:
      banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
     software_columns = program_details['Display Software Columns']
-
+	
 ###### SOFTWARE
 # ["Team","Software","Category","Code","Stats","Description","License"]
   if program['Software File'] != "":
-    program_page += "<h2>Software:</h2>"
+    program_page += "<div width=100%><h2>Software:</h2>"
     print "Attempting to load %s" %  program['Software File']
     softwares = json.load(open(data_dir + program['Software File']))   
     program_page += doc.software_table_header(software_columns)
@@ -168,8 +169,8 @@ for program in active_content:
       else:
         program_page += "  <TD>" + link + "</TD>\n"
       program_page += "</TR>\n"
-    program_page += doc.pubs_table_footer()
-
+    program_page += doc.pubs_table_footer() + "</div><br>\n"
+	
   program_page += doc.catalog_page_footer()
   print "Writing to %s" % build_dir + '/' + program_page_filename
   program_outfile = open(build_dir + '/' + program_page_filename, 'w')
