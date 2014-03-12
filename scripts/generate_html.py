@@ -57,8 +57,7 @@ for program in active_content:
       program_page += "<ul><li>The Publications Table contains author(s), title, and links to peer-reviewed articles related to specific DARPA programs.</li></ul>"
     program_page += "<p>Report a problem: <a href=\"mailto:opencatalog@darpa.mil\">opencatalog@darpa.mil</a></p>"
     program_page += "<p>Last updated: %s</p></div>" % date
-	
-	if 'Image' in program_details.keys():
+    if 'Image' in program_details.keys():
       if program_details['Image'] != "":
         program_page += "\n<div class='right-image'><img src=\"%s\"/></div>" % program_details['Image']
     
