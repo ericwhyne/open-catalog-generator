@@ -73,9 +73,23 @@ for program in active_content:
      banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
     software_columns = program_details['Display Software Columns']
+
+  # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table.
+  pubs_exist = {}
+  if program['Pubs File'] != "" and program['Software File'] != "":
+      print "Attempting to load %s" %  program['Pubs File']
+      pubs_file = open(data_dir + program['Pubs File'])
+      pubs = json.load(pubs_file)
+      pubs_file.close()
+      #print "Attempting to load %s" %  program['Software File']
+      #softwares = json.load(open(data_dir + program['Software File'])) 
+      for pub in pubs:
+        for team in pub['Program Teams']:
+          pubs_exist[team] = 1
+
 	
-###### SOFTWARE
-# ["Team","Software","Category","Code","Stats","Description","License"]
+  ###### SOFTWARE
+  # ["Team","Software","Category","Code","Stats","Description","License"]
   if program['Software File'] != "":
     program_page += "<div width=100%><h2>Software:</h2>"
     print "Attempting to load %s" %  program['Software File']
@@ -87,6 +101,8 @@ for program in active_content:
         if column == "Team":
           program_page += "<TR>\n  <TD>"
           for team in software['Program Teams']:
+            if team in pubs_exist:
+              team += " <a href='#" + team + "'><img height=20 width=20 src='pubs.png'></a>"
             program_page += team + ", "
           program_page = program_page[:-2]
           program_page += "</TD>\n "
