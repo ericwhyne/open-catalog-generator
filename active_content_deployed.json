@@ -11,7 +11,7 @@
         "Program File": "XDATA-program.json",
         "Pubs File": "XDATA-pubs.json",
         "Software File": "XDATA-software.json",
-        "Banner":"UPDATED"
+        "Banner":"Updated"
 },
 {
         "Program Name": "AA",
@@ -25,13 +25,13 @@
         "Program File": "DEFT-program.json",
         "Pubs File": "DEFT-pubs.json",
         "Software File": "DEFT-software.json",
-        "Banner":"COMING SOON"
+        "Banner":"Coming soon"
 },
 {
         "Program Name": "BOLT",
         "Program File": "BOLT-program.json",
         "Pubs File": "BOLT-pubs.json",
         "Software File": "BOLT-software.json",
-        "Banner":"COMING SOON"
+        "Banner":"Coming soon"
 }
 ]
