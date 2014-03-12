@@ -4,27 +4,34 @@
         "Program File": "CFT-program.json",
         "Pubs File": "",
         "Software File": "CFT-software.json",
-        "Banner":"Coming soon"
+        "Banner":"NEW"
 },
 {
         "Program Name": "XDATA",
         "Program File": "XDATA-program.json",
         "Pubs File": "XDATA-pubs.json",
         "Software File": "XDATA-software.json",
-        "Banner":"Updated"
+        "Banner":"UPDATED"
 },
 {
         "Program Name": "AA",
         "Program File": "AA-program.json",
         "Pubs File": "AA-pubs.json",
         "Software File": "AA-software.json",
-        "Banner":"Coming soon"
+        "Banner":"NEW"
 },
 {
         "Program Name": "DEFT",
         "Program File": "DEFT-program.json",
         "Pubs File": "DEFT-pubs.json",
         "Software File": "DEFT-software.json",
-        "Banner":"New"
+        "Banner":"COMING SOON"
+},
+{
+        "Program Name": "BOLT",
+        "Program File": "BOLT-program.json",
+        "Pubs File": "BOLT-pubs.json",
+        "Software File": "BOLT-software.json",
+        "Banner":"COMING SOON"
 }
 ]
