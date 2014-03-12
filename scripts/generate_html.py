@@ -102,7 +102,7 @@ for program in active_content:
           program_page += "<TR>\n  <TD>"
           for team in software['Program Teams']:
             if team in pubs_exist:
-              team += " <a href='#" + team + "'><img height=20 width=20 src='pubs.png'></a>"
+              team += " <a href='#" + team + "'>(publications)</a>"
             program_page += team + ", "
           program_page = program_page[:-2]
           program_page += "</TD>\n "

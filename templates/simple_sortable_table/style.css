@@ -88,6 +88,11 @@ max-width: 670px;
 vertical-align: top;
 }
 
+/* stop linked images from having border */
+a {outline : none;}
+a img {outline : none;}
+img {border : 0;}
+
 /* link formatting */
 .topheaderlink {
 text-decoration:none;
