@@ -4,7 +4,7 @@ def logo(office):
   logo= "<div><a href='http://www.darpa.mil/'><img style='float: left; margin: 0px 15px 15px 0px; vertical-align:middle' height=50 src='darpa.png'></a><span style='line-height:50px;'><h2><a href='index.html' class='topheaderlink'>Open Catalog</a>"
   if (office != ""):
     logo += " / %s </h2>" % office
-  logo += "</span></div><br>"
+  logo += "</span></div>"
   return logo
 
 def catalog_splash_content():
