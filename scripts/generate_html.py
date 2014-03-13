@@ -3,6 +3,8 @@ import json
 import re
 import sys
 import time
+import os
+import shutil
 import darpa_open_catalog as doc
 from pprint import pprint
 
@@ -30,6 +32,7 @@ for program in active_content:
   program_name = program['Program Name']
   program_page_filename = program_name + ".html"
   program_page = doc.catalog_page_header()
+  program_image_file = ""
   software_columns = []
   if program['Program File'] == "":
     print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
@@ -60,6 +63,7 @@ for program in active_content:
     if 'Image' in program_details.keys():
       if program_details['Image'] != "":
         program_page += "\n<div class='right-image'><img src=\"%s\"/></div>" % program_details['Image']
+      program_image_file = program_details['Image']
     
     banner = ""
     program_link = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
@@ -187,9 +191,12 @@ for program in active_content:
     program_page += doc.pubs_table_footer() + "</div><br>\n"
 	
   program_page += doc.catalog_page_footer()
-  print "Writing to %s" % build_dir + '/' + program_page_filename
-  program_outfile = open(build_dir + '/' + program_page_filename, 'w')
-  program_outfile.write(program_page)
+  if program['Banner'].upper() != "COMING SOON":
+    print "Writing to %s" % build_dir + '/' + program_page_filename
+    program_outfile = open(build_dir + '/' + program_page_filename, 'w')
+    program_outfile.write(program_page)
+    if program_image_file != "":
+      shutil.copy(data_dir + program_image_file, build_dir)
 
 splash_page += doc.splash_table_footer()
 splash_page += doc.catalog_page_footer()

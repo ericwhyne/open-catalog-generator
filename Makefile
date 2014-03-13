@@ -16,10 +16,10 @@ darpawebsite: $(OC_DEFAULT_TEMPLATE_DIR)
 	cp -r $(OC_DEFAULT_TEMPLATE_DIR)/* $(OC_BUILD_DIR)
 	$(OC_SCRIPTS_DIR)generate_html.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) darpalinks
 
-deploy: $(OC_DEFAULT_TEMPLATE_DIR) 
+deploy: $(OC_DEFAULT_TEMPLATE_DIR)
+	make clean 
 	mkdir -p $(OC_BUILD_DIR)
 	cp -r $(OC_DEFAULT_TEMPLATE_DIR)/* $(OC_BUILD_DIR)
-	cp -r $(OC_DATA_DIR)/* $(OC_BUILD_DIR)
 	$(OC_SCRIPTS_DIR)generate_html.py $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) darpalinks
 
 clean: $(OC_BUILD_DIR)
