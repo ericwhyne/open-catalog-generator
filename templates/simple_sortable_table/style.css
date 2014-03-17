@@ -10,7 +10,7 @@ table.tablesorter {
 	background-color: #CDCDCD;
 	/*margin:10px 80pt 15px;*/
 	font-size: 10pt;
-	width: 96%;
+	width: 100%;
 	text-align: left;
 	z-index: -5000;
 	margin-left:auto;
@@ -96,7 +96,7 @@ img {border : 0;}
 /* link formatting */
 .topheaderlink {
 text-decoration:none;
-color:black;
+color:white;
 } 
 .programlink {
 text-decoration:none;
@@ -119,4 +119,28 @@ padding-top:20px;
 .right-image img{
 float: right;
 width: 90%;
+}
+
+.table-tabs{
+float:left; 
+width:96%; 
+margin-left:2%;
+margin-top:10px;
+}
+
+.darpa-logo{
+float: left; 
+margin: 4px 15px 0px 5px; 
+height:50;
+border-style: none;
+}
+
+.darpa-header{
+padding-top:10px 0px 10px 0px; 
+margin-bottom:2px;
+}
+
+.footer{
+position:relative; 
+clear:both;
 }
