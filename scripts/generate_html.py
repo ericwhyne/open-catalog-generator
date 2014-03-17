@@ -137,9 +137,9 @@ for program in active_content:
             instructional_material = software['Instructional Material']
           if re.search('^http',instructional_material):
             if darpa_links == "darpalinks":
-              program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
+              program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documentation or Tutorial </a></TD>\n"
             else:
-              program_page += "  <TD><a href='" + instructional_material + "'> Documenation or Tutorial </a></TD>\n"
+              program_page += "  <TD><a href='" + instructional_material + "'> Documentation or Tutorial </a></TD>\n"
           else:
             program_page += "  <TD>" + instructional_material + "</TD>\n"
         # Code
