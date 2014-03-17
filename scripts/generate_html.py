@@ -70,9 +70,9 @@ for program in active_content:
     if program['Banner'].upper() == "NEW":
       banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'].upper())
     elif program['Banner'].upper() == "COMING SOON":
-      banner = "<div class='wrapper'>%s<div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_details['DARPA Program Name'], program['Banner'])		
+      banner = "<div class='wrapper'>%s<div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_details['DARPA Program Name'], program['Banner'])
     elif program['Banner'].upper() == "UPDATED":
-      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])		
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'])
     else:
      banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
@@ -91,11 +91,21 @@ for program in active_content:
         for team in pub['Program Teams']:
           pubs_exist[team] = 1
 
-	
+
+  #starts the tabs div for the Software and Publications tables
+  program_page += "<div id='tabs' class='table-tabs'><ul>"
+  if program['Software File'] != "":
+    program_page += "<li><a href='#tabs0'>Software</a></li>"
+  if program['Pubs File'] != "":
+    program_page += "<li><a href='#tabs1'>Publications</a></li>"
+  program_page += "</ul>"
+  
   ###### SOFTWARE
   # ["Team","Software","Category","Code","Stats","Description","License"]
   if program['Software File'] != "":
-    program_page += "<div width=100%><h2>Software:</h2>"
+    program_page += "<div id='software'><div id='tabs0'>"
+    program_page += "<input class='search' placeholder='Search' id='search0'/>"
+    program_page += "<button class='clear_button' id='clear0'>Clear</button>"
     print "Attempting to load %s" %  program['Software File']
     softwares = json.load(open(data_dir + program['Software File']))   
     program_page += doc.software_table_header(software_columns)
@@ -103,7 +113,7 @@ for program in active_content:
       for column in software_columns:
         # Team
         if column == "Team":
-          program_page += "<TR>\n  <TD>"
+          program_page += "<TR>\n  <TD class='%s'>" % column.lower()
           for team in software['Program Teams']:
             if team in pubs_exist:
               team += " <a href='#" + team + "'>(publications)</a>"
@@ -117,11 +127,11 @@ for program in active_content:
             elink = software['External Link']
           if re.search('^http',elink) and elink != "":
             if darpa_links == "darpalinks":
-              program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              program_page += "  <TD class='%s'><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n" % column.lower()
             else:
-              program_page += "  <TD><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              program_page += "  <TD class=" + column.lower() + "><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
           else:
-            program_page += "  <TD>" + software['Software'] + "</TD>\n"
+            program_page += "  <TD class=" + column.lower() + ">" + software['Software'] + "</TD>\n"
         # Category
         if column == "Category":
           categories = ""
@@ -129,7 +139,7 @@ for program in active_content:
             for category in software['Categories']:
               categories += category + ", "
             categories = categories[:-2]
-          program_page += "  <TD>" + categories + "</TD>\n"
+          program_page += "  <TD class=" + column.lower() + ">" + categories + "</TD>\n"
         # Instructional Material
         if column == "Instructional Material":
           instructional_material = ""
@@ -137,60 +147,64 @@ for program in active_content:
             instructional_material = software['Instructional Material']
           if re.search('^http',instructional_material):
             if darpa_links == "darpalinks":
-              program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documentation or Tutorial </a></TD>\n"
+              program_page += "  <TD class='%s'><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documentation or Tutorial </a></TD>\n" % column.lower()
             else:
-              program_page += "  <TD><a href='" + instructional_material + "'> Documentation or Tutorial </a></TD>\n"
+              program_page += "  <TD class=" + column.lower() + "><a href='" + instructional_material + "'> Documentation or Tutorial </a></TD>\n"
           else:
-            program_page += "  <TD>" + instructional_material + "</TD>\n"
+            program_page += "  <TD class=" + column.lower() + ">" + instructional_material + "</TD>\n"
         # Code
         if column == "Code":
           clink = ""
           if 'Public Code Repo' in software.keys():
             clink = software['Public Code Repo']
-          program_page += "  <TD> " + clink + " </TD>\n"
+          program_page += "  <TD class=" + column.lower() + "> " + clink + " </TD>\n"
         # Stats
         if column == "Stats":
           if 'Stats' in software.keys():
             if software['Stats'] != "":
               slink = software['Stats']
-              program_page += "  <TD> <a href='stats/" + slink + "/activity.html'>stats</a> </TD>\n"
+              program_page += "  <TD class=" + column.lower() + "> <a href='stats/" + slink + "/activity.html'>stats</a> </TD>\n"
             else: 
-              program_page += "  <TD></TD>\n"
+              program_page += "  <TD class=" + column.lower() + "></TD>\n"
           else:
-            program_page += "  <TD></TD>\n"
+            program_page += "  <TD class=" + column.lower() + "></TD>\n"
     
         # Description
         if column == "Description":
-          program_page += " <TD> " + software['Description'] + " </TD>\n"
+          program_page += " <TD class=" + column.lower() + "> " + software['Description'] + " </TD>\n"
         # License
         if column == "License":
-          program_page += " <TD> " + software['License'] + " </TD>\n </TR>\n"
+          program_page += " <TD class=" + column.lower() + "> " + software['License'] + " </TD>\n </TR>\n"
     program_page += doc.software_table_footer()
+    program_page += "</div></div>"
 
 ####### Publications
   if program['Pubs File'] != "":
-    program_page += "<br><br><h2>Publications:</h2>"
+    program_page += "<div id='publications'><div id='tabs1'>"
+    program_page += "<input class='search' placeholder='Search' id='search1'/>"
+    program_page += "<button class='clear_button' id='clear1'>Clear</button>"
     print "Attempting to load %s" %  program['Pubs File']
     pubs = json.load(open(data_dir + program['Pubs File']))
     program_page += doc.pubs_table_header()
     for pub in pubs:
-      program_page += "<TR>\n  <TD>"
+      program_page += "<TR>\n  <TD class='team'>" 
       for team in pub['Program Teams']:
         program_page += team + "<a name='" + team + "'>, "
       program_page = program_page[:-2]
-      program_page += "</TD>\n  <TD>" + pub['Title'] + "</TD>\n"
+      program_page += "</TD>\n  <TD class='title'>" + pub['Title'] + "</TD>\n"
       link = pub['Link']
       if re.search('^http',link) or re.search('^ftp',link):
         if darpa_links == "darpalinks":
-          program_page += "  <TD><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
+          program_page += "  <TD class='link'><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
         else:
-          program_page += "  <TD><a href='" + link + "'>" + link + "</a></TD>\n"
+          program_page += "  <TD class='link'><a href='" + link + "'>" + link + "</a></TD>\n"
       else:
-        program_page += "  <TD>" + link + "</TD>\n"
+        program_page += "  <TD class='link'>" + link + "</TD>\n"
       program_page += "</TR>\n"
-    program_page += doc.pubs_table_footer() + "</div><br>\n"
-	
+    program_page += doc.pubs_table_footer() + "</div></div>"
+  program_page += "</div><br>\n"
   program_page += doc.catalog_page_footer()
+  
   if program['Banner'].upper() != "COMING SOON":
     print "Writing to %s" % build_dir + '/' + program_page_filename
     program_outfile = open(build_dir + '/' + program_page_filename, 'w')
