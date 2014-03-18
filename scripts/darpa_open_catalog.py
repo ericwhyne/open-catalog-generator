@@ -123,7 +123,7 @@ $(document).ready(function()
 			var tabName = tabList[i].textContent.toLowerCase(); //name of tab
 			var tabTable = document.getElementById("tabs" + i).getElementsByTagName('table'); //table within this tab
 			var headerRow = tabTable[0].tHead.rows[0].cells; //header row of table
-			var tabHeaders = createList = [];
+			var tabHeaders = [];
 
 			for (var j=0; j<headerRow.length; j++) 
 				tabHeaders.push(headerRow[j].textContent.toLowerCase());	
@@ -135,7 +135,6 @@ $(document).ready(function()
 				};
 				
 				swList = new List(tabName, sw_options);
-				createList.push(swList);
 				
 				$("#clear" + i).click(function() {
 					var currId = this.id.match(/\d+/g);
@@ -151,7 +150,6 @@ $(document).ready(function()
 				};
 
 				pubList = new List(tabName, pub_options);
-				createList.push(pubList);
 
 				$("#clear" + i).click(function() {
 					var currId = this.id.match(/\d+/g);
@@ -179,7 +177,6 @@ function pubSearch(link){
 		search_box.focus();
 		search_box.select();
 		pubList.search(search_text); 
-
 	},300);
 }
 </script>
