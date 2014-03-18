@@ -91,6 +91,8 @@ def catalog_page_header():
 
 
 <script type='text/javascript'>
+var swList = "";
+var pubList = "";
 
 $(document).ready(function() 
     { 
@@ -132,7 +134,7 @@ $(document).ready(function()
 				  valueNames: tabHeaders
 				};
 				
-				var swList = new List(tabName, sw_options);
+				swList = new List(tabName, sw_options);
 				createList.push(swList);
 				
 				$("#clear" + i).click(function() {
@@ -148,7 +150,7 @@ $(document).ready(function()
 				  valueNames: tabHeaders
 				};
 
-				var pubList = new List(tabName, pub_options);
+				pubList = new List(tabName, pub_options);
 				createList.push(pubList);
 
 				$("#clear" + i).click(function() {
@@ -167,6 +169,19 @@ function jump(h){
         history.replaceState(null,null,url)
 }
 
+function pubSearch(link){
+	var search_text = link.hash.replace("#", "");
+	$('#tabs').tabs({active: 1});
+	var search_box = $("#search1");
+	search_box.val(search_text);
+
+	setTimeout(function(){
+		search_box.focus();
+		search_box.select();
+		pubList.search(search_text); 
+
+	},300);
+}
 </script>
 """
 
