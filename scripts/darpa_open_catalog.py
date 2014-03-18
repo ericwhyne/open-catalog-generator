@@ -43,7 +43,7 @@ def splash_table_footer():
 """
 
 def software_table_header(columns):
-  header = "<table id='software' class='tablesorter'>\n <thead>\n <tr>"
+  header = "<table id='sftwr' class='tablesorter'>\n <thead>\n <tr>"
   for column in columns:
     header += "<th>%s</th>" % column
   header += "</tr>\n </thead>\n <tbody  class='list'>"
@@ -94,7 +94,7 @@ def catalog_page_header():
 
 $(document).ready(function() 
     { 
-        $('#software').tablesorter({
+        $('#sftwr').tablesorter({
 		// sort on the first column and second column, order asc 
         	sortList: [[0,0],[1,0]] 
     	}); 
