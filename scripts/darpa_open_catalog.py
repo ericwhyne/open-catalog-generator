@@ -43,7 +43,7 @@ def splash_table_footer():
 """
 
 def software_table_header(columns):
-  header = "<table id='software' class='tablesorter'>\n <thead>\n <tr>"
+  header = "<table id='sftwr' class='tablesorter'>\n <thead>\n <tr>"
   for column in columns:
     header += "<th>%s</th>" % column
   header += "</tr>\n </thead>\n <tbody  class='list'>"
@@ -91,10 +91,12 @@ def catalog_page_header():
 
 
 <script type='text/javascript'>
+var swList = "";
+var pubList = "";
 
 $(document).ready(function() 
     { 
-        $('#software').tablesorter({
+        $('#sftwr').tablesorter({
 		// sort on the first column and second column, order asc 
         	sortList: [[0,0],[1,0]] 
     	}); 
@@ -121,7 +123,7 @@ $(document).ready(function()
 			var tabName = tabList[i].textContent.toLowerCase(); //name of tab
 			var tabTable = document.getElementById("tabs" + i).getElementsByTagName('table'); //table within this tab
 			var headerRow = tabTable[0].tHead.rows[0].cells; //header row of table
-			var tabHeaders = createList = [];
+			var tabHeaders = [];
 
 			for (var j=0; j<headerRow.length; j++) 
 				tabHeaders.push(headerRow[j].textContent.toLowerCase());	
@@ -132,8 +134,7 @@ $(document).ready(function()
 				  valueNames: tabHeaders
 				};
 				
-				var swList = new List(tabName, sw_options);
-				createList.push(swList);
+				swList = new List(tabName, sw_options);
 				
 				$("#clear" + i).click(function() {
 					var currId = this.id.match(/\d+/g);
@@ -148,8 +149,7 @@ $(document).ready(function()
 				  valueNames: tabHeaders
 				};
 
-				var pubList = new List(tabName, pub_options);
-				createList.push(pubList);
+				pubList = new List(tabName, pub_options);
 
 				$("#clear" + i).click(function() {
 					var currId = this.id.match(/\d+/g);
@@ -167,6 +167,18 @@ function jump(h){
         history.replaceState(null,null,url)
 }
 
+function pubSearch(link){
+	var search_text = link.hash.replace("#", "");
+	$('#tabs').tabs({active: 1});
+	var search_box = $("#search1");
+	search_box.val(search_text);
+
+	setTimeout(function(){
+		search_box.focus();
+		search_box.select();
+		pubList.search(search_text); 
+	},300);
+}
 </script>
 """
 

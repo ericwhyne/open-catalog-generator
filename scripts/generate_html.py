@@ -116,7 +116,7 @@ for program in active_content:
           program_page += "<TR>\n  <TD class='%s'>" % column.lower()
           for team in software['Program Teams']:
             if team in pubs_exist:
-              team += " <a href='#" + team + "'>(publications)</a>"
+              team += " <a href='#" + team + "' onclick='pubSearch(this)'>(publications)</a>"
             program_page += team + ", "
           program_page = program_page[:-2]
           program_page += "</TD>\n "
