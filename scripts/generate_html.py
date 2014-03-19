@@ -93,12 +93,24 @@ for program in active_content:
 
 
   #starts the tabs div for the Software and Publications tables
+  search_tab = ""
+  search_footer = ""
   program_page += "<div id='tabs' class='table-tabs'><ul>"
   if program['Software File'] != "":
     program_page += "<li><a href='#tabs0'>Software</a></li>"
+    search_tab += "<div id='allSearch'><div id='tabs2'>"
+    search_tab += "<div id='softwareSearch'><input class='search' placeholder='Search' id='search2' onkeyup='allSearch(this)'/>"
+    search_tab += "<button class='clear_button' id='clear2'>Clear</button><h2>Software</h2></div>"
+    search_footer += "</div></div>"
   if program['Pubs File'] != "":
     program_page += "<li><a href='#tabs1'>Publications</a></li>"
+    search_tab += "<div id='publicationsSearch'><h2>Publications</h2></div>"
+    program_page += "<li><a href='#tabs2'>Search</a></li>"
   program_page += "</ul>"
+  
+  if search_tab != "":
+    search_tab += search_footer
+  
   
   ###### SOFTWARE
   # ["Team","Software","Category","Code","Stats","Description","License"]
@@ -177,6 +189,7 @@ for program in active_content:
           program_page += " <TD class=" + column.lower() + "> " + software['License'] + " </TD>\n </TR>\n"
     program_page += doc.software_table_footer()
     program_page += "</div></div>"
+	
 
 ####### Publications
   if program['Pubs File'] != "":
@@ -202,6 +215,7 @@ for program in active_content:
         program_page += "  <TD class='link'>" + link + "</TD>\n"
       program_page += "</TR>\n"
     program_page += doc.pubs_table_footer() + "</div></div>"
+    program_page += search_tab	
   program_page += "</div><br>\n"
   program_page += doc.catalog_page_footer()
   

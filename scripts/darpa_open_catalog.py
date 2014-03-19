@@ -91,8 +91,7 @@ def catalog_page_header():
 
 
 <script type='text/javascript'>
-var swList = "";
-var pubList = "";
+var swList = pubList = spubList = ssftList = "";
 
 $(document).ready(function() 
     { 
@@ -108,25 +107,26 @@ $(document).ready(function()
         	sortList: [[0,0]] 
     	});
 		
-		//create table tabs
-		$(function() {
-			$( "#tabs" ).tabs();
-		});
-
 		//get the list of tabs and the number of tabs
 		var tabList = $('#tabs >ul >li');
 		var tabCount = $('#tabs >ul >li').size();
+
+		
+		//create table tabs
+		var active_tab = tabCount - 1;
+		$(function() {
+			$( "#tabs" ).tabs();
+			$('#tabs').tabs({active: active_tab});  //search tab
+		});
 
 		//configure table search and clear button for software and publications table
 		for (var i=0; i<tabCount; i++){
 
 			var tabName = tabList[i].textContent.toLowerCase(); //name of tab
-			var tabTable = document.getElementById("tabs" + i).getElementsByTagName('table'); //table within this tab
-			var headerRow = tabTable[0].tHead.rows[0].cells; //header row of table
-			var tabHeaders = [];
-
-			for (var j=0; j<headerRow.length; j++) 
-				tabHeaders.push(headerRow[j].textContent.toLowerCase());	
+			if(tabName == "software" || tabName == "publications") {
+				var tabTable = $('#tabs' + i + ' table'); //table within this tab
+				var tabHeaders = getTableHeaders(tabTable);	
+			}
 			
 			if(tabName == "software"){
 			
@@ -157,6 +157,39 @@ $(document).ready(function()
 					pubList.search();
 				});
 			}
+			
+			if(tabName == "search"){
+
+				var table_clone = $('#tabs table').clone();
+				for (var k=0; k<table_clone.length; k++){
+					var searchHeaders = getTableHeaders(table_clone[k]);
+					var search_options = {
+						  valueNames: searchHeaders
+					};
+					
+					if (table_clone[k].id == "sftwr"){
+						$("#softwareSearch").append(table_clone[k]);
+						ssftList = new List("softwareSearch", search_options);					
+					}
+					else{
+						$("#publicationsSearch").append(table_clone[k]);
+						spubList = new List("publicationsSearch", search_options);
+					}
+					
+				}
+				
+				$("#clear2").click(function() {
+					var currId = this.id.match(/\d+/g);
+					$("#search" + currId[0]).val("");
+					if (ssftList != "")
+						ssftList.search();
+					if (spubList != "")
+						spubList.search();
+				});
+
+
+				
+			}
 		}   
     } 
 );
@@ -169,7 +202,7 @@ function jump(h){
 
 function pubSearch(link){
 	var search_text = link.hash.replace("#", "");
-	$('#tabs').tabs({active: 1});
+	$('#tabs').tabs({active: 1}); //publications tab
 	var search_box = $("#search1");
 	search_box.val(search_text);
 
@@ -179,6 +212,33 @@ function pubSearch(link){
 		pubList.search(search_text); 
 	},300);
 }
+
+function allSearch(this_search){
+	if(this_search.value != "" && spubList != ""){
+		var value = this_search.value;
+		spubList.search(value);
+	}
+}
+
+function getTableHeaders(table){
+
+	var this_table;
+	 
+	if(table[0])
+		this_table = table[0];
+	else
+		this_table = table;
+		
+	var headerRow = this_table.tHead.rows[0].cells; //header row of table
+	var tableHeaders = [];
+
+	for (var j=0; j<headerRow.length; j++) 
+		tableHeaders.push(headerRow[j].textContent.toLowerCase());
+
+	return tableHeaders;		
+
+}
+
 </script>
 """
 
