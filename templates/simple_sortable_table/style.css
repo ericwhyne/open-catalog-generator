@@ -144,3 +144,8 @@ margin-bottom:2px;
 position:relative; 
 clear:both;
 }
+.code-mail{
+cursor:pointer;
+color:#0000FF;
+text-decoration:underline;
+}

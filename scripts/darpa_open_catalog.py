@@ -1,5 +1,7 @@
 #!/usr/bin/python
 import time
+import getpass
+
 def logo(office):
   logo= "<div style='background:black;'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><span style='line-height:60px;'><h2 class='darpa-header'><a href='index.html' class='topheaderlink'>Open Catalog</a>"
   if (office != ""):
@@ -7,6 +9,9 @@ def logo(office):
   logo += "</span></div>"
   return logo
 
+def get_current_user():
+  return getpass.getuser()
+  
 def catalog_splash_content():
   date = time.strftime("%Y-%m-%d", time.localtime())
   splash = """
@@ -21,7 +26,7 @@ Dr. Christopher White<br>
 <p>Last updated: """ 
   splash += date + "</p>"
   return splash
-
+  
 def splash_table_header():
   return """
 <h2>Current Catalog Programs:</h2>
@@ -74,9 +79,9 @@ def pubs_table_footer():
 </table>
 <br>
 """
-
+  
 def catalog_page_header(): 
-  return """
+  return """ 
 <html>
 <link rel='stylesheet' href='style.css' type='text/css'/>
 <link rel='stylesheet' href='banner_style.css' type='text/css'/>
@@ -239,6 +244,14 @@ function getTableHeaders(table){
 
 }
 
+function softwareRequest(program, software, user){
+  var message ="&#109;a&#105;l&#116;&#111;:&#100;&#101;&#102;&#116;&#45;&#115;&#111;&#102;&#116;&#119;&#97;&#114;"
+  message += "&#101;&#45;&#114;&#101;&#113;&#117;&#101;&#115;&#116;&#115;&#64;&#98;&#98;&#110;&#46;&#99;&#111;&#109;";
+  message += "?subject=Request for Software&body=";
+  message = message.replace(/&#(\d+);/g, function (m, n) { return String.fromCharCode(n); });
+  var content = "Greetings, \\n\\n A request has been submitted by " + user.toUpperCase() + " for the following " + program + " Software: " + software + ".";
+  window.location.href = message + encodeURIComponent(content);
+}
 </script>
 """
 
