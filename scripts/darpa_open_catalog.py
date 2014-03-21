@@ -225,7 +225,8 @@ function pubSearch(link){
 
 function allSearch(this_search){
 	if(this_search.value != "" && this_search.value.length >= 3){
-		var value = this_search.value;
+		var value = this_search.value; 
+		//TODO: Implement Stop Words
 		ssftList.search(value);
 		
 		//hide table if there are no rows that match the search term
