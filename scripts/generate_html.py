@@ -134,6 +134,8 @@ for program in active_content:
           program_page += "</TD>\n "
         # Software
         if column == "Software":
+          # Debug
+          #print "      " + software['Software']
           elink = ""
           if 'External Link' in software.keys():
             elink = software['External Link']
