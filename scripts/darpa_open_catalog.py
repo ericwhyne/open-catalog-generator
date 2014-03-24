@@ -118,10 +118,10 @@ $(document).ready(function()
 
 		
 		//create table tabs
-		var active_tab = tabCount - 1;
+
 		$(function() {
 			$( "#tabs" ).tabs();
-			$('#tabs').tabs({active: active_tab});  //search tab
+			$('#tabs').tabs({active: 0});  //software tab
 		});
 
 		//configure table search and clear button for software and publications table
@@ -173,11 +173,14 @@ $(document).ready(function()
 					};
 					
 					if (table_clone[k].id == "sftwr"){
-						$("#softwareSearch").append(table_clone[k]);
+						$("#softwareSearch #sftwrTable").append(table_clone[k]);
+						//tables are hidden initially
+						$("#softwareSearch #sftwrTable").hide();
 						ssftList = new List("softwareSearch", search_options);					
 					}
 					else{
-						$("#publicationsSearch").append(table_clone[k]);
+						$("#publicationsSearch #pubTable").append(table_clone[k]);
+						$("#publicationsSearch #pubTable").hide();
 						spubList = new List("publicationsSearch", search_options);
 					}
 					
@@ -190,10 +193,12 @@ $(document).ready(function()
 						ssftList.search();
 					if (spubList != "")
 						spubList.search();
+					//when search is cleared tables need to be hidden
+					$("#softwareSearch #sftwrTable").hide();
+					$("#publicationsSearch #pubTable").hide();
+						
 				});
 
-
-				
 			}
 		}   
     } 
@@ -219,10 +224,40 @@ function pubSearch(link){
 }
 
 function allSearch(this_search){
-	if(this_search.value != "" && spubList != ""){
-		var value = this_search.value;
-		spubList.search(value);
+	if(this_search.value != "" && this_search.value.length >= 3){
+		var value = this_search.value; 
+		//TODO: Implement Stop Words
+		ssftList.search(value);
+		
+		//hide table if there are no rows that match the search term
+		if ($("#softwareSearch #sftwrTable tbody").children().length != 0)
+			$("#softwareSearch #sftwrTable").show();
+		else
+			$("#softwareSearch #sftwrTable").hide();
+		
+		if(spubList != ""){
+			var value = this_search.value;
+			spubList.search(value);
+			
+			if ($("#publicationsSearch #pubTable tbody").children().length != 0)
+				$("#publicationsSearch #pubTable").show();
+			else
+				$("#publicationsSearch #pubTable").hide();
+		}
 	}
+	else{
+		//if search_term is empty or not 3 chars in length, make sure the tables are hidden
+		$("#publicationsSearch #pubTable").hide();
+		$("#softwareSearch #sftwrTable").hide();
+	}
+	
+	
+	
+	
+	
+	
+	
+
 }
 
 function getTableHeaders(table){
