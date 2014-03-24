@@ -1,6 +1,6 @@
 /* tables */
 body{
-	width:98%;
+	width:99%;
 	height: 98%;
 	z-index: -5000;
 }
@@ -126,6 +126,7 @@ float:left;
 width:96%; 
 margin-left:2%;
 margin-top:10px;
+margin-bottom: 30px;
 }
 
 .darpa-logo{
@@ -143,9 +144,16 @@ margin-bottom:2px;
 .footer{
 position:relative; 
 clear:both;
+background:black;
+height:60px;
+margin-top:10px;
 }
-.code-mail{
-cursor:pointer;
-color:#0000FF;
-text-decoration:underline;
+
+.footer p{
+padding-left:10px;
+color: white;
+}
+
+.footer p a:link{
+color: #4863A0;
 }
