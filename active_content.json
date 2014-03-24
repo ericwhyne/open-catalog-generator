@@ -56,12 +56,13 @@
         "Banner":"NEW"
 },
 {
-<<<<<<< HEAD
         "Program Name": "ENGAGE",
         "Program File": "ENGAGE-program.json",
         "Pubs File": "ENGAGE-pubs.json",
         "Software File": "ENGAGE-software.json",
-=======
+        "Banner":"NEW"
+},
+{
         "Program Name": "HACMS",
         "Program File": "HACMS-program.json",
         "Pubs File": "HACMS-pubs.json",
@@ -73,7 +74,13 @@
         "Program File": "CYBERGENOME-program.json",
         "Pubs File": "CYBERGENOME-pubs.json",
         "Software File": "CYBERGENOME-software.json",
->>>>>>> 1237eb7eda7f96b82d23e5f936ba51d6ebe25732
         "Banner":"NEW"
+},
+{
+        "Program Name": "CSFV"
+        "Program File": "CSFV-program.json",
+        "Pubs File": "CSFV-pubs.json",
+        "Software File": "",
+        "Banner": "NEW"
 }
 ]
