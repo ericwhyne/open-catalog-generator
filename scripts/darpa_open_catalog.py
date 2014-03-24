@@ -3,7 +3,7 @@ import time
 import getpass
 
 def logo(office):
-  logo= "<div style='background:black;'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><span style='line-height:60px;'><h2 class='darpa-header'><a href='index.html' class='topheaderlink'>Open Catalog</a>"
+  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><span><h2><a href='index.html' class='topheaderlink'>Open Catalog</a>"
   if (office != ""):
     logo += "<font color='white'> / %s </font></h2>" % office
   logo += "</span></div>"
