@@ -3,7 +3,7 @@ import time
 import getpass
 
 def logo(office):
-  logo= "<div style='background:black;'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><span style='line-height:60px;'><h2 class='darpa-header'><a href='index.html' class='topheaderlink'>Open Catalog</a>"
+  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><span><h2><a href='index.html' class='topheaderlink'>Open Catalog</a>"
   if (office != ""):
     logo += "<font color='white'> / %s </font></h2>" % office
   logo += "</span></div>"
@@ -250,14 +250,6 @@ function allSearch(this_search){
 		$("#publicationsSearch #pubTable").hide();
 		$("#softwareSearch #sftwrTable").hide();
 	}
-	
-	
-	
-	
-	
-	
-	
-
 }
 
 function getTableHeaders(table){
@@ -276,23 +268,13 @@ function getTableHeaders(table){
 		tableHeaders.push(headerRow[j].textContent.toLowerCase());
 
 	return tableHeaders;		
-
-}
-
-function softwareRequest(program, software, user){
-  var message ="&#109;a&#105;l&#116;&#111;:&#100;&#101;&#102;&#116;&#45;&#115;&#111;&#102;&#116;&#119;&#97;&#114;"
-  message += "&#101;&#45;&#114;&#101;&#113;&#117;&#101;&#115;&#116;&#115;&#64;&#98;&#98;&#110;&#46;&#99;&#111;&#109;";
-  message += "?subject=Request for Software&body=";
-  message = message.replace(/&#(\d+);/g, function (m, n) { return String.fromCharCode(n); });
-  var content = "Greetings, \\n\\n A request has been submitted by " + user.toUpperCase() + " for the following " + program + " Software: " + software + ".";
-  window.location.href = message + encodeURIComponent(content);
 }
 </script>
 """
 
 def catalog_page_footer():
   return """
-<div class='footer'><br><br>
+<div class='footer'>
 <hr>
 <p><a href='http://www.darpa.mil/FOIA.aspx'>FOIA</a> | <a href='http://www.darpa.mil/Privacy_Security_Notice.aspx'>Privacy and Security</a> | 
 <a href='http://www.darpa.mil/NoFearAct.aspx'>No Fear Act</a> | <a href='http://www.darpa.mil/External_Link.aspx?url=http://dodcio.defense.gov/DoDSection508/Std_Stmt.aspx'>Accessibility/Section 508</a></p>

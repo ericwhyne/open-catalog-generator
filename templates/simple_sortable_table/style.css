@@ -1,8 +1,9 @@
 /* tables */
 body{
-	width:98%;
-	height: 98%;
-	z-index: -5000;
+	width:100%;
+	height: 100%;
+	/*z-index: -5000;*/
+	margin:0px;
 }
 
 table.tablesorter {
@@ -126,16 +127,26 @@ float:left;
 width:96%; 
 margin-left:2%;
 margin-top:10px;
+margin-bottom: 30px;
 }
 
 .darpa-logo{
 float: left; 
-margin: 4px 15px 0px 5px; 
+margin: 4px 15px 5px 5px; 
 height:50;
 border-style: none;
 }
 
 .darpa-header{
+margin-top: -20px;
+background:black; 
+}
+
+.darpa-header span{
+line-height:60px;
+}
+
+.darpa-header H2{
 padding-top:10px 0px 10px 0px; 
 margin-bottom:2px;
 }
@@ -143,9 +154,15 @@ margin-bottom:2px;
 .footer{
 position:relative; 
 clear:both;
+background:black;
+height:66px;
 }
-.code-mail{
-cursor:pointer;
-color:#0000FF;
-text-decoration:underline;
+
+.footer p{
+padding-left:10px;
+color: white;
+}
+
+.footer p a:link{
+color: #4863A0;
 }
