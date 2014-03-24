@@ -170,8 +170,9 @@ for program in active_content:
         if column == "Code":
           clink = ""
           if 'Public Code Repo' in software.keys():
-            if program_details['DARPA Program Name'] == "DEFT":
-			  clink = "<span class='code-mail' onclick='softwareRequest(\"" + program_details['DARPA Program Name'] + "\", \"" + software['Software'] + "\", \"" + doc.get_current_user() + "\");'>" + software['Public Code Repo'] + "</span>"
+            if re.search('[^@]+@[^@]+\.[^@]+',software['Public Code Repo']): # regex to identify when it's an email address.
+              code_email = software['Public Code Repo']
+	      clink = "<a href='mailto:%s'>%s</a>" % (code_email, code_email)
             else:
               clink = software['Public Code Repo']
           program_page += "  <TD class=" + column.lower() + "> " + clink + " </TD>\n"
