@@ -54,5 +54,19 @@
         "Pubs File": "",
         "Software File": "FLASHLIGHT-software.json",
         "Banner":"NEW"
+},
+{
+        "Program Name": "HACMS",
+        "Program File": "HACMS-program.json",
+        "Pubs File": "HACMS-pubs.json",
+        "Software File": "HACMS-software.json",
+        "Banner":"NEW"
+},
+{
+        "Program Name": "CyberGenome"
+        "Program File": "CYBERGENOME-program.json",
+        "Pubs File": "CYBERGENOME-pubs.json",
+        "Software File": "CYBERGENOME-software.json",
+        "Banner":"NEW"
 }
 ]
