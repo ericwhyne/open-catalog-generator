@@ -250,14 +250,6 @@ function allSearch(this_search){
 		$("#publicationsSearch #pubTable").hide();
 		$("#softwareSearch #sftwrTable").hide();
 	}
-	
-	
-	
-	
-	
-	
-	
-
 }
 
 function getTableHeaders(table){
@@ -276,16 +268,6 @@ function getTableHeaders(table){
 		tableHeaders.push(headerRow[j].textContent.toLowerCase());
 
 	return tableHeaders;		
-
-}
-
-function softwareRequest(program, software, user){
-  var message ="&#109;a&#105;l&#116;&#111;:&#100;&#101;&#102;&#116;&#45;&#115;&#111;&#102;&#116;&#119;&#97;&#114;"
-  message += "&#101;&#45;&#114;&#101;&#113;&#117;&#101;&#115;&#116;&#115;&#64;&#98;&#98;&#110;&#46;&#99;&#111;&#109;";
-  message += "?subject=Request for Software&body=";
-  message = message.replace(/&#(\d+);/g, function (m, n) { return String.fromCharCode(n); });
-  var content = "Greetings, \\n\\n A request has been submitted by " + user.toUpperCase() + " for the following " + program + " Software: " + software + ".";
-  window.location.href = message + encodeURIComponent(content);
 }
 </script>
 """
