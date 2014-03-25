@@ -75,5 +75,26 @@
         "Pubs File": "CSFV-pubs.json",
         "Software File": "",
         "Banner": "NEW"
+},
+{
+        "Program Name": "DCAPS",
+        "Program File": "DCAPS-program.json",
+        "Pubs File": "DCAPS-pubs.json",
+        "Software File": "DCAPS-software.json.",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "SAFER",
+        "Program File": "SAFER-program.json",
+        "Pubs File": "SAFER-pubs.json",
+        "Software File": "SAFER-software.json",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "PROCEED",
+        "Program File": "PROCEED-program.json",
+        "Pubs File": "PROCEED-pubs.json",
+        "Software File": "",
+        "Banner": "NEW"
 }
 ]
