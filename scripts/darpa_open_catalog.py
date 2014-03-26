@@ -121,27 +121,28 @@ $(document).ready(function()
 
 		$(function() {
 			$( "#tabs" ).tabs();
-			$('#tabs').tabs({active: 0});  //software tab
+			if($("#tabs0"))
+				$("#tabs").tabs({active: 0});  //software tab
+			else
+				$("#tabs").tabs({active: 1});  //publications tab
 		});
 
 		//configure table search and clear button for software and publications table
 		for (var i=0; i<tabCount; i++){
-
+			
 			var tabName = tabList[i].textContent.toLowerCase(); //name of tab
-			if(tabName == "software" || tabName == "publications") {
-				var tabTable = $('#tabs' + i + ' table'); //table within this tab
-				var tabHeaders = getTableHeaders(tabTable);	
-			}
-			
+
 			if(tabName == "software"){
-			
+				var tabTable = $('#tabs0 table'); //table within this tab
+				var tabHeaders = getTableHeaders(tabTable);	
+				
 				var sw_options = {
 				  valueNames: tabHeaders
 				};
 				
 				swList = new List(tabName, sw_options);
-				
-				$("#clear" + i).click(function() {
+
+				$("#clear0").click(function() {
 					var currId = this.id.match(/\d+/g);
 					$("#search" + currId[0]).val("");
 					swList.search();
@@ -149,6 +150,8 @@ $(document).ready(function()
 			}
 			
 			if(tabName == "publications"){
+				var tabTable = $('#tabs1 table'); //table within this tab
+				var tabHeaders = getTableHeaders(tabTable);	
 				
 				var pub_options = {
 				  valueNames: tabHeaders
@@ -156,11 +159,12 @@ $(document).ready(function()
 
 				pubList = new List(tabName, pub_options);
 
-				$("#clear" + i).click(function() {
+				$("#clear1").click(function() {
 					var currId = this.id.match(/\d+/g);
 					$("#search" + currId[0]).val("");
 					pubList.search();
 				});
+				
 			}
 			
 			if(tabName == "search"){
@@ -185,7 +189,7 @@ $(document).ready(function()
 					}
 					
 				}
-				
+
 				$("#clear2").click(function() {
 					var currId = this.id.match(/\d+/g);
 					$("#search" + currId[0]).val("");
@@ -253,7 +257,6 @@ function allSearch(this_search){
 }
 
 function getTableHeaders(table){
-
 	var this_table;
 	 
 	if(table[0])
