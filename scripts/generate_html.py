@@ -101,13 +101,13 @@ for program in active_content:
     search_tab += "<div id='allSearch'><div id='tabs2'>"
     search_tab += "<div id='softwareSearch'><input class='search' placeholder='Search' id='search2' onkeyup='allSearch(this)'/>"
     search_tab += "<button class='clear_button' id='clear2'>Clear</button><div id='sftwrTable'><h2>Software</h2></div></div>"
-    search_footer += "</div></div>"
   if program['Pubs File'] != "":
     program_page += "<li><a href='#tabs1'>Publications</a></li>"
     search_tab += "<div id='publicationsSearch'><div id='pubTable'><h2>Publications</h2></div></div>"
+  if program['Software File'] != "" and program['Pubs File'] != "":
     program_page += "<li><a href='#tabs2'>Search</a></li>"
   program_page += "</ul>"
-  
+  search_footer += "</div></div>"
   if search_tab != "":
     search_tab += search_footer
   
@@ -221,6 +221,8 @@ for program in active_content:
         program_page += "  <TD class='link'>" + link + "</TD>\n"
       program_page += "</TR>\n"
     program_page += doc.pubs_table_footer() + "</div></div>"
+###### Add search tab only if software and publications tab exists   
+  if program['Software File'] != "" and program['Pubs File'] != "":
     program_page += search_tab	
   program_page += "</div><br>\n"
   program_page += doc.catalog_page_footer()
