@@ -1,0 +1,42 @@
+* A record is a single listed piece of software or publication.
+
+Externals:
+ - There are 8 programs on the ddf deployed review catalog with a total of 1069 records* with a total of 8371 attributes about them [2].
+ - There are 3 programs live on darpa.mil with a total of 349 records with a total of 2946 atributes about them [2].
+
+Breakdown of programs deployed in current live version [2]:
+ XDATA
+  186 records with total of 1803 attributes
+ Cyber Fast Track CFT
+  119 records with total of 934 attributes
+ Active Authentication AA
+  44 records with total of 209 attributes
+
+Development over the last two weeks:
+ - From Github framework repo: 3 authors have pushed 24 commits to all branches, excluding merges. On master, 366 files have changed and there have been 16,739 additions and 17,064 deletions [1].
+ - From Github data repo:  3 authors have pushed 28 commits to all branches, excluding merges. On master, 19 files have changed and there have been 553 additions and 433 deletions.
+
+Internals:
+ - Comprising the live version of the Open Catalog on darpa.mil there are 370 pages (in this case .html) and 2670 referenced files (mostly code stats pages and images)  [3].
+ - For fun, I did some math on darpa.mil. It has 788 pages (not counting the 370 from the Open Catalog which would bring the total to 1158) and 3288 referenced files. Of the pages, 250 are NewsEvents press releases. Subtracting those: 538 pages aren't press releases. I have more metrics about file sizes, etc... interesting but not useful [3].
+
+Reference:
+[1] https://github.com/ericwhyne/open-catalog-generator/pulse
+[2] Record and attribute counting scripts
+#!/bin/bash
+# count attributes, program as command line option, default is all
+cd ../darpa_open_catalog/
+cat $1*.json | sed '/^[{}].*$/d' | wc -l
+#!/bin/bash
+# count records, program as command line option, default is all
+cd ../darpa_open_catalog/
+cat $1*.json | grep { | wc -l
+[3] File counting scripts
+# count darpa.mil all pages (.aspx, asp. htm were normalized to html)
+find . | grep html | sed -e '/.*xternal_Link.*$/d' |  wc -l
+# count darpa.mil news events pages
+find . | grep html | sed -e '/.*xternal_Link.*$/d' | grep NewsEvents | wc -l
+
+
+
+

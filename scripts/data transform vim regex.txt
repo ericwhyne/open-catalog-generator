@@ -1,0 +1,10 @@
+
+Teams field:
+This probably works:
+% s/Teams": \(.*\),/Teams": \[\1\],/
+
+Languages field:
+do this:
+% s/Languages": "\(.*\), \(.*\)",/Languages": \["\1","\2\"],/
+then run this a bunch of times, will break out the left langauge each time ran:
+% s/Languages": \["\(.*\), \(.*\)",\(.*\)\],/Languages": \["\1","\2\",\3],/

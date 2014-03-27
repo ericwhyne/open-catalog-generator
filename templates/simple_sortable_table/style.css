@@ -1,0 +1,168 @@
+/* tables */
+body{
+	width:100%;
+	height: 100%;
+	/*z-index: -5000;*/
+	margin:0px;
+}
+
+table.tablesorter {
+	font-family:Arial, Helvetica, sans-serif;
+	background-color: #CDCDCD;
+	/*margin:10px 80pt 15px;*/
+	font-size: 10pt;
+	width: 100%;
+	text-align: left;
+	z-index: -5000;
+	margin-left:auto;
+	margin-right:auto;
+	
+
+}
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 10pt;
+	padding: 14px;
+}
+
+table.tablesorter thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: right;
+	cursor: pointer;
+}
+
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 3px;
+	/*background-color: #F0F;*/
+	vertical-align: top;
+}
+
+/* table row alternating colors */
+table.tablesorter tbody tr:nth-child(odd) {
+     background-color: #E8E8E8;
+}
+table.tablesorter tbody tr:nth-child(even) {
+     background-color: #FFF;
+}
+
+/* readability improvements */
+h1, h2, h3, h4, h5 {
+text-shadow:0 0 1px transparent;
+font: bold Georgia, Utopia, serif;
+max-width:70%;
+padding-left:10px;
+}
+
+p {
+font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
+line-height:1.5em;
+margin-bottom: 1.5em;
+max-width:100%;
+
+}
+
+ol, ul {
+font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
+line-height:1.25em;
+margin-bottom: 1.1em;
+max-width:70%;
+padding-left:100px;
+}
+
+td a{
+display: inline-block; 
+max-width: 670px;
+vertical-align: top;
+}
+
+/* stop linked images from having border */
+a {outline : none;}
+a img {outline : none;}
+img {border : 0;}
+
+/* link formatting */
+.topheaderlink {
+text-decoration:none;
+color:white;
+} 
+.programlink {
+text-decoration:none;
+color:black;
+}
+
+.left-paragraph{
+float:left; 
+width:70%;
+padding-left:2%;
+padding-right:2%;
+}
+
+.right-image{
+float:left; 
+width:24%;  
+padding-top:20px;
+}
+
+.right-image img{
+float: right;
+width: 90%;
+}
+
+.table-tabs{
+float:left; 
+width:96%; 
+margin-left:2%;
+margin-top:10px;
+margin-bottom: 30px;
+}
+
+.darpa-logo{
+float: left; 
+margin: 4px 15px 5px 5px; 
+height:50;
+border-style: none;
+}
+
+.darpa-header{
+margin-top: -20px;
+background:black; 
+}
+
+.darpa-header span{
+line-height:60px;
+}
+
+.darpa-header H2{
+padding-top:10px 0px 10px 0px; 
+margin-bottom:2px;
+}
+
+.footer{
+position:relative; 
+clear:both;
+background:black;
+height:66px;
+}
+
+.footer p{
+padding-left:10px;
+color: white;
+}
+
+.footer p a:link{
+color: #4863A0;
+}
