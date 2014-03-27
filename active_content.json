@@ -96,5 +96,19 @@
         "Pubs File": "PROCEED-pubs.json",
         "Software File": "",
         "Banner": "NEW"
+},
+{
+        "Program Name": "SMISC",
+        "Program File": "SMISC-program.json",
+        "Pubs File": "SMISC-pub.json",
+        "Software File": "",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "ADAMS",
+        "Program File": "ADAMS-program.json",
+        "Pubs File": "ADAMS-pubs.json",
+        "Software File": "",
+        "Banner": "NEW"
 }
 ]
