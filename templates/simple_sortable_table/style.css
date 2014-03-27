@@ -59,6 +59,10 @@ table.tablesorter tbody tr:nth-child(even) {
      background-color: #FFF;
 }
 
+#splash{
+margin-left:2%;
+width: 96%;
+}
 /* readability improvements */
 h1, h2, h3, h4, h5 {
 text-shadow:0 0 1px transparent;
@@ -71,6 +75,7 @@ p {
 font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
 line-height:1.5em;
 margin-bottom: 1.5em;
+padding-left:10px;
 max-width:100%;
 
 }
@@ -98,7 +103,8 @@ img {border : 0;}
 .topheaderlink {
 text-decoration:none;
 color:white;
-} 
+}
+ 
 .programlink {
 text-decoration:none;
 color:black;
@@ -110,6 +116,11 @@ width:70%;
 padding-left:2%;
 padding-right:2%;
 }
+
+.left-paragraph p{
+padding-left:0;
+}
+
 
 .right-image{
 float:left; 
@@ -159,7 +170,6 @@ height:66px;
 }
 
 .footer p{
-padding-left:10px;
 color: white;
 }
 
