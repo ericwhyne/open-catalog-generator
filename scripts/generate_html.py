@@ -206,6 +206,8 @@ for program in active_content:
     pubs = json.load(open(data_dir + program['Pubs File']))
     program_page += doc.pubs_table_header()
     for pub in pubs:
+      # Debug
+      #print "    " + pub['Title']
       program_page += "<TR>\n  <TD class='team'>" 
       for team in pub['Program Teams']:
         program_page += team + "<a name='" + team + "'>, "

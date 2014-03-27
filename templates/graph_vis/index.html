@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script language="javascript" type="text/javascript"  src="jquery-latest.js"></script>
+        <script language="javascript" type="text/javascript" src="arbor.js" ></script>
+        <script language="javascript" type="text/javascript" src="graphics.js" ></script>
+        <script language="javascript" type="text/javascript" src="renderer.js" ></script>
+        <style>.linkable{ cursor:pointer;} </style>
+    </head>
+    <body>
+      <canvas id="viewport" width="800" height="600"></canvas>
+      <script language="javascript" type="text/javascript">
+            var sys = arbor.ParticleSystem(1000, 400,1);
+            sys.parameters({gravity:true});
+            sys.renderer = Renderer("#viewport") ;
+            var data = {
+               nodes:{
+                 animals:{'color':'red','shape':'rect','label':'Animals', link:'http://stackoverflow.com'},
+                 dog:{'color':'green','shape':'dot','label':'dog', link:'http://www.darpa.mil'},
+                 cat:{'color':'blue','shape':'dot','label':'cat', link:'http://slashdot.org'}
+               }, 
+               edges:{
+                 animals:{ dog:{}, cat:{} }
+               }
+             };
+            sys.graft(data);
+            setTimeout(function(){
+                        var postLoadData = {
+                           nodes:{
+                             joe:{'color':'orange','shape':'dot','label':'joe',link:''},
+                             fido:{'color':'green','shape':'dot','label':'fido',link:''},
+                             fluffy:{'color':'blue','shape':'dot','label':'fluffy',link:''}
+                           }, 
+                           edges:{
+                                dog:{ fido:{} },
+                                cat:{ fluffy:{} },
+                                joe:{ fluffy:{},fido:{} }
+                           }
+                         };
+                         sys.graft(postLoadData);
+                    },10000);
+      </script>
+    </body>
+</html>
+
