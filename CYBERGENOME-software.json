@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
 {
 "DARPA Program Name":"CyberGenome",
@@ -13,3 +14,20 @@
 "Categories":["Networking","Reputation Management"]
 }
 ]
+=======
+[
+{
+"DARPA Program":"CyberGenome",
+"Program Teams": ["BAE SYSTEMS","Apogee Research", "University of North Florida", "University of Michigan"],
+"Software":"Introduction-Based Routing",
+"Internal Link":"",
+"External Link":"http://sourceforge.net/projects/introbasedrouting/", 
+"Public Code Repo":"http://sourceforge.net/projects/introbasedrouting/",
+"Description":"Introduction-Based Routing (IBR) is a method for dynamically opening and closing point-to-point virtual private networks (connections) to create a dynamic yet trustworthy network. Connections are created via introduction. The IBR Proxy Server software packet implements IBR.",
+"Internal Code Repo":"",
+"License":"GPLv2",
+"Languages":["JAVA"],
+"Categories":["Networking","Reputation Management"]
+}
+]
+>>>>>>> 2858eb1964f1ce37468e0f2bde486b99d628868d
