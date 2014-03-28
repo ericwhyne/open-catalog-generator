@@ -27,6 +27,10 @@ deploy: $(OC_DEFAULT_TEMPLATE_DIR)
 	$(OC_SCRIPTS_DIR)generate_html.py $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) darpalinks
 
 graph: $(OC_DEFAULT_TEMPLATE_DIR) 
+	mkdir -p $(OC_BUILD_DIR)
+	cp -r $(OC_DEFAULT_TEMPLATE_DIR)/* $(OC_BUILD_DIR)
+	cp -r $(OC_SEARCH_TEMPLATE_DIR)/* $(OC_BUILD_DIR)
+	cp -r $(OC_DATA_DIR)/* $(OC_BUILD_DIR)
 	$(OC_SCRIPTS_DIR)generate_graphviz.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) normallinks
 
 clean: $(OC_BUILD_DIR)

@@ -21,7 +21,7 @@
                                                     'label': 'Broad Operational Language Translation (BOLT)',
                                                     'shape': 'rect',
                                                     'type': 'program'},
- 		'Dr. Bonnie Dorr': {'color': 'blue', 'shape': 'rect', 'type': 'pm', 'label': 'Dr. Bonnie Dorr'}
+ 		'Dr. Bonnie Dorr': {'type': 'pm'}
                }, 
                edges:{
                  animals:{ dog:{}, cat:{} },

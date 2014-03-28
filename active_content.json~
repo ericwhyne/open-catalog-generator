@@ -100,7 +100,7 @@
 {
         "Program Name": "SMISC",
         "Program File": "SMISC-program.json",
-        "Pubs File": "SMISC-pubs.json",
+        "Pubs File": "SMISC-pub.json",
         "Software File": "",
         "Banner": "NEW"
 },
