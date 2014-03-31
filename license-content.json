@@ -3,7 +3,7 @@
    "License Short Name":"Apache 2.0",
    "License Long Name":"Apache License 2.0",
    "License Description":"",
-   "License Link":"http://opensource.org/licenses/Apache-2.0"
+   "License Link":"https://www.apache.org/licenses/LICENSE-2.0"
 },
 {
    "License Short Name":"BSD 3-Clause",
@@ -21,36 +21,36 @@
    "License Short Name":"GPL",
    "License Long Name":"GNU General Public License (GPL)",
    "License Description":"",
-   "License Link":"http://opensource.org/licenses/gpl-license"
+   "License Link":"http://www.gnu.org/licenses/gpl.html"
 },
 {
    "License Short Name":"LGPL",
    "License Long Name":"GNU Library or 'Lesser' General Public License (LGPL)",
    "License Description":"",
-   "License Link":"http://opensource.org/licenses/lgpl-license"
+   "License Link":"http://www.gnu.org/licenses/lgpl.html"
 },
 {
    "License Short Name":"MIT",
    "License Long Name":"MIT License",
    "License Description":"MIT license",
-   "License Link":"http://opensource.org/licenses/MIT"
+   "License Link":"http://en.wikipedia.org/wiki/MIT_License"
 },
 {
    "License Short Name":"Mozilla Public License 2.0",
    "License Long Name":"Mozilla Public License 2.0",
    "License Description":"",
-   "License Link":"http://opensource.org/licenses/MPL-2.0"
+   "License Link":"http://www.mozilla.org/MPL/2.0/"
 },
 {
    "License Short Name":"Common Development and Distribution License",
    "License Long Name":"Common Development and Distribution License",
    "License Description":"",
-   "License Link":"http://opensource.org/licenses/CDDL-1.0"
+   "License Link":"http://en.wikipedia.org/wiki/Common_Development_and_Distribution_License"
 },
 {
    "License Short Name":"Eclipse Public License",
    "License Long Name":"Eclipse Public License",
    "License Description":"",
-   "License Link":"http://opensource.org/licenses/EPL-1.0"
+   "License Link":"http://www.eclipse.org/legal/epl-v10.html"
 }
 ]
