@@ -4,3 +4,4 @@ echo writing to $filename
 tar -czf $filename build
 echo uploading $filename
 scp -i ~/.ssh/amazon_key $filename ubuntu@www.ddfproject.com:~/
+ssh -i ~/.ssh/amazon_key ubuntu@www.ddfproject.com /home/ubuntu/deploy_catalog_to_build.sh $filename
