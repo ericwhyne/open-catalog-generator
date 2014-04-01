@@ -11,7 +11,7 @@ def logo(office):
 
 def get_current_user():
   return getpass.getuser()
-  
+    
 def catalog_splash_content():
   date = time.strftime("%Y-%m-%d", time.localtime())
   splash = """
@@ -271,6 +271,30 @@ function getTableHeaders(table){
 		tableHeaders.push(headerRow[j].textContent.toLowerCase());
 
 	return tableHeaders;		
+}
+
+function licenseInfo(table_data, license_content, license_nm){
+
+	for (content in license_content){
+		if(license_nm.trim() == license_content[content]['License Short Name'] || license_nm.trim() == license_content[content]['License Long Name']){
+			
+			if(license_content[content]['License Short Name'] != ""){
+				$( "#dialog" ).empty().dialog({
+						position: { my: "left", at: "bottom+500%", of: table_data },
+						title: license_content[content]['License Short Name'],
+						
+				});
+				
+				if(license_content[content]['License Description'] != "")
+					$("#dialog").html("<a href='" + license_content[content]['License Link'] + "'>" + license_content[content]['License Long Name'] + "</a>: " + license_content[content]['License Description']);
+				else
+					$("#dialog").html("<a href='" + license_content[content]['License Link'] + "'>" + license_content[content]['License Long Name'] + "</a>");
+			}
+			
+			break;
+		}
+	}
+	
 }
 </script>
 """
