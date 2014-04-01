@@ -11,7 +11,7 @@
         "Program File": "CFT-program.json",
         "Pubs File": "",
         "Software File": "CFT-software.json",
-        "Banner":"NEW"
+        "Banner":"UPDATED"
 },
 {
         "Program Name": "MADCAT",
@@ -32,14 +32,14 @@
         "Program File": "XDATA-program.json",
         "Pubs File": "XDATA-pubs.json",
         "Software File": "XDATA-software.json",
-        "Banner":"Updated"
+        "Banner":"UPDATED"
 },
 {
         "Program Name": "AA",
         "Program File": "AA-program.json",
         "Pubs File": "AA-pubs.json",
         "Software File": "AA-software.json",
-        "Banner":"NEW"
+        "Banner":"UPDATED"
 },
 {
         "Program Name": "DEFT",
