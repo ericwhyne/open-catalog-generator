@@ -3,10 +3,10 @@ import time
 import getpass
 
 def logo(office):
-  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><span><h2><a href='index.html' class='topheaderlink'>Open Catalog</a>"
+  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h2><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
   if (office != ""):
-    logo += "<font color='white'> / %s </font></h2>" % office
-  logo += "</span></div>"
+    logo += "<span><font color='white'> / </font> %s </span></h2>" % office
+  logo += "</div>"
   return logo
 
 def get_current_user():

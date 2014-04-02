@@ -99,15 +99,14 @@ a {outline : none;}
 a img {outline : none;}
 img {border : 0;}
 
-/* link formatting */
-.topheaderlink {
-text-decoration:none;
-color:white;
-}
- 
 .programlink {
 text-decoration:none;
 color:black;
+}
+
+.programheader{
+color: #EBAF00; 
+padding-left:8px;
 }
 
 .left-paragraph{
@@ -154,12 +153,18 @@ background:black;
 }
 
 .darpa-header span{
-line-height:60px;
+line-height: 63px;
+position: absolute;
 }
 
 .darpa-header H2{
 padding-top:10px 0px 10px 0px; 
 margin-bottom:2px;
+}
+
+.catalog-logo {
+height:60px;
+width:190px;
 }
 
 .footer{
