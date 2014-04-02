@@ -110,5 +110,12 @@
         "Pubs File": "ADAMS-pubs.json",
         "Software File": "",
         "Banner": "NEW"
+},
+{
+        "Program Name": "ENGAGE",
+        "Program File": "ENGAGE-program.json",
+        "Pubs File": "ENGAGE-pubs.json",
+        "Software File": "ENGAGE-software.json",
+        "Banner": "NEW"
 }
 ]
