@@ -43,7 +43,7 @@ for program in active_content:
     print "Attempting to load %s" %  program['Program File']
     program_details = json.load(open(data_dir + program['Program File']))
  
-    program_page += doc.logo("<a href=\"http://www.darpa.mil/Our_Work/I2O/\"' style=\"color: #EBAF00;\"class='programlink'>Information Innovation Office (I2O)</a>")
+    program_page += doc.logo("<a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader'>Information Innovation Office (I2O)</a>")
     if re.search('^http',program_details['Link']):
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
