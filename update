@@ -1,0 +1,4 @@
+#!/bin/bash
+git pull
+cd darpa_open_catalog
+git pull

@@ -36,4 +36,5 @@ clean: $(OC_BUILD_DIR)
 datainit:
 	git clone https://github.com/ericwhyne/darpa_open_catalog.git
 
-
+dataupdate:
+	./update
