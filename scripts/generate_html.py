@@ -196,7 +196,6 @@ for program in active_content:
           program_page += " <TD class=" + column.lower() + "> " + software['Description'] + " </TD>\n"
         # License
         if column == "License":
-          print "license: %s" % software['License']
           if "," in software['License']:
             licenses = software['License'].split(",")
             license_html = "<TD class=%s>" % column.lower()
