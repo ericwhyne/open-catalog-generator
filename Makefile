@@ -5,7 +5,7 @@ OC_SEARCH_TEMPLATE_DIR=$(shell pwd)/templates/searchable_table/
 OC_BUILD_DIR=$(shell pwd)/build
 OC_ACTIVE_CONTENT_FILE=$(shell pwd)/active_content.json
 OC_ACTIVE_DEPLOYED_CONTENT_FILE=$(shell pwd)/active_content_deployed.json
-OC_LICENSE_CONTENT_FILE=$(shell pwd)/license-content.json
+OC_LICENSE_CONTENT_FILE=$(OC_DATA_DIR)/license-content.json
 
 website: $(OC_DEFAULT_TEMPLATE_DIR) 
 	mkdir -p $(OC_BUILD_DIR)

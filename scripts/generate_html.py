@@ -17,10 +17,9 @@ date = time.strftime("%Y-%m-%d", time.localtime())
 
 print """
 Active content file: %s
-License content file: %s
 Data directory: %s
 Build directory: %s
-""" % (active_content_file, license_content_file, data_dir, build_dir)
+""" % (active_content_file, data_dir, build_dir)
 
 print "Attempting to load %s" %  active_content_file
 active_content = json.load(open(active_content_file))
