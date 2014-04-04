@@ -199,35 +199,24 @@ for program in active_content:
           program_page += " <TD class=" + column.lower() + "> " + software['Description'] + " </TD>\n"
         # License
         if column == "License":
-          if "," in software['License']:
-            licenses = software['License'].split(",")
-            license_html = "<TD class=%s>" % column.lower()
-            for license_idx, license_val in enumerate(licenses):
-              license_value_found = False
-              for license_record in license_content:
-                for short_nm in license_record['License Short Name']:
-                  if license_val == short_nm:
-                    license_value_found = True
-                    if license_idx < len(licenses) - 1:
-                      license_html += "<span onmouseover='licenseInfo(this, \"%s\", \"%s\", \"%s\", \"%s\")'>%s</span>," % (short_nm, license_record['License Long Name'].replace("'", ""), license_record['License Link'], license_record['License Description'].replace("'", ""), license_val)
-                    else:					
-                      license_html += "<span onmouseover='licenseInfo(this, \"%s\", \"%s\", \"%s\", \"%s\")'>%s</span>" % (short_nm, license_record['License Long Name'].replace("'", ""), license_record['License Link'], license_record['License Description'].replace("'", ""), license_val)
-              if license_value_found == False:
-                if license_idx < len(licenses) - 1:
-                  license_html += "<span>%s,</span>" % license_val
-                else:
-                  license_html += "<span>%s</span>" % license_val
-            program_page += license_html
-            program_page += " </TD>\n </TR>\n"
-          else:
+          licenses = software['License']
+          license_html = "<TD class=%s>" % column.lower()
+          print "license length - %s!" %  (len(licenses))			 
+          for license_idx, license in enumerate(licenses):
             license_value_found = False
-            for license_record in license_content: #license content json loop
+            for license_record in license_content:
               for short_nm in license_record['License Short Name']:
-                if software['License'] == short_nm:
-                  license_value_found = True				
-                  program_page += " <TD class=%s><span onmouseover='licenseInfo(this, \"%s\", \"%s\", \"%s\", \"%s\")'>%s</span></TD>\n </TR>\n" % (column.lower(), short_nm, license_record['License Long Name'].replace("'", ""), license_record['License Link'], license_record['License Description'].replace("'", ""), software['License'])
-            if license_value_found == False:  
-              program_page += " <TD class=%s>%s</TD>\n </TR>\n" % (column.lower(), software['License'])
+                if license == short_nm:   
+                  license_value_found = True
+                  license_html += "<span onmouseover='licenseInfo(this, \"%s\", \"%s\", \"%s\", \"%s\")'>%s</span>" % (short_nm, license_record['License Long Name'].replace("'", ""), license_record['License Link'], license_record['License Description'].replace("'", ""), license)
+                  if license_idx < len(licenses) - 1:
+                    license_html += ", "
+            if license_value_found == False:
+              license_html += "<span>%s</span>" % license
+              if license_idx < len(licenses) - 1:
+                license_html += ", "
+          program_page += license_html
+          program_page += " </TD>\n </TR>\n"	 
     program_page += doc.software_table_footer()
     program_page += "</div></div>"
 	
