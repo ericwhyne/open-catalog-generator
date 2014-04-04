@@ -273,33 +273,18 @@ function getTableHeaders(table){
 	return tableHeaders;		
 }
 
-function licenseInfo(table_data, license_content, license_nm){
+function licenseInfo(table_data, short_nm, long_nm, link, description){
+	if(short_nm != ""){
+		$( "#dialog" ).empty().dialog({
+		position: { my: "left", at: "bottom+500%", of: table_data },
+		title: short_nm
+		});
 
-	for (content in license_content){
-		var selected_short_nm = "";
-		var short_nm = license_content[content]['License Short Name'];
-		
-		for(var i=0; i<short_nm.length; i++){
-			if(license_nm.trim() == short_nm[i] || license_nm.trim() == license_content[content]['License Long Name']){
-				selected_short_nm = short_nm[i];
-			}
-		}
-
-		if(selected_short_nm != ""){
-			$( "#dialog" ).empty().dialog({
-			position: { my: "left", at: "bottom+500%", of: table_data },
-			title: selected_short_nm
-			});
-
-			if(license_content[content]['License Description'] != "")
-				$("#dialog").html("<a href='" + license_content[content]['License Link'] + "'>" + license_content[content]['License Long Name'] + "</a>: " + license_content[content]['License Description']);
-			else
-				$("#dialog").html("<a href='" + license_content[content]['License Link'] + "'>" + license_content[content]['License Long Name'] + "</a>");
-			
-			break;
-		}
-}
-	
+		if(description != "")
+			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>: " + description);
+		else
+			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>");
+	}
 }
 </script>
 """
