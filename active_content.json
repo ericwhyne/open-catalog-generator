@@ -1,5 +1,12 @@
 [
 {
+        "Program Name": "APAC",
+        "Program File": "APAC-program.json",
+        "Pubs File": "APAC-pubs.json",
+        "Software File": "APAC-software.json",
+        "Banner":"NEW"
+},
+{
         "Program Name": "BOLT",
         "Program File": "BOLT-program.json",
         "Pubs File": "BOLT-pubs.json",
