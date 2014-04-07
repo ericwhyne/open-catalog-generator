@@ -200,15 +200,14 @@ for program in active_content:
         # License
         if column == "License":
           licenses = software['License']
-          license_html = "<TD class=%s>" % column.lower()
-          print "license length - %s!" %  (len(licenses))			 
+          license_html = "<TD class=%s>" % column.lower()		 
           for license_idx, license in enumerate(licenses):
             license_value_found = False
             for license_record in license_content:
               for short_nm in license_record['License Short Name']:
                 if license == short_nm:   
                   license_value_found = True
-                  license_html += "<span onmouseover='licenseInfo(this, \"%s\", \"%s\", \"%s\", \"%s\")'>%s</span>" % (short_nm, license_record['License Long Name'].replace("'", ""), license_record['License Link'], license_record['License Description'].replace("'", ""), license)
+                  license_html += "<span onmouseover='licenseInfo(\"%s\", \"%s\", \"%s\", \"%s\", event)'>%s</span>" % (short_nm, license_record['License Long Name'].replace("'", ""), license_record['License Link'], license_record['License Description'].replace("'", ""), license)
                   if license_idx < len(licenses) - 1:
                     license_html += ", "
             if license_value_found == False:

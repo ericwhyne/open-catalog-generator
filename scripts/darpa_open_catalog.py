@@ -3,9 +3,9 @@ import time
 import getpass
 
 def logo(office):
-  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h2><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
+  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h1><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
   if (office != ""):
-    logo += "<span><font color='white'> / </font> %s </span></h2>" % office
+    logo += "<span><font color='white'> / </font> %s </span></h1>" % office
   logo += "</div>"
   return logo
 
@@ -273,10 +273,14 @@ function getTableHeaders(table){
 	return tableHeaders;		
 }
 
-function licenseInfo(table_data, short_nm, long_nm, link, description){
+function licenseInfo(short_nm, long_nm, link, description, event){
+
+	var x=event.clientX;
+	var y=event.clientY;
+	
 	if(short_nm != ""){
 		$( "#dialog" ).empty().dialog({
-		position: { my: "left", at: "bottom+500%", of: table_data },
+		position: [x , y - 20],
 		title: short_nm
 		});
 
@@ -284,6 +288,11 @@ function licenseInfo(table_data, short_nm, long_nm, link, description){
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>: " + description);
 		else
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>");
+	
+	
+		$(".ui-dialog").mouseleave( function () {
+			 $( "#dialog" ).dialog( "close" );
+		  });
 	}
 }
 </script>
