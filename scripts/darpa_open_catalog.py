@@ -273,19 +273,23 @@ function getTableHeaders(table){
 	return tableHeaders;		
 }
 
-function licenseInfo(table_data, short_nm, long_nm, link, description){
+function licenseInfo(short_nm, long_nm, link, description, event){
+
+	var x=event.clientX;
+	var y=event.clientY;
+	
 	if(short_nm != ""){
 		$( "#dialog" ).empty().dialog({
-		position: { my: "left", at: "bottom+500%", of: table_data },
-		title: short_nm,
-		dialogClass: 'no-close'
+		position: [x , y - 20],
+		title: short_nm
 		});
 
 		if(description != "")
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>: " + description);
 		else
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>");
-			
+	
+	
 		$(".ui-dialog").mouseleave( function () {
 			 $( "#dialog" ).dialog( "close" );
 		  });
