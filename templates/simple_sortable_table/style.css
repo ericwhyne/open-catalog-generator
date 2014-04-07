@@ -147,18 +147,19 @@ margin-bottom: 30px;
 
 .darpa-logo{
 float: left; 
-margin: 4px 15px 5px 5px; 
+margin: 13px 0px 5px 5px; 
 height:50;
 border-style: none;
 }
 
 .darpa-header{
 margin-top: -20px;
-background:black; 
+background:black;
+height: 76px; 
 }
 
 .darpa-header span{
-line-height: 63px;
+line-height: 77px;
 position: absolute;
 }
 
@@ -168,8 +169,8 @@ margin-bottom:2px;
 }
 
 .catalog-logo {
-height:60px;
-width:190px;
+height:75px;
+width:295px;
 }
 
 .footer{

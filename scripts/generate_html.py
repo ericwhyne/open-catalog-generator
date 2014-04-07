@@ -200,8 +200,7 @@ for program in active_content:
         # License
         if column == "License":
           licenses = software['License']
-          license_html = "<TD class=%s>" % column.lower()
-          print "license length - %s!" %  (len(licenses))			 
+          license_html = "<TD class=%s>" % column.lower()		 
           for license_idx, license in enumerate(licenses):
             license_value_found = False
             for license_record in license_content:
