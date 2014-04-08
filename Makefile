@@ -1,5 +1,6 @@
 OC_DATA_DIR=$(shell pwd)/darpa_open_catalog/
 OC_SCRIPTS_DIR=$(shell pwd)/scripts/
+OC_TEST_DIR=$(shell pwd)/test/
 OC_DEFAULT_TEMPLATE_DIR=$(shell pwd)/templates/simple_sortable_table/
 OC_SEARCH_TEMPLATE_DIR=$(shell pwd)/templates/searchable_table/
 OC_BUILD_DIR=$(shell pwd)/build
@@ -38,3 +39,7 @@ datainit:
 
 dataupdate:
 	./update
+
+testurls:
+	$(OC_TEST_DIR)test_urls.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR)
+
