@@ -40,6 +40,6 @@ datainit:
 dataupdate:
 	./update
 
-testurls:
-	$(OC_TEST_DIR)test_urls.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR)
+linkchecker:
+	$(OC_TEST_DIR)linkchecker.sh $(OC_BUILD_DIR)/linkcheck.html $(OC_BUILD_DIR)/index.html
 

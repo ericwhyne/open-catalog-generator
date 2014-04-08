@@ -5,10 +5,21 @@ import sys
 import time
 import urllib2
 import base64
+import socket
 from pprint import pprint
+
+# This file is replaced by a tool called linkchecker. sudo apt-get install linkchecker
+# to instantiate from open catalog generator make file:
+# testurls:
+#	$(OC_TEST_DIR)test_urls.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR)
+
+# timeout to wait in seconds
+timeout = 5
+socket.setdefaulttimeout(timeout)
 
 retval = 0
 badurls = []
+# In order to not hang on authentication fields we give it a bad username and password
 headers = {'Authorization': 'Basic ' + base64.encodestring('faketestusername:faketestpassword')}
 
 def is_url(text):
@@ -23,16 +34,26 @@ def find_and_test_urls(json_data, identifier):
     if isinstance(value, basestring) and value != "":
       if is_url(value):
         print "Testing url: " + value
-        req = urllib2.Request(value, "", headers)
         try:
-          resp = urllib2.urlopen(req, timeout = 1)
+          req = urllib2.Request(value, "", headers)
+          resp = urllib2.urlopen(req)
         except urllib2.URLError, e:
           problem = ""
           if hasattr(e, 'reason'):
-            problem = " reason: " + e.reason
+            problem = " reason: " + str(e.reason)
           if hasattr(e, 'code'):
             problem = " code: " + str(e.code)
           notice = "Bad url in " + identifier + " had " + problem + " url: " + value
+          print "  Status: " + notice
+          badurls.append(notice)
+          retval = 1
+        except socket.error:
+          notice = "Bad url in " + identifier + " had socket error (maybe timeout) url: " + value
+          print "  Status: " + notice
+          badurls.append(notice)
+          retval = 1
+        except:
+          notice = "Bad url in " + identifier + " had unknown error url: " + value
           print "  Status: " + notice
           badurls.append(notice)
           retval = 1
