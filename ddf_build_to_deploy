@@ -1,0 +1,3 @@
+#!/bin/bash
+echo On DDF, moving build to deploy directory
+ssh -i ~/.ssh/amazon_key ubuntu@www.ddfproject.com /home/ubuntu/build_to_production_deploy.sh

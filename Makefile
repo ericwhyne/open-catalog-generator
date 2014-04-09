@@ -7,6 +7,7 @@ OC_BUILD_DIR=$(shell pwd)/build
 OC_ACTIVE_CONTENT_FILE=$(shell pwd)/active_content.json
 OC_ACTIVE_DEPLOYED_CONTENT_FILE=$(shell pwd)/active_content_deployed.json
 OC_LICENSE_CONTENT_FILE=$(OC_DATA_DIR)/license-content.json
+CUR_DATE=`date +"%Y-%m-%d"`
 
 website: $(OC_DEFAULT_TEMPLATE_DIR) 
 	mkdir -p $(OC_BUILD_DIR)
@@ -42,4 +43,7 @@ dataupdate:
 
 linkchecker:
 	$(OC_TEST_DIR)linkchecker.sh $(OC_BUILD_DIR)/linkcheck.html $(OC_BUILD_DIR)/index.html
+
+deployzip:
+	zip -r xdata_catalog_$(CUR_DATE).zip $(OC_BUILD_DIR)/
 
