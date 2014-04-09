@@ -136,6 +136,7 @@ for program in active_content:
           for team in software['Program Teams']:
             if team in pubs_exist:
               team += " <a href='#" + team + "' onclick='pubSearch(this)'>(publications)</a>"
+              
             program_page += team + ", "
           program_page = program_page[:-2]
           program_page += "</TD>\n "
@@ -148,7 +149,7 @@ for program in active_content:
             elink = software['External Link']
           if re.search('^http',elink) and elink != "":
             if darpa_links == "darpalinks":
-              program_page += "  <TD class='%s'><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n" % column.lower()
+              program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
             else:
               program_page += "  <TD class=" + column.lower() + "><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
           else:
@@ -168,7 +169,7 @@ for program in active_content:
             instructional_material = software['Instructional Material']
           if re.search('^http',instructional_material):
             if darpa_links == "darpalinks":
-              program_page += "  <TD class='%s'><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documentation or Tutorial </a></TD>\n" % column.lower()
+              program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Documentation or Tutorial </a></TD>\n"
             else:
               program_page += "  <TD class=" + column.lower() + "><a href='" + instructional_material + "'> Documentation or Tutorial </a></TD>\n"
           else:
@@ -233,7 +234,7 @@ for program in active_content:
       #print "    " + pub['Title']
       program_page += "<TR>\n  <TD class='team'>" 
       for team in pub['Program Teams']:
-        program_page += team + "<a name='" + team + "'>, "
+        program_page += team + "<a name='" + team + "'></a>, "
       program_page = program_page[:-2]
       program_page += "</TD>\n  <TD class='title'>" + pub['Title'] + "</TD>\n"
       link = pub['Link']

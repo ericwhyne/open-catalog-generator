@@ -83,7 +83,7 @@ def pubs_table_footer():
 def catalog_page_header(): 
   return """ 
 <html>
-<link rel='stylesheet' href='style.css' type='text/css'/>
+<link rel='stylesheet' href='style_v2.css' type='text/css'/>
 <link rel='stylesheet' href='banner_style.css' type='text/css'/>
 <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
 <link rel='stylesheet' href='css/list_style.css' type='text/css'/>
