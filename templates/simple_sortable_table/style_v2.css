@@ -187,3 +187,29 @@ color: white;
 .footer p a:link{
 color: #4863A0;
 }
+.selected{
+ background-color:#FFFF00;
+}
+path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}
+
+.sunburst-div{
+height: 90%;
+width:90%;
+margin: 0 auto;
+}
+
+.vis_p{
+padding-right: 10px;
+}
+
+.vis_headers{
+ max-width: 100%;
+}
+
+#ontology_view{
+display:inline-block;
+overflow:hidden;
+}
