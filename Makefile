@@ -3,6 +3,7 @@ OC_SCRIPTS_DIR=$(shell pwd)/scripts/
 OC_TEST_DIR=$(shell pwd)/test/
 OC_DEFAULT_TEMPLATE_DIR=$(shell pwd)/templates/simple_sortable_table/
 OC_SEARCH_TEMPLATE_DIR=$(shell pwd)/templates/searchable_table/
+OC_VIS_TEMPLATE_DIR=$(shell pwd)/templates/sunburst_vis/
 OC_BUILD_DIR=$(shell pwd)/build
 OC_ACTIVE_CONTENT_FILE=$(shell pwd)/active_content.json
 OC_ACTIVE_DEPLOYED_CONTENT_FILE=$(shell pwd)/active_content_deployed.json
@@ -14,6 +15,8 @@ website: $(OC_DEFAULT_TEMPLATE_DIR)
 	cp -r $(OC_DEFAULT_TEMPLATE_DIR)/* $(OC_BUILD_DIR)
 	cp -r $(OC_SEARCH_TEMPLATE_DIR)/* $(OC_BUILD_DIR)
 	cp -r $(OC_DATA_DIR)/* $(OC_BUILD_DIR)
+	cp -r $(OC_VIS_TEMPLATE_DIR)/* $(OC_BUILD_DIR)
+	cp $(OC_ACTIVE_CONTENT_FILE) $(OC_BUILD_DIR)
 	$(OC_SCRIPTS_DIR)generate_html.py $(OC_ACTIVE_CONTENT_FILE) $(OC_LICENSE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) normallinks
 
 darpawebsite: $(OC_DEFAULT_TEMPLATE_DIR) 
@@ -31,7 +34,7 @@ deploy: $(OC_DEFAULT_TEMPLATE_DIR)
 
 graph: $(OC_DEFAULT_TEMPLATE_DIR) 
 	$(OC_SCRIPTS_DIR)generate_graphviz.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) normallinks
-
+	
 clean: $(OC_BUILD_DIR)
 	rm -rf $(OC_BUILD_DIR)
 

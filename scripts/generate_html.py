@@ -6,6 +6,7 @@ import time
 import os
 import shutil
 import darpa_open_catalog as doc
+import sunburst_graphics as graph
 from pprint import pprint
 
 active_content_file = sys.argv[1]
@@ -31,6 +32,10 @@ splash_page = doc.catalog_page_header()
 splash_page += doc.logo("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
+
+datavis_page = graph.sunburst_header()
+datavis_page += graph.sunburst_html()
+datavis_page += graph.sunburst_script()
 
 for program in active_content:
   program_name = program['Program Name']
@@ -259,6 +264,12 @@ for program in active_content:
     program_outfile.write(program_page)
     if program_image_file != "":
       shutil.copy(data_dir + program_image_file, build_dir)
+
+datavis_page += doc.catalog_page_footer()
+datavis_page_file = build_dir + '/data_vis.html'
+print "Writing to %s" % datavis_page_file
+datavis_outfile = open(datavis_page_file, 'w')
+datavis_outfile.write(datavis_page)
 
 splash_page += doc.splash_table_footer()
 splash_page += doc.catalog_page_footer()
