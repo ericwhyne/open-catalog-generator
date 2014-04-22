@@ -54,10 +54,9 @@ $( document ).ready(function() {
 	});
 });
 
-var active_programs = [];
+var active_programs = new Array();
 
 function getPrograms() {
-	console.log("get programs");
 	var programs;
 	$.ajax({
 		async: false,
@@ -68,7 +67,6 @@ function getPrograms() {
 		}
 	});
 	
-	console.log(programs);
 	return programs;
 }
 
@@ -197,9 +195,8 @@ function getDetailsNode(data, edges, node_name, size){
 }
 
 function getProgramLinks(program){
-	var links = [];
+	var links = new Array();
 	var link_html = "";
-	console.log(program);
 	link_html += '<p id="program_templ_links " class="vis_p">';
 	if (program['Pubs File'] != "")
 		//links.push('<a href="#">Publications</a>');
@@ -228,12 +225,12 @@ function adjustOntologyView(query_array){
 	  query_array = typeof query_array == 'string' ? [query_array] : query_array;
 	  //console.log(query_array);
 	  var html = "";
-	  var level_data = [];
+	  var level_data = new Array();
 	  if(query_array.length == 0){
 		html = getProgramView();
       }
 	  else if(query_array.length == 1){
-		var program_data = getProgramDetails(query_array[0] + "-program.json");
+		var program_data = getProgramDetails(query_array[0].toUpperCase() + "-program.json");
 		
 		html = Mustache.to_html(templates.Program, program_data);
 		html += getProgramLinks(active_programs[program]);	
@@ -245,7 +242,7 @@ function adjustOntologyView(query_array){
 		else
 			file_type = "pubs";
 			
-		var program_data = getProgramDetails(query_array[0] + "-" + file_type + ".json");
+		var program_data = getProgramDetails(query_array[0].toUpperCase() + "-" + file_type + ".json");
 		var template = "";
 
 		if(query_array[1] == "Software"){
@@ -320,7 +317,6 @@ function adjustOntologyView(query_array){
 					var child_query = getChildQueryArray(query_array[2], program_data[data]);
 					for( child in child_query){
 						if(child_query[child] == query_array[3]){
-							console.log("match");
 							match_count ++;
 							match_html += Mustache.to_html(template, program_data[data]);
 							break;
@@ -349,8 +345,8 @@ function getProgramView(){
 	active_programs.sort(sortByProperty('Program Name'));
 	
 	$.each(active_programs, function (program) {
-		var program_nm = active_programs[program]['Program Name']
-		var program_data = getProgramDetails(program_nm + "-program.json");
+		var program_file = active_programs[program]['Program File'] 
+		var program_data = getProgramDetails(program_file);
 		html += Mustache.to_html(template, program_data);
 		html += getProgramLinks(active_programs[program]);
 		
@@ -360,7 +356,7 @@ function getProgramView(){
 
 
 function getChildQueryArray(query, data){
-	var child_query = [];
+	var child_query = new Array();
 	if(query == "Categories")
 		child_query = data.Categories;
 	else if(query == "Teams")
@@ -554,7 +550,7 @@ function createSunburstGraph(div){
 			}
 		});
 
-	   var parent_array = [];
+	   var parent_array = new Array();
 	   var d_parent = d;
 	   for (var i=d.depth;i > 0;i--){
 		 parent_array[i-1] = d_parent.name;
