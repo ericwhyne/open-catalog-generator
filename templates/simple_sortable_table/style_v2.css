@@ -1,8 +1,14 @@
 /* tables */
+
+ html,body {
+    margin:0px;
+    padding:0px;
+	top:0px;
+}
+
 body{
 	width:100%;
 	height: 100%;
-	/*z-index: -5000;*/
 	margin:0px;
 }
 
@@ -64,6 +70,8 @@ margin-left:2%;
 width: 96%;
 }
 /* readability improvements */
+
+
 h1, h2, h3, h4, h5 {
 text-shadow:0 0 1px transparent;
 font: bold Georgia, Utopia, serif;
@@ -153,7 +161,6 @@ border-style: none;
 }
 
 .darpa-header{
-margin-top: -20px;
 background:black;
 height: 76px; 
 }
@@ -190,15 +197,30 @@ color: #4863A0;
 .selected{
  background-color:#FFFF00;
 }
+
 path {
   stroke: #fff;
   fill-rule: evenodd;
 }
 
-.sunburst-div{
-height: 90%;
-width:90%;
-margin: 0 auto;
+.sunburst-div {
+width: 100%;
+}
+/*
+.ie{
+-ms-overflow-y: hidden;
+-ms-overflow-x: auto;
+}
+
+.not_ie{
+overflow-x: auto; 	
+overflow-y: auto;
+}*/
+
+
+.div_scroll{
+height: 77%;
+overflow-y: auto;
 }
 
 .vis_p{
@@ -209,7 +231,21 @@ padding-right: 10px;
  max-width: 100%;
 }
 
-#ontology_view{
-display:inline-block;
-overflow:hidden;
+.no_space{
+padding:0px;
+margin:0px;
+}
+
+#vis_view{
+width:50%; 
+float:left; 
+background:#E6EEEE; 
+height:80%;
+}
+
+#vis_map{
+width:50%; 
+float:left;
+background:#E5E4E2; 
+height:80%;
 }

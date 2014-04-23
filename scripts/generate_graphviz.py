@@ -64,6 +64,9 @@ for program in active_content:
 
 print "nodes:" + str(nodes) + ","
 print "edges:" + str(edges)
+print "Writing to %s" % build_dir + '/viz.html'
+program_outfile = open(build_dir + '/viz.html', 'w')
+program_outfile.write("nodes:" + str(nodes) + ",edges:" + str(edges))
 
 
 
