@@ -191,6 +191,7 @@ function getDetailsNode(data, edges, node_name, size){
 function getProgramLinks(program){
 	var links = new Array();
 	var link_html = "";
+
 	link_html += '<p id="program_templ_links " class="vis_p">';
 	if (program['Pubs File'] != "")
 		//links.push('<a href="#">Publications</a>');
@@ -215,18 +216,30 @@ function getProgramLinks(program){
 }
 
 function adjustvisView(query_array){
-
 	  query_array = typeof query_array == 'string' ? [query_array] : query_array;
 	  var html = "";
 	  var level_data = new Array();
+
 	  if(query_array.length == 0){
 		html = getProgramView();
       }
 	  else if(query_array.length == 1){
+
 		var program_data = getProgramDetails(query_array[0].toUpperCase() + "-program.json");
-		
-		html = Mustache.to_html(templates.Program, program_data);
-		html += getProgramLinks(active_programs[program]);	
+
+		var html = Mustache.to_html(templates.Program, program_data);
+
+		var curr_program = new Array();
+		$.each(active_programs, function (program) {
+				
+				if(active_programs[program]['Program Name'] == query_array[0]){
+					 curr_program = active_programs[program];
+					 return false;
+				}
+			});
+
+		html += getProgramLinks(curr_program);	
+
 	  }
 	  else if(query_array.length > 1){
 		var file_type = "";
@@ -426,7 +439,7 @@ function createSunburstGraph(div){
 	if(isIE())
 		margin = {top: 300, right: 300, bottom: 250, left: 400}; //left and right resize
 	else
-		margin = {top: 250, right: 350, bottom: 250, left: 370}; //bottom and top resize
+		margin = {top: 270, right: 400, bottom: 350, left: 400}; //bottom and top resize
 	
 	var radius = Math.min(margin.top, margin.right, margin.bottom, margin.left);
 
@@ -546,7 +559,7 @@ function createSunburstGraph(div){
 	  text.transition().attr("opacity", 0);
 		  
 	  path.transition()
-		.duration(250)
+		.duration(950)
 		.attrTween("d", arcTween(d))
 		.each("end", function(e, i) {
 			// check if the animated element's data e lies within the visible angle span given in d
@@ -554,10 +567,9 @@ function createSunburstGraph(div){
 			if (e.x >= d.x && e.x < (d.x + d.dx)) {
 			  dDepth = d.depth;
 			  maxDepth = dDepth + 2;
-			  Dx = d.x;
-			  Dname = d.name;
-			  DDx = d.dx + d.x;
+
 			  var arcPath = d3.select(this.parentNode).select("path"); //selected path
+			  
 			  arcPath
 				.attr("opacity", function() { var opacity = 0; e.depth < maxDepth ? opacity = 1 : opacity = 0; return opacity; })
 				.attr("cursor", function(){if (e.depth < maxDepth) {return "pointer";}})
@@ -566,11 +578,15 @@ function createSunburstGraph(div){
 				.on("mouseout", function(){if(isIE() && e.depth < maxDepth ) return tooltip.style("visibility", "hidden");})
 				.on("click", function(d){if (e.depth < maxDepth ) click(d);});
 				
+				//if the start and next points match then the path is close and text should not be shown
+				var pathPoints = arcPath[0][0];
+				var start_x = arcPath[0][0].getPointAtLength(0).x;
+				var next_x = arcPath[0][0].getPointAtLength(1).x;
 				
 			  // fade in the text element and recalculate positions
 			  var arcText = d3.select(this.parentNode).select("text");
-			  arcText.transition().duration(450)
-				.attr("opacity", function(d) { var opacity = 0; if(e.depth < maxDepth && e.depth >= dDepth) opacity = 1; else opacity = 0; return opacity; })
+			  arcText.transition().duration(950)
+				.attr("opacity", function(d) {if(e.depth < maxDepth && start_x != next_x)return 1; else return 0; })
 				.attr("transform", function() { var rotate = ""; e.depth == 0 ? rotate = "rotate(0)" : rotate = "rotate(" + computeTextRotation(e) + ")"; return rotate; })
 				.attr("x", function(d) { return computeAbsolutePlacement(d) ; })
 				.attr("text-anchor", function(d) {return computeTransition(d, this); });
