@@ -1,8 +1,8 @@
 /* tables */
+
 body{
 	width:100%;
 	height: 100%;
-	/*z-index: -5000;*/
 	margin:0px;
 }
 
@@ -64,6 +64,8 @@ margin-left:2%;
 width: 96%;
 }
 /* readability improvements */
+
+
 h1, h2, h3, h4, h5 {
 text-shadow:0 0 1px transparent;
 font: bold Georgia, Utopia, serif;
@@ -114,6 +116,11 @@ color: #EBAF00;
 padding-left:8px;
 }
 
+.visheader{
+color: #4682B4; 
+padding-left:8px;
+}
+
 .left-paragraph{
 float:left; 
 width:70%;
@@ -153,9 +160,8 @@ border-style: none;
 }
 
 .darpa-header{
-margin-top: -20px;
 background:black;
-height: 76px; 
+height: 76px;
 }
 
 .darpa-header span{
@@ -190,15 +196,20 @@ color: #4863A0;
 .selected{
  background-color:#FFFF00;
 }
+
 path {
   stroke: #fff;
   fill-rule: evenodd;
 }
 
-.sunburst-div{
-height: 90%;
-width:90%;
-margin: 0 auto;
+.sunburst-div {
+width: 100%;
+height: 100%;
+}
+
+.vis_view_scroll{
+height: 77%;
+overflow-y: auto;
 }
 
 .vis_p{
@@ -209,7 +220,26 @@ padding-right: 10px;
  max-width: 100%;
 }
 
-#ontology_view{
-display:inline-block;
-overflow:hidden;
+.no_space{
+padding:0px;
+margin:0px;
+}
+
+#sunburst-container{
+width:100%;
+min-width: 1380px;
+}
+
+#vis_view{
+width:50%; 
+float:left; 
+background:#E6EEEE; 
+height:80.2%;
+}
+
+#vis_map{
+width:50%; 
+float:left;
+background:#E5E4E2; 
+height:80.2%;
 }
