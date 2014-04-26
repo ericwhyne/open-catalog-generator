@@ -31,8 +31,7 @@ def sunburst_script():
 
 <style>
 body{
-overflow-x: auto;
-overflow-y: hidden;
+overflow: auto;
 }
 
 h1, h2, h3, h4, h5 {
