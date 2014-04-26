@@ -1,7 +1,6 @@
-def sunburst_header():
+def sunburst_header(url):
   header = "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
-  header += "<span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader'>Information Innovation Office (I2O)</a></span></h1>"
-  
+  header += "<span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader'>Information Innovation Office (I2O) &nbsp/</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Sunburst Visualization</a></span></h1>"
   
   header += "</div>"
   return header
@@ -9,16 +8,18 @@ def sunburst_header():
 
 def sunburst_html():
   return """
-<div id='vis_map'>
-	<div class="sunburst-div" id="sunburst"></div>
-</div>
-<div id='vis_view'>
+  <div id = 'sunburst-container'>
+	<div id='vis_map'>
+		<div class="sunburst-div" id="sunburst"></div>
+	</div>
+	<div id='vis_view'>
+	</div>
 </div>
 """
 
 def sunburst_script(): 
   return """
-<html>
+<!DOCTYPE html>
 <link rel='stylesheet' href='style_v2.css' type='text/css'/>
 <link rel='stylesheet' href='banner_style.css' type='text/css'/>
 <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
@@ -30,47 +31,42 @@ def sunburst_script():
 
 <style>
 body{
-overflow: hidden;
+overflow: auto;
 }
 
 h1, h2, h3, h4, h5 {
 max-width:100%;
 }
 
+.darpa-header{
+white-space:nowrap;
+min-width: 1380px;
+}
+
+.footer{
+min-width: 1380px;
+}
+
+
 </style>
 <script type='text/javascript'>
+var active_programs = new Array();
+var window_height = $(window).height();
+var window_width = $(window).width();
+
 $( document ).ready(function() {
 	var vis_html = getProgramView();
-	
 	$('#vis_view').html(vis_html);
-	//adjustHeight();
-	
 	createSunburstGraph('#sunburst');
 	
-	/*$(window).scroll(function(){
-	  var top_margin = '';
-	  if(isIE())
-		top_margin = $(window).scrollTop() < getScrollHeight() ? $(window).scrollTop() : getScrollHeight();
-	  else
-		top_margin = $(window).scrollTop() < getScrollHeight() ? $(window).scrollTop() : getScrollHeight();
-
-	  $("#sunburst").stop().animate({"margin-top": (top_margin) + "px", "margin-left":"0px"}, "normal" );
-	});*/
-	
-	if(isIE())
-		$("#sunburst").addClass('ie');
-	else
-		$("#sunburst").addClass('not_ie');
-	
 	window.onload = window.onresize = function () {
-		//alert($(window).height()) 
-		//alert($(window).width());
-		//adjustHeight();
+		window_height = $(window).height();
+		window_width = $(window).width();
+		$("#sunburst").empty();
+		createSunburstGraph('#sunburst');
 	};
 
 });
-
-var active_programs = new Array();
 
 function getPrograms() {
 	var programs;
@@ -101,56 +97,32 @@ function getProgramDetails(filename) {
 }
 
 function isInArray(value, array) {
+  //checks to see if a value exists in an array
   return array.indexOf(value) > -1;
 }
-
 
 function isIE() {
 	var ua = window.navigator.userAgent;
 	var msie = ua.indexOf("MSIE ");
-
+	//if IE browser, return true. If another browser, return false
 	if (msie > 0)      
 		return true;
-	else    // If another browser, return false
+	else    
 		return false;
 }
 
 function sortByProperty(property) {
+	//sorts json array by a given property name
     return function (a, b) {
         var sortStatus = 0;
-        if (a[property] < b[property]) {
+        if (a[property] < b[property])
             sortStatus = -1;
-        } else if (a[property] > b[property]) {
+        else if (a[property] > b[property])
             sortStatus = 1;
-        }
  
         return sortStatus;
     };
 }
-
-/*function adjustHeight(){
-	//window.scrollTo(0,0);
-	//$("#sunburst").css( {"margin-top":"0px", "margin-left":"0px"} );
-	$("#vis_map").height($("#vis_view").height());
-}*/
-
-function getScrollHeight(){
-	var map_height = $('#vis_map').height();
-
-	if(isIE()){
-		if(map_height > 1007)
-			return map_height - 1007;
-		else
-			return 100;
-	}
-	else{
-		if(map_height > 1100)
-			return map_height - 724;
-		else
-			return 100;
-	}
-}
-
 
 function getDetailsNode(data, edges, node_name, size){
 	var _details_edge = new Array();
@@ -162,6 +134,7 @@ function getDetailsNode(data, edges, node_name, size){
 		var _edge = new Array();
 
 		for (i in data) {
+			//This is the data for the outermost layer of the graph. Performing a value check in order to prevent duplicates
 			for(value in data[i][edges[edge]]){
 				var data_value = data[i][edges[edge]][value];
 				if(!isInArray(data_value, values)){
@@ -179,10 +152,9 @@ function getDetailsNode(data, edges, node_name, size){
 					
 				_details_edge.push(_node);
 			}
-
 		}
 	}
-
+	
 	_details_node = {"name":node_name, "children": _details_edge};
 	return _details_node;
 
@@ -211,27 +183,25 @@ function getProgramLinks(program){
 		link_html += links[0];
 
 	link_html += '</p>';	
-	
 	return link_html;
 }
 
 function adjustvisView(query_array){
-	  query_array = typeof query_array == 'string' ? [query_array] : query_array;
+	  //query_array = typeof query_array == 'string' ? [query_array] : query_array;
 	  var html = "";
 	  var level_data = new Array();
 
 	  if(query_array.length == 0){
 		html = getProgramView();
+		$('#vis_view').html(html);
       }
 	  else if(query_array.length == 1){
 
 		var program_data = getProgramDetails(query_array[0].toUpperCase() + "-program.json");
-
 		var html = Mustache.to_html(templates.Program, program_data);
-
 		var curr_program = new Array();
+		
 		$.each(active_programs, function (program) {
-				
 				if(active_programs[program]['Program Name'] == query_array[0]){
 					 curr_program = active_programs[program];
 					 return false;
@@ -252,7 +222,6 @@ function adjustvisView(query_array){
 		var template = "";
 
 		if(query_array.length == 3){
-	
 			if(query_array[1] == "Software"){
 				template = templates.SoftwareOrdered;
 				program_data.sort(sortByProperty("Software"));
@@ -281,7 +250,6 @@ function adjustvisView(query_array){
 					template = templates.Publications;
 					program_data.sort(sortByProperty("Title"));
 				}
-			
 		}
 
 		if(query_array.length == 4){
@@ -295,11 +263,11 @@ function adjustvisView(query_array){
 		}
 
 		if (query_array.length == 2)
-			html = '<h1 class="vis_headers">' + query_array[0] + " " + query_array[1] + ':</h1><p class="vis_p">Total Records: ' + program_data.length + '</p><hr><div class="div_scroll">';
+			html = '<h2 class="vis_headers">' + query_array[0] + " " + query_array[1] + '</h2><p class="vis_p">Total Records: ' + program_data.length + '</p><hr><div class="vis_view_scroll">';
 		if (query_array.length == 3)
-			html = '<h1 class="vis_headers">' + query_array[0] + " " + query_array[1] + ' ordered by '+ query_array[2] +':</h1><p class="vis_p">Total Records: ' + program_data.length + '</p><hr><div class="div_scroll">';
+			html = '<h2 class="vis_headers">' + query_array[0] + " " + query_array[1] + ' ordered by '+ query_array[2] +'</h2><p class="vis_p">Total Records: ' + program_data.length + '</p><hr><div class="vis_view_scroll">';
 		if (query_array.length == 4)
-			html = '<h1 class="vis_headers">' + query_array[0] + " " + query_array[1] + ' - ' + lowest_value + ' \"' + query_array[3] + '\":</h1>';			
+			html = '<h2 class="vis_headers">' + query_array[0] + " " + query_array[1] + ' - ' + lowest_value + ':' + query_array[3] + '</h2>';			
 
 		if(query_array.length == 3){
 			 html += "<dl>";
@@ -340,7 +308,7 @@ function adjustvisView(query_array){
 						}
 					}
 					if(data == program_data.length -1){
-						html += "<p class='vis_p'>Total Records: " + match_count + "</p><hr><div class='div_scroll'>" + match_html;
+						html += "<p class='vis_p'>Total Records: " + match_count + "</p><hr><div class='vis_view_scroll'>" + match_html;
 					}
 				}
 				else
@@ -350,14 +318,13 @@ function adjustvisView(query_array){
 	  }
 	html += "</div>";		
 	$('#vis_view').html(html);
-	//adjustHeight();
 }
 
 function getProgramView(){
 	if(active_programs.length == 0)
 		active_programs = getPrograms();
-	var html = "<div><h1 class='vis_headers'>DARPA Programs</h1><p class='vis_p'>Total Number of Programs: " + active_programs.length + "</p><hr></div>";
-	html += "<div class='div_scroll'>";
+	var html = "<h2 class='vis_headers'>DARPA Programs</h2><p class='vis_p'>Total Number of Programs: " + active_programs.length + "</p><hr>";
+	html += "<div class='vis_view_scroll'>";
 	var template = templates.Program;
 	
 	active_programs.sort(sortByProperty('Program Name'));
@@ -435,12 +402,13 @@ function getSunburstJSON(){
 function createSunburstGraph(div){
 	
 	var margin = {};
+	var graph_top = graph_bottom = graph_left = graph_right = 0;
 	
-	if(isIE())
-		margin = {top: 300, right: 300, bottom: 250, left: 400}; //left and right resize
-	else
-		margin = {top: 270, right: 400, bottom: 350, left: 400}; //bottom and top resize
-	
+	//calculate the graph margins and radius
+	graph_top = graph_bottom = window_height * .40222;
+	graph_right = graph_left = window_width * .26042;
+	margin = {top: graph_top, right: graph_right, bottom: graph_bottom, left: graph_left}; //bottom and top resizes graph
+
 	var radius = Math.min(margin.top, margin.right, margin.bottom, margin.left);
 
 	var x = d3.scale.linear()
@@ -498,49 +466,45 @@ function createSunburstGraph(div){
 	  
 	 if( x(d.x + d.dx / 2) > Math.PI)
 		rotate = rotate + 180;
-
-	  return rotate;
+		return rotate;
 	}
 	
 	function round(x, n) {
-    return Math.round(x * Math.pow(10, n)) / Math.pow(10, n)
-	
+		return Math.round(x * Math.pow(10, n)) / Math.pow(10, n)
 	}
+	
 	function computeAbsolutePlacement(d) { 
-	  var absolute = y(d.y);
-	  
-	 if( x(d.x + d.dx / 2) > Math.PI)
-	   absolute = -absolute;
-	  
+		var absolute = y(d.y);
 
-	  return absolute;
+		if( x(d.x + d.dx / 2) > Math.PI)
+			absolute = -absolute;
+		return absolute;
 	}
 
 	function computeAnchor(d, text) { 
-	 if( x(d.x + d.dx / 2) < Math.PI)
-	   return "start";
-	 else
-	  return "end";
+		if( x(d.x + d.dx / 2) < Math.PI)
+			return "start";
+		else
+			return "end";
 	}
 
 	function computeTransition(d, text) { 
-	  if(d.depth > 0){
-		 if( x(d.x + d.dx / 2) == Math.PI){
-			 if(text.attributes["text-anchor"] == "end")
-			  return "start";
-		 }
-		 else if(x(d.x + d.dx / 2) > Math.PI){
-			if(text.attributes["text-anchor"] != "end")
+		if(d.depth > 0){
+			if( x(d.x + d.dx / 2) == Math.PI){
+				if(text.attributes["text-anchor"] == "end")
+				return "start";
+			}
+			else if(x(d.x + d.dx / 2) > Math.PI){
+				if(text.attributes["text-anchor"] != "end")
 				return "end";	
-		 }
-	  }
-	  else{
-	  	 if( x(d.x + d.dx / 2) < Math.PI)
-		   return "start";
-		 else
-		  return "end";
-	  }
-	  
+			}
+		}
+		else{
+			if( x(d.x + d.dx / 2) < Math.PI)
+				return "start";
+			else
+				return "end";
+		}
 	}	
 	  
 	var text = g.append("text")
@@ -549,7 +513,7 @@ function createSunburstGraph(div){
 	  .attr("dx", function(d) {var horizontal = ""; d.depth == 0 ? horizontal = "55" :  horizontal = "0"; return horizontal; })
 	  .attr("dy", ".35em") // vertical-align
       .attr("text-anchor", function(d) {return computeAnchor(d, this); })
-	  .attr("font-size", isIE() ? "80%" : "75%")
+	  .attr("font-size", "75%")
 	  .attr("opacity",  function(d) { var opacity = 0; d.depth >= 2 ? opacity = 0 : opacity = 1; return opacity; })
 	  .attr("pointer-events", "none")
 	  .text(function(d) { return d.name; });
@@ -557,16 +521,14 @@ function createSunburstGraph(div){
 	function click(d) {
 	  // fade out all text elements
 	  text.transition().attr("opacity", 0);
-		  
 	  path.transition()
-		.duration(950)
+		.duration(250)
 		.attrTween("d", arcTween(d))
 		.each("end", function(e, i) {
 			// check if the animated element's data e lies within the visible angle span given in d
 
 			if (e.x >= d.x && e.x < (d.x + d.dx)) {
-			  dDepth = d.depth;
-			  maxDepth = dDepth + 2;
+			  var dName = d.name, dDepth = d.depth, maxDepth = dDepth + 2;
 
 			  var arcPath = d3.select(this.parentNode).select("path"); //selected path
 			  
@@ -580,19 +542,27 @@ function createSunburstGraph(div){
 				
 				//if the start and next points match then the path is close and text should not be shown
 				var pathPoints = arcPath[0][0];
-				var start_x = arcPath[0][0].getPointAtLength(0).x;
-				var next_x = arcPath[0][0].getPointAtLength(1).x;
-				
-			  // fade in the text element and recalculate positions
+				var start_x = 0, next_x = 0;
+
+				if(isIE()){
+					start_x = (pathPoints.getPointAtLength(0).x).toFixed(6);
+					next_x = (pathPoints.getPointAtLength(1).x).toFixed(6);
+				}
+				else{
+					start_x = pathPoints.getPointAtLength(0).x;
+					next_x = pathPoints.getPointAtLength(1).x;
+				}
+
 			  var arcText = d3.select(this.parentNode).select("text");
-			  arcText.transition().duration(950)
-				.attr("opacity", function(d) {if(e.depth < maxDepth && start_x != next_x)return 1; else return 0; })
+			  arcText.transition().duration(650)
+				.attr("opacity", function(d) {var opacity = 0; if(e.depth < maxDepth && start_x != next_x) { dDepth == 0 ? opacity = 1 : e.name == "DARPA PROGRAMS" ? opacity = 0 : opacity = 1; return opacity;} else return opacity;})
 				.attr("transform", function() { var rotate = ""; e.depth == 0 ? rotate = "rotate(0)" : rotate = "rotate(" + computeTextRotation(e) + ")"; return rotate; })
-				.attr("x", function(d) { return computeAbsolutePlacement(d) ; })
+				.attr("x", function(d) { return computeAbsolutePlacement(d); })
 				.attr("text-anchor", function(d) {return computeTransition(d, this); });
 			}
 		});
 
+	   //Updates the data in the right div to reflect the chosen graph path	d
 	   var parent_array = new Array();
 	   var d_parent = d;
 	   for (var i=d.depth;i > 0;i--){
@@ -613,7 +583,6 @@ function createSunburstGraph(div){
 			: function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
 	  };
 	}	
-	
 	d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
 }
 </script>
