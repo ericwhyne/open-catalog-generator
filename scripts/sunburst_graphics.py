@@ -1,6 +1,6 @@
 def sunburst_header(url):
   header = "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
-  header += "<span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader'>Information Innovation Office (I2O) &nbsp/</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Sunburst Visualization</a></span></h1>"
+  header += "<div><span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader'>Information Innovation Office (I2O) &nbsp/</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Sunburst Visualization</a></span></div></h1>"
   
   header += "</div>"
   return header
@@ -31,7 +31,7 @@ def sunburst_script():
 
 <style>
 body{
-overflow: auto;
+overflow-y: auto;
 }
 
 h1, h2, h3, h4, h5 {
@@ -65,7 +65,6 @@ $( document ).ready(function() {
 		$("#sunburst").empty();
 		createSunburstGraph('#sunburst');
 	};
-
 });
 
 function getPrograms() {
