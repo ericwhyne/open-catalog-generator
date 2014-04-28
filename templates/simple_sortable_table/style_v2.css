@@ -164,9 +164,9 @@ background:black;
 height: 76px;
 }
 
-.darpa-header span{
-line-height: 77px;
-position: absolute;
+.darpa-header div{
+position: static;
+margin: -53px 0px 0px 385px;
 }
 
 .darpa-header H2{
@@ -235,6 +235,7 @@ width:50%;
 float:left; 
 background:#E6EEEE; 
 height:80.2%;
+
 }
 
 #vis_map{
@@ -242,4 +243,11 @@ width:50%;
 float:left;
 background:#E5E4E2; 
 height:80.2%;
+}
+
+#vis-page{ 
+ height:720px;
+ /*min-height:400px;*/
+ min-width: 1380px;
+ overflow: hidden;
 }

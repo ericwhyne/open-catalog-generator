@@ -33,7 +33,7 @@ splash_page += doc.logo("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
 
-datavis_page = graph.sunburst_header(build_dir)
+datavis_page = "<div id='vis-page'>" + graph.sunburst_header(build_dir)
 datavis_page += graph.sunburst_html()
 datavis_page += graph.sunburst_script()
 
@@ -265,7 +265,7 @@ for program in active_content:
     if program_image_file != "":
       shutil.copy(data_dir + program_image_file, build_dir)
 
-datavis_page += doc.catalog_page_footer()
+datavis_page += doc.catalog_page_footer() + "</div>"
 datavis_page_file = build_dir + '/data_vis.html'
 print "Writing to %s" % datavis_page_file
 datavis_outfile = open(datavis_page_file, 'w')
