@@ -31,7 +31,8 @@ def sunburst_script():
 
 <style>
 body{
-overflow-y: auto;
+overflow: auto;
+background:#E6EEEE; 
 }
 
 h1, h2, h3, h4, h5 {
