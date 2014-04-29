@@ -371,12 +371,12 @@ function getSunburstJSON(){
 		var _program_node = new Array();
 		
 		if(program_data[program]["Software File"] != ""){
-			var details_node = getDetailsNode(getProgramDetails(program_data[program]["Software File"]), sw_edges, "Software", 3000); 
+			var details_node = getDetailsNode(getProgramDetails(program_data[program]["Software File"]), sw_edges, "Software", 2000); 
 			_program_edge.push(details_node);
 		}
 		
 		if(program_data[program]["Pubs File"] != ""){
-			var details_node = getDetailsNode(getProgramDetails(program_data[program]["Pubs File"]), pubs_edges, "Publications", 2000); 
+			var details_node = getDetailsNode(getProgramDetails(program_data[program]["Pubs File"]), pubs_edges, "Publications", 3000); 
 			_program_edge.push(details_node);
 			
 		}
@@ -540,7 +540,7 @@ function createSunburstGraph(div){
 				.on("mouseout", function(){if(isIE() && e.depth < maxDepth ) return tooltip.style("visibility", "hidden");})
 				.on("click", function(d){if (e.depth < maxDepth ) click(d);});
 				
-				//if the start and next points match then the path is close and text should not be shown
+				//if the start and next points match then the path is closed and text should not be shown
 				var pathPoints = arcPath[0][0];
 				var start_x = 0, next_x = 0;
 
