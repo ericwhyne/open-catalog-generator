@@ -3,12 +3,7 @@ import time
 import getpass
 
 def html_head():
-  html_head="<!DOCTYPE html>
-  <html lang='en'>
-  <head>
-  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-  <title>DARPA - Information Innovation Office (I2O) - program_details['Long Name']</title>
-  </head>"
+  html_head="<!DOCTYPE html><html lang='en'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><title>DARPA - Information Innovation Office (I2O) - program_details['Long Name']</title></head>"
   return html_head
 
 def logo(office):
