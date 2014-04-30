@@ -5,7 +5,7 @@ import getpass
 def logo(office):
   logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
   if (office != ""):
-    logo += "<span><font color='white'> / </font> %s </span></h1>" % office
+    logo += "<div><span><font color='white'> / </font> %s </span></div></h1>" % office
   logo += "</div>"
   return logo
 

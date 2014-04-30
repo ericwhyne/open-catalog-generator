@@ -210,6 +210,7 @@ height: 100%;
 .vis_view_scroll{
 height: 77%;
 overflow-y: auto;
+overflow-x: hidden;
 }
 
 .vis_p{
@@ -227,7 +228,7 @@ margin:0px;
 
 #sunburst-container{
 width:100%;
-min-width: 1380px;
+background:#E6EEEE;
 }
 
 #vis_view{
@@ -239,15 +240,13 @@ height:80.2%;
 }
 
 #vis_map{
-width:50%; 
+width:50%;
 float:left;
 background:#E5E4E2; 
 height:80.2%;
 }
 
 #vis-page{ 
- height:720px;
- /*min-height:400px;*/
- min-width: 1380px;
- overflow: hidden;
+height:720px;
+overflow-y: hidden;
 }
