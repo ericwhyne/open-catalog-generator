@@ -2,8 +2,17 @@
 import time
 import getpass
 
+def html_head():
+  html_head="<!DOCTYPE html>
+  <html lang='en'>
+  <head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <title>DARPA - Information Innovation Office (I2O) - program_details['Long Name']</title>
+  </head>"
+  return html_head
+
 def logo(office):
-  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
+  logo= "<body><div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
   if (office != ""):
     logo += "<div><span><font color='white'> / </font> %s </span></div></h1>" % office
   logo += "</div>"
@@ -305,5 +314,6 @@ def catalog_page_footer():
 <p><a href='http://www.darpa.mil/FOIA.aspx'>FOIA</a> | <a href='http://www.darpa.mil/Privacy_Security_Notice.aspx'>Privacy and Security</a> | 
 <a href='http://www.darpa.mil/NoFearAct.aspx'>No Fear Act</a> | <a href='http://www.darpa.mil/External_Link.aspx?url=http://dodcio.defense.gov/DoDSection508/Std_Stmt.aspx'>Accessibility/Section 508</a></p>
 </div>
+</body>
 </html>
 """

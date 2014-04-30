@@ -28,7 +28,8 @@ active_content = json.load(open(active_content_file))
 print "Attempting to load %s" %  license_content_file
 license_content = json.load(open(license_content_file))
 
-splash_page = doc.catalog_page_header()
+splash_page = doc.html_head()
+splash_page += doc.catalog_page_header()
 splash_page += doc.logo("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
