@@ -41,7 +41,8 @@ datavis_page += graph.sunburst_script()
 for program in active_content:
   program_name = program['Program Name']
   program_page_filename = program_name + ".html"
-  program_page = doc.catalog_page_header()
+  program_page = doc.html_head()
+  program_page += doc.catalog_page_header()
   program_image_file = ""
   software_columns = []
   if program['Program File'] == "":
@@ -51,7 +52,7 @@ for program in active_content:
     print "Attempting to load %s" %  program['Program File']
     program_details = json.load(open(data_dir + program['Program File']))
  
-    program_page += doc.logo("<a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader'>Information Innovation Office (I2O)</a>")
+    program_page += doc.logo("<a href=\"http://www.darpa.mil/Our_Work/I2O/\" class=\"programlink programheader\">Information Innovation Office (I2O)</a>")
     if re.search('^http',program_details['Link']):
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
@@ -279,64 +280,5 @@ splash_page_file = build_dir + '/index.html'
 print "Writing to %s" % splash_page_file
 splash_outfile = open(splash_page_file, 'w')
 splash_outfile.write(splash_page)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

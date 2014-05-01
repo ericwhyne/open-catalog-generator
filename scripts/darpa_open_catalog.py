@@ -3,7 +3,7 @@ import time
 import getpass
 
 def html_head():
-  html_head="<!DOCTYPE html><html lang='en'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><head>"
+  html_head="<!DOCTYPE html><html lang='en'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />"
   return html_head
 
 def logo(office):
@@ -86,11 +86,11 @@ def pubs_table_footer():
   
 def catalog_page_header(): 
   return """ 
-  <title>DARPA - Information Innovation Office (I2O) - program_details['Long Name']</title>
-<link rel='stylesheet' href='style_v2.css' type='text/css'/>
-<link rel='stylesheet' href='banner_style.css' type='text/css'/>
-<link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
-<link rel='stylesheet' href='css/list_style.css' type='text/css'/>
+  <title>DARPA - Open Catalog</title>
+  <link rel='stylesheet' href='style_v2.css' type='text/css'/>
+  <link rel='stylesheet' href='banner_style.css' type='text/css'/>
+  <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
+  <link rel='stylesheet' href='css/list_style.css' type='text/css'/>
 
 <script type='text/javascript' src="list.min.js"></script>
 <script type='text/javascript' src='jquery-latest.js'></script>
