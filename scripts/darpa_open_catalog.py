@@ -3,11 +3,11 @@ import time
 import getpass
 
 def html_head():
-  html_head="<!DOCTYPE html><html lang='en'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><title>DARPA - Information Innovation Office (I2O) - program_details['Long Name']</title></head>"
+  html_head="<!DOCTYPE html><html lang='en'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><head>"
   return html_head
 
 def logo(office):
-  logo= "<body><div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
+  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png' height='50'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
   if (office != ""):
     logo += "<div><span><font color='white'> / </font> %s </span></div></h1>" % office
   logo += "</div>"
@@ -86,7 +86,7 @@ def pubs_table_footer():
   
 def catalog_page_header(): 
   return """ 
-<html>
+  <title>DARPA - Information Innovation Office (I2O) - program_details['Long Name']</title>
 <link rel='stylesheet' href='style_v2.css' type='text/css'/>
 <link rel='stylesheet' href='banner_style.css' type='text/css'/>
 <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
@@ -300,6 +300,8 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 	}
 }
 </script>
+</head>
+<body>
 """
 
 def catalog_page_footer():
