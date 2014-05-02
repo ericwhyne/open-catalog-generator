@@ -22,7 +22,6 @@ Data directory: %s
 Build directory: %s
 """ % (active_content_file, data_dir, build_dir)
 
-print "Attempting to load %s" %  active_content_file
 try:
   active_content = json.load(open(active_content_file))
 except Exception, e:
@@ -30,7 +29,6 @@ except Exception, e:
   print " Details: %s" % str(e)
   sys.exit(1)
 
-print "Attempting to load %s" %  license_content_file
 try:
   license_content = json.load(open(license_content_file))
 except Exception, e:
@@ -59,7 +57,6 @@ for program in active_content:
     print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
     sys.exit(1)
   else:
-    print "Attempting to load %s" %  program['Program File']
     try:
       program_details = json.load(open(data_dir + program['Program File']))
     except Exception,e:
@@ -109,7 +106,6 @@ for program in active_content:
   # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table.
   pubs_exist = {}
   if program['Pubs File'] != "" and program['Software File'] != "":
-      print "Attempting to load %s" %  program['Pubs File']
       pubs_file = open(data_dir + program['Pubs File'])
       try:
         pubs = json.load(pubs_file)
@@ -118,8 +114,6 @@ for program in active_content:
         print " Details: %s" % str(e)
         sys.exit(1)
       pubs_file.close()
-      #print "Attempting to load %s" %  program['Software File']
-      #softwares = json.load(open(data_dir + program['Software File'])) 
       for pub in pubs:
         for team in pub['Program Teams']:
           pubs_exist[team] = 1
@@ -257,7 +251,6 @@ for program in active_content:
     program_page += "<div id='publications'><div id='tabs1'>"
     program_page += "<input class='search' placeholder='Search' id='search1'/>"
     program_page += "<button class='clear_button' id='clear1'>Clear</button>"
-    print "Attempting to load %s" %  program['Pubs File']
     try:
       pubs = json.load(open(data_dir + program['Pubs File']))
     except Exception, e:
