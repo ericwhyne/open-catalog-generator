@@ -23,10 +23,20 @@ Build directory: %s
 """ % (active_content_file, data_dir, build_dir)
 
 print "Attempting to load %s" %  active_content_file
-active_content = json.load(open(active_content_file))
+try:
+  active_content = json.load(open(active_content_file))
+except Exception, e:
+  print "\nFAILED! JSON error in file %s" % active_content_file
+  print " Details: %s" % str(e)
+  sys.exit(1)
 
 print "Attempting to load %s" %  license_content_file
-license_content = json.load(open(license_content_file))
+try:
+  license_content = json.load(open(license_content_file))
+except Exception, e:
+  print "\nFAILED! JSON error in file %s" % license_content_file
+  print " Details: %s" % str(e)
+  sys.exit(1)
 
 splash_page = doc.html_head()
 splash_page += doc.catalog_page_header()
@@ -50,8 +60,12 @@ for program in active_content:
     sys.exit(1)
   else:
     print "Attempting to load %s" %  program['Program File']
-    program_details = json.load(open(data_dir + program['Program File']))
- 
+    try:
+      program_details = json.load(open(data_dir + program['Program File']))
+    except Exception,e:
+      print "\nFAILED! JSON error in file %s" % program['Program File']
+      print " Details: %s" % str(e)
+      sys.exit(1)
     program_page += doc.logo("<a href=\"http://www.darpa.mil/Our_Work/I2O/\" class=\"programlink programheader\">Information Innovation Office (I2O)</a>")
     if re.search('^http',program_details['Link']):
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
@@ -97,7 +111,12 @@ for program in active_content:
   if program['Pubs File'] != "" and program['Software File'] != "":
       print "Attempting to load %s" %  program['Pubs File']
       pubs_file = open(data_dir + program['Pubs File'])
-      pubs = json.load(pubs_file)
+      try:
+        pubs = json.load(pubs_file)
+      except Exception,e:
+        print "\nFAILED! JSON error in file %s" % program['Pubs File']
+        print " Details: %s" % str(e)
+        sys.exit(1)
       pubs_file.close()
       #print "Attempting to load %s" %  program['Software File']
       #softwares = json.load(open(data_dir + program['Software File'])) 
@@ -133,7 +152,12 @@ for program in active_content:
     program_page += "<input class='search' placeholder='Search' id='search0'/>"
     program_page += "<button class='clear_button' id='clear0'>Clear</button>"
     print "Attempting to load %s" %  program['Software File']
-    softwares = json.load(open(data_dir + program['Software File']))   
+    try:
+      softwares = json.load(open(data_dir + program['Software File']))   
+    except Exception, e:
+      print "\nFAILED! JSON error in file %s" % program['Software File']
+      print " Details: %s" % str(e)
+      sys.exit(1)
     program_page += doc.software_table_header(software_columns)
     for software in softwares:
       for column in software_columns:
@@ -234,7 +258,12 @@ for program in active_content:
     program_page += "<input class='search' placeholder='Search' id='search1'/>"
     program_page += "<button class='clear_button' id='clear1'>Clear</button>"
     print "Attempting to load %s" %  program['Pubs File']
-    pubs = json.load(open(data_dir + program['Pubs File']))
+    try:
+      pubs = json.load(open(data_dir + program['Pubs File']))
+    except Exception, e:
+      print "\nFAILED! JSON error in file %s" % program['Pubs File']
+      print " Details: %s" % str(e)
+      sys.exit(1)
     program_page += doc.pubs_table_header()
     for pub in pubs:
       # Debug
