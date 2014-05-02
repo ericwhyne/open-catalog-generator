@@ -145,7 +145,6 @@ for program in active_content:
     program_page += "<div id='software'><div id='tabs0'>"
     program_page += "<input class='search' placeholder='Search' id='search0'/>"
     program_page += "<button class='clear_button' id='clear0'>Clear</button>"
-    print "Attempting to load %s" %  program['Software File']
     try:
       softwares = json.load(open(data_dir + program['Software File']))   
     except Exception, e:
