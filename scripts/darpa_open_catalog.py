@@ -3,13 +3,13 @@ import time
 import getpass
 
 def html_head():
-  html_head="<!DOCTYPE html><html lang='en'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />"
+  html_head="<!DOCTYPE html><html lang='en'><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />"
   return html_head
 
 def logo(office):
-  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png' height='50'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
+  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png' height='50'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a></h1>"
   if (office != ""):
-    logo += "<div><span><font color='white'> / </font> %s </span></div></h1>" % office
+    logo += "<h1 class='no_space'><div><span><font color='white'> / </font> %s </span></div></h1>" % office
   logo += "</div>"
   return logo
 
@@ -91,12 +91,12 @@ def catalog_page_header():
   <link rel='stylesheet' href='banner_style.css' type='text/css'/>
   <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
   <link rel='stylesheet' href='css/list_style.css' type='text/css'/>
-
-<script type='text/javascript' src="list.min.js"></script>
-<script type='text/javascript' src='jquery-latest.js'></script>
-<script type='text/javascript' src="jquery-1.9.1.js"></script>
-<script type='text/javascript' src="jquery-ui.js"></script>
-<script type='text/javascript' src='jquery.tablesorter.min.js'></script>
+  
+  <script type='text/javascript' src="list.min.js"></script>
+  <script type='text/javascript' src='jquery-latest.js'></script>
+  <script type='text/javascript' src="jquery-1.9.1.js"></script>
+  <script type='text/javascript' src="jquery-ui.js"></script>
+  <script type='text/javascript' src='jquery.tablesorter.min.js'></script>
 
 
 <script type='text/javascript'>
@@ -300,7 +300,6 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 	}
 }
 </script>
-</head>
 <body>
 """
 
