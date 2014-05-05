@@ -155,15 +155,33 @@ margin-bottom: 30px;
 .darpa-logo{
 float: left; 
 margin: 13px 0px 5px 5px; 
-height:50;
 border-style: none;
 }
 
 .darpa-header{
 background:black;
 height: 76px;
+width:100%; 
+display:table;
 }
 
+}
+.darpa-header-images{
+    border: 2px solid black;
+    vertical-align: middle;
+    text-align: left;
+    display:table-cell;
+    width: 400px;
+}
+
+.darpa-header-text{
+    border: 2px solid black;
+    vertical-align: middle;
+    text-align: left;
+    display:table-cell;
+}
+
+/*
 .darpa-header div{
 position: static;
 margin: -53px 0px 0px 385px;
@@ -178,6 +196,7 @@ margin-bottom:2px;
 height:75px;
 width:295px;
 }
+*/
 
 .footer{
 position:relative; 

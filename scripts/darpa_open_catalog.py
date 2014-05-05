@@ -7,9 +7,9 @@ def html_head():
   return html_head
 
 def logo(office):
-  logo= "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png' height='50'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a></h1>"
+  logo= "<div class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png' height='50'></a><a href='index.html' class='programlink'><img height=75 width=284 src='Open-Catalog-Single-Big.png'></a></div>"
   if (office != ""):
-    logo += "<h1 class='no_space'><div><span><font color='white'> / </font> %s </span></div></h1>" % office
+    logo += "<div class='darpa-header-text'><h1 class='no_space'><span><font color='white'> / </font> <a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader'>%s</a> </span></div></h1></div>" % office
   logo += "</div>"
   return logo
 
@@ -300,7 +300,6 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 	}
 }
 </script>
-<body>
 """
 
 def catalog_page_footer():
@@ -310,6 +309,5 @@ def catalog_page_footer():
 <p><a href='http://www.darpa.mil/FOIA.aspx'>FOIA</a> | <a href='http://www.darpa.mil/Privacy_Security_Notice.aspx'>Privacy and Security</a> | 
 <a href='http://www.darpa.mil/NoFearAct.aspx'>No Fear Act</a> | <a href='http://www.darpa.mil/External_Link.aspx?url=http://dodcio.defense.gov/DoDSection508/Std_Stmt.aspx'>Accessibility/Section 508</a></p>
 </div>
-</body>
 </html>
 """

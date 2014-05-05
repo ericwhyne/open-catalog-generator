@@ -63,7 +63,7 @@ for program in active_content:
       print "\nFAILED! JSON error in file %s" % program['Program File']
       print " Details: %s" % str(e)
       sys.exit(1)
-    program_page += doc.logo("<a href=\"http://www.darpa.mil/Our_Work/I2O/\" class=\"programlink programheader\">Information Innovation Office (I2O)</a>")
+    program_page += doc.logo("<a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader'>Information Innovation Office (I2O)</a>")
     if re.search('^http',program_details['Link']):
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
