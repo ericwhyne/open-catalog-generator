@@ -7,9 +7,9 @@ def html_head():
   return html_head
 
 def logo(office):
-  logo= "<div class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png' height='50'></a><a href='index.html' class='programlink'><img height=75 width=284 src='Open-Catalog-Single-Big.png'></a></div>"
+  logo= "<div class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
   if (office != ""):
-    logo += "<div class='darpa-header-text'><h1 class='no_space'><span><font color='white'> / </font> <a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader'>%s</a> </span></div></h1></div>" % office
+    logo += "<div class='darpa-header-text'><h1 class='no_space'><span><font color='white'> / </font> <a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader programheader-i2o'>%s</a> </span></div></h1></div>" % office
   logo += "</div>"
   return logo
 

@@ -112,7 +112,7 @@ color:black;
 }
 
 .programheader{
-color: #EBAF00; 
+color: #4C9509; 
 padding-left:8px;
 }
 
@@ -159,10 +159,10 @@ border-style: none;
 }
 
 .darpa-header{
-background:black;
-height: 76px;
-width:100%; 
-display:table;
+    background:black;
+    width:100%; 
+    display:table;
+	border-collapse:collapse;
 }
 
 }
@@ -171,7 +171,6 @@ display:table;
     vertical-align: middle;
     text-align: left;
     display:table-cell;
-    width: 400px;
 }
 
 .darpa-header-text{
