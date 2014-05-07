@@ -18,7 +18,7 @@
         "Program File": "CFT-program.json",
         "Pubs File": "",
         "Software File": "CFT-software.json",
-        "Banner":"UPDATED"
+        "Banner":""
 },
 {
         "Program Name": "MADCAT",
@@ -53,7 +53,7 @@
         "Program File": "DEFT-program.json",
         "Pubs File": "DEFT-pubs.json",
         "Software File": "DEFT-software.json",
-        "Banner":"NEW"
+        "Banner":"UPDATED"
 },
 {
         "Program Name": "FLASHLIGHT",
@@ -67,28 +67,28 @@
         "Program File": "HACMS-program.json",
         "Pubs File": "HACMS-pubs.json",
         "Software File": "HACMS-software.json",
-        "Banner":"NEW"
+        "Banner":"UPDATED"
 },
 {
         "Program Name": "CyberGenome",
         "Program File": "CYBERGENOME-program.json",
         "Pubs File": "CYBERGENOME-pubs.json",
         "Software File": "CYBERGENOME-software.json",
-        "Banner":"NEW"
+        "Banner":"UPDATED"
 },
 {
         "Program Name": "CSFV",
         "Program File": "CSFV-program.json",
         "Pubs File": "CSFV-pubs.json",
         "Software File": "",
-        "Banner": "NEW"
+        "Banner": ""
 },
 {
         "Program Name": "DCAPS",
         "Program File": "DCAPS-program.json",
         "Pubs File": "DCAPS-pubs.json",
         "Software File": "DCAPS-software.json",
-        "Banner": "NEW"
+        "Banner": "UPDATED"
 },
 {
         "Program Name": "SAFER",
