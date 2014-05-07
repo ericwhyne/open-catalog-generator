@@ -135,7 +135,6 @@ padding-right:2%;
 padding-left:0;
 }
 
-
 .right-image{
 float:left; 
 width:24%;  
@@ -176,6 +175,7 @@ border-style: none;
     border: 2px solid black;
     vertical-align: middle;
     text-align: left;
+    width: 400px;
     display:table-cell;
 }
 
@@ -184,11 +184,11 @@ border-style: none;
     vertical-align: middle;
     text-align: left;
     display:table-cell;
-	margin-top: 20px;
-	margin-left: -50px;
-	float: left;
-	width: 1000px;
-	display:inline-block;
+    margin-top: 20px;
+    /*margin-left: -50px;*/
+    float: left;
+    width: 1000px;
+    display:inline-block;
 }
 
 /*
