@@ -1,48 +1,36 @@
-def sunburst_header(url):
-  header = "<div class='darpa-header'><div class='darpa-header-images darpa-header-images-size'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
-  header += "<div class='darpa-header-text'><h1 class='no_space'><span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O) &nbsp/&nbsp</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Sunburst Visualization</a></span></h1></div></div>"
-  
-  return header
-    
-def sunburst_html():
+def sunburst_header():
   return """
-  <div id = 'sunburst-container'>
-	<div id='vis_map'>
-		<div class="sunburst-div" id="sunburst"></div>
-	</div>
-	<div id='vis_view'>
-	</div>
-</div>
+  <!DOCTYPE html>
+  <html lang='en'><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <link rel='stylesheet' href='style_v2.css' type='text/css'/>
+  <link rel='stylesheet' href='banner_style.css' type='text/css'/>
+  <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
+  <link rel='stylesheet' href='css/list_style.css' type='text/css'/>
+  <script type='text/javascript' src='jquery-latest.js'></script>
+  <script type="text/javascript" src="templates.js"></script>
+  <script type="text/javascript" src="mustache.js"></script>
+  <script type="text/javascript" src='d3.min.js'></script>
+  <style>
+   body{
+    overflow: auto;
+   }
+
+   h1, h2, h3, h4, h5 {
+    max-width:100%;
+   }
+  </style>
+  
 """
 
+def sunburst_html(url):
+  html = "<div class='darpa-header'><div class='darpa-header-images darpa-header-images-size'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
+  html += "<div class='darpa-header-text'><h1 class='no_space'><span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O) &nbsp/&nbsp</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Sunburst Visualization</a></span></h1></div></div>"
+  
+  html += "<div id = 'sunburst-container'><div id='vis_map'><div class='sunburst-div' id='sunburst'></div></div><div id='vis_view'></div></div>"
+  
+  return html
 def sunburst_script(): 
   return """
-<!DOCTYPE html>
-<link rel='stylesheet' href='style_v2.css' type='text/css'/>
-<link rel='stylesheet' href='banner_style.css' type='text/css'/>
-<link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
-<link rel='stylesheet' href='css/list_style.css' type='text/css'/>
-<script type='text/javascript' src='jquery-latest.js'></script>
-<script type="text/javascript" src="templates.js"></script>
-<script type="text/javascript" src="mustache.js"></script>
-<script type="text/javascript" src='d3.min.js'></script>
-
-<style>
-body{
-background:#E6EEEE;
-overflow-x: hidden;
-overflow-y: auto;
-}
-
-h1, h2, h3, h4, h5 {
-max-width:100%;
-}
-
-footer{
-clear:both;
-}
-</style>
-
 
 <script type='text/javascript'>
 var active_programs = new Array();
@@ -405,7 +393,6 @@ function createSunburstGraph(div){
 	graph_top = graph_bottom = window_height * .40222;
 	graph_right = graph_left = window_width * .26042;
 	margin = {top: graph_top, right: graph_right, bottom: graph_bottom, left: graph_left}; //bottom and top resizes graph
-
 	var radius = Math.min(margin.top, margin.right, margin.bottom, margin.left);
 
 	var x = d3.scale.linear()
@@ -421,7 +408,7 @@ function createSunburstGraph(div){
 		.attr("height", margin.top + margin.bottom)
 	  .append("g")
 		  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+ 
 	var partition = d3.layout.partition()
 		.value(function(d) { return d.size; });
 

@@ -1,54 +1,54 @@
 /* tables */
 
 body{
-	width:100%;
-	height: 100%;
-	margin:0px;
+width:100%;
+height: 100%;
+margin:0px;
 }
 
 table.tablesorter {
-	font-family:Arial, Helvetica, sans-serif;
-	background-color: #CDCDCD;
-	/*margin:10px 80pt 15px;*/
-	font-size: 10pt;
-	width: 100%;
-	text-align: left;
-	z-index: -5000;
-	margin-left:auto;
-	margin-right:auto;
-	
+font-family:Arial, Helvetica, sans-serif;
+background-color: #CDCDCD;
+/*margin:10px 80pt 15px;*/
+font-size: 10pt;
+width: 100%;
+text-align: left;
+z-index: -5000;
+margin-left:auto;
+margin-right:auto;
+
 
 }
 
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
-	border: 1px solid #FFF;
-	font-size: 10pt;
-	padding: 14px;
+background-color: #e6EEEE;
+border: 1px solid #FFF;
+font-size: 10pt;
+padding: 14px;
 }
 
 table.tablesorter thead tr .header {
-	background-image: url(bg.gif);
-	background-repeat: no-repeat;
-	background-position: right;
-	cursor: pointer;
+background-image: url(bg.gif);
+background-repeat: no-repeat;
+background-position: right;
+cursor: pointer;
 }
 
 table.tablesorter thead tr .headerSortUp {
-	background-image: url(asc.gif);
+background-image: url(asc.gif);
 }
 table.tablesorter thead tr .headerSortDown {
-	background-image: url(desc.gif);
+background-image: url(desc.gif);
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 background-color: #8dbdd8;
 }
 
 table.tablesorter tbody td {
-	color: #3D3D3D;
-	padding: 3px;
-	/*background-color: #F0F;*/
-	vertical-align: top;
+color: #3D3D3D;
+padding: 3px;
+/*background-color: #F0F;*/
+vertical-align: top;
 }
 
 /* table row alternating colors */
@@ -91,7 +91,7 @@ padding-left:100px;
 }
 
 td a{
-display: inline-block; 
+display: inline-block;
 max-width: 670px;
 vertical-align: top;
 }
@@ -116,16 +116,16 @@ padding-left:8px;
 }
 
 .programheader-i2o{
-color: #4C9509; 
+color: #4C9509;
 }
 
 .visheader{
-color: #4682B4; 
+color: #4682B4;
 padding-left:8px;
 }
 
 .left-paragraph{
-float:left; 
+float:left;
 width:70%;
 padding-left:2%;
 padding-right:2%;
@@ -136,8 +136,8 @@ padding-left:0;
 }
 
 .right-image{
-float:left; 
-width:24%;  
+float:left;
+width:24%;
 padding-top:20px;
 }
 
@@ -147,35 +147,35 @@ width: 90%;
 }
 
 .table-tabs{
-float:left; 
-width:96%; 
+float:left;
+width:96%;
 margin-left:2%;
 margin-top:10px;
 margin-bottom: 30px;
 }
 
 .darpa-logo{
-float: left; 
-margin: 13px 0px 5px 5px; 
+float: left;
+margin: 13px 0px 5px 5px;
 border-style: none;
 }
 
 .darpa-header{
     background:black;
-    width:100%; 
+    width:100%;
     display:table;
-	border-collapse:collapse;
+border-collapse:collapse;
 }
 
 .darpa-header-images-size{
-	white-space:nowrap;
+white-space:nowrap;
 }
 
 .darpa-header-images{
     border: 2px solid black;
     vertical-align: middle;
     text-align: left;
-    width: 370px;
+    width: 376px;
     display:table-cell;
 }
 
@@ -184,32 +184,11 @@ border-style: none;
     vertical-align: middle;
     text-align: left;
     display:table-cell;
-    /*margin-top: 20px;
-    margin-left: -50px;
-    float: left;
-    width: 1000px;
-    display:inline-block;*/
+    margin-top: 20px;
 }
-
-/*
-.darpa-header div{
-position: static;
-margin: -53px 0px 0px 385px;
-}
-
-.darpa-header H2{
-padding-top:10px 0px 10px 0px; 
-margin-bottom:2px;
-}
-
-.catalog-logo {
-height:75px;
-width:295px;
-}
-*/
 
 .footer{
-position:relative; 
+position:relative;
 clear:both;
 background:black;
 height:66px;
@@ -231,33 +210,16 @@ path {
   stroke: #fff;
   fill-rule: evenodd;
 }
-/*
-.sunburst-div {
-width: 100%;
-height: 100%;
-}
-*/
 .vis_view_scroll{
 height: 77%;
 overflow-y: auto;
 overflow-x: hidden;
 }
-/*
-.vis_headers{
- max-width: 100%;
-}*/
 
 .no_space{
 padding:0px;
 margin:0px;
 }
-
-/*
-#sunburst-container{
-width:100%;
-background:#E6EEEE;
-}
-*/
 
 #vis_view{
 width:50%; 
@@ -269,11 +231,4 @@ background:#E6EEEE;
 width:50%;
 float:left;
 background:#E5E4E2; 
-}
-
-#vis-page{ 
-height: 100%;
-overflow-x: hidden;
-overflow-y: hidden;
-
 }
