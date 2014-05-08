@@ -42,8 +42,9 @@ splash_page += doc.logo("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
 
-datavis_page = "<div id='vis-page'>" + graph.sunburst_header(build_dir)
-datavis_page += graph.sunburst_html()
+
+datavis_page = graph.sunburst_header()
+datavis_page += "<div id='vis_page'>" + graph.sunburst_html(build_dir)
 datavis_page += graph.sunburst_script()
 
 for program in active_content:
