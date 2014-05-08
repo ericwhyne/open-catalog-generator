@@ -12,7 +12,8 @@ def sunburst_header():
   <script type="text/javascript" src='d3.min.js'></script>
   <style>
    body{
-    overflow: auto;
+	overflow-x: hidden;
+	overflow: auto;
    }
 
    h1, h2, h3, h4, h5 {
@@ -47,6 +48,8 @@ $( document ).ready(function() {
 		window_height = $(window).height();
 		window_width = $(window).width();
 		$("#sunburst").empty();
+		$('#vis_view').empty();
+		$('#vis_view').html(getProgramView());
 		createSunburstGraph('#sunburst');
 		$('#vis_view').height($('#vis_map').height());
 		
@@ -383,7 +386,6 @@ function getSunburstJSON(){
 	return json_object;
 }
 
-	
 function createSunburstGraph(div){
 	
 	var margin = {};

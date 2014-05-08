@@ -232,3 +232,8 @@ width:50%;
 float:left;
 background:#E5E4E2; 
 }
+
+ #vis_page{ 
+overflow: hidden;
+}
+
