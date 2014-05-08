@@ -1,11 +1,9 @@
 def sunburst_header(url):
-  header = "<div class='darpa-header'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><h1 class='no_space'><a href='index.html' class='programlink'><img class='catalog-logo' src='Open-Catalog-Single-Big.png'></a>"
-  header += "<div><span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader'>Information Innovation Office (I2O) &nbsp/</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Sunburst Visualization</a></span></div></h1>"
+  header = "<div class='darpa-header'><div class='darpa-header-images darpa-header-images-size'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
+  header += "<div class='darpa-header-text'><h1 class='no_space'><span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O) &nbsp/&nbsp</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Sunburst Visualization</a></span></h1></div></div>"
   
-  header += "</div>"
   return header
-  
-
+    
 def sunburst_html():
   return """
   <div id = 'sunburst-container'>
@@ -31,31 +29,28 @@ def sunburst_script():
 
 <style>
 body{
-overflow: auto;
-background:#E6EEEE; 
+background:#E6EEEE;
+overflow-x: hidden;
+overflow-y: auto;
 }
 
 h1, h2, h3, h4, h5 {
 max-width:100%;
 }
 
-.darpa-header{
-white-space:nowrap;
-min-width: 1380px;
+footer{
+clear:both;
 }
-
-.footer{
-min-width: 1380px;
-}
-
-
 </style>
+
+
 <script type='text/javascript'>
 var active_programs = new Array();
 var window_height = $(window).height();
 var window_width = $(window).width();
 
 $( document ).ready(function() {
+	$('#vis_view').height($('#vis_map').height());
 	var vis_html = getProgramView();
 	$('#vis_view').html(vis_html);
 	createSunburstGraph('#sunburst');
@@ -65,6 +60,8 @@ $( document ).ready(function() {
 		window_width = $(window).width();
 		$("#sunburst").empty();
 		createSunburstGraph('#sunburst');
+		$('#vis_view').height($('#vis_map').height());
+		
 	};
 });
 
@@ -308,7 +305,7 @@ function adjustvisView(query_array){
 						}
 					}
 					if(data == program_data.length -1){
-						html += "<p class='vis_p'>Total Records: " + match_count + "</p><hr><div class='vis_view_scroll'>" + match_html;
+						html += "<p>Total Records: " + match_count + "</p><hr><div class='vis_view_scroll'>" + match_html;
 					}
 				}
 				else
@@ -323,7 +320,7 @@ function adjustvisView(query_array){
 function getProgramView(){
 	if(active_programs.length == 0)
 		active_programs = getPrograms();
-	var html = "<h2 class='vis_headers'>DARPA Programs</h2><p class='vis_p'>Total Number of Programs: " + active_programs.length + "</p><hr>";
+	var html = "<h2 class='vis_headers'>DARPA Programs</h2><p>Total Number of Programs: " + active_programs.length + "</p><hr>";
 	html += "<div class='vis_view_scroll'>";
 	var template = templates.Program;
 	
