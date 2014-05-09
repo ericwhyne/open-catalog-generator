@@ -39,20 +39,19 @@ var window_height = $(window).height();
 var window_width = $(window).width();
 
 $( document ).ready(function() {
-	$('#vis_view').height($('#vis_map').height());
 	var vis_html = getProgramView();
 	$('#vis_view').html(vis_html);
 	createSunburstGraph('#sunburst');
+	$('#vis_view').height($('#vis_map').height());
 	
-	window.onload = window.onresize = function () {
+	window.onresize = function () {
 		window_height = $(window).height();
 		window_width = $(window).width();
-		$("#sunburst").empty();
 		$('#vis_view').empty();
 		$('#vis_view').html(getProgramView());
+		$("#sunburst").empty();
 		createSunburstGraph('#sunburst');
-		$('#vis_view').height($('#vis_map').height());
-		
+		$('#vis_view').height($('#vis_map').height());		
 	};
 });
 
