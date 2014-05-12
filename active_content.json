@@ -98,6 +98,13 @@
         "Banner":"NEW"
 },
 {
+        "Program Name": "MRC",
+        "Program File": "MRC-program.json",
+        "Pubs File": "MRC-pubs.json",
+        "Software File": "MRC-software.json",
+        "Banner": "NEW"
+},
+{
         "Program Name": "PROCEED",
         "Program File": "PROCEED-program.json",
         "Pubs File": "PROCEED-pubs.json",
