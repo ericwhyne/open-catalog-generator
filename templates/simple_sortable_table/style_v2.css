@@ -22,7 +22,7 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th {
     background-color: #e6EEEE;
     border: 1px solid #FFF;
     font-size: 10pt;
-    padding: 14px;
+    padding: 11px;
 }
 
 table.tablesorter thead tr .header {
@@ -47,6 +47,7 @@ table.tablesorter tbody td {
     padding: 3px;
     /*background-color: #F0F;*/
     vertical-align: top;
+	height:100%;
 }
 
 /* table row alternating colors */

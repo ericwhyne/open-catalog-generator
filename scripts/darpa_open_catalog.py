@@ -58,24 +58,19 @@ def software_table_header(columns):
   header += "</tr>\n </thead>\n <tbody  class='list'>"
   return header
 
-def software_table_footer():
+def table_footer():
   return """
 </tbody> 
 </table>
 """
 
-def pubs_table_header():
-  return """
-<table id='pubs' class='tablesorter'> 
-<thead> 
-<tr> 
-    <th>Team</th> 
-    <th>Title</th> 
-    <th>Link</th>
-</tr> 
-</thead> 
-<tbody  class="list"> 
-"""
+def pubs_table_header(columns):
+
+  header = "<table id='pubs' class='tablesorter'>\n <thead>\n <tr>"
+  for column in columns:
+    header += "<th>%s</th>" % column
+  header += "</tr>\n </thead>\n <tbody  class='list'>"
+  return header
 
 def pubs_table_footer():
   return """
@@ -83,6 +78,38 @@ def pubs_table_footer():
 </table>
 <br>
 """
+
+def project_banner(update_date, new_date, last_update_file):
+  ribbon = ""
+  ribbon_class = ""
+  ribbon_div = ""
+  vertical_date = ""
+  if new_date != "" and update_date != "":
+    if new_date >= update_date:
+     vertical_date = new_date
+     ribbon_class = "ribbon-red vertical-red"
+     ribbon_text = "<span class='vertical-text'>NEW</span>"
+    else:
+	  vertical_date = update_date
+	  ribbon_class = "ribbon-green vertical-green"
+	  ribbon_text = "<span class='vertical-text'>UPDATED</span>"
+  elif new_date != "" and update_date == "":
+    vertical_date = new_date
+    ribbon_class = "ribbon-red vertical-red"
+    ribbon_text = "<span class='vertical-text'>NEW</span>"
+  elif update_date != "" and new_date == "":
+    vertical_date = update_date
+    ribbon_class = "ribbon-green vertical-green"
+    ribbon_text = "<span class='vertical-text'>UPDATED</span>"
+  f = open(last_update_file,"r")
+  last_build_date = f.read()
+  f.close()	
+  if vertical_date > last_build_date:		
+    ribbon_div = "<div class='vertical'>" + ribbon_text + "</div>"
+    ribbon = ribbon_class + "'>" + ribbon_div
+  else:
+    ribbon = "'>"
+  return ribbon
   
 def catalog_page_header(): 
   return """ 
