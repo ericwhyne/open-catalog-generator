@@ -9,30 +9,19 @@ import os
 class MyHTMLParser(HTMLParser):
     def __init__(self):
       HTMLParser.__init__(self)
-      self.found_opentag = 0 
-      self.found_closetag = 0
-      self.found_openclosetag = 0
       self.found_tag = 0
 
     def handle_starttag(self, tag, attrs):
-        self.found_opentag += 1
+        if(tag != "br"):
+          self.found_tag += 1
 
     def handle_endtag(self, tag):
-        self.found_closetag += 1
+        self.found_tag += 1
     
     def handle_startendtag(self, tag, attrs):
-        self.found_openclosetag += 1
+        if(tag != "br"):
+          self.found_tag += 1
     
-    def identify_html(self):
-        if self.found_opentag > 0 and self.found_closetag > 0:
-          if self.found_opentag == self.found_closetag:
-            self.found_tag = 1
-        elif self.found_openclosetag > 0:
-            self.found_tag = 1
-        else:
-            self.found_tag = 0
-    
-
 # Finds the location in the JSON document of the script (line/col).
 # Also sends an exit code to the Makefile.
 def found_script_error(file_name, value):
@@ -54,7 +43,6 @@ def found_script_error(file_name, value):
 def is_html(value):
   parser = MyHTMLParser()
   parser.feed(value)
-  parser.identify_html()
   html = parser.found_tag
   if html:
     return value
