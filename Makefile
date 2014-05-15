@@ -8,7 +8,8 @@ OC_LOG_DIR=$(shell pwd)/logs
 OC_BUILD_DIR=$(shell pwd)/build
 OC_ACTIVE_CONTENT_FILE=$(shell pwd)/active_content.json
 OC_ACTIVE_DEPLOYED_CONTENT_FILE=$(shell pwd)/active_content_deployed.json
-OC_LICENSE_CONTENT_FILE=$(OC_DATA_DIR)/license-content.json
+OC_LICENSE_CONTENT_FILE=$(OC_DATA_DIR)license-content.json
+OC_SCHEMA_FILE=$(OC_DATA_DIR)00-schema-examples.json
 CUR_DATE=`date +"%Y-%m-%d"`
 CUR_BUILD_DATE=$(OC_LOG_DIR)/build-file.txt
 LAST_BUILD_DATE=$(OC_BUILD_DIR)/last-build-file.txt
@@ -39,6 +40,9 @@ deploy: $(OC_DEFAULT_TEMPLATE_DIR)
 	@if ! test -f $(CUR_BUILD_DATE); then echo $$(($$(date --date="15 days ago" +"%Y%m%d"))) > $(CUR_BUILD_DATE); fi 
 	@if test $$(($$(cat $(CUR_BUILD_DATE)))) != $$(($$(date +"%Y%m%d"))); then echo $$(($$(cat $(CUR_BUILD_DATE)))) > $(LAST_BUILD_DATE); echo $$(($$(date +"%Y%m%d"))) > $(CUR_BUILD_DATE); fi
 	$(OC_SCRIPTS_DIR)generate_html.py $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_LICENSE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) $(LAST_BUILD_DATE) darpalinks
+	
+addjsonfields:$(OC_DEFAULT_TEMPLATE_DIR)
+	$(OC_SCRIPTS_DIR)add_json_fields.py $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR) $(OC_SCHEMA_FILE)
 
 graph: $(OC_DEFAULT_TEMPLATE_DIR) 
 	$(OC_SCRIPTS_DIR)generate_graphviz.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) normallinks
@@ -58,4 +62,3 @@ linkchecker:
 
 deployzip:
 	zip -r xdata_catalog_$(CUR_DATE).zip $(OC_BUILD_DIR)/
-
