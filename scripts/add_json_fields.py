@@ -12,42 +12,61 @@ import collections
 
 active_content_file = sys.argv[1]
 data_dir = sys.argv[2]
-schema_file = sys.argv[3]
+new_json_dir = sys.argv[3]
+schema_file = sys.argv[4]
 date = time.strftime("%Y-%m-%d", time.localtime())
 
 print """
 Active content file: %s
 Data directory: %s
-""" % (active_content_file, data_dir)
+New JSON directory: %s
+""" % (active_content_file, data_dir, new_json_dir)
 
-
+files_to_change = ["pubs", "software"] #"program", "pubs", "software"
 fields_to_add = {"New Date":"", "Update Date":""}
 
-#To run script: ./scripts/add_dates_fields.py active_content.json /home/.../open-catalog-generator/darpa_open_catalog/
-def add_fields_to_json(program_name, original_file, schema_dict, new_file):
+def add_fields_to_json(program_name, original_file, schema_dict, file_type, new_file):
   for definition in schema_dict:
     def_keys = definition.keys()
+    #print 'definition keys: %s \n\r' % (def_keys)
   new_docs = collections.OrderedDict()
   new_doc = []
-  for doc in original_file:
-    object_keys = doc.keys()
-    new_fields = collections.OrderedDict()
+  if file_type != "program":
+    for doc in original_file:
+      object_keys = doc.keys()
+      new_fields = collections.OrderedDict()
+      for dkey in def_keys:
+        for obj_key in object_keys:
+          if obj_key == dkey:
+            #print '%s: %s is present in schema \n\r' % (dkey, doc[dkey])
+            new_fields[obj_key] = doc[obj_key]
+      for field in fields_to_add:
+        #print 'fields - %s : %s\n\r' % (field, fields_to_add[field])
+        new_fields[field] = fields_to_add[field]
+      new_doc.append(new_fields)
+  else:
+    new_fields = collections.OrderedDict()  
     for dkey in def_keys:
-  	for obj_key in object_keys:
-	    if obj_key == dkey:
-  		#print '%s: %s is present in schema \n\r' % (skey, doc[skey])
-		  new_fields[obj_key] = doc[obj_key]
+      for obj_key in original_file:	  
+        if obj_key == dkey:
+          #print 'key: %s value: %s \n\r' % (obj_key, original_file[obj_key])
+          new_fields[obj_key] = original_file[obj_key]
     for field in fields_to_add:
-      #print 'fields - %s : %s\n\r' % (field, fields_to_add[field])
-      new_fields[field] = fields_to_add[field]
+     new_fields[field] = fields_to_add[field]
+    #print 'fields: \n %s \n\r' % (new_fields)	 
     new_doc.append(new_fields)
-  new_docs = new_doc
-  #print 'new file: \n %s \n\r' % new_docs
-  new_json_object = json.dumps(new_docs, indent=4)
-  new_json_file = data_dir + program_name + new_file
-  print "Writing to %s \n" % new_json_file
-  json_outfile = open(new_json_file, 'w')
-  json_outfile.write(new_json_object)	
+  try:
+    new_docs = new_doc
+    print 'new file: \n %s \n\r' % new_docs
+    new_json_object = json.dumps(new_docs, indent=4, separators=(',',':'))
+    new_json_file = new_json_dir + program_name + new_file
+    print "Writing to %s \n" % new_json_file
+    json_outfile = open(new_json_file, 'w')
+    json_outfile.write(new_json_object)
+  except Exception, e:
+    print "\nFAILED! Could not create new %s json file for %s" % (file_type, program_name)
+    print " Details: %s" % str(e)
+    sys.exit(1)	  
 
 try:
   active_content = json.load(open(active_content_file))
@@ -69,25 +88,31 @@ for program in active_content:
     print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
     sys.exit(1)
   else:
-    for schema in schemas:
-      #Get Software Schema fields
-      if schema["Type"] == "Software" and program['Software File'] != "":
+    for file_type in files_to_change:
+      print "filetype: %s \n" % file_type
+      for schema in schemas:
+        #Get Software Schema fields
         try:
-          orig_software_file = data_dir + program['Software File']
-          software = json.load(open(orig_software_file))
-          schema_dict = schema["Schema"]
-          add_fields_to_json(program_name, software, schema_dict, '-software-withdates.json')
+          print "schema type: %s , file type: %s, \n program: \n %s \n\r" %(schema["Type"], file_type, program) 
+          if schema["Type"] == "Software" and file_type == 'software' and program['Software File'] != "":
+            print "in sw"
+            orig_software_file = data_dir + program['Software File']
+            software = json.load(open(orig_software_file))
+            schema_dict = schema["Schema"]
+            add_fields_to_json(program_name, software, schema_dict, file_type, '-' + file_type + '.json')
+          if schema["Type"] == "Publication"  and file_type == 'pubs' and program['Pubs File'] != "":
+            print "in pubs"
+            orig_pubs_file = data_dir + program['Pubs File']
+            pubs = json.load(open(orig_pubs_file))
+            schema_dict = schema["Schema"]
+            add_fields_to_json(program_name, pubs, schema_dict, file_type, '-' + file_type + '.json')
+          if schema["Type"] == "Program"  and file_type == 'program' and program['Program File'] != "":
+            print "in program"		  
+            orig_program_file = data_dir + program['Program File']
+            program = json.load(open(orig_program_file))
+            schema_dict = schema["Schema"]
+            add_fields_to_json(program_name, program, schema_dict, file_type, '-' + file_type + '.json')
         except Exception, e:
-          print "\nFAILED! Problem with adding new json fields to %s software file\n" % program_name
+          print "\nFAILED! Problem with adding new json fields to %s %s file\n" % (program_name, file_type)
           print " Details: %s" % str(e)
-          sys.exit(1)
-      if schema["Type"] == "Publication" and program['Pubs File'] != "":
-        try:
-          orig_pubs_file = data_dir + program['Pubs File']
-          pubs = json.load(open(orig_pubs_file))
-          schema_dict = schema["Schema"]
-          add_fields_to_json(program_name, pubs, schema_dict, '-pubs-withdates.json')
-        except Exception, e:
-          print "\nFAILED! Problem with adding new json fields to %s pubs file\n" % program_name
-          print " Details: %s" % str(e)
-          sys.exit(1)	  
+          sys.exit(1)  

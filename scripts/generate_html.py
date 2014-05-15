@@ -271,19 +271,23 @@ for program in active_content:
       # Debug
       #print "    " + pub['Title']
       for column in pubs_columns:
+        # Team
         if column == "Team":  
           program_page += "<TR>\n  <TD class='team'>"
           for team in pub['Program Teams']:
             program_page += team + "<a name='" + team + "'></a>, "
           program_page = program_page[:-2]
-          program_page += "</TD>\n"  
+          program_page += "</TD>\n" 
+        # Title		  
         if column == "Title":
           program_page += "<TD class='title'>" + pub['Title'] + "</TD>\n"
+        # Vertical Ribbon	
         if column == "":		  
           vertical_ribbon = ""
           if program['Banner'].upper() != "NEW":
             vertical_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], last_update_file)
             program_page += "<TD class='" + vertical_ribbon + "</TD>\n"
+        # Link
         if column == "Link":			
           link = pub['Link']
           if re.search('^http',link) or re.search('^ftp',link):
