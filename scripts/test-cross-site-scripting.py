@@ -1,10 +1,37 @@
 #!/usr/bin/python
 # James Tobat, 2014
+from HTMLParser import HTMLParser
 import json
-import re
 import sys
 import glob
 import os
+
+class MyHTMLParser(HTMLParser):
+    def __init__(self):
+      HTMLParser.__init__(self)
+      self.found_opentag = 0 
+      self.found_closetag = 0
+      self.found_openclosetag = 0
+      self.found_tag = 0
+
+    def handle_starttag(self, tag, attrs):
+        self.found_opentag += 1
+
+    def handle_endtag(self, tag):
+        self.found_closetag += 1
+    
+    def handle_startendtag(self, tag, attrs):
+        self.found_openclosetag += 1
+    
+    def identify_html(self):
+        if self.found_opentag > 0 and self.found_closetag > 0:
+          if self.found_opentag == self.found_closetag:
+            self.found_tag = 1
+        elif self.found_openclosetag > 0:
+            self.found_tag = 1
+        else:
+            self.found_tag = 0
+    
 
 # Finds the location in the JSON document of the script (line/col).
 # Also sends an exit code to the Makefile.
@@ -17,17 +44,19 @@ def found_script_error(file_name, value):
     if column < 0:
       line_num+=1
     else:
-      print "\nERROR: Found embedded script in file %s, line %i column %i" % (name_nopath, line_num, column) 
+      print "\nERROR: Found embedded script/html in file %s, line %i column %i" % (name_nopath, line_num, column) 
       sys.exit(1)
   error_file.close()
   return
   
-# Identifies if the given value (string) has an html script inside of it.
-# Will pick out html script tags with/without attributes e.g. <script src="">.
-def is_script(value):
-  script_attributes = re.search('<script .*>.*</script>', value, re.I)
-  script_no_attributes = re.search('<script>.*</script>', value, re.I)
-  if script_attributes or script_no_attributes:
+# Identifies if the given value (string) has a html tags inside of it
+# Will pick any html tags even self containing html.
+def is_html(value):
+  parser = MyHTMLParser()
+  parser.feed(value)
+  parser.identify_html()
+  html = parser.found_tag
+  if html:
     return value
   else:
     return 0
@@ -35,17 +64,18 @@ def is_script(value):
 # Iterates through a json object (all keys/values) and
 # tests each value to see if it has a script inside of it.
 def test_for_xss(json_data, identifier):
+  parser = MyHTMLParser()
   for key, value in json_data.iteritems():
-    script = 0
+    html = 0
     if isinstance(value, basestring) and value != "":
-      script = is_script(value)
+      html = is_html(value)
     elif isinstance(value, list):
       for item in value:
         if(item != ""):
-	  script = is_script(item) 
+	  html = is_html(item) 
 
-    if script:
-      found_script_error(identifier, script)
+    if html:
+      found_script_error(identifier, html)
 
   return 
 
