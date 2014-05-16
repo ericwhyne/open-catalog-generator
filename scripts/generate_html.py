@@ -186,8 +186,8 @@ for program in active_content:
         if column == "":
           vertical_ribbon = ""
           if program['Banner'].upper() != "NEW":
-            vertical_ribbon = doc.project_banner(software['Update Date'], software['New Date'], last_update_file)
-            program_page += "<TD class='" + column.lower() + " " + vertical_ribbon + "</TD>\n"
+            vertical_ribbon = doc.project_banner(software['Update Date'], software['New Date'], software['Software'], last_update_file)
+            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + column.lower() + " " + vertical_ribbon + "</TD>\n"
         # Category
         if column == "Category":
           categories = ""
@@ -285,8 +285,8 @@ for program in active_content:
         if column == "":		  
           vertical_ribbon = ""
           if program['Banner'].upper() != "NEW":
-            vertical_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], last_update_file)
-            program_page += "<TD class='" + vertical_ribbon + "</TD>\n"
+            vertical_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], pub['Title'], last_update_file)
+            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + vertical_ribbon + "</TD>\n"
         # Link
         if column == "Link":			
           link = pub['Link']

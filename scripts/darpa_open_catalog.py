@@ -79,7 +79,7 @@ def pubs_table_footer():
 <br>
 """
 
-def project_banner(update_date, new_date, last_update_file):
+def project_banner(update_date, new_date, title, last_update_file):
   ribbon = ""
   ribbon_class = ""
   ribbon_div = ""
@@ -88,25 +88,25 @@ def project_banner(update_date, new_date, last_update_file):
     if new_date >= update_date:
      vertical_date = new_date
      ribbon_class = "ribbon-red vertical-red"
-     ribbon_text = "<span class='vertical-text'>NEW</span>"
+     ribbon_text = "NEW"
     else:
 	  vertical_date = update_date
 	  ribbon_class = "ribbon-green vertical-green"
-	  ribbon_text = "<span class='vertical-text'>UPDATED</span>"
+	  ribbon_text = "UPDATED"
   elif new_date != "" and update_date == "":
     vertical_date = new_date
     ribbon_class = "ribbon-red vertical-red"
-    ribbon_text = "<span class='vertical-text'>NEW</span>"
+    ribbon_text = "NEW"
   elif update_date != "" and new_date == "":
     vertical_date = update_date
     ribbon_class = "ribbon-green vertical-green"
-    ribbon_text = "<span class='vertical-text'>UPDATED</span>"
+    ribbon_text = "UPDATED"
   f = open(last_update_file,"r")
   last_build_date = f.read()
   f.close()	
   if vertical_date > last_build_date:		
-    ribbon_div = "<div class='vertical'>" + ribbon_text + "</div>"
-    ribbon = ribbon_class + "'>" + ribbon_div
+    ribbon_div = "<div class='vertical' id='" + vertical_date + "' name='" + ribbon_text + "'><span class='vertical-text'>" + ribbon_text + "</span></div>"
+    ribbon = ribbon_class + "' id='" + title + "'>" + ribbon_div
   else:
     ribbon = "'>"
   return ribbon
@@ -324,6 +324,36 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 		$(".ui-dialog").mouseleave( function () {
 			 $( "#dialog" ).dialog( "close" );
 		  });
+	}
+}
+
+function dateInfo(ribbon, event){
+	
+	if(ribbon !="")
+	{
+		var date_id = document.getElementById(ribbon).firstChild.id;
+		var str_pattern = /(\d{4})(\d{2})(\d{2})/;
+		var date = date_id.replace(str_pattern,"$2-$3-$1"); //full date string
+
+		var ribbon_type = document.getElementById(ribbon).firstChild.getAttribute("name"); 
+		var x=event.clientX;
+		var y=event.clientY;
+		
+		$( "#dialog" ).empty().dialog({
+		position: [x , y - 20],
+		title: ribbon_type + " " + date,
+		/*width: 40,
+        height: 40*/
+		});
+
+		if(ribbon_type == "NEW")
+			$("#dialog").html(ribbon);
+		else if (ribbon_type == "UPDATED")
+			$("#dialog").html(ribbon);
+
+		$(".ui-dialog").mouseleave( function () {
+			 $( "#dialog" ).dialog( "close" );
+		});
 	}
 }
 </script>
