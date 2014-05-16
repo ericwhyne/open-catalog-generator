@@ -21,6 +21,13 @@
         "Banner":"NEW"
 },
 {
+        "Program Name": "BET",
+        "Program File": "BET-program.json",
+        "Pubs File": "BET-pubs.json",
+        "Software File": "",
+        "Banner":"NEW"
+},
+{
         "Program Name": "BOLT",
         "Program File": "BOLT-program.json",
         "Pubs File": "BOLT-pubs.json",
