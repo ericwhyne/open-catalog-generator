@@ -50,3 +50,5 @@ linkchecker:
 deployzip:
 	zip -r xdata_catalog_$(CUR_DATE).zip $(OC_BUILD_DIR)/
 
+datatest:
+	$(OC_SCRIPTS_DIR)test-cross-site-scripting.py $(OC_DATA_DIR)
