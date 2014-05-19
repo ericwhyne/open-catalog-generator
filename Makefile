@@ -62,11 +62,9 @@ linkchecker:
 	$(OC_TEST_DIR)linkchecker.sh $(OC_BUILD_DIR)/linkcheck.html $(OC_BUILD_DIR)/index.html
 
 deployzip:
-<<<<<<< HEAD
 	zip -r xdata_catalog_$(CUR_DATE).zip $(OC_BUILD_DIR)/
-=======
 	zip -r xdata_catalog_$(CUR_DATE).zip $(OC_BUILD_DIR)/
 
 datatest:
 	$(OC_SCRIPTS_DIR)test-cross-site-scripting.py $(OC_DATA_DIR)
->>>>>>> f46fc30b4fb8738c377a67ed4fadc9d0f69b5d8c
+

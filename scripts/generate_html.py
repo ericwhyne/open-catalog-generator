@@ -105,6 +105,7 @@ for program in active_content:
      banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
     software_columns = program_details['Display Software Columns']
+    print "program details: %s \n\r" % program_details
     pubs_columns = program_details['Display Pubs Columns']
 
   # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table.

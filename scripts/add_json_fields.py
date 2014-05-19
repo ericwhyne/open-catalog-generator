@@ -23,7 +23,8 @@ New JSON directory: %s
 """ % (active_content_file, data_dir, new_json_dir)
 
 files_to_change = ["pubs", "software"] #"program", "pubs", "software"
-fields_to_add = {"New Date":"", "Update Date":""}
+fields_to_add = {"New Date": "", "Update Date": ""}
+insert_after = "" #"" or field name, e.g. "Display Software Columns"
 
 def add_fields_to_json(program_name, original_file, schema_dict, file_type, new_file):
   for definition in schema_dict:
@@ -40,21 +41,30 @@ def add_fields_to_json(program_name, original_file, schema_dict, file_type, new_
           if obj_key == dkey:
             #print '%s: %s is present in schema \n\r' % (dkey, doc[dkey])
             new_fields[obj_key] = doc[obj_key]
-      for field in fields_to_add:
-        #print 'fields - %s : %s\n\r' % (field, fields_to_add[field])
-        new_fields[field] = fields_to_add[field]
+            if obj_key == insert_after:
+              for field in fields_to_add:
+                new_fields[field] = fields_to_add[field]
+      if insert_after == "":
+        for field in fields_to_add:
+          #print 'fields - %s : %s\n\r' % (field, fields_to_add[field])
+          new_fields[field] = fields_to_add[field]
       new_doc.append(new_fields)
   else:
     new_fields = collections.OrderedDict()  
     for dkey in def_keys:
-      for obj_key in original_file:	  
+      print 'orig file: %s \n\r' % (original_file)
+      for obj_key in original_file:
         if obj_key == dkey:
           #print 'key: %s value: %s \n\r' % (obj_key, original_file[obj_key])
           new_fields[obj_key] = original_file[obj_key]
-    for field in fields_to_add:
-     new_fields[field] = fields_to_add[field]
-    #print 'fields: \n %s \n\r' % (new_fields)	 
-    new_doc.append(new_fields)
+          if obj_key == insert_after:
+            for field in fields_to_add:
+              new_fields[field] = fields_to_add[field]
+    if insert_after == "":
+      for field in fields_to_add:
+        #print 'fields - %s : %s\n\r' % (field, fields_to_add[field])
+        new_fields[field] = fields_to_add[field]			  
+    new_doc = new_fields
   try:
     new_docs = new_doc
     print 'new file: \n %s \n\r' % new_docs
@@ -93,21 +103,18 @@ for program in active_content:
       for schema in schemas:
         #Get Software Schema fields
         try:
-          print "schema type: %s , file type: %s, \n program: \n %s \n\r" %(schema["Type"], file_type, program) 
+          #print "schema type: %s , file type: %s, \n program: \n %s \n\r" %(schema["Type"], file_type, program) 
           if schema["Type"] == "Software" and file_type == 'software' and program['Software File'] != "":
-            print "in sw"
             orig_software_file = data_dir + program['Software File']
             software = json.load(open(orig_software_file))
             schema_dict = schema["Schema"]
             add_fields_to_json(program_name, software, schema_dict, file_type, '-' + file_type + '.json')
           if schema["Type"] == "Publication"  and file_type == 'pubs' and program['Pubs File'] != "":
-            print "in pubs"
             orig_pubs_file = data_dir + program['Pubs File']
             pubs = json.load(open(orig_pubs_file))
             schema_dict = schema["Schema"]
             add_fields_to_json(program_name, pubs, schema_dict, file_type, '-' + file_type + '.json')
           if schema["Type"] == "Program"  and file_type == 'program' and program['Program File'] != "":
-            print "in program"		  
             orig_program_file = data_dir + program['Program File']
             program = json.load(open(orig_program_file))
             schema_dict = schema["Schema"]
