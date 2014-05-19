@@ -25,8 +25,8 @@ def found_script_error(file_name, value):
 # Will pick out html tags that have single value <h> or <img /> as well
 def is_html(value):
   # will ignore br html tags, can be commented out
-  # value = value.replace('<br>',' ') 
-  # value = value.replace('<br/>',' ')
+  value = value.replace('<br>',' ') 
+  value = value.replace('<br/>',' ')
   html_opentag = re.search('<[a-zA-Z][^>]*>', value, re.I)
   html_closetag = re.search('</[a-zA-Z][^>]*>', value, re.I)
   if html_opentag or html_closetag:
