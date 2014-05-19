@@ -314,6 +314,8 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 		position: [x , y - 20],
 		title: short_nm
 		});
+		
+		//$( "#dialog" ).removeClass("ribbon-dialog");
 
 		if(description != "")
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>: " + description);
@@ -342,10 +344,10 @@ function dateInfo(ribbon, event){
 		$( "#dialog" ).empty().dialog({
 		position: [x , y - 20],
 		title: ribbon_type + " " + date,
-		/*width: 40,
-        height: 40*/
 		});
 
+		$( "#dialog" ).addClass("ribbon-dialog");
+		//dialogClass: 'noPadding',
 		if(ribbon_type == "NEW")
 			$("#dialog").html(ribbon);
 		else if (ribbon_type == "UPDATED")

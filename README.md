@@ -17,4 +17,6 @@ Steps to adding json fields to a specific file type:
 
 4. Verify that the fields were added correctly and to the appropriate files by opening the "new_json" directory in the "darpa_open_catalog" directory. If the files are correct, move them to the "darpa_open_catalog" directory and done! Now there are new json files for the next build!
 
+5. Be sure to delete the "new_json" directory from the "darpa_open_catalog" directory so that it is not mistakenly committed to the project repository. 
+
 #Note: The json files that are reproduced are based on the active_content.json file. Be sure to add all of the json files that are to be reproduced to the active_content.json file before running the addjsonfields script.

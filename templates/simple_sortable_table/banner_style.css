@@ -128,3 +128,8 @@
   background-image:     -ms-linear-gradient(left, #5CB3FF, #1569C7) !important; 
   background-image:      -o-linear-gradient(left, #5CB3FF, #1569C7) !important; 
 }
+
+.ribbon-dialog{
+  min-width: 40px;
+  min-height: 40px;
+}
