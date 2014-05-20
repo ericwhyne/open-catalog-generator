@@ -331,7 +331,6 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 }
 
 function dateInfo(ribbon, event){
-	
 	if(ribbon !="")
 	{
 		var date_id = document.getElementById(ribbon).firstChild.id;
@@ -354,16 +353,17 @@ function dateInfo(ribbon, event){
 			$(".ui-dialog").removeClass('vertical-red');
 			background = "vertical-green";
 		}
-		
+
+		$( "#dialog" ).empty().dialog({
+		position: [x , y - 20],
+		title: text + ": " + date,
+		});		
 		
 		$( "#dialog" ).addClass("ribbon-dialog");
 		$(".ui-dialog").addClass(background + " ribbon-dialog");
 		$(".ui-widget-header").addClass("ribbon-dialog-text");
 		
-		$( "#dialog" ).empty().dialog({
-		position: [x , y - 20],
-		title: text + ": " + date,
-		});
+
 
 		$(".ui-dialog").mouseleave( function () {
 			 $( "#dialog" ).dialog( "close" );
