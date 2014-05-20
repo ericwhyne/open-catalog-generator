@@ -3,5 +3,7 @@ if [ $# -eq 0 ]
   then
     echo "Enter a commit comment as an argument."
   else
-    git add -A; git commit -m "$1"; git push
+    git add -A 
+    git commit -m "$@" 
+    git push
 fi
