@@ -23,7 +23,7 @@ New JSON directory: %s
 """ % (active_content_file, data_dir, new_json_dir)
 
 files_to_change = ["pubs", "software"] #"program", "pubs", "software"
-fields_to_add = {"New Date": "", "Update Date": ""}
+fields_to_add = {"New Date": "", "Update Date": ""} #{"Display Pubs Columns":["Team","Title","Link"]}
 insert_after = "" #"" or field name, e.g. "Display Software Columns"
 
 def add_fields_to_json(program_name, original_file, schema_dict, file_type, new_file):
