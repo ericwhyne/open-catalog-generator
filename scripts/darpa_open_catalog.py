@@ -58,24 +58,19 @@ def software_table_header(columns):
   header += "</tr>\n </thead>\n <tbody  class='list'>"
   return header
 
-def software_table_footer():
+def table_footer():
   return """
 </tbody> 
 </table>
 """
 
-def pubs_table_header():
-  return """
-<table id='pubs' class='tablesorter'> 
-<thead> 
-<tr> 
-    <th>Team</th> 
-    <th>Title</th> 
-    <th>Link</th>
-</tr> 
-</thead> 
-<tbody  class="list"> 
-"""
+def pubs_table_header(columns):
+
+  header = "<table id='pubs' class='tablesorter'>\n <thead>\n <tr>"
+  for column in columns:
+    header += "<th>%s</th>" % column
+  header += "</tr>\n </thead>\n <tbody  class='list'>"
+  return header
 
 def pubs_table_footer():
   return """
@@ -83,6 +78,38 @@ def pubs_table_footer():
 </table>
 <br>
 """
+
+def project_banner(update_date, new_date, title, last_update_file):
+  ribbon = ""
+  ribbon_class = ""
+  ribbon_div = ""
+  vertical_date = ""
+  if new_date != "" and update_date != "":
+    if new_date >= update_date:
+     vertical_date = new_date
+     ribbon_class = "ribbon-red vertical-red"
+     ribbon_text = "NEW"
+    else:
+	  vertical_date = update_date
+	  ribbon_class = "ribbon-green vertical-green"
+	  ribbon_text = "UPDATED"
+  elif new_date != "" and update_date == "":
+    vertical_date = new_date
+    ribbon_class = "ribbon-red vertical-red"
+    ribbon_text = "NEW"
+  elif update_date != "" and new_date == "":
+    vertical_date = update_date
+    ribbon_class = "ribbon-green vertical-green"
+    ribbon_text = "UPDATED"
+  f = open(last_update_file,"r")
+  last_build_date = f.read()
+  f.close()	
+  if vertical_date > last_build_date:		
+    ribbon_div = "<div class='vertical' id='" + vertical_date + "' name='" + ribbon_text + "'><span class='vertical-text'>" + ribbon_text + "</span></div>"
+    ribbon = ribbon_class + "' id='" + title + "'>" + ribbon_div
+  else:
+    ribbon = "'>"
+  return ribbon
   
 def catalog_page_header(): 
   return """ 
@@ -282,6 +309,10 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 	var x=event.clientX;
 	var y=event.clientY;
 	
+	$( "#dialog" ).removeClass("ribbon-dialog");
+	$(".ui-dialog").removeClass("ribbon-dialog vertical-green vertical-red");
+	$(".ui-widget-header").removeClass("ribbon-dialog-text");
+	
 	if(short_nm != ""){
 		$( "#dialog" ).empty().dialog({
 		position: [x , y - 20],
@@ -293,10 +324,50 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 		else
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>");
 	
-	
 		$(".ui-dialog").mouseleave( function () {
 			 $( "#dialog" ).dialog( "close" );
 		  });
+	}
+}
+
+function dateInfo(ribbon, event){
+	
+	if(ribbon !="")
+	{
+		var date_id = document.getElementById(ribbon).firstChild.id;
+		var str_pattern = /(\d{4})(\d{2})(\d{2})/;
+		var date = date_id.replace(str_pattern,"$2-$3-$1"); //full date string
+
+		var ribbon_type = document.getElementById(ribbon).firstChild.getAttribute("name"); 
+		var x=event.clientX;
+		var y=event.clientY;
+		var text = "";
+		var background = "";
+		
+		if(ribbon_type == "NEW"){
+			text = "CREATED";
+			$(".ui-dialog").removeClass('vertical-green');
+			background = "vertical-red";
+		}
+		else{
+			text = ribbon_type;
+			$(".ui-dialog").removeClass('vertical-red');
+			background = "vertical-green";
+		}
+		
+		
+		$( "#dialog" ).addClass("ribbon-dialog");
+		$(".ui-dialog").addClass(background + " ribbon-dialog");
+		$(".ui-widget-header").addClass("ribbon-dialog-text");
+		
+		$( "#dialog" ).empty().dialog({
+		position: [x , y - 20],
+		title: text + ": " + date,
+		});
+
+		$(".ui-dialog").mouseleave( function () {
+			 $( "#dialog" ).dialog( "close" );
+		});
 	}
 }
 </script>
