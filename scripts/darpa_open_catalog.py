@@ -331,7 +331,6 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 }
 
 function dateInfo(ribbon, event){
-	console.log("load date info");
 	if(ribbon !="")
 	{
 		var date_id = document.getElementById(ribbon).firstChild.id;
