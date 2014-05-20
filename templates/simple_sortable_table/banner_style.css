@@ -102,10 +102,10 @@
 
 .vertical-green {
   /*gradient*/
-  background-image: -webkit-linear-gradient(left, #FFFF00, #8EBF45) !important; 
-  background-image:    -moz-linear-gradient(left, #FFFF00, #8EBF45) !important; 
-  background-image:     -ms-linear-gradient(left, #FFFF00, #8EBF45) !important; 
-  background-image:      -o-linear-gradient(left, #FFFF00, #8EBF45) !important; 
+  background-image: -webkit-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
+  background-image:    -moz-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
+  background-image:     -ms-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
+  background-image:      -o-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
   
   -webkit-box-shadow: 0px 0px .2px rgba(0,0,0,0.4);
   -moz-box-shadow:    0px 0px .2px rgba(0,0,0,0.4);
@@ -115,21 +115,28 @@
 
 .vertical-red {
   /*gradient*/
-  background-image: -webkit-linear-gradient(left, #F70D1A, #9F000F) !important; 
-  background-image:    -moz-linear-gradient(left, #F70D1A, #9F000F) !important; 
-  background-image:     -ms-linear-gradient(left, #F70D1A, #9F000F) !important; 
-  background-image:      -o-linear-gradient(left, #F70D1A, #9F000F) !important; 
+  background-image: -webkit-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
+  background-image:    -moz-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
+  background-image:     -ms-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
+  background-image:      -o-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
 }
 
 .vertical-blue {
   /*gradient*/
-  background-image: -webkit-linear-gradient(left, #5CB3FF, #1569C7) !important; 
-  background-image:    -moz-linear-gradient(left, #5CB3FF, #1569C7) !important; 
-  background-image:     -ms-linear-gradient(left, #5CB3FF, #1569C7) !important; 
-  background-image:      -o-linear-gradient(left, #5CB3FF, #1569C7) !important; 
+  background-image: -webkit-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
+  background-image:    -moz-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
+  background-image:     -ms-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
+  background-image:      -o-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
 }
 
 .ribbon-dialog{
-  min-width: 40px;
-  min-height: 40px;
+  max-width: 160px !important; 
+  min-height: 26px !important;
+  max-height: 26px !important;
+}
+
+.ribbon-dialog-text{
+  background: #FFFFFF !important; 
+  font-weight:bold !important;
+  font-size: 10pt !important;
 }

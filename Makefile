@@ -68,3 +68,6 @@ deployzip:
 datatest:
 	$(OC_SCRIPTS_DIR)test-cross-site-scripting.py $(OC_DATA_DIR)
 
+metrics:
+	$(OC_SCRIPTS_DIR)metrics.py $(OC_ACTIVE_CONTENT_FILE) $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR)
+

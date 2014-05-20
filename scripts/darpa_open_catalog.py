@@ -309,19 +309,20 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 	var x=event.clientX;
 	var y=event.clientY;
 	
+	$( "#dialog" ).removeClass("ribbon-dialog");
+	$(".ui-dialog").removeClass("ribbon-dialog vertical-green vertical-red");
+	$(".ui-widget-header").removeClass("ribbon-dialog-text");
+	
 	if(short_nm != ""){
 		$( "#dialog" ).empty().dialog({
 		position: [x , y - 20],
 		title: short_nm
 		});
-		
-		//$( "#dialog" ).removeClass("ribbon-dialog");
 
 		if(description != "")
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>: " + description);
 		else
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>");
-	
 	
 		$(".ui-dialog").mouseleave( function () {
 			 $( "#dialog" ).dialog( "close" );
@@ -340,18 +341,29 @@ function dateInfo(ribbon, event){
 		var ribbon_type = document.getElementById(ribbon).firstChild.getAttribute("name"); 
 		var x=event.clientX;
 		var y=event.clientY;
+		var text = "";
+		var background = "";
+		
+		if(ribbon_type == "NEW"){
+			text = "CREATED";
+			$(".ui-dialog").removeClass('vertical-green');
+			background = "vertical-red";
+		}
+		else{
+			text = ribbon_type;
+			$(".ui-dialog").removeClass('vertical-red');
+			background = "vertical-green";
+		}
+		
+		
+		$( "#dialog" ).addClass("ribbon-dialog");
+		$(".ui-dialog").addClass(background + " ribbon-dialog");
+		$(".ui-widget-header").addClass("ribbon-dialog-text");
 		
 		$( "#dialog" ).empty().dialog({
 		position: [x , y - 20],
-		title: ribbon_type + " " + date,
+		title: text + ": " + date,
 		});
-
-		$( "#dialog" ).addClass("ribbon-dialog");
-		//dialogClass: 'noPadding',
-		if(ribbon_type == "NEW")
-			$("#dialog").html(ribbon);
-		else if (ribbon_type == "UPDATED")
-			$("#dialog").html(ribbon);
 
 		$(".ui-dialog").mouseleave( function () {
 			 $( "#dialog" ).dialog( "close" );
