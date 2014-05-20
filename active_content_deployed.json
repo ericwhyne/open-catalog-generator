@@ -28,13 +28,6 @@
         "Banner":"NEW"
 },
 {
-        "Program Name": "BOLT",
-        "Program File": "BOLT-program.json",
-        "Pubs File": "BOLT-pubs.json",
-        "Software File": "BOLT-software.json",
-        "Banner":"COMING SOON"
-},
-{
         "Program Name": "CFT",
         "Program File": "CFT-program.json",
         "Pubs File": "",
