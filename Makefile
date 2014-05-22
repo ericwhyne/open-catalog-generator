@@ -1,6 +1,7 @@
 OC_DATA_DIR=$(shell pwd)/darpa_open_catalog/
 OC_SCRIPTS_DIR=$(shell pwd)/scripts/
 OC_TEST_DIR=$(shell pwd)/test/
+OC_METRICS_DIR=$(shell pwd)/metrics_log/
 OC_DEFAULT_TEMPLATE_DIR=$(shell pwd)/templates/simple_sortable_table/
 OC_SEARCH_TEMPLATE_DIR=$(shell pwd)/templates/searchable_table/
 OC_VIS_TEMPLATE_DIR=$(shell pwd)/templates/sunburst_vis/
@@ -54,5 +55,5 @@ datatest:
 	$(OC_SCRIPTS_DIR)test-cross-site-scripting.py $(OC_DATA_DIR)
 
 metrics:
-	$(OC_SCRIPTS_DIR)metrics.py $(OC_ACTIVE_CONTENT_FILE) $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR)
+	$(OC_SCRIPTS_DIR)metrics.py $(OC_ACTIVE_CONTENT_FILE) $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR) $(OC_METRICS_DIR)metrics.csv
 
