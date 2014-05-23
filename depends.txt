@@ -1,1 +1,2 @@
 sudo apt-get install linkchecker
+sudo apt-get install python-matplotlib
