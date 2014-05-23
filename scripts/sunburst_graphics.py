@@ -14,6 +14,7 @@ def sunburst_header():
    body{
 	overflow-x: hidden;
 	overflow: auto;
+	background: #E5E4E2;
    }
 
    h1, h2, h3, h4, h5 {
@@ -150,11 +151,14 @@ function getDetailsNode(data, edges, node_name, size){
 function getProgramLinks(program){
 	var links = new Array();
 	var link_html = "";
-
+	url_path = window.location.href;
+	console.log(url_path);
+	url_path = url_path.replace(/\/.+\.html/g, "this.html");
+	console.log(url_path);	
 	link_html += '<p id="program_templ_links " class="vis_p">';
 	if (program['Pubs File'] != "")
-		//links.push('<a href="#">Publications</a>');
-		links.push('Publications');
+		links.push('<a href="#">Publications</a>');
+		//links.push('Publications');
 	if (program['Software File'] != "")
 		//links.push('<a href="#">Software</a>');
 		links.push('Software');
