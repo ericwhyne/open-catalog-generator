@@ -71,5 +71,5 @@ addjsonfields:$(OC_DEFAULT_TEMPLATE_DIR)
 	mkdir -p $(NEW_JSON_DIR)
 	$(OC_SCRIPTS_DIR)add_json_fields.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR) $(OC_SCHEMA_FILE)
 	
-nonascii:$(OC_DEFAULT_TEMPLATE_DIR)
+allascii:$(OC_DEFAULT_TEMPLATE_DIR)
 	$(OC_SCRIPTS_DIR)convert_non_ascii_chars.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR)
