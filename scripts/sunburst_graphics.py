@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 def sunburst_header():
   return """
   <!DOCTYPE html>
@@ -151,17 +153,14 @@ function getDetailsNode(data, edges, node_name, size){
 function getProgramLinks(program){
 	var links = new Array();
 	var link_html = "";
-	url_path = window.location.href;
-	console.log(url_path);
-	url_path = url_path.replace(/\/.+\.html/g, "this.html");
-	console.log(url_path);	
+	var url_href = window.location.href;
+	var url_path = url_href.substring(0, url_href.lastIndexOf("/")); 
+	var url_redirect =  url_path + "/" + program["Program Name"] + ".html";
 	link_html += '<p id="program_templ_links " class="vis_p">';
 	if (program['Pubs File'] != "")
-		links.push('<a href="#">Publications</a>');
-		//links.push('Publications');
+		links.push('<a href=' + url_redirect + '?tab=tabs1>Publications</a>');
 	if (program['Software File'] != "")
-		//links.push('<a href="#">Software</a>');
-		links.push('Software');
+		links.push('<a href=' + url_redirect + '?tab=tabs0>Software</a>');
 
 	if(links.length > 1){
 		$.each(links, function (link) {

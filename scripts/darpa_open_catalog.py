@@ -131,7 +131,7 @@ var swList = pubList = spubList = ssftList = "";
 
 $(document).ready(function() 
     { 
-        $('#sftwr').tablesorter({
+	   $('#sftwr').tablesorter({
 		// sort on the first column and second column, order asc 
         	sortList: [[0,0],[1,0]] 
     	}); 
@@ -146,16 +146,23 @@ $(document).ready(function()
 		//get the list of tabs and the number of tabs
 		var tabList = $('#tabs >ul >li');
 		var tabCount = $('#tabs >ul >li').size();
-
 		
 		//create table tabs
-
 		$(function() {
-			$( "#tabs" ).tabs();
-			if($("#tabs0"))
-				$("#tabs").tabs({active: 0});  //software tab
-			else
-				$("#tabs").tabs({active: 1});  //publications tab
+			$( "#tabs" ).tabs
+			param_query = decodeURIComponent(getUrlParams("tab"));
+			if(param_query == "false"){ 
+				if($("#tabs0"))
+					$("#tabs").tabs({active: 0}); //software tab
+				else
+					$("#tabs").tabs({active: 1}); //publications tab
+			}
+			else{
+				if (param_query == "tabs0")
+					$("#tabs").tabs({active: 0});  //software tab
+				else if (param_query == "tabs1")
+					$("#tabs").tabs({active: 1});  //publications tab
+			}
 		});
 
 		//configure table search and clear button for software and publications table
@@ -328,6 +335,17 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 			 $( "#dialog" ).dialog( "close" );
 		  });
 	}
+}
+
+function getUrlParams(param_name)
+{
+       var query = window.location.search.substring(1);
+       var params = query.split("&");
+       for (var i=0;i<params.length;i++) {
+               var pair = params[i].split("=");
+               if(pair[0] == param_name){return pair[1];}
+       }
+       return(false);
 }
 
 function dateInfo(ribbon, event){
