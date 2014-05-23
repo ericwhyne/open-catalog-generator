@@ -5,8 +5,6 @@ import sys
 import time
 import os
 import shutil
-import darpa_open_catalog as doc
-import sunburst_graphics as graph
 from pprint import pprint
 import collections
 
@@ -81,14 +79,14 @@ def add_fields_to_json(program_name, original_file, schema_dict, file_type, new_
 try:
   active_content = json.load(open(active_content_file))
 except Exception, e:
-  print "\nFAILED! JSON error in file 1 %s" % active_content_file
+  print "\nFAILED! JSON error in file %s" % active_content_file
   print " Details: %s" % str(e)
   sys.exit(1)
 
 try:
   schemas = json.load(open(schema_file), object_pairs_hook=collections.OrderedDict)
 except Exception, e:
-  print "\nFAILED! JSON error in file 1 %s" % schema_file
+  print "\nFAILED! JSON error in file %s" % schema_file
   print " Details: %s" % str(e)
   sys.exit(1)
   

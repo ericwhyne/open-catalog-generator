@@ -41,10 +41,6 @@ deploy: $(OC_DEFAULT_TEMPLATE_DIR)
 	@if ! test -f $(CUR_BUILD_DATE); then echo $$(($$(date --date="15 days ago" +"%Y%m%d"))) > $(CUR_BUILD_DATE); fi 
 	@if test $$(($$(cat $(CUR_BUILD_DATE)))) != $$(($$(date +"%Y%m%d"))); then echo $$(($$(cat $(CUR_BUILD_DATE)))) > $(LAST_BUILD_DATE); echo $$(($$(date +"%Y%m%d"))) > $(CUR_BUILD_DATE); fi
 	$(OC_SCRIPTS_DIR)generate_html.py $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_LICENSE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) $(LAST_BUILD_DATE) darpalinks
-	
-addjsonfields:$(OC_DEFAULT_TEMPLATE_DIR)
-	mkdir -p $(NEW_JSON_DIR)
-	$(OC_SCRIPTS_DIR)add_json_fields.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR) $(OC_SCHEMA_FILE)
 
 graph: $(OC_DEFAULT_TEMPLATE_DIR) 
 	$(OC_SCRIPTS_DIR)generate_graphviz.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(OC_BUILD_DIR) normallinks
@@ -71,3 +67,9 @@ datatest:
 metrics:
 	$(OC_SCRIPTS_DIR)metrics.py $(OC_ACTIVE_CONTENT_FILE) $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR)
 
+addjsonfields:$(OC_DEFAULT_TEMPLATE_DIR)
+	mkdir -p $(NEW_JSON_DIR)
+	$(OC_SCRIPTS_DIR)add_json_fields.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR) $(OC_SCHEMA_FILE)
+	
+nonascii:$(OC_DEFAULT_TEMPLATE_DIR)
+	$(OC_SCRIPTS_DIR)convert_non_ascii_chars.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR)
