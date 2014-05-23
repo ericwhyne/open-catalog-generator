@@ -25,8 +25,8 @@ def found_script_error(file_name, value):
 # Will pick out html tags that have single value <h> or <img /> as well
 def is_html(value):
   # will ignore br html tags, can be commented out
-  value = value.replace('<br>',' ') 
-  value = value.replace('<br/>',' ')
+  # value = value.replace('<br>',' ') 
+  # value = value.replace('<br/>',' ')
   html_opentag = re.search('<[a-zA-Z][^>]*>', value, re.I)
   html_closetag = re.search('</[a-zA-Z][^>]*>', value, re.I)
   if html_opentag or html_closetag:
@@ -38,15 +38,21 @@ def is_html(value):
 # tests each value to see if it has a script inside of it.
 def test_for_xss(json_data, identifier):
   found_error = 0
+  # iterates through the hash table found in the JSON table
   for key, value in json_data.iteritems():
     html = 0
     if isinstance(value, basestring) and value != "":
       html = is_html(value)
     elif isinstance(value, list):
       for item in value:
-        if(item != ""):
-          html = is_html(item)
 
+        # checks to see if there is actually a value present
+        # also checks if there is a hash table used as the value
+        if(item != ""):
+          # prevents schemas from being checked
+          if(not isinstance(item, dict)):
+            html = is_html(item)
+      
     if html:
       found_script_error(identifier, html)
       found_error = 1
@@ -63,6 +69,7 @@ found_errors = 0
 for file_name in glob.glob(path):
   name_nopath = os.path.basename(file_name)
   json_file = open(file_name)
+
   try:
     json_content = json.load(json_file)
   except Exception, e:
