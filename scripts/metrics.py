@@ -11,9 +11,16 @@ import os.path
 active_content_file = sys.argv[1]
 deployed_content_file = sys.argv[2]
 data_dir = sys.argv[3]
-metric_log_file = sys.argv[4]
+metric_log_dir = sys.argv[4]
 date = time.strftime("%Y-%m-%d", time.localtime())
 str_divider = "-" * 30
+
+# Checks to see if the metric directory exits
+# and if it doesn't, will create it.
+if not os.path.exists(metric_log_dir):
+    os.makedirs(metric_log_dir)
+
+metric_log_file = metric_log_dir + "metrics.csv"
 
 # Checks to see if the metrics file exists or not
 # , and if it doesn't, it will create it.
