@@ -94,3 +94,5 @@ if not len(dates) < 2:
   ax1.axis([min(p) - 0.1, max(p) + 0.1, -1, max(pubs) + 50])
 
   plt.show()
+
+  
