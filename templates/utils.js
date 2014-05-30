@@ -53,3 +53,7 @@ function sortByProperty(property) {
         return sortStatus;
     };
 }
+
+function getStringArray(object) {
+	return object = typeof object == 'string' ? [object] : object;
+}
