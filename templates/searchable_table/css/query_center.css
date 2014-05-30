@@ -1,0 +1,85 @@
+body{
+background-color: #E3E3E3;
+}
+
+.megamenu{
+/*position: absolute;
+display: none;
+left: 0;
+top: 0;*/
+background: white;
+border: 1px solid #B7CEEC;/*#f06b24;*/
+border-width: 5px 1px;
+padding: 10px;
+font: normal 12px Verdana;
+width:98.4%;
+float: center;
+margin-left:auto;
+margin-right:auto;
+}
+
+.megamenu .column{
+float: left;
+width: 225px; /*width of each menu column*/
+margin-right: 8px;
+}
+
+.megamenu .column ul{
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+
+.megamenu .column ul li{
+padding-bottom: 5px;
+}
+
+.megamenu .column h3{
+background: #e0e0e0;
+font: bold 13px Arial;
+margin: 0 0 5px 0;
+padding-left: 4px;
+}
+
+.megamenu .column ul li a{
+text-decoration: none;
+}
+
+.megamenu .column ul li a:hover{
+color: red;
+}
+
+.collectionview{
+width:100%;
+}
+
+.collectionview table{
+width:100%;
+}
+
+.collectionview table tr td{
+background-color:white;
+border: 1px solid #DDDDDD;
+vertical-align:top; 
+align:justified; 
+text-align:top; 
+padding:0px 8px 2px 8px;
+}
+.collectionview span{
+width: 100%;
+float: left;
+padding-bottom: 10px;
+}
+
+.table-tabs{
+margin-left: auto;
+margin-right: auto;
+width: 99.2%;
+}
+
+.id-image{
+width:35px; 
+height:35px;
+padding-right:5px;
+float:left;
+}
