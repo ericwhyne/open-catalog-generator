@@ -44,7 +44,7 @@ def create_new_log(status, stored_metrics):
                        ,'Active Records', 'Active Attributes', 'Deployed Records'\
                        ,'Deployed Attributes', 'Projects Per Active Program'\
                        ,'Publications Per Active Program', 'Projects Per Deployed Program'
-                       ,'Publications Per Deployed Program'])
+                       ,'Publications Per Deployed Program', 'Release Date (Y)'])
     # Will write a new column to the end of the CSV file
     # with the information given in the array.
     output.writerow(stored_metrics)
@@ -284,6 +284,15 @@ def json_metrics(file_name):
   metrics[1] = attributes
   return metrics
 
+# Places height of each bar on the 
+# bar graph
+def autolabel(rects):
+    # attach some text labels
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
+                ha='center', va='bottom')
+
 # Printout of summary statistics 
 print "\nProject Metrics:\n"
 active_metrics = gather_metrics(active_content_file, True)
@@ -377,16 +386,19 @@ width = 1 # the width of the bars
 y = [0 + width]
 z = [0 + 2*width]
 fig, ax = plt.subplots()
-rects1 = ax.bar(ind, deployed_metrics[2], width, color='r')
-rects2 = ax.bar(y, deployed_metrics[3], width, color='g')
-rects3 = ax.bar(z, deployed_metrics[4], width, color='b')
+rects1 = ax.bar(ind, deployed_programs, width, color='r')
+rects2 = ax.bar(y, deployed_projects, width, color='g')
+rects3 = ax.bar(z, deployed_pubs, width, color='b')
 
 # Labels the graph appropriately
 ax.set_ylabel('Total Number')
 ax.set_title('Deployed Project Metrics (Current)')
 ax.set_xticks(ind)
 ax.set_xticklabels('')
-ax.legend( (rects1[0], rects2[0], rects3[0]), ('Programs', 'Projects', 'Publications') )
+ax.legend( (rects1[0], rects2[0], rects3[0]), ('Programs', 'Projects', 'Publications'), loc='upper left' )
+autolabel(rects1)
+autolabel(rects2)
+autolabel(rects3)
 plt.show()
 
 

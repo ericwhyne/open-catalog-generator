@@ -57,3 +57,6 @@ datatest:
 metrics:
 	$(OC_SCRIPTS_DIR)metrics.py $(OC_ACTIVE_CONTENT_FILE) $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR) $(OC_METRICS_DIR)
 
+chart:
+	$(OC_SCRIPTS_DIR)area_chart.py $(OC_METRICS_DIR)metrics.csv
+
