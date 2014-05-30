@@ -44,7 +44,7 @@ def create_new_log(status, stored_metrics):
                        ,'Active Records', 'Active Attributes', 'Deployed Records'\
                        ,'Deployed Attributes', 'Projects Per Active Program'\
                        ,'Publications Per Active Program', 'Projects Per Deployed Program'
-                       ,'Publications Per Deployed Program'])
+                       ,'Publications Per Deployed Program', 'Release Date (Y)'])
     # Will write a new column to the end of the CSV file
     # with the information given in the array.
     output.writerow(stored_metrics)
@@ -58,7 +58,7 @@ def update_log(stored_metrics):
   rows = []
   # Reads in all the old values from
   # the original file except for
-  # the row that needs updating, it will 
+  # the row that needs updating, it will
   # replace that row with the new values.
   with open(metric_log_file, 'r') as read_file:
     reader = csv.reader(read_file)
@@ -83,7 +83,7 @@ def update_log(stored_metrics):
 # exists. Returns an integer status where 0 represents
 # log not found, 1 represents log is found, 2 represents
 # log is found but needs updating, and 3 represents that
-# the log is empty. 
+# the log is empty.
 def csv_log_exists(metric_log):
   status = 0
   counter = 0
@@ -173,7 +173,7 @@ def gather_metrics(file_name, program_details):
 
     # Tries to open the program JSON files for each program
     if program_file == "":
-      print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
+      print "ERROR: %s has no program details json file, can't continue. Please fix this and restart the build." % program_name
       sys.exit(1)
     else:
       program_metrics = json_metrics(program_file)
@@ -206,7 +206,7 @@ def gather_metrics(file_name, program_details):
     metrics[2] = pubs
 
     # If details about each program are desired
-    # it will then print out metrics for each 
+    # it will then print out metrics for each
     # individual program. It will also state
     # if the program is deployed or not.
     if program_details:
@@ -284,7 +284,16 @@ def json_metrics(file_name):
   metrics[1] = attributes
   return metrics
 
-# Printout of summary statistics 
+# Places height of each bar on the
+# bar graph
+def autolabel(rects):
+    # attach some text labels
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
+                ha='center', va='bottom')
+
+# Printout of summary statistics
 print "\nProject Metrics:\n"
 active_metrics = gather_metrics(active_content_file, True)
 deployed_metrics = gather_metrics(deployed_content_file, False)
@@ -369,7 +378,7 @@ if status == 0 or status == 3:
 elif status == 2:
   update_log(stored_metrics)
 
-# Will create a bar graph with the current metrics 
+# Will create a bar graph with the current metrics
 # (number of pubs, projects, programs)
 # of the deployed projects.
 ind = [0] # location of the first bar
@@ -377,16 +386,17 @@ width = 1 # the width of the bars
 y = [0 + width]
 z = [0 + 2*width]
 fig, ax = plt.subplots()
-rects1 = ax.bar(ind, deployed_metrics[2], width, color='r')
-rects2 = ax.bar(y, deployed_metrics[3], width, color='g')
-rects3 = ax.bar(z, deployed_metrics[4], width, color='b')
+rects1 = ax.bar(ind, deployed_programs, width, color='r')
+rects2 = ax.bar(y, deployed_projects, width, color='g')
+rects3 = ax.bar(z, deployed_pubs, width, color='b')
 
 # Labels the graph appropriately
 ax.set_ylabel('Total Number')
 ax.set_title('Deployed Project Metrics (Current)')
 ax.set_xticks(ind)
 ax.set_xticklabels('')
-ax.legend( (rects1[0], rects2[0], rects3[0]), ('Programs', 'Projects', 'Publications') )
+ax.legend( (rects1[0], rects2[0], rects3[0]), ('Programs', 'Projects', 'Publications'), loc='upper left' )
+autolabel(rects1)
+autolabel(rects2)
+autolabel(rects3)
 plt.show()
-
-
