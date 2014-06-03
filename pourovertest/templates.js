@@ -11,5 +11,7 @@ var templates = {
 	
 	SoftwareOrdered: "<dd><h2 class='vis_headers'>{{Software}}</h2><p class='vis_p'>{{Description}}<br><a href='#'>{{Public Code Repo}}</a></p><div><ul>Teams:{{#Program Teams}}<li>{{.}}</li>{{/Program Teams}}</ul></div><div><ul>Languages:{{#Languages}}<li>{{.}}</li>{{/Languages}}</ul></div> <div><ul>Licenses:{{#License}}<li>{{.}}</li>{{/License}}</ul></div><div><ul>Categories:{{#Categories}}<li>{{.}}</li>{{/Categories}}</ul></div></dd>",
 	
-	SoftwareCenter:  "<td><span><h4><a target='blank' href='#'><img src='laptop.png' class='id-image'/></a>{{Software}}</h4></span><p>{{Description}}<br /><br />&nbsp;</p></td>"
+	SoftwareCenter:  "<td><span><h4><a target='blank' href='#'><img src='laptop.png' class='id-image'/></a>{{DARPA Program}} : {{Software}}</h4></span><p>{{Description}}<br /></p></td>",
+	
+	PublicationsCenter:  "<td><span><h4><a target='blank' href='#'><img src='publication.png' class='id-image'/></a>{{DARPA Program}} : {{Title}}</h4></span><p><ul>Authors:{{#Authors}}<li>{{.}}</li>{{/Authors}}</ul><br /></p></td>"
 };

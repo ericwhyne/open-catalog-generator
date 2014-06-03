@@ -1,5 +1,9 @@
 body{
 background-color: #E3E3E3;
+font-family:Arial, Helvetica, sans-serif;
+font-size: 12px;
+font-weight: normal;
+line-height: 18px;
 }
 
 .megamenu{
@@ -78,8 +82,54 @@ width: 99.2%;
 }
 
 .id-image{
-width:35px; 
-height:35px;
+width:48px; 
+height:48px;
 padding-right:5px;
 float:left;
+}
+
+/* stop linked images from having border */
+a {outline : none;}
+a img {outline : none;}
+img {border : 0;}
+
+
+.filter-container{
+    color: #333333;
+    font-family: "nyt-franklin",helvetica,arial,sans-serif;
+    font-size: 11px;
+    list-style: none outside none;
+}
+
+.point-cursor{
+    cursor: pointer;
+}
+
+.filter{
+	
+    border-color: #CCCCCC;
+    /*color: #999999;*/
+	border-radius: 3px;
+    float: left;
+    margin: 0 12px 0 0;
+    padding: 6px 21px 6px 8px;
+    position: relative;
+    border: 1px solid #E9EBE4;
+}
+
+.filter-value{
+	background-color: #E9EBE4;
+}
+
+.filter-clear{
+	background-color: #FFFFFF;
+}
+
+.filter-close-container{
+    color: #999999;
+    font-size: 12px;
+    margin: 1px 2px 0 6px;
+    position: absolute;
+    right: 7px;
+    top: 5px;
 }

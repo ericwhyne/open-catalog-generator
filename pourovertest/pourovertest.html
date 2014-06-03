@@ -15,10 +15,10 @@
 
 <script>
 var view = [],
-	menu_array = {"names":[], "teams":[], "categories":[]};
+	menu_array = {"names":[], "categories":[], "teams":[]};
 	
 var alphaCharRange = {
-		start: 65, end: 90
+		start: 31, end: 90
 	}
 
 $(document).ready(function() {
@@ -27,8 +27,7 @@ $(document).ready(function() {
 
 	programs.sort(sortByProperty('Program Name'));
 
-	var software_docs = [],
-	publications_docs = [];
+	var artifacts = [];
 	
 	for (program in programs){
 		var program_nm = programs[program]["Program Name"];
@@ -37,59 +36,63 @@ $(document).ready(function() {
 			program_sw_file = getProgramDetails(programs[program]["Software File"]);
 			for (sw_item in program_sw_file){
 				var sw_object = program_sw_file[sw_item];
-				software_docs.push(sw_object);
-				createMenuArrays(sw_object["Categories"], "categories");
+				artifacts.push(sw_object);
 				createMenuArrays(sw_object["DARPA Program"], "names");
+				createMenuArrays(sw_object["Categories"], "categories");
 				createMenuArrays(sw_object["Program Teams"], "teams");
 			}
 		}
-		else if(programs[program]["Pubs File"] != ""){
+		
+		if(programs[program]["Pubs File"] != ""){
 			program_pub_file = getProgramDetails(programs[program]["Pubs File"])
-			for (pub_item in program_pub_file)
+			for (pub_item in program_pub_file){
 				var pub_object = program_pub_file[pub_item];
-				publications_docs.push(pub_object);
-				createMenuArrays(pub_object["Categories"], "categories");
+				artifacts.push(pub_object);
 				createMenuArrays(pub_object["DARPA Program"], "names");
+				createMenuArrays(pub_object["Categories"], "categories");
 				createMenuArrays(pub_object["Program Teams"], "teams");
+			}
 		}
 	}
 	
+	menu_array["names"].sort();
+	var name_menu = getQueryMenu(menu_array["names"], "names");
+	$("#names_menu").html(name_menu);
+	
 	menu_array["categories"].sort(insensitive());
 	var cat_menu = getQueryMenu(menu_array["categories"], "categories");
-	$("#category_menu").html(cat_menu);
+	$("#categories_menu").html(cat_menu);
 	
-	//console.log(menu_array["categories"]);
-	menu_array["names"].sort();
-	//console.log(menu_array["names"]);
 	menu_array["teams"].sort();
-	//console.log(menu_array["teams"]);
+	var team_menu = getQueryMenu(menu_array["teams"], "teams");
+	$("#teams_menu").html(team_menu);
+	
+	var artifacts_collection = new PourOver.Collection(artifacts);
 
-
-	var sw_collection = new PourOver.Collection(software_docs);
-	//var pub_collection = new PourOver.Collection(publications_docs);
-
+	var name_filter = PourOver.makeExactFilter("DARPA Program", menu_array["names"]);
 	var category_filter = PourOver.makeInclusionFilter("Categories", menu_array["categories"]);
-	var name_filter = PourOver.makeExactFilter("DARPA Program", menu_array["name"]);
 	var team_filter = PourOver.makeInclusionFilter("Program Teams", menu_array["teams"]);
-
-	sw_collection.addFilters([category_filter, name_filter, team_filter]);
+	
+	artifacts_collection.addFilters([name_filter, category_filter, team_filter]);
 	
 	MyView = PourOver.View.extend({
 		selectionFn: function(){
 			var collection = this.collection,
+				name_col = collection.getCurrentFilteredItems("DARPA Program");
 				cat_col = collection.getCurrentFilteredItems("Categories");
 				team_col = collection.getCurrentFilteredItems("Program Teams");
-				name_col = collection.getCurrentFilteredItems("DARPA Program");
+
 			return cat_col.and(team_col).and(name_col);		
 		},
 		render: function(){
 			var items = this.getCurrentItems();
-			showResults(items, templates.SoftwareCenter, "Software");
+			showResults(items);
 		}
 	});
 	
-	view = new MyView("custom_view",sw_collection);
+	view = new MyView("custom_view",artifacts_collection);
 	view.render();
+
 });
 
 //gathers all values and puts them in the appropriate place in the menu_array
@@ -101,6 +104,7 @@ function createMenuArrays(argument, type){
 		}
 	}
 }
+
 
 function createHeaderArray(query_array){
 	var curr_header = '';
@@ -127,6 +131,7 @@ function createHeaderArray(query_array){
 
 //creates the html for the Query Menu displayed in the UI
 function getQueryMenu(query_arr, arr_type){
+
 	var curr_header = '';
 	var menu_html = '<div data-filter-name="' + arr_type + '" data-pourover-filter="makeExactFilter" id="pourover_' + arr_type + '" style="display:none">';
 	var value_cnt = query_arr.length;
@@ -143,6 +148,7 @@ function getQueryMenu(query_arr, arr_type){
 		
 		var term = query_arr[query];
 		var first_letter = term.charAt(0).toUpperCase(); 
+		
 		if (curr_header == '' && first_letter == curr_header){
 			menu_html += '<h3>&nbsp;</h3><ul>';
 			curr_line_cnt ++;
@@ -151,7 +157,7 @@ function getQueryMenu(query_arr, arr_type){
 		if (first_letter == curr_header){
 			if(curr_line_cnt == 0)
 				menu_html += '<ul>';
-			menu_html += '<li data-filter-item-name="'+ term + '" onclick="performQuery(this);" onmouseover="overBackgroundColor(this);" onmouseout="outBackgroundColor(this);">' + toCamelCase(term) + '</li>';
+			menu_html += '<li data-filter-name="' + arr_type + '" data-filter-item-name="'+ term + '" onclick="performQuery(this);" onmouseover="overBackgroundColor(this);" onmouseout="outBackgroundColor(this);">' + toCamelCase(term) + '</li>';
 			curr_line_cnt ++;
 		}
 		else{
@@ -159,7 +165,7 @@ function getQueryMenu(query_arr, arr_type){
 				curr_header = String.fromCharCode(i);
 				if (first_letter == curr_header){
 					menu_html += '</ul><h3>' + first_letter + '</h3><ul>';
-					menu_html += '<li data-filter-item-name="'+ term + '" onclick="performQuery(this);" onmouseover="overBackgroundColor(this);" onmouseout="outBackgroundColor(this);">' + toCamelCase(term) + '</li>';
+					menu_html += '<li data-filter-name="' + arr_type + '" data-filter-item-name="'+ term + '" onclick="performQuery(this);" onmouseover="overBackgroundColor(this);" onmouseout="outBackgroundColor(this);">' + toCamelCase(term) + '</li>';
 					curr_line_cnt = curr_line_cnt + 2;
 					break;
 				}
@@ -178,71 +184,132 @@ function getQueryMenu(query_arr, arr_type){
 
 
 function performQuery(chosen_item){
+	console.log("the chosen one");
+	console.log(chosen_item);
 	var all_selected_items = result_set = [];
+
+	toggleItem(chosen_item);
+
+	var menu_list = $("#query_tab").find('li');
+	menu_list.each(function(li) {
+		if (menu_list[li].selected == true){
+			all_selected_items.push(menu_list[li]);
+		}
+	});
 	
-	if (chosen_item.selected == true)
-		chosen_item.selected = false;
-	else
-		chosen_item.selected = true;
- 
-	if(chosen_item.style.backgroundColor != 'yellow')
-		chosen_item.style.backgroundColor ='yellow';
-	else
-		chosen_item.style.backgroundColor ='transparent';
-		
-	var category_menu_list = $("#category_menu").find('li');
+	var view_names_filter = new PourOver.UI.SimpleSelectElement({filter: view.collection.filters["DARPA Program"]});
 	var view_cat_filter = new PourOver.UI.SimpleSelectElement({filter: view.collection.filters.Categories});
+	var view_teams_filter = new PourOver.UI.SimpleSelectElement({filter: view.collection.filters["Program Teams"]});
 	
-	category_menu_list.each(function(li) {
-		if (category_menu_list[li].selected == true){
-			all_selected_items.push(category_menu_list[li]);
-		}
-	});	
-
-
+	view_names_filter.filter.clearQuery();
+	view_cat_filter.filter.clearQuery();
+	view_teams_filter.filter.clearQuery();
+	
+	var n_num = 0, c_num = 0, t_num = 0;
+	var n_html = '', c_html = '', t_html = '';
+	var open_html = '<ul class="filter-container" style="display: block;">';
+	var close_html = '<li class="filter filter-clear point-cursor" onclick="removeFilterValue(this);" data-filter-item-name="" data-filter-name=""><span class="filter-item-title">Clear Filters</span><div class="filter-close-container"><div class="filter-close">&times;</div></div></li></ul>';
+	
 	if(all_selected_items.length > 0){
+	
+		var selected_filter = '', selected_value = '';
 		for (item in all_selected_items){
-			if (item == 0)
+
+			//console.log(all_selected_items[item].attributes['data-filter-name'].value, t_num);
+			selected_filter = all_selected_items[item].attributes['data-filter-name'].value;
+			selected_value = all_selected_items[item].attributes['data-filter-item-name'].value;
+			
+			if(selected_filter == 'names' && n_num == 0){
+				view_names_filter.filter.query(all_selected_items[item].dataset.filterItemName);
+				n_html += open_html;
+				n_html += addFilterValue(selected_filter, selected_value);
+				n_num ++;
+			}
+			else if (selected_filter == 'names' && n_num > 0){
+				view_names_filter.filter.intersectQuery(all_selected_items[item].dataset.filterItemName);
+				n_html += addFilterValue(selected_filter, selected_value);
+			}
+			else if (selected_filter == 'categories' && c_num == 0){
 				view_cat_filter.filter.query(all_selected_items[item].dataset.filterItemName);
-			else
+				c_html += open_html;
+				c_html += addFilterValue(selected_filter, selected_value);
+				c_num ++;
+			}
+			else if (selected_filter == 'categories' && c_num > 0){
 				view_cat_filter.filter.intersectQuery(all_selected_items[item].dataset.filterItemName);
+				c_html += addFilterValue(selected_filter, selected_value);
+			}
+			else if (selected_filter == 'teams' && t_num == 0){
+				view_teams_filter.filter.query(all_selected_items[item].dataset.filterItemName);
+				t_html += open_html;
+				t_html += addFilterValue(selected_filter, selected_value);
+				t_num ++;
+			}
+			else if (selected_filter == 'teams' && t_num > 0){
+				view_teams_filter.filter.intersectQuery(all_selected_items[item].dataset.filterItemName);
+				t_html += addFilterValue(selected_filter, selected_value);
+			}
+
 		}
 
-		var cat_cids = view_cat_filter.filter.current_query.cids,
-		result_set = view_cat_filter.filter.collection.get(cat_cids);
+		if (n_html != ''){ n_html += close_html; $('#names_filter_div').html(n_html);}	
+		if (c_html != ''){c_html += close_html; $('#categories_filter_div').html(c_html);}
+		if (t_html != ''){ t_html += close_html; $('#teams_filter_div').html(t_html);}			
 		
-			showResults(result_set, templates.SoftwareCenter, "Software");
+		//console.log(view_names_filter.filter);
+		//console.log(view_cat_filter.filter);
+		//console.log(view_teams_filter.filter);
+		
+		var current_cids = view_names_filter.filter.current_query.and(view_cat_filter.filter.current_query);
+		current_cids = current_cids.and(view_teams_filter.filter.current_query).cids;
+		
+		//console.log(current_cids);
+		
+		var result_set = view.collection.get(current_cids);
+
 		if(result_set.length == 0)
 			alert("No Results Found");
+		else
+			showResults(result_set);
 	}
 	else{
-		showResults(view_cat_filter.filter.collection.items, templates.SoftwareCenter, "Software");
+		showResults(view.collection.items);
+		$("#names_filter_div").html('');
+		$("#categories_filter_div").html('');
+		$("#teams_filter_div").html('');
 	}
 	
 	
 	/*
 		update filter
-		NEED ACCORDIAN NOT TABS
-		AND FILTER BAR
-	
 	*/
 	
 }
 
-function showResults(items, template, property){
+
+function showResults(items){
+
 	var html = "<table id='collection_table'><tbody><tr>";
-	items.sort(sortByProperty(property));
-	for(item in items){
-		if (items[item][property] == "")
-				items[item][property] = "--";
-		html += Mustache.to_html(template, items[item]);
-		if (item%4 == 3)
+	//console.log(property);
+	//items.sort(sortByProperty(property));
+	items.sort();
+
+	for (var i = 0; i <= items.length; i++) {	
+		if (i < items.length){
+			
+			if(typeof(items[i].Software) == "undefined")
+				html += Mustache.to_html(templates.PublicationsCenter, items[i]);
+			else
+				html += Mustache.to_html(templates.SoftwareCenter, items[i]);
+			
+		}
+		if (i%4 == 3)
 			html += "</tr><tr>";
 	}
+	
 	html += "</tr></tbody></table>";
 	$("#collection_view").html(html);
 }
-
 
 function overBackgroundColor(item){
 	if (item.style.backgroundColor == 'transparent' ||  item.style.backgroundColor == '')
@@ -270,7 +337,6 @@ function toCamelCase(str) {
 }
 
 function toggleMenu(arrow_id, arrow_alt){
-	//$('someSelector').is('hidden')
 	if($("#" + arrow_alt).css("display") == "none"){
 		$("#" + arrow_id).attr("src", "arrow-down.gif");
 		$("#" + arrow_alt).attr("style", "display:visible");
@@ -282,6 +348,49 @@ function toggleMenu(arrow_id, arrow_alt){
 		
 }
 
+function toggleItem(item){
+	if (item.selected == true)
+		item.selected = false;
+	else
+		item.selected = true;
+ 
+	if(item.style.backgroundColor != 'yellow')
+		item.style.backgroundColor ='yellow';
+	else
+		item.style.backgroundColor ='transparent';
+}
+
+function addFilterValue(filter, value){
+	html = '<li class="filter filter-value point-cursor" onclick="removeFilterValue(this);" data-filter-item-name="' + value + '" data-filter-name="' + filter + '"><span class="filter-item-title">' + value + '</span><div class="filter-close-container"><div class="filter-close">&times;</div></div></li>';
+	return html;
+}
+
+function removeFilterValue(filter){
+	var selected_filter = filter.attributes['data-filter-name'].value;
+	var selected_value = filter.attributes['data-filter-item-name'].value;
+	
+	if(selected_filter != ''){
+		var filter_list = $("#" + selected_filter + "_filter_div").find('li');
+
+		filter_list.each(function(li) {
+			if (filter_list[li].attributes['data-filter-item-name'].value == selected_value){
+				$("#" + selected_filter + "_filter_div li").eq(li).remove();
+				if(filter_list.length == 2){
+					$("#" + selected_filter + "_filter_div li").remove();
+				}
+				performQuery($("#pourover_" + selected_filter).find('[data-filter-item-name="' + selected_value + '"]')[li]);
+			}
+		});		
+
+	}
+	else
+	{
+		performQuery('');
+	}
+
+	
+}
+
 </script>
 </head>
 <body>
@@ -289,17 +398,26 @@ function toggleMenu(arrow_id, arrow_alt){
 <div id="tabs" class="table-tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
 	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
 		<li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tabs0" aria-labelledby="ui-id-1" aria-selected="true">
-			<a id="ui-id-1" class="ui-tabs-anchor" href="#tabs0" role="presentation" tabindex="-1">Query By</a>
+			<a id="ui-id-1" class="ui-tabs-anchor" href="#tabs0" role="presentation" tabindex="-1">Query All Artifacts</a>
 		</li>
 	</ul>
 	<div id="program">
-		<div id="tabs0" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
-			<p>Category<img src="arrow-up.gif" id="category_title" alt="pourover_categories" onclick="toggleMenu(this.id, this.alt);"/></p>
-			<div id="category_menu" class="megamenu">
-			</div>
+		<div id="query_tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
+			<div id='names_tite_div' style='float:left; width:10%;'><p>By Program<img class="point-cursor" src="arrow-up.gif" id="name_title" alt="pourover_names" onclick="toggleMenu(this.id, this.alt);"/></p></div>
+			<div id='names_filter_div' style='float:left; width:90%;'></div>
+			<div id="names_menu" style='clear: both;' class="megamenu"></div>
+			
+			<div id='categories_tite_div' style='float:left; width:10%;'><p>By Category<img class="point-cursor" src="arrow-up.gif" id="category_title" alt="pourover_categories" onclick="toggleMenu(this.id, this.alt);"/></p></div>
+			<div id='categories_filter_div' style='float:left; width:90%;'></div>
+			<div id="categories_menu" style='clear: both;' class="megamenu"></div>
+			
+			<div id='teams_tite_div' style='float:left; width:10%;'><p>By Team<img class="point-cursor" src="arrow-up.gif" id="team_title" alt="pourover_teams" onclick="toggleMenu(this.id, this.alt);"/></p></div>
+			<div id='teams_filter_div' style='float:left; width:90%;'></div>
+			<div id="teams_menu" style='clear: both;' class="megamenu"></div>
 		</div>	
 	</div>	
 </div>
-<br>	
-<div id='collection_view' class='collectionview'></div>
+
+<p><span id='results_title'>&nbsp;View Artifacts</span><img class="point-cursor" src="arrow-up.gif" id="collection_title" alt="collection_view" onclick="toggleMenu(this.id, this.alt);"/></p>	
+<div id='collection_view' class='collectionview' style="display:none"></div>
 </body>
