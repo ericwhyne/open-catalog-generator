@@ -3,7 +3,7 @@
 import json
 import sys
 import time
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import csv
 import os.path
 
@@ -385,20 +385,20 @@ ind = [0] # location of the first bar
 width = 1 # the width of the bars
 y = [0 + width]
 z = [0 + 2*width]
-fig, ax = plt.subplots()
-rects1 = ax.bar(ind, deployed_programs, width, color='r')
-rects2 = ax.bar(y, deployed_projects, width, color='g')
-rects3 = ax.bar(z, deployed_pubs, width, color='b')
+#fig, ax = plt.subplots()
+#rects1 = ax.bar(ind, deployed_programs, width, color='r')
+#rects2 = ax.bar(y, deployed_projects, width, color='g')
+#rects3 = ax.bar(z, deployed_pubs, width, color='b')
 
 # Labels the graph appropriately
-ax.set_ylabel('Total Number')
-ax.set_title('Deployed Project Metrics (Current)')
-ax.set_xticks(ind)
-ax.set_xticklabels('')
-ax.legend( (rects1[0], rects2[0], rects3[0]), ('Programs', 'Projects', 'Publications'), loc='upper left' )
-autolabel(rects1)
-autolabel(rects2)
-autolabel(rects3)
+#ax.set_ylabel('Total Number')
+#ax.set_title('Deployed Project Metrics (Current)')
+#ax.set_xticks(ind)
+#ax.set_xticklabels('')
+#ax.legend( (rects1[0], rects2[0], rects3[0]), ('Programs', 'Projects', 'Publications'), loc='upper left' )
+#autolabel(rects1)
+#autolabel(rects2)
+#autolabel(rects3)
 
-plt.show()
+#plt.show()
 
