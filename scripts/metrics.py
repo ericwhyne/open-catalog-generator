@@ -58,7 +58,7 @@ def update_log(stored_metrics):
   rows = []
   # Reads in all the old values from
   # the original file except for
-  # the row that needs updating, it will 
+  # the row that needs updating, it will
   # replace that row with the new values.
   with open(metric_log_file, 'r') as read_file:
     reader = csv.reader(read_file)
@@ -83,7 +83,7 @@ def update_log(stored_metrics):
 # exists. Returns an integer status where 0 represents
 # log not found, 1 represents log is found, 2 represents
 # log is found but needs updating, and 3 represents that
-# the log is empty. 
+# the log is empty.
 def csv_log_exists(metric_log):
   status = 0
   counter = 0
@@ -173,7 +173,7 @@ def gather_metrics(file_name, program_details):
 
     # Tries to open the program JSON files for each program
     if program_file == "":
-      print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
+      print "ERROR: %s has no program details json file, can't continue. Please fix this and restart the build." % program_name
       sys.exit(1)
     else:
       program_metrics = json_metrics(program_file)
@@ -206,7 +206,7 @@ def gather_metrics(file_name, program_details):
     metrics[2] = pubs
 
     # If details about each program are desired
-    # it will then print out metrics for each 
+    # it will then print out metrics for each
     # individual program. It will also state
     # if the program is deployed or not.
     if program_details:
@@ -284,7 +284,11 @@ def json_metrics(file_name):
   metrics[1] = attributes
   return metrics
 
+<<<<<<< HEAD
 # Places height of each bar on the 
+=======
+# Places height of each bar on the
+>>>>>>> 17de1582423ad7ad0af15614d7a2c102ba44445d
 # bar graph
 def autolabel(rects):
     # attach some text labels
@@ -293,7 +297,11 @@ def autolabel(rects):
         ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
                 ha='center', va='bottom')
 
+<<<<<<< HEAD
 # Printout of summary statistics 
+=======
+# Printout of summary statistics
+>>>>>>> 17de1582423ad7ad0af15614d7a2c102ba44445d
 print "\nProject Metrics:\n"
 active_metrics = gather_metrics(active_content_file, True)
 deployed_metrics = gather_metrics(deployed_content_file, False)
@@ -378,7 +386,7 @@ if status == 0 or status == 3:
 elif status == 2:
   update_log(stored_metrics)
 
-# Will create a bar graph with the current metrics 
+# Will create a bar graph with the current metrics
 # (number of pubs, projects, programs)
 # of the deployed projects.
 ind = [0] # location of the first bar
@@ -399,6 +407,6 @@ ax.legend( (rects1[0], rects2[0], rects3[0]), ('Programs', 'Projects', 'Publicat
 autolabel(rects1)
 autolabel(rects2)
 autolabel(rects3)
-plt.show()
 
+plt.show()
 

@@ -4,7 +4,7 @@
         "Program File": "AA-program.json",
         "Pubs File": "AA-pubs.json",
         "Software File": "AA-software.json",
-        "Banner":"UPDATED"
+        "Banner":""
 },
 {
         "Program Name": "ADAMS",
@@ -21,6 +21,13 @@
         "Banner":"NEW"
 },
 {
+        "Program Name": "BET",
+        "Program File": "BET-program.json",
+        "Pubs File": "BET-pubs.json",
+        "Software File": "",
+        "Banner":"NEW"
+},
+{
         "Program Name": "BOLT",
         "Program File": "BOLT-program.json",
         "Pubs File": "BOLT-pubs.json",
@@ -32,7 +39,7 @@
         "Program File": "CFT-program.json",
         "Pubs File": "",
         "Software File": "CFT-software.json",
-        "Banner":""
+        "Banner":"UPDATED"
 },
 {
         "Program Name": "CRASH",
@@ -53,21 +60,21 @@
         "Program File": "CYBERGENOME-program.json",
         "Pubs File": "CYBERGENOME-pubs.json",
         "Software File": "CYBERGENOME-software.json",
-        "Banner":"UPDATED"
+        "Banner":""
 },
 {
         "Program Name": "DCAPS",
         "Program File": "DCAPS-program.json",
         "Pubs File": "DCAPS-pubs.json",
         "Software File": "DCAPS-software.json",
-        "Banner": "UPDATED"
+        "Banner": ""
 },
 {
         "Program Name": "DEFT",
         "Program File": "DEFT-program.json",
         "Pubs File": "DEFT-pubs.json",
         "Software File": "DEFT-software.json",
-        "Banner":"UPDATED"
+        "Banner":""
 },
 {
         "Program Name": "ENGAGE",
@@ -88,7 +95,7 @@
         "Program File": "HACMS-program.json",
         "Pubs File": "HACMS-pubs.json",
         "Software File": "HACMS-software.json",
-        "Banner":"UPDATED"
+        "Banner":""
 },
 {
         "Program Name": "MADCAT",

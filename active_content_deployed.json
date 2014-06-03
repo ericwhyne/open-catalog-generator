@@ -1,59 +1,52 @@
 [
 {
-        "Program Name": "CFT",
-        "Program File": "CFT-program.json",
-        "Pubs File": "",
-        "Software File": "CFT-software.json",
-        "Banner":""
-},
-{
-        "Program Name": "XDATA",
-        "Program File": "XDATA-program.json",
-        "Pubs File": "XDATA-pubs.json",
-        "Software File": "XDATA-software.json",
-        "Banner":"Updated"
-},
-{
         "Program Name": "AA",
         "Program File": "AA-program.json",
         "Pubs File": "AA-pubs.json",
         "Software File": "AA-software.json",
-        "Banner":"Updated"
+        "Banner":""
 },
 {
-        "Program Name": "DEFT",
-        "Program File": "DEFT-program.json",
-        "Pubs File": "DEFT-pubs.json",
-        "Software File": "DEFT-software.json",
-        "Banner":"UPDATED"
+        "Program Name": "ADAMS",
+        "Program File": "ADAMS-program.json",
+        "Pubs File": "ADAMS-pubs.json",
+        "Software File": "",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "APAC",
+        "Program File": "APAC-program.json",
+        "Pubs File": "APAC-pubs.json",
+        "Software File": "APAC-software.json",
+        "Banner":"NEW"
+},
+{
+        "Program Name": "BET",
+        "Program File": "BET-program.json",
+        "Pubs File": "BET-pubs.json",
+        "Software File": "",
+        "Banner":"NEW"
 },
 {
         "Program Name": "BOLT",
         "Program File": "BOLT-program.json",
         "Pubs File": "BOLT-pubs.json",
         "Software File": "BOLT-software.json",
-        "Banner":"Coming soon"
+        "Banner":"NEW"
 },
 {
-        "Program Name": "HACMS",
-        "Program File": "HACMS-program.json",
-        "Pubs File": "HACMS-pubs.json",
-        "Software File": "HACMS-software.json",
+        "Program Name": "CFT",
+        "Program File": "CFT-program.json",
+        "Pubs File": "",
+        "Software File": "CFT-software.json",
         "Banner":"UPDATED"
 },
 {
-        "Program Name": "CyberGenome",
-        "Program File": "CYBERGENOME-program.json",
-        "Pubs File": "CYBERGENOME-pubs.json",
-        "Software File": "CYBERGENOME-software.json",
-        "Banner":"UPDATED"
-},
-{
-        "Program Name": "DCAPS",
-        "Program File": "DCAPS-program.json",
-        "Pubs File": "DCAPS-pubs.json",
-        "Software File": "DCAPS-software.json",
-        "Banner": "UPDATED"
+        "Program Name": "CRASH",
+        "Program File": "CRASH-program.json",
+        "Pubs File": "CRASH-pubs.json",
+        "Software File": "CRASH-software.json",
+        "Banner":"NEW"
 },
 {
         "Program Name": "CSFV",
@@ -61,5 +54,82 @@
         "Pubs File": "CSFV-pubs.json",
         "Software File": "",
         "Banner": ""
+},
+{
+        "Program Name": "CyberGenome",
+        "Program File": "CYBERGENOME-program.json",
+        "Pubs File": "CYBERGENOME-pubs.json",
+        "Software File": "CYBERGENOME-software.json",
+        "Banner":""
+},
+{
+        "Program Name": "DCAPS",
+        "Program File": "DCAPS-program.json",
+        "Pubs File": "DCAPS-pubs.json",
+        "Software File": "DCAPS-software.json",
+        "Banner": ""
+},
+{
+        "Program Name": "DEFT",
+        "Program File": "DEFT-program.json",
+        "Pubs File": "DEFT-pubs.json",
+        "Software File": "DEFT-software.json",
+        "Banner":""
+},
+{
+        "Program Name": "ENGAGE",
+        "Program File": "ENGAGE-program.json",
+        "Pubs File": "ENGAGE-pubs.json",
+        "Software File": "ENGAGE-software.json",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "FLASHLIGHT",
+        "Program File": "FLASHLIGHT-program.json",
+        "Pubs File": "",
+        "Software File": "FLASHLIGHT-software.json",
+        "Banner":"NEW"
+},
+{
+        "Program Name": "HACMS",
+        "Program File": "HACMS-program.json",
+        "Pubs File": "HACMS-pubs.json",
+        "Software File": "HACMS-software.json",
+        "Banner":""
+},
+{
+        "Program Name": "MRC",
+        "Program File": "MRC-program.json",
+        "Pubs File": "MRC-pubs.json",
+        "Software File": "MRC-software.json",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "PROCEED",
+        "Program File": "PROCEED-program.json",
+        "Pubs File": "PROCEED-pubs.json",
+        "Software File": "",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "SAFER",
+        "Program File": "SAFER-program.json",
+        "Pubs File": "SAFER-pubs.json",
+        "Software File": "SAFER-software.json",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "SMISC",
+        "Program File": "SMISC-program.json",
+        "Pubs File": "SMISC-pubs.json",
+        "Software File": "",
+        "Banner": "NEW"
+},
+{
+        "Program Name": "XDATA",
+        "Program File": "XDATA-program.json",
+        "Pubs File": "XDATA-pubs.json",
+        "Software File": "XDATA-software.json",
+        "Banner":"UPDATED"
 }
 ]

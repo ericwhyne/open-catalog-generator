@@ -58,24 +58,19 @@ def software_table_header(columns):
   header += "</tr>\n </thead>\n <tbody  class='list'>"
   return header
 
-def software_table_footer():
+def table_footer():
   return """
 </tbody> 
 </table>
 """
 
-def pubs_table_header():
-  return """
-<table id='pubs' class='tablesorter'> 
-<thead> 
-<tr> 
-    <th>Team</th> 
-    <th>Title</th> 
-    <th>Link</th>
-</tr> 
-</thead> 
-<tbody  class="list"> 
-"""
+def pubs_table_header(columns):
+
+  header = "<table id='pubs' class='tablesorter'>\n <thead>\n <tr>"
+  for column in columns:
+    header += "<th>%s</th>" % column
+  header += "</tr>\n </thead>\n <tbody  class='list'>"
+  return header
 
 def pubs_table_footer():
   return """
@@ -83,6 +78,38 @@ def pubs_table_footer():
 </table>
 <br>
 """
+
+def project_banner(update_date, new_date, title, last_update_file):
+  ribbon = ""
+  ribbon_class = ""
+  ribbon_div = ""
+  vertical_date = ""
+  if new_date != "" and update_date != "":
+    if new_date >= update_date:
+     vertical_date = new_date
+     ribbon_class = "ribbon-red vertical-red"
+     ribbon_text = "NEW"
+    else:
+	  vertical_date = update_date
+	  ribbon_class = "ribbon-green vertical-green"
+	  ribbon_text = "UPDATED"
+  elif new_date != "" and update_date == "":
+    vertical_date = new_date
+    ribbon_class = "ribbon-red vertical-red"
+    ribbon_text = "NEW"
+  elif update_date != "" and new_date == "":
+    vertical_date = update_date
+    ribbon_class = "ribbon-green vertical-green"
+    ribbon_text = "UPDATED"
+  f = open(last_update_file,"r")
+  last_build_date = f.read()
+  f.close()	
+  if vertical_date > last_build_date:		
+    ribbon_div = "<div class='vertical' id='" + vertical_date + "' name='" + ribbon_text + "'><span class='vertical-text'>" + ribbon_text + "</span></div>"
+    ribbon = ribbon_class + "' id='" + title + "'>" + ribbon_div
+  else:
+    ribbon = "'>"
+  return ribbon
   
 def catalog_page_header(): 
   return """ 
@@ -104,7 +131,7 @@ var swList = pubList = spubList = ssftList = "";
 
 $(document).ready(function() 
     { 
-        $('#sftwr').tablesorter({
+	   $('#sftwr').tablesorter({
 		// sort on the first column and second column, order asc 
         	sortList: [[0,0],[1,0]] 
     	}); 
@@ -119,16 +146,23 @@ $(document).ready(function()
 		//get the list of tabs and the number of tabs
 		var tabList = $('#tabs >ul >li');
 		var tabCount = $('#tabs >ul >li').size();
-
 		
 		//create table tabs
-
 		$(function() {
-			$( "#tabs" ).tabs();
-			if($("#tabs0"))
-				$("#tabs").tabs({active: 0});  //software tab
-			else
-				$("#tabs").tabs({active: 1});  //publications tab
+			$( "#tabs" ).tabs
+			param_query = decodeURIComponent(getUrlParams("tab"));
+			if(param_query == "false"){ 
+				if($("#tabs0"))
+					$("#tabs").tabs({active: 0}); //software tab
+				else
+					$("#tabs").tabs({active: 1}); //publications tab
+			}
+			else{
+				if (param_query == "tabs0")
+					$("#tabs").tabs({active: 0});  //software tab
+				else if (param_query == "tabs1")
+					$("#tabs").tabs({active: 1});  //publications tab
+			}
 		});
 
 		//configure table search and clear button for software and publications table
@@ -282,6 +316,10 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 	var x=event.clientX;
 	var y=event.clientY;
 	
+	$( "#dialog" ).removeClass("ribbon-dialog");
+	$(".ui-dialog").removeClass("ribbon-dialog vertical-green vertical-red");
+	$(".ui-widget-header").removeClass("ribbon-dialog-text");
+	
 	if(short_nm != ""){
 		$( "#dialog" ).empty().dialog({
 		position: [x , y - 20],
@@ -293,10 +331,61 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 		else
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>");
 	
-	
 		$(".ui-dialog").mouseleave( function () {
 			 $( "#dialog" ).dialog( "close" );
 		  });
+	}
+}
+
+function getUrlParams(param_name)
+{
+       var query = window.location.search.substring(1);
+       var params = query.split("&");
+       for (var i=0;i<params.length;i++) {
+               var pair = params[i].split("=");
+               if(pair[0] == param_name){return pair[1];}
+       }
+       return(false);
+}
+
+function dateInfo(ribbon, event){
+	if(ribbon !="")
+	{
+		var date_id = document.getElementById(ribbon).firstChild.id;
+		var str_pattern = /(\d{4})(\d{2})(\d{2})/;
+		var date = date_id.replace(str_pattern,"$2-$3-$1"); //full date string
+
+		var ribbon_type = document.getElementById(ribbon).firstChild.getAttribute("name"); 
+		var x=event.clientX;
+		var y=event.clientY;
+		var text = "";
+		var background = "";
+		
+		if(ribbon_type == "NEW"){
+			text = "CREATED";
+			$(".ui-dialog").removeClass('vertical-green');
+			background = "vertical-red";
+		}
+		else{
+			text = ribbon_type;
+			$(".ui-dialog").removeClass('vertical-red');
+			background = "vertical-green";
+		}
+
+		$( "#dialog" ).empty().dialog({
+		position: [x , y - 20],
+		title: text + ": " + date,
+		});		
+		
+		$( "#dialog" ).addClass("ribbon-dialog");
+		$(".ui-dialog").addClass(background + " ribbon-dialog");
+		$(".ui-widget-header").addClass("ribbon-dialog-text");
+		
+
+
+		$(".ui-dialog").mouseleave( function () {
+			 $( "#dialog" ).dialog( "close" );
+		});
 	}
 }
 </script>

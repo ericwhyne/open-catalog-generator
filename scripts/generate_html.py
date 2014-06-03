@@ -13,7 +13,8 @@ active_content_file = sys.argv[1]
 license_content_file = sys.argv[2]
 data_dir = sys.argv[3]
 build_dir = sys.argv[4]
-darpa_links = sys.argv[5]
+last_update_file = sys.argv[5]
+darpa_links = sys.argv[6]
 date = time.strftime("%Y-%m-%d", time.localtime())
 
 print """
@@ -42,7 +43,6 @@ splash_page += doc.logo("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
 
-
 datavis_page = graph.sunburst_header()
 datavis_page += "<div id='vis_page'>" + graph.sunburst_html(build_dir)
 datavis_page += graph.sunburst_script()
@@ -54,6 +54,7 @@ for program in active_content:
   program_page += doc.catalog_page_header()
   program_image_file = ""
   software_columns = []
+  pubs_columns = []
   if program['Program File'] == "":
     print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
     sys.exit(1)
@@ -103,6 +104,8 @@ for program in active_content:
      banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
     software_columns = program_details['Display Software Columns']
+    print "program details: %s \n\r" % program_details
+    pubs_columns = program_details['Display Pubs Columns']
 
   # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table.
   pubs_exist = {}
@@ -176,9 +179,15 @@ for program in active_content:
             if darpa_links == "darpalinks":
               program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
             else:
-              program_page += "  <TD class=" + column.lower() + "><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              program_page += "  <TD class='" + column.lower() + "'><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
           else:
-            program_page += "  <TD class=" + column.lower() + ">" + software['Software'] + "</TD>\n"
+            program_page += "  <TD class='" + column.lower() + "'>" + software['Software'] + "</TD>\n"
+        #Vertical Ribbon
+        if column == "":
+          vertical_ribbon = ""
+          if program['Banner'].upper() != "NEW":
+            vertical_ribbon = doc.project_banner(software['Update Date'], software['New Date'], software['Software'], last_update_file)
+            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + column.lower() + " " + vertical_ribbon + "</TD>\n"
         # Category
         if column == "Category":
           categories = ""
@@ -242,7 +251,7 @@ for program in active_content:
                 license_html += ", "
           program_page += license_html
           program_page += " </TD>\n </TR>\n"	 
-    program_page += doc.software_table_footer()
+    program_page += doc.table_footer()
     program_page += "</div></div>"
 	
 
@@ -257,25 +266,42 @@ for program in active_content:
       print "\nFAILED! JSON error in file %s" % program['Pubs File']
       print " Details: %s" % str(e)
       sys.exit(1)
-    program_page += doc.pubs_table_header()
+    program_page += doc.pubs_table_header(pubs_columns)
     for pub in pubs:
       # Debug
       #print "    " + pub['Title']
-      program_page += "<TR>\n  <TD class='team'>" 
-      for team in pub['Program Teams']:
-        program_page += team + "<a name='" + team + "'></a>, "
-      program_page = program_page[:-2]
-      program_page += "</TD>\n  <TD class='title'>" + pub['Title'] + "</TD>\n"
-      link = pub['Link']
-      if re.search('^http',link) or re.search('^ftp',link):
-        if darpa_links == "darpalinks":
-          program_page += "  <TD class='link'><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
-        else:
-          program_page += "  <TD class='link'><a href='" + link + "'>" + link + "</a></TD>\n"
-      else:
-        program_page += "  <TD class='link'>" + link + "</TD>\n"
-      program_page += "</TR>\n"
+      for column in pubs_columns:
+        # Team
+        if column == "Team":  
+          program_page += "<TR>\n  <TD class='team'>"
+          for team in pub['Program Teams']:
+            program_page += team + "<a name='" + team + "'></a>, "
+          program_page = program_page[:-2]
+          program_page += "</TD>\n" 
+        # Title		  
+        if column == "Title":
+          program_page += "<TD class='title'>" + pub['Title'] + "</TD>\n"
+        # Vertical Ribbon	
+        if column == "":		  
+          vertical_ribbon = ""
+          if program['Banner'].upper() != "NEW":
+            vertical_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], pub['Title'], last_update_file)
+            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + vertical_ribbon + "</TD>\n"
+        # Link
+        if column == "Link":			
+          link = pub['Link']
+          if re.search('^http',link) or re.search('^ftp',link):
+            if darpa_links == "darpalinks":
+              program_page += "  <TD class='link'><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
+            else:
+              program_page += "  <TD class='link'><a href='" + link + "'>" + link + "</a></TD>\n"
+          else:
+            program_page += "  <TD class='link'>" + link + "</TD>\n"
+          program_page += "</TR>\n"
+    program_page += doc.table_footer()  
     program_page += doc.pubs_table_footer() + "</div></div>"
+	
+	
 ###### Add search tab only if software and publications tab exists   
   if program['Software File'] != "" and program['Pubs File'] != "":
     program_page += search_tab	

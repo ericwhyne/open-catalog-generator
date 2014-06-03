@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 def sunburst_header():
   return """
   <!DOCTYPE html>
@@ -10,10 +12,12 @@ def sunburst_header():
   <script type="text/javascript" src="templates.js"></script>
   <script type="text/javascript" src="mustache.js"></script>
   <script type="text/javascript" src='d3.min.js'></script>
+  <script type="text/javascript" src="utils.js"></script>
   <style>
    body{
 	overflow-x: hidden;
 	overflow: auto;
+	background: #E5E4E2;
    }
 
    h1, h2, h3, h4, h5 {
@@ -55,62 +59,6 @@ $( document ).ready(function() {
 	};
 });
 
-function getPrograms() {
-	var programs;
-	$.ajax({
-		async: false,
-		url: 'active_content.json',
-		dataType: 'json',
-		success: function(response){
-		   programs = response;
-		}
-	});
-	
-	return programs;
-}
-
-
-function getProgramDetails(filename) {
-	var data;
-	$.ajax({
-		async: false,
-		url: filename,
-		dataType: 'json',
-		success: function(response){
-		   data = response;
-		}
-	});
-	return data;
-}
-
-function isInArray(value, array) {
-  //checks to see if a value exists in an array
-  return array.indexOf(value) > -1;
-}
-
-function isIE() {
-	var ua = window.navigator.userAgent;
-	var msie = ua.indexOf("MSIE ");
-	//if IE browser, return true. If another browser, return false
-	if (msie > 0)      
-		return true;
-	else    
-		return false;
-}
-
-function sortByProperty(property) {
-	//sorts json array by a given property name
-    return function (a, b) {
-        var sortStatus = 0;
-        if (a[property] < b[property])
-            sortStatus = -1;
-        else if (a[property] > b[property])
-            sortStatus = 1;
- 
-        return sortStatus;
-    };
-}
-
 function getDetailsNode(data, edges, node_name, size){
 	var _details_edge = new Array();
 	var _details_node = new Array();
@@ -144,20 +92,19 @@ function getDetailsNode(data, edges, node_name, size){
 	
 	_details_node = {"name":node_name, "children": _details_edge};
 	return _details_node;
-
 }
 
 function getProgramLinks(program){
 	var links = new Array();
 	var link_html = "";
-
+	var url_href = window.location.href;
+	var url_path = url_href.substring(0, url_href.lastIndexOf("/")); 
+	var url_redirect =  url_path + "/" + program["Program Name"] + ".html";
 	link_html += '<p id="program_templ_links " class="vis_p">';
 	if (program['Pubs File'] != "")
-		//links.push('<a href="#">Publications</a>');
-		links.push('Publications');
+		links.push('<a href=' + url_redirect + '?tab=tabs1>Publications</a>');
 	if (program['Software File'] != "")
-		//links.push('<a href="#">Software</a>');
-		links.push('Software');
+		links.push('<a href=' + url_redirect + '?tab=tabs0>Software</a>');
 
 	if(links.length > 1){
 		$.each(links, function (link) {
