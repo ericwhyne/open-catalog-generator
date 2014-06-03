@@ -284,11 +284,7 @@ def json_metrics(file_name):
   metrics[1] = attributes
   return metrics
 
-<<<<<<< HEAD
 # Places height of each bar on the 
-=======
-# Places height of each bar on the
->>>>>>> 17de1582423ad7ad0af15614d7a2c102ba44445d
 # bar graph
 def autolabel(rects):
     # attach some text labels
@@ -297,11 +293,7 @@ def autolabel(rects):
         ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
                 ha='center', va='bottom')
 
-<<<<<<< HEAD
-# Printout of summary statistics 
-=======
 # Printout of summary statistics
->>>>>>> 17de1582423ad7ad0af15614d7a2c102ba44445d
 print "\nProject Metrics:\n"
 active_metrics = gather_metrics(active_content_file, True)
 deployed_metrics = gather_metrics(deployed_content_file, False)
