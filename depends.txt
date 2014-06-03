@@ -1,2 +1,4 @@
 sudo apt-get install linkchecker
 sudo apt-get install python-matplotlib
+sudo apt-get install git-svn
+sudo apt-get install mercurial-git
