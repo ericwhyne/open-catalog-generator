@@ -284,7 +284,7 @@ def json_metrics(file_name):
   metrics[1] = attributes
   return metrics
 
-# Places height of each bar on the
+# Places height of each bar on the 
 # bar graph
 def autolabel(rects):
     # attach some text labels
@@ -399,4 +399,6 @@ ax.legend( (rects1[0], rects2[0], rects3[0]), ('Programs', 'Projects', 'Publicat
 autolabel(rects1)
 autolabel(rects2)
 autolabel(rects3)
+
 plt.show()
+

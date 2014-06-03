@@ -69,9 +69,9 @@ datatest:
 
 metrics:
 	$(OC_SCRIPTS_DIR)metrics.py $(OC_ACTIVE_CONTENT_FILE) $(OC_ACTIVE_DEPLOYED_CONTENT_FILE) $(OC_DATA_DIR) $(OC_METRICS_DIR)
-	
+		
 chart:
-$(OC_SCRIPTS_DIR)area_chart.py $(OC_METRICS_DIR)metrics.csv	
+	$(OC_SCRIPTS_DIR)area_chart.py $(OC_METRICS_DIR)metrics.csv
 
 addjsonfields:$(OC_DEFAULT_TEMPLATE_DIR)
 	mkdir -p $(NEW_JSON_DIR)
@@ -79,3 +79,4 @@ addjsonfields:$(OC_DEFAULT_TEMPLATE_DIR)
 	
 allascii:$(OC_DEFAULT_TEMPLATE_DIR)
 	$(OC_SCRIPTS_DIR)convert_non_ascii_chars.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR)
+
