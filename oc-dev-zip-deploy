@@ -1,0 +1,4 @@
+#!/bin/bash
+# Need to update zip file location on echo command
+ssh -i ~/.ssh/open_catalog_dev_key.pem ubuntu@54.187.81.158 /home/ubuntu/zip_deployment.sh
+echo "The zip file can be downloaded from the home page"

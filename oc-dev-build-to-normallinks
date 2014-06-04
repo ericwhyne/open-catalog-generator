@@ -1,0 +1,4 @@
+#!/bin/bash
+echo On oc-dev, moving build to normallinks directory
+ssh -i ~/.ssh/open_catalog_dev_key.pem ubuntu@54.187.81.158 /home/ubuntu/build_to_production_normallinks.sh
+
