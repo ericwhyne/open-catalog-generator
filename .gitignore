@@ -1,6 +1,7 @@
 stats/
 build/
 stats_gen/code
+stats_gen/stats
 *.tgz
 *.gz
 *.zip
