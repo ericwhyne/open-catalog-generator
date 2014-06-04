@@ -1,0 +1,7 @@
+#!/bin/bash
+filename=`date +"%Y-%m-%d"`-build.tgz
+echo writing to $filename
+tar -czf $filename build
+echo uploading $filename
+scp -i ~/.ssh/open_catalog_dev_key.pem $filename ubuntu@54.187.81.158:~/
+ssh -i ~/.ssh/open_catalog_dev_key.pem ubuntu@54.187.81.158 /home/ubuntu/deploy_catalog_to_build.sh $filename
