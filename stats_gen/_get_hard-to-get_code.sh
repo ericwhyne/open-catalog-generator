@@ -10,7 +10,8 @@ git svn init -s https://svn.apache.org/repos/asf/oodt/ ; git svn fetch &
 cd ..
 
 mkdir bigdata ; cd bigdata
-git svn init -s https://bigdata.svn.sourceforge.net/svnroot/bigdata/ ; git svn fetch &
+#git svn init -s https://bigdata.svn.sourceforge.net/svnroot/bigdata/ ; git svn fetch &
+git svn init -s https://svn.code.sf.net/p/bigdata/code/ ; git svn fetch &
 cd ..
 
 mkdir mpgraph; cd mpgraph
