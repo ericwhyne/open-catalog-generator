@@ -45,11 +45,33 @@ function sortByProperty(property) {
 	//sorts json array by a given property name
     return function (a, b) {
         var sortStatus = 0;
-        if (a[property] < b[property])
+        if (a[property].toLowerCase().trim() < b[property].toLowerCase().trim())
             sortStatus = -1;
-        else if (a[property] > b[property])
+        else if (a[property].toLowerCase().trim() > b[property].toLowerCase().trim())
             sortStatus = 1;
  
+        return sortStatus;
+    };
+}
+
+function sortByMultipleProperties(property1, property2) {
+
+	var property_a = property_b = property1;
+    return function (a, b) {
+
+        var sortStatus = 0;
+		
+		if(typeof(a[property_a]) == "undefined")
+			property_a = property2;
+		if(typeof(b[property_b]) == "undefined")
+			property_b = property2;
+		
+        if (a[property_a].toLowerCase().trim() < b[property_b].toLowerCase().trim())
+            sortStatus = -1;
+        else if (a[property_a].toLowerCase().trim() > b[property_b].toLowerCase().trim())
+            sortStatus = 1;
+ 
+		property_a = property_b = property1;
         return sortStatus;
     };
 }
