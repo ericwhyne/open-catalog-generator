@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh -i ~/.ssh/open_catalog_dev_key.pem ubuntu@54.186.244.15
