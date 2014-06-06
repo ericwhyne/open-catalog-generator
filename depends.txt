@@ -1,2 +1,7 @@
 sudo apt-get install linkchecker
+# for metrics:
 sudo apt-get install python-matplotlib
+# for stats generation:
+sudo apt-get install git-svn
+sudo apt-get install mercurial-git
+sudo apt-get install gnuplot
