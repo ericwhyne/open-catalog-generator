@@ -1,0 +1,96 @@
+body{
+    width:100%;
+    height: 100%;
+    margin:0px;
+}
+/* stop linked images from having border */
+a {outline : none;}
+a img {outline : none;}
+img {border : 0;}
+
+.programlink {
+    text-decoration:none;
+    color:black;
+}
+
+.programmanagerlink {
+    text-decoration:none;
+    color:black;
+}
+
+.programheader{
+    padding-left:8px;
+}
+
+.programheader-i2o{
+    color: #4C9509;
+}
+
+.visheader{
+    color: #4682B4;
+    padding-left:8px;
+}
+
+.darpa-logo{
+    float: left;
+    margin: 13px 0px 5px 5px;
+    border-style: none;
+}
+
+.darpa-header{
+    background:black;
+    width:100%;
+    display:table;
+    border-collapse:collapse;
+}
+
+.darpa-header-images-size{
+    white-space:nowrap;
+}
+
+.darpa-header-images{
+    border: 2px solid black;
+    vertical-align: middle;
+    text-align: left;
+    width: 376px;
+    display:table-cell;
+}
+
+.darpa-header-text{
+    border: 2px solid black;
+    vertical-align: middle;
+    text-align: left;
+    display:table-cell;
+    margin-top: 20px;
+	font-weight: bold;
+	font-family: Times New Roman,Times,serif;
+	font-size: 1.46em;
+}
+
+.footer{
+    position:relative;
+    clear:both;
+    background:black;
+    height:66px;
+}
+
+.footer p{
+    color: white;
+	font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
+    line-height:1.5em;
+    margin-bottom: 1.5em;
+    padding-left:10px;
+    max-width:100%;
+}
+
+.footer p a:link{
+    color: #4863A0;
+}
+
+.no_space{
+    padding:0px;
+    margin:0px;
+}
+
+
+

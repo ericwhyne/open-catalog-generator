@@ -7,6 +7,7 @@ import os
 import shutil
 import darpa_open_catalog as doc
 import sunburst_graphics as graph
+import filter_center as filter
 from pprint import pprint
 
 active_content_file = sys.argv[1]
@@ -44,8 +45,13 @@ splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
 
 datavis_page = graph.sunburst_header()
-datavis_page += "<div id='vis_page'>" + graph.sunburst_html(build_dir)
 datavis_page += graph.sunburst_script()
+datavis_page += "<div id='vis_page'>" + graph.sunburst_html()
+
+filter_page = filter.filter_header()
+filter_page += filter.filter_script()
+filter_page += filter.filter_html()
+
 
 for program in active_content:
   program_name = program['Program Name']
@@ -315,18 +321,15 @@ for program in active_content:
     if program_image_file != "":
       shutil.copy(data_dir + program_image_file, build_dir)
 
-datavis_page += doc.catalog_page_footer() + "</div>"
-datavis_page_file = build_dir + '/data_vis.html'
-print "Writing to %s" % datavis_page_file
-datavis_outfile = open(datavis_page_file, 'w')
-datavis_outfile.write(datavis_page)
-
 splash_page += doc.splash_table_footer()
 splash_page += doc.catalog_page_footer()
+doc.write_file(splash_page, build_dir + '/index.html')
 
-splash_page_file = build_dir + '/index.html'
-print "Writing to %s" % splash_page_file
-splash_outfile = open(splash_page_file, 'w')
-splash_outfile.write(splash_page)
+datavis_page += doc.catalog_page_footer() + "</div>"
+doc.write_file(datavis_page, build_dir + '/data_vis.html')
+
+filter_page += doc.catalog_page_footer()
+doc.write_file(filter_page, build_dir + '/filter_center.html')
+
 
 
