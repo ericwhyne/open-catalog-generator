@@ -400,3 +400,10 @@ def catalog_page_footer():
 </div>
 </html>
 """
+
+def write_file(html, file):
+  page_file = file
+  print "Writing to %s" % page_file
+  outfile = open(page_file, 'w')
+  outfile.write(html)
+

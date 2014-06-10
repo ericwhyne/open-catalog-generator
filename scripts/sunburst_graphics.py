@@ -27,13 +27,14 @@ def sunburst_header():
   
 """
 
-def sunburst_html(url):
+def sunburst_html():
   html = "<div class='darpa-header'><div class='darpa-header-images darpa-header-images-size'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
   html += "<div class='darpa-header-text'><h1 class='no_space'><span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O) &nbsp/&nbsp</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Sunburst Visualization</a></span></h1></div></div>"
   
   html += "<div id = 'sunburst-container'><div id='vis_map'><div class='sunburst-div' id='sunburst'></div></div><div id='vis_view'></div></div>"
   
   return html
+  
 def sunburst_script(): 
   return """
 
