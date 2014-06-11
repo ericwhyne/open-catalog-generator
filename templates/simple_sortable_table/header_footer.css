@@ -1,9 +1,22 @@
-body{
-    width:100%;
-    height: 100%;
-    margin:0px;
+html,
+body {
+   margin:0;
+   padding:0;
+   height:100%;
 }
-/* stop linked images from having border */
+
+#container {
+	min-height: 88.2%;
+   	height: auto !important;
+	height: 100%;
+	margin: 0 auto -66px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.ie10 #container{
+    min-height: 87.6% !important;
+}
+
+
 a {outline : none;}
 a img {outline : none;}
 img {border : 0;}
@@ -68,10 +81,12 @@ img {border : 0;}
 }
 
 .footer{
-    position:relative;
-    clear:both;
-    background:black;
-    height:66px;
+   position:relative;
+   bottom:0;
+   width:100%;
+   height:66px; /* Height of the footer */
+   background:black;
+
 }
 
 .footer p{
@@ -91,6 +106,9 @@ img {border : 0;}
     padding:0px;
     margin:0px;
 }
+
+
+
 
 
 
