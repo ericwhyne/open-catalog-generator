@@ -1,3 +1,8 @@
-Date,Active Programs,Active Projects,Active Publications,Deployed Programs,Deployed Projects,Deployed Publications,Active Records,Active Attributes,Deployed Records,Deployed Attributes,Projects Per Active Program,Publications Per Active Program,Projects Per Deployed Program,Publications Per Deployed Program
-2014-05-29,21,482,1359,19,375,1259,1883,21807,1672,19579,22,64,19,66
-2014-05-30,21,482,1359,19,375,1259,1883,21807,1672,19579,22,64,19,66
+Date,Active Programs,Active Projects,Active Publications,Deployed Programs,Deployed Projects,Deployed Publications,Active Records,Active Attributes,Deployed Records,Deployed Attributes,Projects Per Active Program,Publications Per Active Program,Projects Per Deployed Program,Publications Per Deployed Program,Release Date (Y)
+3/12/2014,1,75,108,1,75,108,183,1332,183,1332,,,,,y
+4/9/2014,3,200,143,3,200,143,343,,343,,,,,,y
+5/7/2014,8,271,382,8,271,382,653,,653,,,,,,y
+5/22/2014,20,454,1198,20,454,1198,1652,,1652,,,,,,y
+5/29/2014,21,482,1359,19,375,1259,1883,21807,1672,19579,22,64,19,66,
+5/30/2014,21,482,1359,19,375,1259,1883,21807,1672,19579,22,64,19,66,
+6/3/2014,21,483,1359,19,376,1259,1884,21831,1673,19603,23,64,19,66,
