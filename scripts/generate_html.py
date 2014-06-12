@@ -7,7 +7,7 @@ import os
 import shutil
 import darpa_open_catalog as doc
 import sunburst_graphics as graph
-import filter_center as filter
+import catalog_filter as filter
 from pprint import pprint
 
 active_content_file = sys.argv[1]
@@ -329,7 +329,7 @@ datavis_page += doc.catalog_page_footer() + "</div>"
 doc.write_file(datavis_page, build_dir + '/data_vis.html')
 
 filter_page += doc.catalog_page_footer()
-doc.write_file(filter_page, build_dir + '/filter_center.html')
+doc.write_file(filter_page, build_dir + '/catalog_filter.html')
 
 
 

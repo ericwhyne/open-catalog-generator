@@ -1,5 +1,5 @@
 body{
-background-color: #E3E3E3;
+background-color: #C2C9C6; /*#E3E3E3;*/
 font-family:Arial, Helvetica, sans-serif;
 font-size: 12px;
 font-weight: normal;
@@ -13,7 +13,7 @@ overflow-x: hidden;
 display: none;
 left: 0;
 top: 0;*/
-background: #E6EEEE;
+background: white;
 border: 1px solid #B7CEEC;/*#f06b24;*/
 border-width: 5px 1px;
 padding: 10px;
@@ -64,12 +64,13 @@ width:100%;
 }
 
 .collectionview table tr td{
-background-color:white;
+background-color: white;
 border: 1px solid #DDDDDD;
 vertical-align:top; 
 align:justified; 
 text-align:top; 
 padding:0px 8px 2px 8px;
+width: 25%;
 }
 .collectionview span{
 width: 100%;
@@ -89,6 +90,9 @@ height:48px;
 padding-right:5px;
 float:left;
 }
+
+
+.
 
 /* stop linked images from having border */
 a {outline : none;}
@@ -118,11 +122,11 @@ img {border : 0;}
     margin: 0 12px 0 0;
     padding: 6px 21px 6px 8px;
     position: relative;
-    border: 1px solid #E9EBE4;
+    border: 1px solid #E0E0E0;
 }
 
 .filter-value{
-	background-color: #E9EBE4;
+	background-color: #E0E0E0;
 }
 
 .filter-clear{
