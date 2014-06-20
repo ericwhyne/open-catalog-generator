@@ -11,7 +11,7 @@
         "Program File": "ADAMS-program.json",
         "Pubs File": "ADAMS-pubs.json",
         "Software File": "",
-        "Banner": "NEW"
+        "Banner": "UPDATED"
 },
 {
         "Program Name": "APAC",
@@ -112,6 +112,13 @@
         "Banner": "NEW"
 },
 {
+        "Program Name": "PPAML",
+        "Program File": "PPAML-program.json",
+        "Pubs File": "PPAML-pubs.json",
+        "Software File": "",
+        "Banner": "NEW"
+},
+{
         "Program Name": "PROCEED",
         "Program File": "PROCEED-program.json",
         "Pubs File": "PROCEED-pubs.json",
@@ -137,7 +144,7 @@
         "Program File": "SMISC-program.json",
         "Pubs File": "SMISC-pubs.json",
         "Software File": "",
-        "Banner": "NEW"
+        "Banner": "UPDATED"
 },
 {
         "Program Name": "XDATA",
