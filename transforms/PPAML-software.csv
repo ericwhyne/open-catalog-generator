@@ -1,0 +1,42 @@
+Team,Project,Category,Code,Public Homepage,Description,License
+Applied Communication Sciences,DREtool 1.0 (DILEGENT team),Machine Learning,Not Ready for Release,,"Probability density ratio estimation tool. Given two samples of data, provides estimate of the density ratio between corresponding probability densities. To be used  as the core module for other develoepd applications, such as conditional probability estimation.",Mathworks Matlab
+BAE Systems,Prob ,Probablistic Programming/ Inference Engine,Not Ready for Release,,"Probabilistic programming language built within Racket system, featuring intensional contracts.",TBD
+BAE Systems,CP MATLAB,Probablistic Programming/ Inference Engine,Not Ready for Release,,MATLAB solutions to first 3 TA1 challenge problems.,TBD
+BAE Systems,CP Prob,Probablistic Programming/ Inference Engine,Not Ready for Release,,Prob solutions to first 3 TA1 challenge problems.,TBD
+Charles River Analytics,Figaro,Probablistic Programming/ Inference Engine,https://github.com/p2t2/figaro.git,https://github.com/p2t2/figaro,Figaro PPS,BSDv3
+Charles River Analytics,BLOG,Probablistic Programming/ Inference Engine,https://sites.google.com/site/bloginference/download/blog-0.8-bin.zip?attredirects=0&d=1,https://sites.google.com/site/bloginference/,BLOG PPS,TBD
+Charles River Analytics,APPRIL,Probablistic Programming/ Inference Engine,Not Ready for Release,,Performance Optimizer,BSDv3
+Charles River Analytics,PRM++ ,Probablistic Programming/ Inference Engine,Not Ready for Release,,PRM PPS,BSDv3
+Galois,PPAML Tracer,Domain Experts,https://github.com/GaloisInc/ppaml-tracer.git,https://github.com/GaloisInc/ppaml-tracer,PPAML Tracer  is a lightweight tracing library designed for explicit instrumentation of generated code.,BSDv3
+Galois,PPAML Evaluation Tools,Domain Experts,https://github.com/GaloisInc/ppaml-eval-tools.git,https://github.com/GaloisInc/ppaml-eval-tools,"The PPAML client tools are a set of libraries and scripts that allow PPAML TA2–4 teams to evaluate their own probabilistic programming systems in the same
+way that we will at Galois.",BSDv3
+Galois,PPAML VREP Automobile Plugin,Domain Experts,https://github.com/GaloisInc/ppaml-vrep-automobile-plugin.git,https://github.com/GaloisInc/ppaml-vrep-automobile-plugin,"This package provides a data collection plugin for the V-REP robotics simulator http://coppeliarobotics.com/.  The plugin is targeted at data collection following the model described at http://prism2.mem.drexel.edu/~vefa/courses/SLAM/nebotJournal.pdf, but it may be useful for other projects as well.",TBD
+Gamelan,Dimple: Java and Matlab libraries for probabilistic inference (dimple.probprog.org),Probablistic Programming/ Inference Engine,https://github.com/AnalogDevicesLyricLabs/dimple.git,https://github.com/AnalogDevicesLyricLabs/dimple,Dimple Source and Demos with small datasets,ALv2
+Gamelan,"Chimple, a Probabilistic Programming Java API",Probablistic Programming/ Inference Engine,https://github.com/AnalogDevicesLyricLabs/chimple.git,https://github.com/AnalogDevicesLyricLabs/chimple,Chimple Source - a lightweight trace MH implementation in Java,ALv2
+Gamelan,Demos of Chimple,Probablistic Programming/ Inference Engine,,https://github.com/AnalogDevicesLyricLabs/chimple/tree/master/demo,Chimple Demos,ALv2
+Gamelan,Team Challenge Problem on Agile/Amortized Inference,Probablistic Programming/ Inference Engine,Not Ready for Release,,Agile/Amortized Inference Team Challenge Problem,TBD
+Gamelan,Phase transitions in BP,Probablistic Programming/ Inference Engine,https://github.com/gamelanlabs/phase-change.git,https://github.com/gamelanlabs/phase-change,Demonstrating phase transitions in belief propagation convergence in the stochastic block model,ALv2
+Gamelan,HMM implemented with multiple solvers,Probablistic Programming/ Inference Engine,https://github.com/gamelanlabs/HMM-implementations.git,https://github.com/gamelanlabs/HMM-implementations,HMM demos for dimple and chimple,ALv2
+Gamelan,Demos of Dimple with large datasets,Probablistic Programming/ Inference Engine,https://github.com/AnalogDevicesLyricLabs/dimpleDemos.git,https://github.com/AnalogDevicesLyricLabs/dimpleDemos,Dimple Demos (large datasets),ALv2
+Gamelan,Webchurch source,Probablistic Programming/ Inference Engine,https://github.com/probmods/webchurch.git,https://github.com/probmods/webchurch,A compiler for the Church programming language into JavaScript for in-browser execution,ALv2
+Gamelan,User Manual for Chimple,Probablistic Programming/ Inference Engine,,https://github.com/AnalogDevicesLyricLabs/chimple/tree/master/doc,Chimple user documentation,ALv2
+Gamelan,Probabilistic Models of Cognition,Probablistic Programming/ Inference Engine,https://github.com/probmods/chapters.git,https://probmods.org/,Instructional Materials for Webchurch,ALv2
+Gamelan,Forest: a repository for generative models,Probablistic Programming/ Inference Engine,https://github.com/forestdb/forestdb.org.git,http://forestdb.org/,Demo examples for WebChurch,ALv2
+Gamelan,Elastic Beanstalk monitor for mixing and convergence streaming data,Probablistic Programming/ Inference Engine,Not Ready for Release,,Mixing and Convergence Feedback visualization infrastructure,TBD
+Gamelan,Docker container for Java JDK and Flask-Sockets,Probablistic Programming/ Inference Engine,Not Ready for Release,,Cloud Infrastructure for visualization,TBD
+Indiana University,Sample visualizer,Probablistic Programming/ Inference Engine,Not Ready for Release,,"An HTTP server that communicates with any Web browser and any sampler to plot inference progress using histograms, correlation matrices, and other pluggable widgets",BSD
+Indiana University,MCMC library,Probablistic Programming/ Inference Engine,Not Ready for Release,,A library of combinators in Haskell for building Markov Chain Monte Carlo samplers from reusable proposal distributions and transition kernels,BSD
+Indiana University,Density calculator,Probablistic Programming/ Inference Engine,Not Ready for Release,,"A program that computes the probability density of a probabilistic program, combining the accuracy of Bhat et al.'s exact algorithm and the generality of Pfeffer's approximate algorithm",BSD
+Indiana University,Tagless interpreters,Probablistic Programming/ Inference Engine,Not Ready for Release,,"Interpreters of the lambda calculus with a measure monad and conditioning, by importance sampling and by Markov Chain Monte Carlo, without expression dispatch overhead",BSD
+MIT,Venture,Probablistic Programming/ Inference Engine,http://probcomp.csail.mit.edu/venture/venture-0.1.1.tgz,,"A general-purpose, higher-order probabilistic programming platform with programmable inference",GPLv3
+MIT,BayesDB,Probablistic Programming/ Inference Engine,https://github.com/mit-probabilistic-computing-project/BayesDB.git,https://github.com/mit-probabilistic-computing-project/bayesdb,A Bayesian database for querying the probable implications of data tables,ALv2
+SRI,aic-expresso,Machine Learning,https://code.google.com/p/aic-expresso/source/checkout,https://code.google.com/p/aic-expresso/,Symbolic evaluation library,BSDv3
+SRI,aic-util,Machine Learning,https://code.google.com/p/aic-util/source/checkout,https://code.google.com/p/aic-util/,Miscellaneous Java library,BSDv3
+SRI,aic-praise,Machine Learning,https://code.google.com/p/aic-praise/source/checkout,https://code.google.com/p/aic-praise/,Probabilistic Reasoning as Symbolic Evaluation,BSDv3
+SRI,Alchemy 2.0,Machine Learning,https://code.google.com/p/alchemy-2/source/checkout,https://code.google.com/p/alchemy-2/,Learning and Inference engine for Markov Logic Networks,MIT
+Stanford University,Optimal Experiment Design,Inference Engine,Not Ready for Release,https://github.com/lydaniel/oed_py,Optimal experiment design for probabilistic models,TBD
+Stanford University,Forest,Inference Engine,,http://forestdb.org/,Collaborative repository for generative models,TBD
+Stanford University,STOKE,Inference Engine,Not Ready for Release,,Stochastic Optimizer for x86_64 binaries,ALv2
+Stanford University,shred,Inference Engine,Not Ready for Release,,"tracing MH, Church->SMT, FAUST, etc. (on top of Vicare Scheme)",TBD
+Stanford University,shred-js,Inference Engine,Not Ready for Release (but in public github repo),,Javascript tracing primitives (built on top of webchurch),TBD
+University of CA Riverside,CTBN-RLE,Machine Learning,,http://mloss.org/software/,Continuous-time reasoning and learning library,GPLv3
