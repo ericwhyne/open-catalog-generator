@@ -1,0 +1,23 @@
+Team,Title,Link
+Charles River Analytics,Hierarchical Reasoning with Probabilistic Programming,Not Yet Published
+Indiana University,Designing a MCMC library for Probabilistic Programming,Not Yet Published
+MIT,Approximate Bayesian Image Interpretation via Generative Probabilistic Graphics Programming ,http://papers.nips.cc/paper/4881-approximate-bayesian-image-interpretation-using-generative-probabilistic-graphics-programs.pdf
+MIT,A New Approach to Probabilistic Programming Inference ,http://www.robots.ox.ac.uk/~fwood/assets/pdf/Wood-AISTATS-2014.pdf
+MIT,"Building fast, Bayesian computing machines out of intentionally stochastic, digital parts",http://arxiv.org/pdf/1402.4914.pdf
+MIT,Venture: a higher-order probabilistic programming system with programmable inference,http://arxiv.org/pdf/1404.0099.pdf
+Princeton University,Bayesian nonparametric Poisson factorization for recommendation systems,http://www.cs.princeton.edu/~blei/papers/GopalanRuizRanganathBlei2014.pdf
+Princeton University,Black box variational inference,http://arxiv.org/pdf/1401.0118v1.pdf
+Princeton University,"Build, Compute, Critique, Repeat: Data Analysis with Latent Variable Models ",http://www.annualreviews.org/doi/pdf/10.1146/annurev-statistics-022513-115657
+Princeton University,The inverse regression topic model,"http://www.cs.princeton.edu/~blei/papers/RabinovichBlei2014.pdf
+
+
+
+
+
+
+"
+University of TX Dallas,Lifted MAP Inference for Markov Logic Networks,http://www.hlt.utdallas.edu/~vgogate/papers/aistats14-1.pdf
+University of TX Dallas,Loopy Belief Propagation in the Presence of Determinism,http://www.hlt.utdallas.edu/~vgogate/papers/aistats14-2.pdf
+University of CA Irvine,Marginal Structured SVM with Hidden Variables,Not Yet Published
+University of CA Berkeley,Unifying Logic and Probability: Recent Developments,Not Yet Published
+University of CA Riverside,Deterministic Anytime Inference for Stochastic Continuous-Time Markov Processes,http://www.cs.ucr.edu/~cshelton/papers/index.cgi?CelShe14
