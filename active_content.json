@@ -18,21 +18,21 @@
         "Program File": "APAC-program.json",
         "Pubs File": "APAC-pubs.json",
         "Software File": "APAC-software.json",
-        "Banner":"NEW"
+        "Banner":""
 },
 {
         "Program Name": "BET",
         "Program File": "BET-program.json",
         "Pubs File": "BET-pubs.json",
         "Software File": "",
-        "Banner":"NEW"
+        "Banner":""
 },
 {
         "Program Name": "BOLT",
         "Program File": "BOLT-program.json",
         "Pubs File": "BOLT-pubs.json",
         "Software File": "BOLT-software.json",
-        "Banner":"NEW"
+        "Banner":""
 },
 {
         "Program Name": "CFT",
@@ -46,7 +46,7 @@
         "Program File": "CRASH-program.json",
         "Pubs File": "CRASH-pubs.json",
         "Software File": "CRASH-software.json",
-        "Banner":"NEW"
+        "Banner":""
 },
 {
         "Program Name": "CSFV",
@@ -81,14 +81,14 @@
         "Program File": "ENGAGE-program.json",
         "Pubs File": "ENGAGE-pubs.json",
         "Software File": "ENGAGE-software.json",
-        "Banner": "NEW"
+        "Banner": ""
 },
 {
         "Program Name": "FLASHLIGHT",
         "Program File": "FLASHLIGHT-program.json",
         "Pubs File": "",
         "Software File": "FLASHLIGHT-software.json",
-        "Banner":"NEW"
+        "Banner":""
 },
 {
         "Program Name": "HACMS",
@@ -109,7 +109,7 @@
         "Program File": "MRC-program.json",
         "Pubs File": "MRC-pubs.json",
         "Software File": "MRC-software.json",
-        "Banner": "NEW"
+        "Banner": ""
 },
 {
         "Program Name": "PPAML",
@@ -123,7 +123,7 @@
         "Program File": "PROCEED-program.json",
         "Pubs File": "PROCEED-pubs.json",
         "Software File": "",
-        "Banner": "NEW"
+        "Banner": ""
 },
 {
         "Program Name": "RATS",
@@ -137,7 +137,7 @@
         "Program File": "SAFER-program.json",
         "Pubs File": "SAFER-pubs.json",
         "Software File": "SAFER-software.json",
-        "Banner": "NEW"
+        "Banner": ""
 },
 {
         "Program Name": "SMISC",
