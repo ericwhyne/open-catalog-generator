@@ -165,16 +165,13 @@ img {border : 0;}
     border-collapse:collapse;
 }
 
-.darpa-header-images-size{
-    white-space:nowrap;
-}
-
 .darpa-header-images{
     border: 2px solid black;
     vertical-align: middle;
     text-align: left;
     width: 376px;
     display:table-cell;
+	white-space:nowrap;
 }
 
 .darpa-header-text{
@@ -185,18 +182,18 @@ img {border : 0;}
     margin-top: 20px;
 }
 
-.footer{
+.footer-style{
     position:relative;
     clear:both;
     background:black;
     height:66px;
 }
 
-.footer p{
+.footer-style p{
     color: white;
 }
 
-.footer p a:link{
+.footer-style p a:link{
     color: #4863A0;
 }
 
@@ -214,7 +211,7 @@ path {
     overflow-x: hidden;
 }
 
-.no_space{
+.no-space{
     padding:0px;
     margin:0px;
 }

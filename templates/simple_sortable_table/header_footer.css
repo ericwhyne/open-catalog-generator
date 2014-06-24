@@ -1,29 +1,18 @@
-html,
+html {
+    position: relative;
+    min-height: 100%;
+}
 body {
-   margin:0;
-   padding:0;
-   height:100%;
+    margin: 0 0 68px; /* bottom = footer height */
 }
-
-#container {
-	min-height: 79.4%;
-   /* 	height: auto !important;
-	height: 100%;
-	margin: 0 auto -66px; the bottom margin is the negative value of the footer's height */
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 68px;
+    width: 100%;
+	background:black;
 }
-
-.ie10 #container{
-    min-height: 79.56% !important;
-}
-
-#body {
-   /*padding:10px;*/
-   padding-bottom:66px;   /* Height of the footer */
-}
-
-a {outline : none;}
-a img {outline : none;}
-img {border : 0;}
 
 .programlink {
     text-decoration:none;
@@ -62,16 +51,13 @@ img {border : 0;}
 	padding:10px;
 }
 
-.darpa-header-images-size{
-    white-space:nowrap;
-}
-
 .darpa-header-images{
     border: 2px solid black;
     vertical-align: middle;
     text-align: left;
     width: 376px;
     display:table-cell;
+	white-space:nowrap;
 }
 
 .darpa-header-text{
@@ -82,38 +68,22 @@ img {border : 0;}
     margin-top: 20px;
 	font-weight: bold;
 	font-family: Times New Roman,Times,serif;
-	font-size: 1.46em;
+	font-size: 2em;
 }
-
-.footer {
-   position:relative;
-   bottom:0;
-   width:100%;
-   height:66px;   /* Height of the footer */
-   background:black;
-   /*clear:both;*/
-}
-
-.footer p{
+.footer-style p{
     color: white;
 	font:normal 12pt/1.5em Arial, Helvetica, sans-serif;
     line-height:1.5em;
-    margin-bottom: 1.5em;
+   /* margin-bottom: 1.5em;*/
     padding-left:10px;
     max-width:100%;
 }
 
-.footer p a:link{
+.footer-style p a:link{
     color: #4863A0;
 }
 
-.no_space{
+.no-space{
     padding:0px;
     margin:0px;
 }
-
-
-
-
-
-
