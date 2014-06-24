@@ -3,13 +3,30 @@ import time
 import getpass
 
 def html_head():
-  html_head="<!DOCTYPE html><html lang='en'><meta http-equiv='Content-Type' content='text/html; charset=utf-8' />"
-  return html_head
+  return """
+  <!DOCTYPE html>
+  <html lang='en'>
+  <head>
+  <title>DARPA - Open Catalog</title>
+  <link rel='stylesheet' href='style_v2.css' type='text/css'/>
+  <link rel='stylesheet' href='banner_style.css' type='text/css'/>
+  <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
+  <link rel='stylesheet' href='css/list_style.css' type='text/css'/>
+  
+  <script type='text/javascript' src="list.min.js"></script>
+  <script type='text/javascript' src='jquery-latest.js'></script>
+  <script type='text/javascript' src="jquery-1.9.1.js"></script>
+  <script type='text/javascript' src="jquery-ui.js"></script>
+  <script type='text/javascript' src='jquery.tablesorter.min.js'></script>
+  </head>
+
+  <body>
+"""
 
 def logo(office):
-  logo= "<div class='darpa-header'><div class='darpa-header-images darpa-header-images-size'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
+  logo= "<div class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
   if (office != ""):
-    logo += "<div class='darpa-header-text'><h1 class='no_space'><span><font color='white'> / </font> <a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader programheader-i2o'>%s</a> </span></div></h1></div>" % office
+    logo += "<div class='darpa-header-text'><h1 class='no-space'><span><font color='white'> / </font> <a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader programheader-i2o'>%s</a> </span></div></h1></div>" % office
   logo += "</div>"
   return logo
 
@@ -111,20 +128,8 @@ def project_banner(update_date, new_date, title, last_update_file):
     ribbon = "'>"
   return ribbon
   
-def catalog_page_header(): 
+def catalog_program_script(): 
   return """ 
-  <title>DARPA - Open Catalog</title>
-  <link rel='stylesheet' href='style_v2.css' type='text/css'/>
-  <link rel='stylesheet' href='banner_style.css' type='text/css'/>
-  <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
-  <link rel='stylesheet' href='css/list_style.css' type='text/css'/>
-  
-  <script type='text/javascript' src="list.min.js"></script>
-  <script type='text/javascript' src='jquery-latest.js'></script>
-  <script type='text/javascript' src="jquery-1.9.1.js"></script>
-  <script type='text/javascript' src="jquery-ui.js"></script>
-  <script type='text/javascript' src='jquery.tablesorter.min.js'></script>
-
 
 <script type='text/javascript'>
 var swList = pubList = spubList = ssftList = "";
@@ -318,7 +323,7 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 	
 	$( "#dialog" ).removeClass("ribbon-dialog");
 	$(".ui-dialog").removeClass("ribbon-dialog vertical-green vertical-red");
-	$(".ui-widget-header").removeClass("ribbon-dialog-text");
+	$(".ui-dialog-titlebar").removeClass("ribbon-dialog-text");
 	
 	if(short_nm != ""){
 		$( "#dialog" ).empty().dialog({
@@ -379,7 +384,7 @@ function dateInfo(ribbon, event){
 		
 		$( "#dialog" ).addClass("ribbon-dialog");
 		$(".ui-dialog").addClass(background + " ribbon-dialog");
-		$(".ui-widget-header").addClass("ribbon-dialog-text");
+		$(".ui-dialog-titlebar").addClass("ribbon-dialog-text");
 		
 
 
@@ -393,11 +398,15 @@ function dateInfo(ribbon, event){
 
 def catalog_page_footer():
   return """
-<div class='footer'>
-<hr>
+<footer>
+<div class='footer-style'>
+<hr>  
 <p><a href='http://www.darpa.mil/FOIA.aspx'>FOIA</a> | <a href='http://www.darpa.mil/Privacy_Security_Notice.aspx'>Privacy and Security</a> | 
 <a href='http://www.darpa.mil/NoFearAct.aspx'>No Fear Act</a> | <a href='http://www.darpa.mil/External_Link.aspx?url=http://dodcio.defense.gov/DoDSection508/Std_Stmt.aspx'>Accessibility/Section 508</a></p>
 </div>
+</footer>
+</div>
+</body>
 </html>
 """
 
