@@ -78,6 +78,10 @@ footer {
     padding-left:10px;
     max-width:100%;
 }
+.footer-style hr{
+padding-top: 2px;
+margin: 0;
+}
 
 .footer-style p a:link{
     color: #4863A0;

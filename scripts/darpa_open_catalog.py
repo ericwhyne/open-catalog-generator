@@ -8,11 +8,11 @@ def html_head():
   <html lang='en'>
   <head>
   <title>DARPA - Open Catalog</title>
-  <link rel='stylesheet' href='style_v2.css' type='text/css'/>
-  <link rel='stylesheet' href='banner_style.css' type='text/css'/>
+  <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
+  <link rel='stylesheet' href='css/banner_style.css' type='text/css'/>
   <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
   <link rel='stylesheet' href='css/list_style.css' type='text/css'/>
-  
+  <link rel='stylesheet' href='css/header_footer.css' type='text/css'/> 
   <script type='text/javascript' src="list.min.js"></script>
   <script type='text/javascript' src='jquery-latest.js'></script>
   <script type='text/javascript' src="jquery-1.9.1.js"></script>
@@ -23,12 +23,12 @@ def html_head():
   <body>
 """
 
-def logo(office):
-  logo= "<div class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
-  if (office != ""):
-    logo += "<div class='darpa-header-text'><h1 class='no-space'><span><font color='white'> / </font> <a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader programheader-i2o'>%s</a> </span></div></h1></div>" % office
-  logo += "</div>"
-  return logo
+def catalog_page_header(office_link):
+  header = "<header class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
+  if (office_link != ""):
+    header += "<div class='darpa-header-text no-space'><span><font color='white'> / </font>%s</span></div></header>" % office_link
+  header += "</header>"
+  return header
 
 def get_current_user():
   return getpass.getuser()

@@ -16,7 +16,7 @@ def filter_head():
   <script type="text/javascript" src="templates.js"></script>
   <script type="text/javascript" src="mustache.js"></script>
   <script type="text/javascript" src='d3.min.js'></script>
-  <link rel="stylesheet" type="text/css" href="header_footer.css"/>
+  <link rel="stylesheet" type="text/css" href="css/header_footer.css"/>
   <link rel="stylesheet" type="text/css" href="css/catalog_filter.css"/>
   <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/> 
   </head>
@@ -25,11 +25,12 @@ def filter_head():
 """
 
 def filter_html():
-  html = "<div id='header'><div class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
-  html += "<div class='darpa-header-text no-space'><span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O) &nbsp/&nbsp</a><a href=\"data_vis.html\"' class='programlink visheader'>Catalog Filter</a></span></div></div></div>"
+  html = "<header class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
+  html += "<div class='darpa-header-text no-space'><span><font color='white'> / </font><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O) &nbsp/&nbsp</a><a href=\"catalog_filter.html\"' class='programlink visheader'>Catalog Filter</a></span></div></header>"
 
   html += """
-  <br><br>
+  <div id='page-content'>
+  <br>
   <div id="tabs" class="table-tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
 	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
 		<li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tabs0" aria-labelledby="ui-id-1" aria-selected="true">
@@ -56,7 +57,10 @@ def filter_html():
 	</div>
   </div>
   <div id="view" style="height:20px; clear:both;  font-size:13px; font-weight: bold;"><p><span id="results_title" style="float:left;">&nbsp;View Entries</span><img class="point-cursor" style="float:left; margin-bottom:10px;" src="arrow-up.gif" id="collection_title" name="collection_view" onclick="toggleMenu(this.id, this.name);"/><span id="results_count" style="float:left; padding: 0px 0px 0px 40px;">Loading filter menus...</span></p></div>
+  
   <div id="collection_view" class="collectionview" style="display:none;"></div>
+  </div>  
+
   """
   return html
   

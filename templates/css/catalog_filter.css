@@ -1,11 +1,12 @@
 body{
 overflow-x: hidden;
+background-color: #C2C9C6; /*#E3E3E3;*/
 }
 
-#container{
+#page-content{
 background-color: #C2C9C6; /*#E3E3E3;*/
 font-family:Arial, Helvetica, sans-serif;
-font-size: 11px;
+font-size: 12px;
 font-weight: normal;
 /*line-height: 18px;*/
 
@@ -94,16 +95,10 @@ padding-right:5px;
 float:left;
 }
 
-
-.
-
 /* stop linked images from having border */
 a {outline : none;}
 a img {outline : none;}
 img {border : 0;}
-
-
-
 
 .filter-container{
     color: #333333;
