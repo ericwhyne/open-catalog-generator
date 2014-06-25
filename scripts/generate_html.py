@@ -44,7 +44,7 @@ except Exception, e:
 
 splash_page = doc.html_head()
 splash_page += doc.catalog_program_script()
-splash_page += doc.logo("")
+splash_page += doc.catalog_page_header("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
 
@@ -75,7 +75,7 @@ for program in active_content:
       print "\nFAILED! JSON error in file %s" % program['Program File']
       print " Details: %s" % str(e)
       sys.exit(1)
-    program_page += doc.logo("<a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O)</a>")
+    program_page += doc.catalog_page_header("<a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O)</a>")
     if re.search('^http',program_details['Link']):
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
