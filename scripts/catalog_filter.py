@@ -16,6 +16,7 @@ def filter_head():
   <script type="text/javascript" src="templates.js"></script>
   <script type="text/javascript" src="mustache.js"></script>
   <script type="text/javascript" src='d3.min.js'></script>
+  <script type="text/javascript" src="jkmegamenu.js"></script>
   <link rel="stylesheet" type="text/css" href="css/header_footer.css"/>
   <link rel="stylesheet" type="text/css" href="css/catalog_filter.css"/>
   <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/> 
@@ -39,24 +40,24 @@ def filter_html():
 	</ul>
 	<div id="program">
 		<div id="query_tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
-			<div id="names_tite_div" style="float:left; width:10%;"><p>By Program<img class="point-cursor" src="arrow-up.gif" id="name_title" name="names_menu" onclick="toggleMenu(this.id, this.name);"/></p></div>
+			<div id="names_tite_div" style="float:left; width:10%;"><p>By Program<img class="point-cursor" src="arrow-right.png" id="name_anchor"/></p></div>
 			<div id="names_filter_div" style="float:left; width:90%;"></div>
 			<div id="names_menu" style="display:none;" class="megamenu"></div>
 			<div style="clear: both;"><HR style="color: #F0FFFF;"></div>
 			
-			<div id="categories_tite_div" style="float:left; width:10%;"><p>By Category<img class="point-cursor" src="arrow-up.gif" id="category_title" name="categories_menu" onclick="toggleMenu(this.id, this.name);"/></p></div>
+			<div id="categories_tite_div" style="float:left; width:10%;"><p>By Category<img class="point-cursor" src="arrow-right.png" id="category_anchor"/></p></div>
 			<div id="categories_filter_div" style="float:left; width:90%;"></div>
 			<div id="categories_menu" style="display:none;" class="megamenu"></div>
 			<div style="clear: both;"><HR style="color: #F0FFFF;"></div>
   
-			<div id="teams_tite_div" style="float:left; width:10%;"><p>By Team<img class="point-cursor" src="arrow-up.gif" id="team_title" name="teams_menu" onclick="toggleMenu(this.id, this.name);"/></p></div>
+			<div id="teams_tite_div" style="float:left; width:10%;"><p>By Team<img class="point-cursor" src="arrow-right.png" id="team_anchor"/></p></div>
 			<div id="teams_filter_div" style="float:left; width:90%;"></div>
 			<div id="teams_menu" style="display:none;" class="megamenu"></div>
 			<div style="clear: both;"><HR style="color: #F0FFFF;"></div>
 		</div>
 	</div>
   </div>
-  <div id="view" style="height:20px; clear:both;  font-size:13px; font-weight: bold;"><p><span id="results_title" style="float:left;">&nbsp;View Entries</span><img class="point-cursor" style="float:left; margin-bottom:10px;" src="arrow-up.gif" id="collection_title" name="collection_view" onclick="toggleMenu(this.id, this.name);"/><span id="results_count" style="float:left; padding: 0px 0px 0px 40px;">Loading filter menus...</span></p></div>
+  <div id="view" style="height:20px; clear:both;  font-size:13px; font-weight: bold;"><p><span id="results_title" style="float:left;">&nbsp;View Entries</span><img class="point-cursor" style="float:left;" src="arrow-up.gif" id="collection_anchor" name="collection_view" onclick="toggleMenu(this.id, this.name);"/><span id="results_count" style="float:left; padding: 0px 0px 0px 40px;">Loading filter menus...</span></p></div>
   
   <div id="collection_view" class="collectionview" style="display:none;"></div>
   </div>  
@@ -83,7 +84,10 @@ def filter_script():
   }
 
   $(document).ready(function() {
-  
+		jkmegamenu.definemenu("name_anchor", "names_menu", "mouseover", "query_tab");
+		jkmegamenu.definemenu("category_anchor", "categories_menu", "mouseover", "query_tab");
+		jkmegamenu.definemenu("team_anchor", "teams_menu", "mouseover", "query_tab");
+		
 		programs.sort(sortByProperty('Program Name'));
   
 		var entries = [];
@@ -238,7 +242,11 @@ def filter_script():
 	  total_lines = header_cnt + value_cnt;
   	  lines_per_column = Math.ceil(total_lines / 6);
 	  
+	  if(arr_type == "teams") console.log("total:" + total_lines);
+	  if(arr_type == "teams") console.log("lines per col:" + lines_per_column);
+	  
   	  for(query in query_arr){
+			
 		  if (curr_line_cnt == 0){
 			  menu_html += '<div class="column">';
 		  }
@@ -271,6 +279,7 @@ def filter_script():
 		}
 		
 		if (curr_line_cnt >= lines_per_column){
+			if(arr_type == "teams") console.log("curr cnt:" + curr_line_cnt);
 			menu_html += '</ul></div>';
 			curr_line_cnt = 0;
 		}
@@ -363,7 +372,7 @@ def filter_script():
 		if (n_html != '' && curr_filter == 'names'){ n_html += close_html; $('#names_filter_div').html(n_html);}	
 		if (c_html != '' && curr_filter == 'categories'){c_html += close_html; $('#categories_filter_div').html(c_html);}
 		if (t_html != ''  && curr_filter == 'teams'){ t_html += close_html; $('#teams_filter_div').html(t_html);}		
-		
+
 		var current_queries = [];
 		var current_cids = '';
 
@@ -473,8 +482,7 @@ def filter_script():
 	  else{
 		  $("#" + arrow_id).attr("src", "arrow-up.gif");
   		  $("#" + arrow_name).attr("style", "clear: both; display:none;");
-	  }
-		  
+	  }  
   }
   
   function toggleItem(item){
