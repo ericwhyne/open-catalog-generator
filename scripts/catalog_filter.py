@@ -242,9 +242,6 @@ def filter_script():
 	  total_lines = header_cnt + value_cnt;
   	  lines_per_column = Math.ceil(total_lines / 6);
 	  
-	  if(arr_type == "teams") console.log("total:" + total_lines);
-	  if(arr_type == "teams") console.log("lines per col:" + lines_per_column);
-	  
   	  for(query in query_arr){
 			
 		  if (curr_line_cnt == 0){
@@ -279,7 +276,6 @@ def filter_script():
 		}
 		
 		if (curr_line_cnt >= lines_per_column){
-			if(arr_type == "teams") console.log("curr cnt:" + curr_line_cnt);
 			menu_html += '</ul></div>';
 			curr_line_cnt = 0;
 		}
