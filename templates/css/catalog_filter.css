@@ -23,12 +23,11 @@ border-width: 5px 1px;
 padding: 10px;
 font: normal 12px Verdana;
 z-index: 100;
-
 }
 
 .megamenu .column{
 float: left;
-width: 225px; /*width of each menu column*/
+width: 210px; /*width of each menu column*/
 margin-right: 5px;
 }
 

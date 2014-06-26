@@ -40,19 +40,24 @@ def filter_html():
 	</ul>
 	<div id="program">
 		<div id="query_tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
-			<div id="names_tite_div" style="float:left; width:10%;"><p>By Program<img class="point-cursor" src="arrow-right.png" id="name_anchor"/></p></div>
+			<div id="names_title_div" style="float:left; width:10%;"><p>By Program<img class="point-cursor" src="arrow-right.png"  id="name_anchor"/></p></div>
 			<div id="names_filter_div" style="float:left; width:90%;"></div>
 			<div id="names_menu" style="display:none;" class="megamenu"></div>
 			<div style="clear: both;"><HR style="color: #F0FFFF;"></div>
 			
-			<div id="categories_tite_div" style="float:left; width:10%;"><p>By Category<img class="point-cursor" src="arrow-right.png" id="category_anchor"/></p></div>
+			<div id="categories_title_div" style="float:left; width:10%;"><p>By Category<img class="point-cursor" src="arrow-right.png" id="category_anchor"/></p></div>
 			<div id="categories_filter_div" style="float:left; width:90%;"></div>
 			<div id="categories_menu" style="display:none;" class="megamenu"></div>
 			<div style="clear: both;"><HR style="color: #F0FFFF;"></div>
   
-			<div id="teams_tite_div" style="float:left; width:10%;"><p>By Team<img class="point-cursor" src="arrow-right.png" id="team_anchor"/></p></div>
+			<div id="teams_title_div" style="float:left; width:10%;"><p>By Team<img class="point-cursor" src="arrow-right.png" id="team_anchor"/></p></div>
 			<div id="teams_filter_div" style="float:left; width:90%;"></div>
 			<div id="teams_menu" style="display:none;" class="megamenu"></div>
+			<div style="clear: both;"><HR style="color: #F0FFFF;"></div>
+			
+			<div id="licenses_title_div" style="float:left; width:10%;"><p>By License<img class="point-cursor" src="arrow-right.png" id="license_anchor"/></p></div>
+			<div id="licenses_filter_div" style="float:left; width:90%;"></div>
+			<div id="licenses_menu" style="display:none;" class="megamenu"></div>
 			<div style="clear: both;"><HR style="color: #F0FFFF;"></div>
 		</div>
 	</div>
@@ -77,8 +82,9 @@ def filter_script():
    
   <script type='text/javascript'>
   var view = [],
-	menu_array = {"names":[], "categories":[], "teams":[]};
+	menu_array = {"names":[], "categories":[], "teams":[], "licenses":[""]};
   var programs = getPrograms();	
+  var licenses = getLicenses();
   var alphaCharRange = {
 		  start: 31, end: 90
   }
@@ -87,6 +93,7 @@ def filter_script():
 		jkmegamenu.definemenu("name_anchor", "names_menu", "mouseover", "query_tab");
 		jkmegamenu.definemenu("category_anchor", "categories_menu", "mouseover", "query_tab");
 		jkmegamenu.definemenu("team_anchor", "teams_menu", "mouseover", "query_tab");
+		jkmegamenu.definemenu("license_anchor", "licenses_menu", "mouseover", "query_tab");
 		
 		programs.sort(sortByProperty('Program Name'));
   
@@ -165,28 +172,34 @@ def filter_script():
 	  menu_array["teams"].sort();
   	  var team_menu = getQueryMenu(menu_array["teams"], "teams");
 	  $("#teams_menu").html(team_menu);
-  	
+	  
+	  for (license in licenses){
+			var license_object = licenses[license];
+			createMenuArrays(license_object["License Short Name"], "licenses");
+	  }
+	   
+	  menu_array["licenses"].sort();
+  	  var license_menu = getQueryMenu(menu_array["licenses"], "licenses");
+	  $("#licenses_menu").html(license_menu);	   
 	  var artifacts_collection = new PourOver.Collection(entries);
-  
+
 	  //create query filters
 	  var name_filter = PourOver.makeExactFilter("DARPA Program", menu_array["names"]);
-  	  
-	  //var category_filter = PourOver.makeInclusionFilter("Categories", menu_array["categories"]);
-	  //var team_filter = PourOver.makeInclusionFilter("Program Teams", menu_array["teams"]);
-	  
 	  var category_filter = makeCaseInsensitiveFilter("Categories", menu_array["categories"], "Categories");
 	  var team_filter = makeCaseInsensitiveFilter("Program Teams", menu_array["teams"], "Program Teams");
-  	
-	  artifacts_collection.addFilters([name_filter, category_filter, team_filter]);
+	  var license_filter = makeCaseInsensitiveFilter("Licenses", menu_array["licenses"], "License");
+		
+	  artifacts_collection.addFilters([name_filter, category_filter, team_filter, license_filter]);
   	
 	  MyView = PourOver.View.extend({
 		  selectionFn: function(){
+
 			  var collection = this.collection,
-				  name_col = collection.getCurrentFilteredItems("DARPA Program");
-  				  cat_col = collection.getCurrentFilteredItems("Categories");
-				  team_col = collection.getCurrentFilteredItems("Program Teams");
-  
-			  return cat_col.and(team_col).and(name_col);		
+				  name_col = collection.getCurrentFilteredItems("DARPA Program"),
+  				  cat_col = collection.getCurrentFilteredItems("Categories"),
+				  team_col = collection.getCurrentFilteredItems("Program Teams"),
+				  license_col = collection.getCurrentFilteredItems("Licenses");
+			  return cat_col.and(team_col).and(name_col).and(license_col);		
 		  },
   		render: function(){
 			  var items = this.getCurrentItems();
@@ -311,14 +324,16 @@ def filter_script():
 	  var view_names_filter = new PourOver.UI.SimpleSelectElement({filter: view.collection.filters["DARPA Program"]});
   	  var view_cats_filter = new PourOver.UI.SimpleSelectElement({filter: view.collection.filters.Categories});
 	  var view_teams_filter = new PourOver.UI.SimpleSelectElement({filter: view.collection.filters["Program Teams"]});
-	  
+	  var view_licenses_filter = new PourOver.UI.SimpleSelectElement({filter: view.collection.filters["Licenses"]});
+
 	  view_names_filter.filter.clearQuery();
   	  view_cats_filter.filter.clearQuery();
 	  view_teams_filter.filter.clearQuery();
+	  view_licenses_filter.filter.clearQuery();
   
 	  if(all_selected_items.length > 0){
-		var n_num = 0, c_num = 0, t_num = 0;
-  		var n_html = '', c_html = '', t_html = '';
+		var n_num = 0, c_num = 0, t_num = 0, l_num = 0;
+  		var n_html = '', c_html = '', t_html = '', l_html = '';
 		var selected_filter = '', selected_value = '';
   		var open_html = '<ul class="filter-container" style="display: block;">';
 		var close_html = '<li class="filter filter-clear point-cursor" onclick="removeFilterValue(this);" data-filter-item-name="clear_filter" data-filter-name="'+ curr_filter + '"><span class="filter-item-title">Clear Filters</span><div class="filter-close-container"><div class="filter-close">&times;</div></div></li></ul>';
@@ -360,6 +375,17 @@ def filter_script():
 				view_teams_filter.filter.intersectQuery(all_selected_items[item].dataset.filterItemName);
 				t_html += addFilterValue(selected_filter, selected_value);
 			}
+			else if (selected_filter == 'licenses' && l_num == 0){
+				view_licenses_filter.filter.query(all_selected_items[item].dataset.filterItemName);
+				l_html += open_html;
+				l_html += addFilterValue(selected_filter, selected_value);
+				l_num++;
+			}
+			else if (selected_filter == 'licenses' && l_num > 0){
+				view_licenses_filter.filter.intersectQuery(all_selected_items[item].dataset.filterItemName);
+				l_html += addFilterValue(selected_filter, selected_value);
+			}
+			
 		});
 	
 		if(curr_value == "clear_filter")
@@ -367,7 +393,8 @@ def filter_script():
 	
 		if (n_html != '' && curr_filter == 'names'){ n_html += close_html; $('#names_filter_div').html(n_html);}	
 		if (c_html != '' && curr_filter == 'categories'){c_html += close_html; $('#categories_filter_div').html(c_html);}
-		if (t_html != ''  && curr_filter == 'teams'){ t_html += close_html; $('#teams_filter_div').html(t_html);}		
+		if (t_html != ''  && curr_filter == 'teams'){ t_html += close_html; $('#teams_filter_div').html(t_html);}
+		if (l_html != ''  && curr_filter == 'licenses'){ l_html += close_html; $('#licenses_filter_div').html(l_html);}			
 
 		var current_queries = [];
 		var current_cids = '';
@@ -375,6 +402,7 @@ def filter_script():
 		current_queries.push(view_names_filter.filter.current_query);
 		current_queries.push(view_cats_filter.filter.current_query);
 		current_queries.push(view_teams_filter.filter.current_query);
+		current_queries.push(view_licenses_filter.filter.current_query);
 				
 		for(query in current_queries){
 			if(current_queries[query] != false){
@@ -400,6 +428,7 @@ def filter_script():
 				}
 			}
 		}
+		//console.log(result_set);
 
 		showResults(result_set);		
 		if(result_set.length == 0)
@@ -411,6 +440,7 @@ def filter_script():
 		$("#names_filter_div").html('');
 		$("#categories_filter_div").html('');
 		$("#teams_filter_div").html('');
+		$("#licenses_filter_div").html('');
 	}
   }
   
@@ -419,8 +449,9 @@ def filter_script():
   
 	  var html = "<table id='collection_table' style='width:100%'><tbody><tr>";
 	  var row_count = 0;
+
   	  items.sort(sortByMultipleProperties('Software','Title'));
-  
+	
 	  for (var i = 0; i <= items.length; i++) {	
 		  if (i < items.length){
 			  if(typeof(items[i].Software) == "undefined")
@@ -435,7 +466,6 @@ def filter_script():
 				html += "</tr><tr class='closed_rows'>";
 			else
 				html += "</tr><tr>";
-
 		}
 		
 	  }
@@ -471,14 +501,14 @@ def filter_script():
   }
   
   function toggleMenu(arrow_id, arrow_name){
-	  if($("#" + arrow_name).css("display") == "none"){
+		if($("#" + arrow_name).css("display") == "none"){
 		  $("#" + arrow_id).attr("src", "arrow-down.gif");
-  		  $("#" + arrow_name).attr("style", "clear: both; display:visible;");
-	  }
-	  else{
+		  $("#" + arrow_name).attr("style", "clear: both; display:visible;");
+		}
+		else{
 		  $("#" + arrow_id).attr("src", "arrow-up.gif");
-  		  $("#" + arrow_name).attr("style", "clear: both; display:none;");
-	  }  
+		  $("#" + arrow_name).attr("style", "clear: both; display:none;");
+		} 
   }
   
   function toggleItem(item){
