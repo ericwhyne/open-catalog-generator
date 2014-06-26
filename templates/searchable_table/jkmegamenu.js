@@ -26,7 +26,7 @@ alignmenu:function($, e, megamenu_pos){
 	var megamenu=this.megamenus[megamenu_pos]
 	var $anchor=megamenu.$anchorobj
 	var $menu=megamenu.$menuobj
-	var menuleft=($(window).width()-(megamenu.offsetx-$(document).scrollLeft())>megamenu.actualwidth)? megamenu.offsetx+10 : megamenu.offsetx-megamenu.actualwidth+megamenu.anchorwidth+10 //get x coord of menu
+	var menuleft=($(window).width()-(megamenu.offsetx-$(document).scrollLeft())>megamenu.actualwidth)? megamenu.offsetx+14 : megamenu.offsetx-megamenu.actualwidth+megamenu.anchorwidth+14 //get x coord of menu
 	//var menutop=($(window).height()-(megamenu.offsety-$(document).scrollTop()+megamenu.anchorheight)>megamenu.actualheight)? megamenu.offsety+megamenu.anchorheight : megamenu.offsety-megamenu.actualheight
 	var menutop=megamenu.offsety-92//get y coord of menu
 	$menu.css({left:menuleft+"px", top:menutop+"px"})

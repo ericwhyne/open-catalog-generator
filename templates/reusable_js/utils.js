@@ -26,6 +26,20 @@ function getProgramDetails(filename) {
 	return data;
 }
 
+function getLicenses() {
+	var licenses;
+	$.ajax({
+		async: false,
+		url: 'license-content.json',
+		dataType: 'json',
+		success: function(response){
+		   licenses = response;
+		}
+	});
+	
+	return licenses;
+}
+
 function isInArray(value, array) {
   //checks to see if a value exists in an array
   return array.indexOf(value) > -1;
