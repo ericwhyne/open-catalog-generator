@@ -101,7 +101,7 @@ render:function($){
 			return jkmegamenu.showmenu(e, parseInt(this.getAttribute("_megamenupos")))
 		})
 		
-		megamenu.$anchorobj.bind("mouseleave", function(e){
+		/*megamenu.$anchorobj.bind("mouseleave", function(e){
 		console.log("mouseleave"); 
 			var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
 			if (e.relatedTarget!=menuinfo.$menuobj.get(0) && $(e.relatedTarget).parents("#"+menuinfo.$menuobj.get(0).id).length==0){ //check that mouse hasn't moved into menu object
@@ -109,7 +109,7 @@ render:function($){
 					jkmegamenu.hidemenu(e, parseInt(menuinfo.$menuobj.get(0).getAttribute("_megamenupos")))
 				}, jkmegamenu.delaytimer)
 			}
-		})
+		})*/
 		megamenu.$menuobj.bind("mouseenter", function(e){
 			console.log("mouseenter")
 			console.log(this);
