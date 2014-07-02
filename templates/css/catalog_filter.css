@@ -20,7 +20,7 @@ top: 0;
 background: white;
 border: 1px solid #f06b24;
 border-width: 5px 1px;
-padding: 10px;
+/*padding: 10px;*/
 font: normal 12px Verdana;
 z-index: 100;
 }
@@ -110,6 +110,11 @@ img {
     cursor: pointer;
 }
 
+.img-size{
+	height:22px;
+	width:22px;
+}
+
 .filter{
 	
     border-color: #CCCCCC;
@@ -145,4 +150,21 @@ tr .closed_rows{
 
 tr .opened_rows{
 	display : table-row;
+}
+
+.pourover-menu{
+	padding:10px;
+}
+
+.menu-title-div{
+    background-color: #E0E0E0;
+    border-bottom: 2px solid #F06B24;
+    margin-bottom: 7px;
+    padding: 2px 0 5px 5px;
+}
+
+.title-text{
+	height:20px; 
+	font-size:13px; 
+	font-weight: bold;
 }

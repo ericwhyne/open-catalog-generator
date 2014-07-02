@@ -93,3 +93,9 @@ function sortByMultipleProperties(property1, property2) {
 function getStringArray(object) {
 	return object = typeof object == 'string' ? [object] : object;
 }
+
+function toCamelCase(str) {
+	return str.replace(/(?:^|\s)\w/g, function(match) {
+	  return match.toUpperCase();
+	});
+}

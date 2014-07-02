@@ -62,7 +62,7 @@ def filter_html():
 		</div>
 	</div>
   </div>
-  <div id="view" style="height:20px; clear:both;  font-size:13px; font-weight: bold;"><p><span id="results_title" style="float:left;">&nbsp;View Entries</span><img class="point-cursor" style="float:left;" src="arrow-up.gif" id="collection_anchor" name="collection_view" onclick="toggleMenu(this.id, this.name);"/><span id="results_count" style="float:left; padding: 0px 0px 0px 40px;">Loading filter menus...</span></p></div>
+  <div id="view" class="title-text"><p><span id="results_title" style="float:left;">&nbsp;View Entries</span><img class="point-cursor" style="float:left;" src="arrow-up.gif" id="collection_anchor" name="collection_view" onclick="toggleMenu(this.id, this.name);"/><span id="results_count" style="float:left; padding: 0px 0px 0px 40px;">Loading filter menus...</span></p></div>
   
   <div id="collection_view" class="collectionview" style="display:none;"></div>
   </div>  
@@ -247,7 +247,7 @@ def filter_script():
   function getQueryMenu(query_arr, arr_type){
   
 	  var curr_header = '';
-  	  var menu_html = '<div data-filter-name="' + arr_type + '" data-pourover-filter="makeExactFilter" id="pourover_' + arr_type + '">';
+  	  var menu_html = '<div data-filter-name="' + arr_type + '" data-pourover-filter="makeExactFilter" id="pourover_' + arr_type + '" class="pourover-menu">';
 	  var value_cnt = query_arr.length;
   	  var header_cnt = createHeaderArray(query_arr).length;
 	  var total_lines = curr_line_cnt = lines_per_column = 0;
