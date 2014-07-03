@@ -94,6 +94,7 @@ render:function($){
 		
 		megamenu.$anchorobj.bind(megamenu.revealtype=="click"? "click" : "mouseenter", function(e){
 			var show = true
+			//show this menu only if all other menus are hidden, to avoid multiple menus being open simultaneously.
 			for (menu in jkmegamenu.megamenus){
 				var object = jkmegamenu.megamenus[menu]
 				if(object.$menuobj.css('display') == 'block'){
@@ -108,15 +109,11 @@ render:function($){
 			}
 		})
 		megamenu.$menuobj.bind("mouseenter", function(e){
-			console.log("mouseenter")
-			console.log(this);
 			var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
 			clearTimeout(menuinfo.hidetimer) //cancel hide menu timer
 		})
 		
 		megamenu.$menuobj.bind("mouseleave", function(e){
-			console.log("mouseleave2")
-			console.log(this);
 			if(e.relatedTarget != null){
 				var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
 				menuinfo.hidetimer=setTimeout(function(){ //add delay before hiding menu
@@ -126,8 +123,6 @@ render:function($){
 		})
 		
 		$('#' + megamenu.$menuobj[0].children["menu_title_div" + i].id).find('img').bind("click", function(e){
-			console.log("click")
-			console.log(this);
 			var menuinfo=jkmegamenu.megamenus[parseInt(this.parentElement.parentElement.parentElement.getAttribute("_megamenupos"))]
 			menuinfo.hidetimer=setTimeout(function(){ //add delay before hiding menu
 				jkmegamenu.hidemenu(e, parseInt(menuinfo.$menuobj.get(0).getAttribute("_megamenupos")))
