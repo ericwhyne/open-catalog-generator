@@ -9,7 +9,7 @@ function getPrograms() {
 		   programs = response;
 		}
 	});
-	
+
 	return programs;
 }
 
