@@ -9,7 +9,6 @@ function getPrograms() {
 		   programs = response;
 		}
 	});
-	
 	return programs;
 }
 
@@ -48,8 +47,8 @@ function isInArray(value, array) {
 function isIE() {
 	var ua = window.navigator.userAgent;
 	var msie = ua.indexOf("MSIE ");
-	//if IE browser, return true. If another browser, return false
-	if (msie > 0)      
+	//check for ie10 and below or ie. If IE browser, return true. If another browser, return false
+	if (msie > 0 || window.navigator.msMaxTouchPoints !== void 0 )    
 		return true;
 	else    
 		return false;
@@ -92,4 +91,10 @@ function sortByMultipleProperties(property1, property2) {
 
 function getStringArray(object) {
 	return object = typeof object == 'string' ? [object] : object;
+}
+
+function toCamelCase(str) {
+	return str.replace(/(?:^|\s)\w/g, function(match) {
+	  return match.toUpperCase();
+	});
 }

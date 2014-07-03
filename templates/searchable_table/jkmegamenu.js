@@ -9,7 +9,7 @@ jQuery.noConflict();
 var jkmegamenu={
 
 effectduration: 300, //duration of animation, in milliseconds
-delaytimer: 200, //delay after mouseout before menu should be hidden, in milliseconds
+delaytimer: 100, //delay after mouseout before menu should be hidden, in milliseconds
 
 //No need to edit beyond here
 megamenulabels: [],
@@ -66,11 +66,22 @@ definemenu:function(anchorid, menuid, revealtype, appendid){
 render:function($){
 	id = "query_tab";
 	for (var i=0, labels=this.megamenulabels[i]; i<this.megamenulabels.length; i++, labels=this.megamenulabels[i]){
+		
 		if ($('#'+labels[0]).length!=1 || $('#'+labels[1]).length!=1) //if one of the two elements are NOT defined, exist
 			return
 		this.megamenus.push({$anchorobj:$("#"+labels[0]), $menuobj:$("#"+labels[1]), $menuinner:$("#"+labels[1]).children('ul:first-child'), revealtype:labels[2], hidetimer:null})
-		var megamenu=this.megamenus[i]	
+		var megamenu=this.megamenus[i]
+		
+		var menu_name = megamenu.$menuobj[0].id.substring(0, megamenu.$menuobj[0].id.indexOf('_'));
+		if(menu_name == 'names')
+			menu_name = 'Programs';
+		else
+			menu_name = toCamelCase(menu_name);
+
+		megamenu.$menuobj.prepend($('<div style="height: 16px;">').attr('id', 'menu_title_div' + i).attr('class', 'menu-title-div').append($('<div style="float:left;"><img src="Close_Box_Red.png" id="close_image' + i + '" class="point-cursor" /></div><div style="float:left;  width:98%"><p class="title-text" style="width:100px; margin:0 auto;">' + menu_name + '</p></div>')));
+		megamenu.$menuobj.draggable({ handle:'.menu-title-div'});
 		megamenu.$anchorobj.add(megamenu.$menuobj).attr("_megamenupos", i+"pos") //remember index of this drop down menu
+
 		megamenu.actualwidth=megamenu.$menuobj.outerWidth()
 		megamenu.actualheight=megamenu.$menuobj.outerHeight()
 		megamenu.offsetx=megamenu.$anchorobj.offset().left
@@ -80,27 +91,42 @@ render:function($){
 		$("#" + labels[3]).append(megamenu.$menuobj) //move drop down menu to end of document
 		megamenu.$menuobj.css("z-index", ++this.zIndexVal).hide()
 		megamenu.$menuinner.css("visibility", "hidden")
+		
 		megamenu.$anchorobj.bind(megamenu.revealtype=="click"? "click" : "mouseenter", function(e){
-			var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
-			clearTimeout(menuinfo.hidetimer) //cancel hide menu timer
-			return jkmegamenu.showmenu(e, parseInt(this.getAttribute("_megamenupos")))
-		})
-		megamenu.$anchorobj.bind("mouseleave", function(e){
-			var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
-			if (e.relatedTarget!=menuinfo.$menuobj.get(0) && $(e.relatedTarget).parents("#"+menuinfo.$menuobj.get(0).id).length==0){ //check that mouse hasn't moved into menu object
-				menuinfo.hidetimer=setTimeout(function(){ //add delay before hiding menu
-					jkmegamenu.hidemenu(e, parseInt(menuinfo.$menuobj.get(0).getAttribute("_megamenupos")))
-				}, jkmegamenu.delaytimer)
+			var show = true
+			//show this menu only if all other menus are hidden, to avoid multiple menus being open simultaneously.
+			for (menu in jkmegamenu.megamenus){
+				var object = jkmegamenu.megamenus[menu]
+				if(object.$menuobj.css('display') == 'block'){
+					show = false
+					break
+				}	
+			}
+			if(show){
+				var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
+				clearTimeout(menuinfo.hidetimer) //cancel hide menu timer
+				return jkmegamenu.showmenu(e, parseInt(this.getAttribute("_megamenupos")))
 			}
 		})
 		megamenu.$menuobj.bind("mouseenter", function(e){
 			var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
 			clearTimeout(menuinfo.hidetimer) //cancel hide menu timer
 		})
-		megamenu.$menuobj.bind("click mouseleave", function(e){
-			var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
+		
+		megamenu.$menuobj.bind("mouseleave", function(e){
+			if(e.relatedTarget != null){
+				var menuinfo=jkmegamenu.megamenus[parseInt(this.getAttribute("_megamenupos"))]
+				menuinfo.hidetimer=setTimeout(function(){ //add delay before hiding menu
+					jkmegamenu.hidemenu(e, parseInt(menuinfo.$menuobj.get(0).getAttribute("_megamenupos")))
+				}, jkmegamenu.delaytimer)
+			}
+		})
+		
+		$('#' + megamenu.$menuobj[0].children["menu_title_div" + i].id).find('img').bind("click", function(e){
+			var menuinfo=jkmegamenu.megamenus[parseInt(this.parentElement.parentElement.parentElement.getAttribute("_megamenupos"))]
 			menuinfo.hidetimer=setTimeout(function(){ //add delay before hiding menu
 				jkmegamenu.hidemenu(e, parseInt(menuinfo.$menuobj.get(0).getAttribute("_megamenupos")))
+				
 			}, jkmegamenu.delaytimer)
 		})
 	} //end for loop
