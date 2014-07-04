@@ -2,7 +2,6 @@
 import time
 import getpass
 import re
-import sys
 
 def html_head():
   return """
