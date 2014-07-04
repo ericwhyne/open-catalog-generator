@@ -1,6 +1,8 @@
 #!/usr/bin/python
 import time
 import getpass
+import re
+import sys
 
 def html_head():
   return """
@@ -416,3 +418,8 @@ def write_file(html, file):
   outfile = open(page_file, 'w')
   outfile.write(html)
 
+def valid_email(email, program):
+  if re.match(r"^(([a-zA-Z0-9\-?\.?]+)@(([a-zA-Z0-9\-_]+\.)+)([a-z]{2,3}))+$", email)!=None:
+    return email
+  else: 
+    raise ValueError( "%s is an invalid email address.  Please fix this in %s files and restart the build." % (email, program))
