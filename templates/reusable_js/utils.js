@@ -98,3 +98,14 @@ function toCamelCase(str) {
 	  return match.toUpperCase();
 	});
 }
+
+function valid_email(item) {
+	
+	var value = null;
+	
+	if(item.value) value = item.value;
+	else value = item;
+		
+	var filter = /(([a-zA-Z0-9\-?\.?]+)@(([a-zA-Z0-9\-_]+\.)+)([a-z]{2,3}))+$/;
+	return filter.test(value);
+}
