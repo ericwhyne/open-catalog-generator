@@ -50,6 +50,32 @@ CAUTION: This script will replace the JSON files in the open catalog folder so
 be cautious when running this script. If a mistake was made, you can re-run
 the command but just reverse the order of the arguments.
 
+Script: get_schemas.py
+
+Description: This script will grab schema templates from the master schema file
+which as of now, is the 00-schema-examples.json file. This script returns an array 
+which consists of a string representing the type of schema, followed by a blank
+schema of the specified type. For instance, the type may be "Software" followed
+by the software or project schema of the Open Catalog.
+
+Usage: This script is meant to be used as an import to another Python script.
+To use, use an import statement (import get_schemas) and then call the method with the format
+get_schemas.get_schemas() where a variable should be used to capture what is returned.
+
+Script: update_master.py
+
+Description: This script will update the master schema file, 00-schema-examples.json,
+using the schema of another JSON file in the catalog. The files that it updates from
+are currently set to the XDATA catalog files (XDATA-program.json, XDATA-pubs.json, 
+XDATA-software.json). Note, it will not change existing values/keys currently there,
+it will only add new fields/keys with blank initial values.
+
+Usage: This script can be used by running the command, 
+./update_master.py schema_file data_dir
+where schema_file is the master schema file and
+data_dir is the folder where the JSON files that the updates
+are being pulled from exist. 
+e.g. /update_master.py ../darpa_open_catalog/00-schema-examples.json ../darpa_open_catalog
 
 
 
