@@ -1,5 +1,6 @@
 Author: James Tobat
 Date:6/20/14
+Updated: 7/10/14
 
 This is a README on the usage of the transform scripts in this folder.
 
@@ -62,29 +63,47 @@ DARPA_Program.file_type e.g. ADAMS.csv
 
 The JSON file will have the exact same name as the csv file name.
 
+Template Mode:
+Works for csv documents, and will essentially scan the master schema file, 00-schema-examples.json 
+, and use the schemas present with a csv document to produce a JSON file. This makes a few 
+assumptions, it assumes that all the column names in the csv document match the JSON template
+field names e.g. "DARPA Program":"HACMS" where the csv document has a "DARPA Program" column
+with the value of "HACMS". Unused JSON fields may be left out of the csv, but it will display
+a blank value with the exception of the "Display Software Columns" and "Display Pubs Columns"
+fields. The DARPA Program name needs only to be present for one row, but it must be there in
+any csv to be parsed with the template.
+
 Note:
 The exact value (exluding needless whitespace) of a column will be replicated in the JSON file which includes 
 newline characters or other erroneous information.
 
 Script Usage:
-To use the JSON file generator, go into the transforms file. 
+To use the JSON file generator, go into the transforms file. Place any documents to be transformed in the documents folder.
 
 Use the command below:
-./transform_into_JSON.py doc_type mode
+./transform_into_JSON.py [-h][-t] mode list_of_files
 
-doc_type for now includes docx or csv
+[] indicates that it is optional
+-h will display a help menu which explains how to use the command
+-t will indicate to use template mode although it will only work with
+csv files.
 
-mode includes "pub" or "project" for now
+mode needs to be pubs, software, or program
 
-Move a file that you want transformed into
-the transforms folder. Be careful, it will transform
-every document of the given type in the folder which could
-lead to incorrect JSON files.
+list_of_files means the name of each file to be transformed seperated by a space
+e.g. example.csv words.docx
+file names with spaces in them must be enclosed by double quotes 
+e.g. "example file.csv"
+Note: Only csv and docx files are supported for now
 
-An example of correct usage is below:
+The completed JSON file will be inside the new_JSON folder
+inside the transforms folder.
+
+Examples of correct usage are below:
 (assuming that I am located in the transforms directory)
-./transform_into_JSON.py docx pub
-./transform_into_JSON.py csv project
+./transform_into_JSON.py -t pubs example.csv example2.csv
+./transform_into_JSON.py program program-EXAMPLE.docx
+./transform_into_JSON.py -h
 
 This readme will be updated as the transform script changes.
 
