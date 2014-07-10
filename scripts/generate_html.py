@@ -184,24 +184,23 @@ for program in active_content:
           program_page += "</TD>\n "
         # Software
         if column == "Project":
-          # Debug
-          #print "      " + software['Software']
           elink = ""
           if 'External Link' in software.keys():
             elink = software['External Link']
+          entry_title = ""			
           if re.search('^http',elink) and elink != "":
             if darpa_links == "darpalinks":
-              program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              entry_title = "<a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a>"
             else:
-              program_page += "  <TD class='" + column.lower() + "'><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              entry_title = "<a href='" + elink + "'>" + software['Software'] + "</a>"
           else:
-            program_page += "  <TD class='" + column.lower() + "'>" + software['Software'] + "</TD>\n"
-        #Vertical Ribbon
-        if column == "":
-          vertical_ribbon = ""
+            entry_title = software['Software']
+			
           if program['Banner'].upper() != "NEW":
-            vertical_ribbon = doc.project_banner(software['Update Date'], software['New Date'], software['Software'], last_update_file)
-            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + column.lower() + " " + vertical_ribbon + "</TD>\n"
+            entry_ribbon = doc.project_banner(software['Update Date'], software['New Date'], last_update_file, entry_title)
+            program_page += "<TD class='" + column.lower() + "'>" + entry_ribbon + "</TD>"
+          else:  
+            program_page += "<TD class='" + column.lower() + "'>" + entry_title + "</TD>"
         # Category
         if column == "Category":
           categories = ""
@@ -227,11 +226,11 @@ for program in active_content:
           clink = ""
           if 'Public Code Repo' in software.keys():
             if re.search('[^@]+@[^@]+\.[^@]+',software['Public Code Repo']): # regex to identify when it's an email address.
-              try:
-                code_email = doc.valid_email(software['Public Code Repo'], program_details['DARPA Program Name'])
+              #try:
+                code_email = software['Public Code Repo'] # doc.valid_email(software['Public Code Repo'], program_details['DARPA Program Name'])
                 clink = "<a href='mailto:%s'>%s</a>" % (code_email, code_email)
-              except Exception:
-                raise
+              #except Exception:
+               # raise
             else:
               clink = software['Public Code Repo']			
           program_page += "  <TD class=" + column.lower() + "> " + clink + " </TD>\n"
@@ -297,13 +296,13 @@ for program in active_content:
           program_page += "</TD>\n" 
         # Title		  
         if column == "Title":
-          program_page += "<TD class='title'>" + pub['Title'] + "</TD>\n"
-        # Vertical Ribbon	
-        if column == "":		  
-          vertical_ribbon = ""
+          program_page += "<TD class='title'>"
+          entry_ribbon = ""
           if program['Banner'].upper() != "NEW":
-            vertical_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], pub['Title'], last_update_file)
-            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + vertical_ribbon + "</TD>\n"
+            entry_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], last_update_file, pub['Title'])
+          else:
+            entry_ribbon = pub['Title']
+          program_page +=  entry_ribbon + "</TD>"
         # Link
         if column == "Link":			
           link = pub['Link']
