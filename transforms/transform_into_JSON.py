@@ -2,108 +2,99 @@
 import sys
 import json
 import io
-import glob
-import re
+import os.path
 import word_to_JSON as word
 import csv_to_JSON as csv
 from collections import OrderedDict
+import argparse
 
-# A parsing mode (pub, project, program) must be supplied as well
-# as a document type (csv or docx for now)
-if len(sys.argv) < 2:
-  print "Error: Not enough arguments given, please supply a document type (ex. docx) and a mode (pub, project, program)"
-  sys.exit()
-else:
-  mode = sys.argv[2]
-  doc_type = sys.argv[1]
+file_types = [".csv",".docx"]
+doc_path = "./documents/"
+json_path = "./new_json/"
+sys.path.insert(0, '../scripts')
+import get_schemas as gs
 
-# Checks for files with the given document type in
-# upper and lower case.
-file_path1 = '*.' + doc_type.lower()
-file_path2 = '*.' + doc_type.upper()
+def path_exists(path):
+  if not os.path.exists(path):
+    os.makedirs(path)
+    print "%s folder has been created." % path
+    return False
+  else:
+    return True
+
+path_exists(json_path)
+if not path_exists(doc_path):
+  print "Error: document folder is missing, please re-run script.\
+\nPlease place documents to be transformed in documents folder."
+  sys.exit(1)
+
+def is_valid_file(parser, arg):
+  fileExtension = os.path.splitext(arg)[1]
+  if fileExtension not in file_types:
+    parser.error("%s has an invalid file type.\nPlease use one of the following\
+%s." % (arg, file_types))
+  if not os.path.isfile(doc_path + arg):
+    parser.error("%s does not exist." % arg)
+  return arg
+
+parser = argparse.ArgumentParser(description='Transform document into JSON.')
+parser.add_argument('-t', action='store_true', help='Use schema template for transform')
+parser.add_argument('mode', type=str, help='Mode for transformation', choices=['program','pubs','software'])
+parser.add_argument('file_name', type=lambda x: is_valid_file(parser, x), help='List of files to be transformed, need at least 1', nargs='+')
+
+args = vars(parser.parse_args())
+mode = args['mode']
+template = args['t']
+schemas = gs.get_schemas()
+
+# Matches the schema with the appropriate type after
+# being 
+for i in range(len(schemas)):
+  print i
+  if i % 2 == 0:
+    if schemas[i] == "Publication":
+      pub_schema = schemas[i+1]
+    elif schemas[i] == "Software":
+      software_schema = schemas[i+1]
+    else:
+      program_schema = schemas[i+1]
 
 # Represents the schema that will be used in parsing
 schema = 0
-# Represents the schema for publications, it is an
-# OrderedDict to ensure that the order that the entries
-# are created are in the same order in output. Done to match
-# the structure of existing JSON files
-pub_schema = OrderedDict()
-pub_schema['DARPA Program'] = ''
-pub_schema['Program Teams'] = ['']
-pub_schema['Title'] = ''
-pub_schema['Authors'] = ['']
-pub_schema['Link'] = ''
-pub_schema['Categories'] = ['']
-pub_schema['Subcategories'] = ['']
-pub_schema['ACM 1998 classification code'] = ['']
-pub_schema['New Date'] = ''
-pub_schema['Update Date'] = ''
 
-# Represents the schema for projects(software), it is an
-# OrderedDict to ensure that the order that the entries
-# are created are in the same order in output. Done to match
-# the structure of existing JSON files
-project_schema = OrderedDict()
-project_schema['DARPA Program'] = ''
-project_schema['Program Teams'] = ['']
-project_schema['Contributors'] = ['']
-project_schema['Sub-contractors'] = ['']
-project_schema['Software'] = ''
-project_schema['Internal Link'] = ''
-project_schema['External Link'] = ''
-project_schema['Public Code Repo'] = ''
-project_schema['Instructional Material'] = ''
-project_schema['Description'] = ''
-project_schema['License'] = ['']
-project_schema['Languages'] = ['']
-project_schema['Platform Requirements'] = ['']
-project_schema['Dependent modules'] = ['']
-project_schema['Dependent module URLs'] = ['']
-project_schema['Component modules'] = ['']
-project_schema['Component module URLs'] = ['']
-project_schema['Industry'] = ['']
-project_schema['Functionality'] = ['']
-project_schema['Categories'] = ['']
-project_schema['New Date'] = ''
-project_schema['Update Date'] = ''
-
-# Checks to see if the mode given is valid.
-# Can only parse in two modes for now.
-if mode == 'pub':
+if mode == "pubs":
   schema = pub_schema
-elif mode == 'project':
-  schema = project_schema
+elif mode == "software":
+  schema = software_schema
 else:
-  print "Error: Incorrect mode given, please use pub, project, or program"
-  sys.exit()
+  schema = program_schema
 
-# Checks to see if the document type is docx or csv
-# regardless of case.
-docx_type = re.search("docx", doc_type, flags=re.I)
-csv_type = re.search("csv", doc_type, flags=re.I)
-
-# Cannot handle any other document types besides csv or docx for now
-if not docx_type and not csv_type:
-  print "Error: Wrong document type given, use csv or docx"
-  sys.exit()
-  
 # Outputs a schema'd JSON file for the file given
-def output_JSON(file_path):
-  # Generates a list of all documents matching the given
-  # document type
-  for doc in glob.glob(file_path):
-    if docx_type:
-      JSON_data = word.parse_text(doc,mode,schema)
+def output_JSON(file_name):
+  if file_name.endswith(".docx"):
+    if args['t'] == True:
+      print "Error: Template mode can only be used with csv's"
+    else:
+      JSON_data = word.parse_text(file_name,mode,schema)
 
-    if csv_type:
-      JSON_data = csv.parse_csv(doc,mode,schema)
+  if file_name.endswith(".csv"):
+    JSON_data = csv.parse_csv(file_name,mode,schema,template)
 
-    file_name = JSON_data[0]
-    with open(file_name, 'w') as outfile:
-     del JSON_data[0]
-     json.dump(JSON_data, outfile, sort_keys = False, indent = 4, ensure_ascii=False)
+  outfile_name = JSON_data[0]
+  outfile_path = json_path + outfile_name
+    
+  try:
+    outfile = open(outfile_path, 'w')
+    del JSON_data[0]
+    json.dump(JSON_data, outfile, sort_keys = False, indent = 4, ensure_ascii=False)
+  except Exception, e:
+    print "Error: %s could not be created." % outfile_path
+    print "Details: %s" % str(e)
 
-output_JSON(file_path1)
-output_JSON(file_path2)
+  #print "%s has successfully been created." % outfile_name
+  return
+
+for doc in args['file_name']:
+  doc_location = doc_path + doc
+  output_JSON(doc_path + doc)
 
