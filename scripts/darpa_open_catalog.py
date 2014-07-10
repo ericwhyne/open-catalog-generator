@@ -2,6 +2,7 @@
 import time
 import getpass
 import re
+import datetime
 
 def html_head():
   return """
@@ -97,37 +98,37 @@ def pubs_table_footer():
 <br>
 """
 
-def project_banner(update_date, new_date, title, last_update_file):
-  ribbon = ""
+def project_banner(update_date, new_date, last_update_file, title):
+  html = ""
   ribbon_class = ""
   ribbon_div = ""
-  vertical_date = ""
+  change_date = ""
   if new_date != "" and update_date != "":
     if new_date >= update_date:
-     vertical_date = new_date
-     ribbon_class = "ribbon-red vertical-red"
+     change_date = new_date
+     ribbon_class = "ribbon-standard ribbon-red"
      ribbon_text = "NEW"
     else:
-	  vertical_date = update_date
-	  ribbon_class = "ribbon-green vertical-green"
-	  ribbon_text = "UPDATED"
+	  change_date = update_date
+	  ribbon_class = "ribbon-standard ribbon-green"
+	  ribbon_text = "UPD"
   elif new_date != "" and update_date == "":
-    vertical_date = new_date
-    ribbon_class = "ribbon-red vertical-red"
+    change_date = new_date
+    ribbon_class = "ribbon-standard ribbon-red"
     ribbon_text = "NEW"
   elif update_date != "" and new_date == "":
-    vertical_date = update_date
-    ribbon_class = "ribbon-green vertical-green"
-    ribbon_text = "UPDATED"
+    change_date = update_date
+    ribbon_class = "ribbon-standard ribbon-green"
+    ribbon_text = "UPD"
   f = open(last_update_file,"r")
   last_build_date = f.read()
   f.close()	
-  if vertical_date > last_build_date:		
-    ribbon_div = "<div class='vertical' id='" + vertical_date + "' name='" + ribbon_text + "'><span class='vertical-text'>" + ribbon_text + "</span></div>"
-    ribbon = ribbon_class + "' id='" + title + "'>" + ribbon_div
+  if change_date > last_build_date:
+    formatted_date = datetime.date.strftime(datetime.datetime.strptime(change_date, '%Y%m%d'), "%Y-%m-%d")  
+    html = "<div class='wrapper'><div class='wrapper-text'>" + title + "</div><div class='ribbon-wrapper'><div class='"  + ribbon_class + "'>" + ribbon_text + " " + formatted_date + "</div></div></div>"
   else:
-    ribbon = "'>"
-  return ribbon
+    html = title
+  return html
   
 def catalog_program_script(): 
   return """ 

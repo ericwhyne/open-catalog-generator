@@ -185,23 +185,24 @@ for program in active_content:
         # Software
         if column == "Project":
           # Debug
-          #print "      " + software['Software']
+          #print " " + software['Software']		
           elink = ""
           if 'External Link' in software.keys():
             elink = software['External Link']
+          entry_title = ""			
           if re.search('^http',elink) and elink != "":
             if darpa_links == "darpalinks":
-              program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              entry_title = "<a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a>"
             else:
-              program_page += "  <TD class='" + column.lower() + "'><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              entry_title = "<a href='" + elink + "'>" + software['Software'] + "</a>"
           else:
-            program_page += "  <TD class='" + column.lower() + "'>" + software['Software'] + "</TD>\n"
-        #Vertical Ribbon
-        if column == "":
-          vertical_ribbon = ""
+            entry_title = software['Software']
+			
           if program['Banner'].upper() != "NEW":
-            vertical_ribbon = doc.project_banner(software['Update Date'], software['New Date'], software['Software'], last_update_file)
-            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + column.lower() + " " + vertical_ribbon + "</TD>\n"
+            entry_ribbon = doc.project_banner(software['Update Date'], software['New Date'], last_update_file, entry_title)
+            program_page += "<TD class='" + column.lower() + "'>" + entry_ribbon + "</TD>"
+          else:  
+            program_page += "<TD class='" + column.lower() + "'>" + entry_title + "</TD>"
         # Category
         if column == "Category":
           categories = ""
@@ -297,13 +298,13 @@ for program in active_content:
           program_page += "</TD>\n" 
         # Title		  
         if column == "Title":
-          program_page += "<TD class='title'>" + pub['Title'] + "</TD>\n"
-        # Vertical Ribbon	
-        if column == "":		  
-          vertical_ribbon = ""
+          program_page += "<TD class='title'>"
+          entry_ribbon = ""
           if program['Banner'].upper() != "NEW":
-            vertical_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], pub['Title'], last_update_file)
-            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + vertical_ribbon + "</TD>\n"
+            entry_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], last_update_file, pub['Title'])
+          else:
+            entry_ribbon = pub['Title']
+          program_page +=  entry_ribbon + "</TD>"
         # Link
         if column == "Link":			
           link = pub['Link']

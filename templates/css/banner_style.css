@@ -7,8 +7,12 @@
   z-index: 90;
 }
 
-.wrapper a{
-	padding-right: 80px;
+.wrapper-text{
+  /*background: #FFFFFF !important; 
+  font-weight:bold !important;
+  font-size: 10pt !important;*/
+  float: left;
+  margin-right: 60px;
 }
 
 .ribbon-standard {
@@ -33,6 +37,7 @@
   position: absolute;
   top: -3px;
   right: -3px;
+  float:left;
 }
 
 .ribbon-green {
@@ -132,10 +137,4 @@
   max-width: 160px !important; 
   min-height: 26px !important;
   max-height: 26px !important;
-}
-
-.ribbon-dialog-text{
-  background: #FFFFFF !important; 
-  font-weight:bold !important;
-  font-size: 10pt !important;
 }
