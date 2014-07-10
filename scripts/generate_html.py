@@ -184,6 +184,8 @@ for program in active_content:
           program_page += "</TD>\n "
         # Software
         if column == "Project":
+          # Debug
+          #print " " + software['Software']		
           elink = ""
           if 'External Link' in software.keys():
             elink = software['External Link']
@@ -226,11 +228,11 @@ for program in active_content:
           clink = ""
           if 'Public Code Repo' in software.keys():
             if re.search('[^@]+@[^@]+\.[^@]+',software['Public Code Repo']): # regex to identify when it's an email address.
-              #try:
-                code_email = software['Public Code Repo'] # doc.valid_email(software['Public Code Repo'], program_details['DARPA Program Name'])
+              try:
+                code_email = doc.valid_email(software['Public Code Repo'], program_details['DARPA Program Name'])
                 clink = "<a href='mailto:%s'>%s</a>" % (code_email, code_email)
-              #except Exception:
-               # raise
+              except Exception:
+                raise
             else:
               clink = software['Public Code Repo']			
           program_page += "  <TD class=" + column.lower() + "> " + clink + " </TD>\n"
