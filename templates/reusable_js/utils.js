@@ -99,7 +99,7 @@ function toCamelCase(str) {
 	});
 }
 
-function valid_email(item) {
+function validEmail(item) {
 	
 	var value = null;
 	
@@ -108,4 +108,40 @@ function valid_email(item) {
 		
 	var filter = /(([a-zA-Z0-9\-?\.?]+)@(([a-zA-Z0-9\-_]+\.)+)([a-z]{2,3}))+$/;
 	return filter.test(value);
+}
+
+function getModificationDate(new_date, update_date){
+	var change_date = "", change_text = "";
+	var change_set = [];
+
+	
+	if(new_date == "" && update_date == ""){
+		change_set["Date Type"] = change_text;
+		change_set["Date"] = change_date;
+	}
+	else{
+		if (new_date != "" && update_date != ""){
+			if (new_date >= update_date){
+			 change_date = new_date;
+			 change_text = "Created";
+			}
+			else{
+			  change_date = update_date;
+			  change_text = "Updated";
+			}
+		}
+		else if( new_date != "" && update_date == ""){
+			change_date = new_date;
+			change_text = "Created";
+		}
+		else if(update_date != "" && new_date == ""){
+			change_date = update_date;
+			change_text = "Updated";
+		}
+		
+		change_set["Date Type"] = change_text;
+		change_set["Date"] = change_date;
+	}
+
+	return change_set;
 }

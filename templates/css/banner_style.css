@@ -135,6 +135,17 @@
 
 .ribbon-dialog{
   max-width: 160px !important; 
-  min-height: 26px !important;
-  max-height: 26px !important;
+  min-height: 20px !important;
+  /*max-height: 26px !important;*/
+  text-align: center;
+  margin: 1px;
+  padding-top:4px;
+  font-weight:bold !important;
+  font-size: 14pt !important;
+}
+
+.ribbon-dialog-text{
+  background: #FFFFFF !important; 
+  margin: 0px 4px 0px 4px;
+  font-weight:bold !important;
 }
