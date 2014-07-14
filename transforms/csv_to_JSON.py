@@ -11,8 +11,6 @@ import copy
 # the document title as well as all the JSON records identified
 # in the document (all use the schema passed in)
 def parse_csv(document, mode, schema, template):
-  print schema
-  i = 0
   JSON_Information = []
   
   if not template:
@@ -95,8 +93,8 @@ def parse_csv(document, mode, schema, template):
               index = template_fields[key]
               # Splits Excel cells that have comma separated values
               # into a list then trims each value of excess whitespace
-              if isinstance(value, list):
-                item_list = row[index].split(',')
+              item_list = row[index].split(',')
+              if len(item_list) > 1:
                 new_list = []
                 for item in item_list:
                   new_list.append(item.strip())
