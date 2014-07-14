@@ -50,7 +50,6 @@ schemas = gs.get_schemas()
 # Matches the schema with the appropriate type after
 # being 
 for i in range(len(schemas)):
-  print i
   if i % 2 == 0:
     if schemas[i] == "Publication":
       pub_schema = schemas[i+1]
