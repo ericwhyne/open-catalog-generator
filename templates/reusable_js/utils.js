@@ -2,7 +2,8 @@
 function getPrograms() {
 	var programs;
 	$.ajax({
-		async: false,
+		async: false, 
+		cache: false, 
 		url: 'active_content.json',
 		dataType: 'json',
 		success: function(response){
@@ -15,7 +16,8 @@ function getPrograms() {
 function getProgramDetails(filename) {
 	var data;
 	$.ajax({
-		async: false,
+		async: false, 
+		cache: false, 
 		url: filename,
 		dataType: 'json',
 		success: function(response){
@@ -28,7 +30,8 @@ function getProgramDetails(filename) {
 function getLicenses() {
 	var licenses;
 	$.ajax({
-		async: false,
+		async: false, 
+		cache: false, 
 		url: 'license-content.json',
 		dataType: 'json',
 		success: function(response){
@@ -114,7 +117,6 @@ function getModificationDate(new_date, update_date){
 	var change_date = "", change_text = "";
 	var change_set = [];
 
-	
 	if(new_date == "" && update_date == ""){
 		change_set["Date Type"] = change_text;
 		change_set["Date"] = change_date;
@@ -123,20 +125,20 @@ function getModificationDate(new_date, update_date){
 		if (new_date != "" && update_date != ""){
 			if (new_date >= update_date){
 			 change_date = new_date;
-			 change_text = "Created";
+			 change_text = "NEW";
 			}
 			else{
 			  change_date = update_date;
-			  change_text = "Updated";
+			  change_text = "UPDATED";
 			}
 		}
 		else if( new_date != "" && update_date == ""){
 			change_date = new_date;
-			change_text = "Created";
+			change_text = "NEW";
 		}
 		else if(update_date != "" && new_date == ""){
 			change_date = update_date;
-			change_text = "Updated";
+			change_text = "UPDATED";
 		}
 		
 		change_set["Date Type"] = change_text;
@@ -144,4 +146,46 @@ function getModificationDate(new_date, update_date){
 	}
 
 	return change_set;
+}
+
+
+function getLastBuildDate(){
+	var build_date;
+	$.ajax({
+		async: false, 
+		cache: false, 
+		url: 'last-build-date.txt',
+		dataType: 'text',
+		success: function(response){
+		   build_date = response;
+		}
+	});
+	return build_date;
+}
+
+function stringToDate(text){
+	var pattern1 = /\d{4}\d{2}\d{2}/;
+	var pattern2 = /\d{4}\-\d{2}\-\d{2}/;
+	var dt = "";
+	
+	if(pattern1.exec(text))
+		dt = new Date(text.substring(0,4), parseInt(text.substring(4,6)) - 1, text.substring(6,8)); // - 1 because months starts from 0.
+	else if (pattern2.exec(text)){
+		text = text.split("-");
+		dt = new Date(text[0], parseInt(text[1]) - 1, text[2]); // - 1 because months starts from 0.
+	}
+	else
+		dt = new Date(text);
+
+	return dt;
+}
+
+
+function dateToString(date, separator){
+	var date_month = (date.getMonth() + 1).toString().length == 1? "0" + (date.getMonth() + 1).toString() : date.getMonth() + 1;
+	var date_day = (date.getDate()).toString().length == 1? "0" + (date.getDate()).toString() : date.getDate();
+	var date_year = date.getFullYear();
+	
+	var string_date = date_month + separator + date_day + separator + date_year;
+	return string_date;
 }
