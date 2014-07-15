@@ -1189,3 +1189,28 @@ body .ui-tooltip {
 	filter: Alpha(Opacity=60);
 	border-radius: 0px;
 }
+
+/* Carousel */
+.slider {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  float: left;
+  width: 22%; 
+  border-right: solid 1px black; 
+  border-top: solid 1px #FFD700; 
+  margin: 28px 0px 0px 12px; 
+  display: none;
+  box-shadow: 4px 2px 10px 0 #888888;
+  background: #FAFAD2;
+}
+
+.slider div {
+  display: none;
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  padding:5px;
+  width:98%;
+}
+

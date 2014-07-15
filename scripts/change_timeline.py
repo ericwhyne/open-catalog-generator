@@ -48,7 +48,9 @@ def timeline_html():
 
   html += """
     <br>
-    <div id="offsetDiv">
+	<div id="feed" class="slider">
+	</div>
+    <div id="offsetDiv"  style="float:left; width:76%";>
       <div id="timeline" class='with-3d-shadow with-transitions'>
         <svg></svg>
       </div>
@@ -74,16 +76,117 @@ def timeline_script():
   
     var programs = getPrograms();
     var data_store = createDataStore(programs);
+	activateDataCarousel(data_store);
 	createTimeline(data_store);
-	
   	window.onresize = function () {
 		window_height = $(window).height();
 		window_width = $(window).width();
+		$('.slider').height(window_height - 250);
 		$('#chart').height(window_height - 220);
 	};
   });
  
- 
+  function activateDataCarousel(store){
+	// settings
+	var slider = $('.slider'); // class or id of carousel slider
+	var slide = 'div'; // could also use 'img' if you're not using a ul
+	var transition_in_time = 2000; // 2 seconds
+	var time_between_slides = 20000; // 20 seconds
+	var transition_out_time = 0;
+	
+	console.log(store.office["I2O"]);
+	var office_data = store["office"]["I2O"];
+	var html = "";
+	var prev_program = "";
+	
+	for (data in office_data) {
+		if(prev_program != office_data[data].program){
+			html = "<div style='font-size:75%;'>";
+			html += "<p style='width:99%; display:inline-block; background-color: #C0C0C0;'>";
+			html += "<span style='color:" + offices[3].color + "; width:34%; float:left; font-size:20px; font-weight:bold;'>" + office_data[data].program + "</span>"; //get color of I2O office
+			
+			if(!office_data[data].entries)
+				html += "<span style='font-size:14px; width:56%; float:right; line-height:26px; text-align:center;'>" + office_data[data]["Date Type"] + " : " + dateToString(office_data[data]["Date"], "-") + "</span>";
+				
+			html += "</p>";
+		}
+		else
+			html = "";
+			
+		console.log(office_data[data].program);
+		if(office_data[data].entries){
+			var entries = office_data[data].entries;
+			 entries.sort(sortByProperty('Date'));
+			console.log(entries);
+			for (entry in entries) {
+				
+				html += "<p style='text-align:center; width:100%;'>" + entries[entry]["Date Type"] + " : " + entries[entry]["Date"] + "</p>";
+				
+				if(entries[entry]["Publications"]){
+					var publications = entries[entry]["Publications"];
+					for(pb in publications){
+						html += "<p style='width:100%;'>" + publications[pb] + "</p>";
+					}
+				}
+				if(entries[entry]["Software"]){
+					var software = entries[entry]["Software"];
+					for(sw in software){
+						html += "<p style='width:100%;'>" + software[sw] + "</p>";
+					}
+				}
+				
+			
+			}
+		}
+		/*else
+			html += "<p style='text-align:center; width:100%;'>No entry updates in the past 31 days.</p>";*/
+
+		if(prev_program != office_data[data].program){
+			html += "</div>";
+			slider.append(html);
+		}
+		else{
+			slider[0].lastChild.innerHTML = slider[0].lastChild.innerHTML + html;
+		}
+		
+
+		prev_program = office_data[data].program; //AA
+	  
+	}
+	
+	//console.log(slider);
+	  
+	slider.height(window_height - 250);
+	slider.css("display", "inline");
+	
+	function slides(){
+	  return slider.find(slide);
+	}
+
+	// activate first slide
+	slides().first().addClass('active');
+	slides().first().fadeIn(transition_in_time);
+	
+	// auto scroll 
+	interval = setInterval(
+		function(){
+		  var i = slider.find(slide + '.active').index();
+		  
+		  slides().eq(i).fadeOut(transition_out_time);		  
+		  slides().eq(i).removeClass('active');
+
+		  if (slides().length == i + 1)
+			i = -1; // loop to start from the beginning
+
+		  slides().eq(i + 1).addClass('active');
+		  slides().eq(i + 1).fadeIn(transition_in_time);
+		  
+		}
+		, transition_in_time +  time_between_slides 
+	);
+
+  }	
+  
   function createTimeline(store){
 	  var chart;
 	  var chars = ""; 
@@ -163,7 +266,7 @@ def timeline_script():
 		});
 
 		d3.select('#timeline svg')
-			.datum(fetchData(store))
+			.datum(fetchTimelineData(store))
 			.attr("id", "chart")
 			.attr("height", window_height - 220)
 			.style("margin-left", "-10")
@@ -179,7 +282,7 @@ def timeline_script():
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
   }
 
-  function fetchData(store) { //# groups,# points per group
+  function fetchTimelineData(store) { //# groups,# points per group
     var data = [], random = d3.random.normal();
 	
     //builds group array in this case, offices
@@ -322,6 +425,6 @@ def timeline_script():
 		root["office"]["I2O"] = node;
 		return root;
   }
-  
+    
   </script>
 """
