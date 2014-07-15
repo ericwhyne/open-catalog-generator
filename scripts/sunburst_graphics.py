@@ -123,7 +123,7 @@ function getProgramLinks(program){
 	else
 		link_html += links[0];
 
-	link_html += '</p>';	
+	link_html += '</p>';
 	return link_html;
 }
 
@@ -132,11 +132,11 @@ function adjustvisView(query_array){
 	  var html = "";
 	  var level_data = new Array();
 
-	  if(query_array.length == 0){
+	  if(query_array.length == 0){ //Create Main DARPA Programs Page
 		html = getProgramView();
 		$('#vis_view').html(html);
       }
-	  else if(query_array.length == 1){
+	  else if(query_array.length == 1){ //Create Individual Program Pages
 
 		var program_data = getProgramDetails(query_array[0].toUpperCase() + "-program.json");
 		var html = Mustache.to_html(templates.Program, program_data);
@@ -149,10 +149,10 @@ function adjustvisView(query_array){
 				}
 			});
 
-		html += getProgramLinks(curr_program);	
+		html += getProgramLinks(curr_program);
 
 	  }
-	  else if(query_array.length > 1){
+	  else if(query_array.length > 1){ //Create Program Child Pages
 		var file_type = "";
 		if(query_array[1] == "Software")
 			file_type = "software";
@@ -221,6 +221,7 @@ function adjustvisView(query_array){
 					for( child in child_query){
 						if(child_query[child] == level_data[i]){
 							html += Mustache.to_html(template, program_data[data]);
+							html += '<hr class="hr-light">';
 							break;
 						}
 					}	
@@ -245,6 +246,7 @@ function adjustvisView(query_array){
 						if(child_query[child] == query_array[3]){
 							match_count ++;
 							match_html += Mustache.to_html(template, program_data[data]);
+							match_html += '<hr class="hr-light">';
 							break;
 						}
 					}
@@ -252,8 +254,10 @@ function adjustvisView(query_array){
 						html += "<p>Total Records: " + match_count + "</p><hr><div class='vis_view_scroll'>" + match_html;
 					}
 				}
-				else
-					html += Mustache.to_html(template, program_data[data]);
+				else{
+						html += Mustache.to_html(template, program_data[data]);
+						html += '<hr class="hr-light">';
+					}
 			}	
 		}
 	  }
@@ -275,7 +279,7 @@ function getProgramView(){
 		var program_data = getProgramDetails(program_file);
 		html += Mustache.to_html(template, program_data);
 		html += getProgramLinks(active_programs[program]);
-		
+		html += '<hr class="hr-light">';		
 	});
 	html += "</div>";
 	return html;

@@ -8,6 +8,7 @@ import shutil
 import darpa_open_catalog as doc
 import sunburst_graphics as graph
 import catalog_filter as filter
+import change_timeline as timeline
 from pprint import pprint
 
 active_content_file = sys.argv[1]
@@ -55,6 +56,10 @@ datavis_page += "<div id='vis_page'>" + graph.sunburst_html()
 filter_page = filter.filter_head()
 filter_page += filter.filter_script()
 filter_page += filter.filter_html()
+
+timeline_page = timeline.timeline_head()
+timeline_page += timeline.timeline_script()
+timeline_page += timeline.timeline_html()
 
 
 for program in active_content:
@@ -343,5 +348,5 @@ doc.write_file(datavis_page, build_dir + '/data_vis.html')
 filter_page += doc.catalog_page_footer()
 doc.write_file(filter_page, build_dir + '/catalog_filter.html')
 
-
-
+timeline_page += doc.catalog_page_footer()
+doc.write_file(timeline_page, build_dir + '/change_timeline.html')
