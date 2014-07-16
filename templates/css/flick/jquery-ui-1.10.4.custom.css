@@ -1193,8 +1193,8 @@ body .ui-tooltip {
 /* Carousel */
 .slider {
   position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
+  /*overflow-x: hidden;
+  overflow-y: auto;*/
   float: left;
   width: 22%; 
   border-right: solid 1px black; 
@@ -1205,7 +1205,7 @@ body .ui-tooltip {
   background: #FAFAD2;
 }
 
-.slider div {
+#slider-div {
   display: none;
   position: absolute; 
   top: 0; 
@@ -1213,4 +1213,3 @@ body .ui-tooltip {
   padding:5px;
   width:98%;
 }
-

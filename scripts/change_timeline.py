@@ -44,7 +44,7 @@ def timeline_head():
 
 def timeline_html():
   html = "<header class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
-  html += "<div class='darpa-header-text no-space'><span><font color='white'> / </font><a href=\"change_timeline.html\"' class='programlink visheader'>Change Timeline</a></span></div></header>"
+  html += "<div class='darpa-header-text no-space'><span><font color='white'> / </font><a href=\"change_timeline.html\"' class='programlink visheader'>What's New Timeline</a></span></div></header>"
 
   html += """
     <br>
@@ -70,6 +70,8 @@ def timeline_script():
   var min = 1;
   var max = 30;
   var offices = [{"name":"AEO", "color":"#B71500"}, {"name":"BTO", "color":"#D35C00"}, {"name":"DSO", "color":"#EBAF00"}, {"name":"I2O", "color":"#4C9509"}, {"name":"MTO", "color":"#31B7D7"}, {"name":"STO", "color":"#4682B4"}, {"name":"TTO", "color":"#55399A"}];
+  var url_href = window.location.href;
+  var url_path = url_href.substring(0, url_href.lastIndexOf("/")); 
 
 
   $( document ).ready(function() {
@@ -89,54 +91,59 @@ def timeline_script():
   function activateDataCarousel(store){
 	// settings
 	var slider = $('.slider'); // class or id of carousel slider
-	var slide = 'div'; // could also use 'img' if you're not using a ul
-	var transition_in_time = 2000; // 2 seconds
-	var time_between_slides = 20000; // 20 seconds
+	var slide = 'div';
+	var transition_in_time = 1500; // 1.5 second
+	var time_between_slides = 30000; // 30 seconds
 	var transition_out_time = 0;
 	
-	console.log(store.office["I2O"]);
+	//console.log(store.office["I2O"]);
 	var office_data = store["office"]["I2O"];
 	var html = "";
 	var prev_program = "";
 	
 	for (data in office_data) {
 		if(prev_program != office_data[data].program){
-			html = "<div style='font-size:75%;'>";
-			html += "<p style='width:99%; display:inline-block; background-color: #C0C0C0;'>";
-			html += "<span style='color:" + offices[3].color + "; width:34%; float:left; font-size:20px; font-weight:bold;'>" + office_data[data].program + "</span>"; //get color of I2O office
+			html = "<div class='slider-div' style='font-size:75%; display:none; height:98%;'>";
+			html += "<p style='width:100%; display:inline-block; background-color: black; margin:0; border-bottom:solid 2px white;'>";
+			html += "<span style='color:" + offices[3].color + "; width:34%; float:left; font-size:20px; font-weight:bold; padding-left:4px;'>" + office_data[data].program + "</span>"; //get color of I2O office
 			
 			if(!office_data[data].entries)
-				html += "<span style='font-size:14px; width:56%; float:right; line-height:26px; text-align:center;'>" + office_data[data]["Date Type"] + " : " + dateToString(office_data[data]["Date"], "-") + "</span>";
+				html += "<span style='font-size:13px; width:62%; float:right; line-height:26px; text-align:right; padding-right:4px; color:white;'>" + office_data[data]["Date Type"] + " : " + dateToString(office_data[data]["Date"], "-") + "</span>";
 				
 			html += "</p>";
 		}
 		else
 			html = "";
 			
-		console.log(office_data[data].program);
+		//console.log(office_data[data].program);
 		if(office_data[data].entries){
 			var entries = office_data[data].entries;
 			 entries.sort(sortByProperty('Date'));
-			console.log(entries);
+			//console.log(entries);
+			var url_redirect =  url_path + "/" + office_data[data].program + ".html";
+			html += "<div class='entries-div' style='overflow-x: hidden; overflow-y: auto; height:90%; margin:0px 2px 0px 5px;'>";
 			for (entry in entries) {
 				
-				html += "<p style='text-align:center; width:100%;'>" + entries[entry]["Date Type"] + " : " + entries[entry]["Date"] + "</p>";
+				html += "<p style='text-align:center; width:100%; text-decoration:underline;'>" + entries[entry]["Date Type"] + " : " + dateToString(entries[entry]["Date"], "-") + "</p>";
 				
 				if(entries[entry]["Publications"]){
 					var publications = entries[entry]["Publications"];
 					for(pb in publications){
-						html += "<p style='width:100%;'>" + publications[pb] + "</p>";
+						html += "<p style='width:100%;'><a href=" + url_redirect + "?tab=tabs1&term=" + encodeURIComponent(publications[pb]) + ">" + publications[pb] + "</a></p>"; //redirect to publications search
 					}
 				}
 				if(entries[entry]["Software"]){
 					var software = entries[entry]["Software"];
 					for(sw in software){
-						html += "<p style='width:100%;'>" + software[sw] + "</p>";
+						html += "<p style='width:100%;'><a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a></p>"; //redirect to software search
 					}
 				}
 				
+				html += "<hr>";
 			
 			}
+			
+			html += "</div>";
 		}
 		/*else
 			html += "<p style='text-align:center; width:100%;'>No entry updates in the past 31 days.</p>";*/
@@ -160,10 +167,12 @@ def timeline_script():
 	slider.css("display", "inline");
 	
 	function slides(){
-	  return slider.find(slide);
+	  return $(".slider-div"); 
+	  //slider.find(slide).css( "className", "slider-div" );
 	}
 
 	// activate first slide
+		//console.log(slides());
 	slides().first().addClass('active');
 	slides().first().fadeIn(transition_in_time);
 	
@@ -171,7 +180,6 @@ def timeline_script():
 	interval = setInterval(
 		function(){
 		  var i = slider.find(slide + '.active').index();
-		  
 		  slides().eq(i).fadeOut(transition_out_time);		  
 		  slides().eq(i).removeClass('active');
 
@@ -364,12 +372,11 @@ def timeline_script():
 				var mod_date = stringToDate(modification["Date"]);
 				if(modification["Date"] && (mod_date >= date_start && mod_date <= date_end)){
 					if(edge.length < 1)
-						edge.push({"Software" : [sw_object["Software"]], "Date Type" : modification["Date Type"], "Date" : modification["Date"]});
+						edge.push({"Software" : [sw_object["Software"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
 					else{
 						for (entry in edge){
 							var curr_entry = edge[entry];
-							if(curr_entry["Date"] == modification["Date"] && curr_entry["Date Type"] == modification["Date Type"]){
-								
+							if(curr_entry["Date"].getTime() == mod_date.getTime() && curr_entry["Date Type"] == modification["Date Type"]){
 								if(curr_entry["Software"])
 									curr_entry["Software"].push(sw_object["Software"]);
 								else
@@ -378,7 +385,7 @@ def timeline_script():
 								break;
 							}
 							if(entry == edge.length - 1)
-								edge.push({"Software" : [sw_object["Software"]], "Date Type" : modification["Date Type"], "Date" : modification["Date"]});
+								edge.push({"Software" : [sw_object["Software"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
 						}
 						
 					}
@@ -395,12 +402,12 @@ def timeline_script():
 				var mod_date = stringToDate(modification["Date"]);
 				if(modification["Date"] && mod_date >= date_start && mod_date <= date_end){
 					if(edge.length < 1){
-						edge.push({"Publications" : [pub_object["Title"]], "Date Type" : modification["Date Type"], "Date" : modification["Date"]});
+						edge.push({"Publications" : [pub_object["Title"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
 					}
 					else{
 						for (entry in edge){
 							var curr_entry = edge[entry];
-							if(curr_entry["Date"] == modification["Date"] && curr_entry["Date Type"] == modification["Date Type"]){
+							if(curr_entry["Date"].getTime() == mod_date.getTime() && curr_entry["Date Type"] == modification["Date Type"]){
 								if(curr_entry["Publications"])
 									curr_entry["Publications"].push(pub_object["Title"]);
 								else
@@ -409,7 +416,7 @@ def timeline_script():
 								break;
 							}
 							if(entry == edge.length - 1)
-								edge.push({"Publications" : [pub_object["Title"]], "Date Type" : modification["Date Type"], "Date" : modification["Date"]});
+								edge.push({"Publications" : [pub_object["Title"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
 						}
 					}
 				}
@@ -420,7 +427,7 @@ def timeline_script():
 			node.push({"program":program_nm, "entries": edge});
 		}
 		
-		//console.log(node);
+		console.log(node);
 		root = {"office":["AEO", "BTO", "DSO", "I2O", "MTO", "STO", "TTO"]};
 		root["office"]["I2O"] = node;
 		return root;
