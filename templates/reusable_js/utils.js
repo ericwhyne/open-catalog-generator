@@ -61,10 +61,18 @@ function sortByProperty(property) {
 	//sorts json array by a given property name
     return function (a, b) {
         var sortStatus = 0;
-        if (a[property].toLowerCase().trim() < b[property].toLowerCase().trim())
-            sortStatus = -1;
-        else if (a[property].toLowerCase().trim() > b[property].toLowerCase().trim())
-            sortStatus = 1;
+		if(a[property] instanceof Date){
+			if (a[property] < b[property])
+				sortStatus = -1;
+			else if (a[property] > b[property])
+				sortStatus = 1;
+		}
+		else{
+			if (a[property].toLowerCase().trim() < b[property].toLowerCase().trim())
+				sortStatus = -1;
+			else if (a[property].toLowerCase().trim() > b[property].toLowerCase().trim())
+				sortStatus = 1;
+		}
  
         return sortStatus;
     };

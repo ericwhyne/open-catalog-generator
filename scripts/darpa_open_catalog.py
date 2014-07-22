@@ -157,19 +157,27 @@ $(document).ready(function()
 		//create table tabs
 		$(function() {
 			$( "#tabs" ).tabs
-			param_query = decodeURIComponent(getUrlParams("tab"));
-			if(param_query == "false"){ 
+			var param_tab = decodeURIComponent(getUrlParams("tab"));
+			var param_term = decodeURIComponent(getUrlParams("term"));
+			if(param_tab == "false"){ 
 				if($("#tabs0"))
 					$("#tabs").tabs({active: 0}); //software tab
 				else
 					$("#tabs").tabs({active: 1}); //publications tab
 			}
+			else if(param_tab && param_term){
+				if (param_tab == "tabs0")
+					swSearch(param_term);
+				else if (param_tab == "tabs1")
+					pubSearch(param_term);
+			}
 			else{
-				if (param_query == "tabs0")
+				if (param_tab == "tabs0")
 					$("#tabs").tabs({active: 0});  //software tab
-				else if (param_query == "tabs1")
+				else if (param_tab == "tabs1")
 					$("#tabs").tabs({active: 1});  //publications tab
 			}
+
 		});
 
 		//configure table search and clear button for software and publications table
@@ -259,16 +267,46 @@ function jump(h){
         history.replaceState(null,null,url)
 }
 
+function swSearch(link){
+	console.log(link);
+	var search_text = "";
+	if(link.hash)
+		search_text = link.hash.replace("#", "");
+	else
+		search_text = link;
+	$('#tabs').tabs({active: 0}); //publications tab
+	var search_box = $("#search0");
+	search_box.val(search_text);
+
+	setTimeout(function(){
+		$('html, body').animate({
+			scrollTop: $("#tabs").offset().top
+		}, 0);
+		search_box.focus();
+		search_box.select();
+		swList.search(search_text);
+		
+	},300);
+}
+
 function pubSearch(link){
-	var search_text = link.hash.replace("#", "");
+	console.log(link);
+	var search_text = "";
+	if(link.hash)
+		search_text = link.hash.replace("#", "");
+	else
+		search_text = link;
 	$('#tabs').tabs({active: 1}); //publications tab
 	var search_box = $("#search1");
 	search_box.val(search_text);
 
 	setTimeout(function(){
+		$('html, body').animate({
+			scrollTop: $("#tabs").offset().top
+		}, 0);
 		search_box.focus();
 		search_box.select();
-		pubList.search(search_text); 
+		pubList.search(search_text);		
 	},300);
 }
 
