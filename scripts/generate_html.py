@@ -80,13 +80,20 @@ for program in active_content:
       print "\nFAILED! JSON error in file %s" % program['Program File']
       print " Details: %s" % str(e)
       sys.exit(1)
-    program_page += doc.catalog_page_header("<a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O)</a>")
+    if program['DARPA Office'] != "":
+      try:
+        office_details = json.load(open(data_dir + "01-DARPA-" + program['DARPA Office'] + ".json"))
+      except Exception,e:
+        print "\nFAILED! JSON error in file 01-DARPA-%s.json" % program['DARPA Office']
+        print " Details: %s" % str(e)
+        sys.exit(1)
+      print office_details		
+      program_page += doc.catalog_page_header("<a href='" + office_details['DARPA Link'] + "' class='programheader' style='color: #" + office_details['DARPA Office Color'] + ";'>" + office_details['DARPA Long Name'] + " (" + office_details['DARPA Office'] + ")</a>")	  
     if re.search('^http',program_details['Link']):
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
     
-    #program_page += "<h3><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink'>Information Innovation Office</a></h3>"
     program_page += "<div class='left-paragraph'><p>%s<p>" % program_details['Description']
     if re.search('^http',program_details['Program Manager Link']):
       program_page += "<p>Program Manager: <a href='%s' class='programmanagerlink'>%s</a></p>" % (program_details['Program Manager Link'], program_details['Program Manager'])
