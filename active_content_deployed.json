@@ -91,6 +91,13 @@
         "Banner":""
 },
 {
+        "Program Name": "GRAPHS",
+        "Program File": "GRAPHS-program.json",
+        "Pubs File": "",
+        "Software File": "",
+        "Banner":"NEW"
+},
+{
         "Program Name": "HACMS",
         "Program File": "HACMS-program.json",
         "Pubs File": "HACMS-pubs.json",
