@@ -121,14 +121,14 @@ for program in active_content:
     banner = ""
     program_link = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     if program['Banner'].upper() == "NEW":
-      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'].upper())
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Office'] + " - " + program_details['DARPA Program Name'], program['Banner'].upper())
     elif program['Banner'].upper() == "COMING SOON":
-      banner = "<div class='wrapper'>%s<div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_details['DARPA Program Name'], program['Banner'].upper())
+      banner = "<div class='wrapper'>%s<div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_details['DARPA Office'] + " - " + program_details['DARPA Program Name'], program['Banner'].upper())
     elif program['Banner'].upper() == "UPDATED":
-      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'].upper())
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Office'] + " - " + program_details['DARPA Program Name'], program['Banner'].upper())
     else:
-     banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
-    splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
+     banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Office'] + " - " + program_details['DARPA Program Name'])
+    splash_page += "<TR>\n <TD width=155> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
     software_columns = program_details['Display Software Columns']
     print "program details: %s \n\r" % program_details
     pubs_columns = program_details['Display Pubs Columns']
