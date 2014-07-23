@@ -26,10 +26,7 @@ footer {
 
 .programheader{
     padding-left:8px;
-}
-
-.programheader-i2o{
-    color: #4C9509;
+	text-decoration: none;
 }
 
 .visheader{
