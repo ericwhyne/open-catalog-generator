@@ -107,7 +107,7 @@
         "DARPA Office": "DSO",
 		"Program Name": "GRAPHS",
 		"Program File": "GRAPHS-program.json",
-        "Pubs File": "",
+        "Pubs File": "GRAPHS-pubs.json",
         "Software File": "",
         "Banner":"NEW"
 },
