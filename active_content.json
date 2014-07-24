@@ -104,6 +104,14 @@
         "Banner":""
 },
 {
+        "DARPA Office": "DSO",
+		"Program Name": "GRAPHS",
+		"Program File": "GRAPHS-program.json",
+        "Pubs File": "",
+        "Software File": "",
+        "Banner":"NEW"
+},
+{
         "DARPA Office": "I2O",
         "Program Name": "HACMS",
         "Program File": "HACMS-program.json",

@@ -156,3 +156,8 @@ path {
     overflow: hidden;
 }
 
+.hr-light{
+	border-top: 1px solid #BC8F8F/*#008080*/;
+	/* color: #color;
+    background-color: #color;*/
+}

@@ -8,6 +8,7 @@ import shutil
 import darpa_open_catalog as doc
 import sunburst_graphics as graph
 import catalog_filter as filter
+import change_timeline as timeline
 from pprint import pprint
 
 active_content_file = sys.argv[1]
@@ -56,6 +57,10 @@ filter_page = filter.filter_head()
 filter_page += filter.filter_script()
 filter_page += filter.filter_html()
 
+timeline_page = timeline.timeline_head()
+timeline_page += timeline.timeline_script()
+timeline_page += timeline.timeline_html()
+
 
 for program in active_content:
   program_name = program['Program Name']
@@ -75,13 +80,20 @@ for program in active_content:
       print "\nFAILED! JSON error in file %s" % program['Program File']
       print " Details: %s" % str(e)
       sys.exit(1)
-    program_page += doc.catalog_page_header("<a href='http://www.darpa.mil/Our_Work/I2O/' class='programlink programheader programheader-i2o'>Information Innovation Office (I2O)</a>")
+    if program['DARPA Office'] != "":
+      try:
+        office_details = json.load(open(data_dir + "01-DARPA-" + program['DARPA Office'] + ".json"))
+      except Exception,e:
+        print "\nFAILED! JSON error in file 01-DARPA-%s.json" % program['DARPA Office']
+        print " Details: %s" % str(e)
+        sys.exit(1)
+      print office_details		
+      program_page += doc.catalog_page_header("<a href='" + office_details['DARPA Link'] + "' class='programheader' style='color: #" + office_details['DARPA Office Color'] + ";'>" + office_details['DARPA Long Name'] + " (" + office_details['DARPA Office'] + ")</a>")	  
     if re.search('^http',program_details['Link']):
       program_page += "\n  <h2><a href='" + program_details['Link'] + "' class='programlink'>" + program_details['Long Name'] + "</a></h2>\n"
     else:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
     
-    #program_page += "<h3><a href=\"http://www.darpa.mil/Our_Work/I2O/\"' class='programlink'>Information Innovation Office</a></h3>"
     program_page += "<div class='left-paragraph'><p>%s<p>" % program_details['Description']
     if re.search('^http',program_details['Program Manager Link']):
       program_page += "<p>Program Manager: <a href='%s' class='programmanagerlink'>%s</a></p>" % (program_details['Program Manager Link'], program_details['Program Manager'])
@@ -109,14 +121,14 @@ for program in active_content:
     banner = ""
     program_link = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
     if program['Banner'].upper() == "NEW":
-      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'].upper())
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-red'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'] + "  (" + program_details['DARPA Office'] + ")", program['Banner'].upper())
     elif program['Banner'].upper() == "COMING SOON":
-      banner = "<div class='wrapper'>%s<div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_details['DARPA Program Name'], program['Banner'].upper())
+      banner = "<div class='wrapper'>%s<div class='ribbon-wrapper'><div class='ribbon-standard ribbon-blue'>%s</div></div></div>"  % (program_details['DARPA Program Name'] + "  (" + program_details['DARPA Office'] + ")", program['Banner'].upper())
     elif program['Banner'].upper() == "UPDATED":
-      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'].upper())
+      banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'] + "  (" + program_details['DARPA Office'] + ")", program['Banner'].upper())
     else:
-     banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
-    splash_page += "<TR>\n <TD width=130> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
+     banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'] + " (" + program_details['DARPA Office'] + ")")
+    splash_page += "<TR>\n <TD width=157> %s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['Description']) 
     software_columns = program_details['Display Software Columns']
     print "program details: %s \n\r" % program_details
     pubs_columns = program_details['Display Pubs Columns']
@@ -185,23 +197,24 @@ for program in active_content:
         # Software
         if column == "Project":
           # Debug
-          #print "      " + software['Software']
+          #print " " + software['Software']		
           elink = ""
           if 'External Link' in software.keys():
             elink = software['External Link']
+          entry_title = ""			
           if re.search('^http',elink) and elink != "":
             if darpa_links == "darpalinks":
-              program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              entry_title = "<a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a>"
             else:
-              program_page += "  <TD class='" + column.lower() + "'><a href='" + elink + "'>" + software['Software'] + "</a></TD>\n"
+              entry_title = "<a href='" + elink + "'>" + software['Software'] + "</a>"
           else:
-            program_page += "  <TD class='" + column.lower() + "'>" + software['Software'] + "</TD>\n"
-        #Vertical Ribbon
-        if column == "":
-          vertical_ribbon = ""
+            entry_title = software['Software']
+			
           if program['Banner'].upper() != "NEW":
-            vertical_ribbon = doc.project_banner(software['Update Date'], software['New Date'], software['Software'], last_update_file)
-            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + column.lower() + " " + vertical_ribbon + "</TD>\n"
+            entry_ribbon = doc.project_banner(software['Update Date'], software['New Date'], last_update_file, entry_title)
+            program_page += "<TD class='" + column.lower() + "'>" + entry_ribbon + "</TD>"
+          else:  
+            program_page += "<TD class='" + column.lower() + "'>" + entry_title + "</TD>"
         # Category
         if column == "Category":
           categories = ""
@@ -297,13 +310,13 @@ for program in active_content:
           program_page += "</TD>\n" 
         # Title		  
         if column == "Title":
-          program_page += "<TD class='title'>" + pub['Title'] + "</TD>\n"
-        # Vertical Ribbon	
-        if column == "":		  
-          vertical_ribbon = ""
+          program_page += "<TD class='title'>"
+          entry_ribbon = ""
           if program['Banner'].upper() != "NEW":
-            vertical_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], pub['Title'], last_update_file)
-            program_page += "<TD onmouseover='dateInfo(this.id, event)' class='" + vertical_ribbon + "</TD>\n"
+            entry_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], last_update_file, pub['Title'])
+          else:
+            entry_ribbon = pub['Title']
+          program_page +=  entry_ribbon + "</TD>"
         # Link
         if column == "Link":			
           link = pub['Link']
@@ -342,5 +355,5 @@ doc.write_file(datavis_page, build_dir + '/data_vis.html')
 filter_page += doc.catalog_page_footer()
 doc.write_file(filter_page, build_dir + '/catalog_filter.html')
 
-
-
+timeline_page += doc.catalog_page_footer()
+doc.write_file(timeline_page, build_dir + '/change_timeline.html')

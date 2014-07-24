@@ -2,6 +2,7 @@
 import time
 import getpass
 import re
+import datetime
 
 def html_head():
   return """
@@ -97,37 +98,37 @@ def pubs_table_footer():
 <br>
 """
 
-def project_banner(update_date, new_date, title, last_update_file):
-  ribbon = ""
+def project_banner(update_date, new_date, last_update_file, title):
+  html = ""
   ribbon_class = ""
   ribbon_div = ""
-  vertical_date = ""
+  change_date = ""
   if new_date != "" and update_date != "":
     if new_date >= update_date:
-     vertical_date = new_date
-     ribbon_class = "ribbon-red vertical-red"
+     change_date = new_date
+     ribbon_class = "ribbon-standard ribbon-red"
      ribbon_text = "NEW"
     else:
-	  vertical_date = update_date
-	  ribbon_class = "ribbon-green vertical-green"
-	  ribbon_text = "UPDATED"
+	  change_date = update_date
+	  ribbon_class = "ribbon-standard ribbon-green"
+	  ribbon_text = "UPD"
   elif new_date != "" and update_date == "":
-    vertical_date = new_date
-    ribbon_class = "ribbon-red vertical-red"
+    change_date = new_date
+    ribbon_class = "ribbon-standard ribbon-red"
     ribbon_text = "NEW"
   elif update_date != "" and new_date == "":
-    vertical_date = update_date
-    ribbon_class = "ribbon-green vertical-green"
-    ribbon_text = "UPDATED"
+    change_date = update_date
+    ribbon_class = "ribbon-standard ribbon-green"
+    ribbon_text = "UPD"
   f = open(last_update_file,"r")
   last_build_date = f.read()
   f.close()	
-  if vertical_date > last_build_date:		
-    ribbon_div = "<div class='vertical' id='" + vertical_date + "' name='" + ribbon_text + "'><span class='vertical-text'>" + ribbon_text + "</span></div>"
-    ribbon = ribbon_class + "' id='" + title + "'>" + ribbon_div
+  if change_date > last_build_date:
+    formatted_date = datetime.date.strftime(datetime.datetime.strptime(change_date, '%Y%m%d'), "%Y-%m-%d")  
+    html = "<div class='wrapper'><div class='wrapper-text'>" + title + "</div><div class='ribbon-wrapper'><div class='"  + ribbon_class + "'>" + ribbon_text + " " + formatted_date + "</div></div></div>"
   else:
-    ribbon = "'>"
-  return ribbon
+    html = title
+  return html
   
 def catalog_program_script(): 
   return """ 
@@ -156,19 +157,27 @@ $(document).ready(function()
 		//create table tabs
 		$(function() {
 			$( "#tabs" ).tabs
-			param_query = decodeURIComponent(getUrlParams("tab"));
-			if(param_query == "false"){ 
+			var param_tab = decodeURIComponent(getUrlParams("tab"));
+			var param_term = decodeURIComponent(getUrlParams("term"));
+			if(param_tab == "false"){ 
 				if($("#tabs0"))
 					$("#tabs").tabs({active: 0}); //software tab
 				else
 					$("#tabs").tabs({active: 1}); //publications tab
 			}
+			else if(param_tab && param_term){
+				if (param_tab == "tabs0")
+					swSearch(param_term);
+				else if (param_tab == "tabs1")
+					pubSearch(param_term);
+			}
 			else{
-				if (param_query == "tabs0")
+				if (param_tab == "tabs0")
 					$("#tabs").tabs({active: 0});  //software tab
-				else if (param_query == "tabs1")
+				else if (param_tab == "tabs1")
 					$("#tabs").tabs({active: 1});  //publications tab
 			}
+
 		});
 
 		//configure table search and clear button for software and publications table
@@ -258,16 +267,46 @@ function jump(h){
         history.replaceState(null,null,url)
 }
 
+function swSearch(link){
+	console.log(link);
+	var search_text = "";
+	if(link.hash)
+		search_text = link.hash.replace("#", "");
+	else
+		search_text = link;
+	$('#tabs').tabs({active: 0}); //publications tab
+	var search_box = $("#search0");
+	search_box.val(search_text);
+
+	setTimeout(function(){
+		$('html, body').animate({
+			scrollTop: $("#tabs").offset().top
+		}, 0);
+		search_box.focus();
+		search_box.select();
+		swList.search(search_text);
+		
+	},300);
+}
+
 function pubSearch(link){
-	var search_text = link.hash.replace("#", "");
+	console.log(link);
+	var search_text = "";
+	if(link.hash)
+		search_text = link.hash.replace("#", "");
+	else
+		search_text = link;
 	$('#tabs').tabs({active: 1}); //publications tab
 	var search_box = $("#search1");
 	search_box.val(search_text);
 
 	setTimeout(function(){
+		$('html, body').animate({
+			scrollTop: $("#tabs").offset().top
+		}, 0);
 		search_box.focus();
 		search_box.select();
-		pubList.search(search_text); 
+		pubList.search(search_text);		
 	},300);
 }
 
