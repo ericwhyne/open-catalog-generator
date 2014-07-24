@@ -1,0 +1,61 @@
+[
+    {
+        "DARPA Program": "XDATA", 
+        "Program Teams": [
+            "Paradigm4 Inc. Development Team"
+        ], 
+        "Contributors": [
+            "Paradigm4"
+        ], 
+        "Sub-contractors": [
+            ""
+        ], 
+        "Software": "SciDB Community Edition", 
+        "Internal Link": "http://www.scidb.org/forum/viewtopic.php?f=16&t=364", 
+        "External Link": "http://scidb.org/forum/viewtopic.php?f=14&t=1329", 
+        "Public Code Repo": "Source code is available with the product download.", 
+        "Instructional Material": "", 
+        "Stats": "", 
+        "Description": "SciDB is a massively parallel DBMS and complex analytics platform. It was conceived and designed to support very large scale quantitative analytics on images, time-series, numerical data and \"whole graph\" analytics in problem domains like bio-informatics, financial analytics, industrial and scientific sensor networks, and social network applications.", 
+        "Internal Code Repo": "", 
+        "License": [
+            "Affero-GPL"
+        ], 
+        "Languages": [
+            "C/C++", 
+            "R", 
+            "Python"
+        ], 
+        "Platform Requirements": [
+            "RedHat / CentOS 6.4", 
+            "Ubuntu 12.04. We will be providing steps to the next versions of RedHat/CentOS and Ubuntu in the 14.7 release"
+        ], 
+        "Dependent modules": [
+            ""
+        ], 
+        "Dependent module URLs": [
+            ""
+        ], 
+        "Component modules": [
+            ""
+        ], 
+        "Component module URLs": [
+            ""
+        ], 
+        "Industry": [
+            "Life-Sciences", 
+            "industrial and scientific sensor networks", 
+            "financial analytics", 
+            "mapping and GIS", 
+            "image processing"
+        ], 
+        "Functionality": [
+            "Data Management (MPP Database) with integrated massively scalable complex analytics"
+        ], 
+        "Categories": [
+            "Data Management and Quantitative Analytics"
+        ], 
+        "New Date": "", 
+        "Update Date": ""
+    }
+]

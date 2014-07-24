@@ -1,5 +1,5 @@
 Publication Meta Data Fields,,,,,,,
-DARPA Program Name,Program Teams,Authors,Link,Title,Categories,Subcategories,ACM 1998 Classification Code
+DARPA Program Name,Program Teams,Authors,Link,Title,Categories,Subcategories,ACM 1998 classification code
 GRAPHS,Sandia National Laboratories,"C. Seshadhri, A. Pinar, T.G. Kolda",http://arxiv.org/pdf/1102.5046v3.pdf,An In-Depth Analysis of Stochastic Kronecker Graphs ,"Software Engineering, Data, Mathematics of Computing","Metrics, Data Structures, Discrete Mathematics, Random Graphs","D.2.8, E.1, G.2.2"
 GRAPHS,Sandia National Laboratories,"C. Seshadhri, A. Pinar, T.G. Kolda",http://arxiv.org/pdf/1309.3321.pdf,Wedge Sampling for Computing Clustering Coefficients and Triangle Counts on Large Graphs,Mathematics of Computing,"Discrete Mathematics, Graph Algorithms, Approximation Algorithms",G.2.2
 GRAPHS,Sandia National Laboratories,"T. G. Kolda, A. Pinar, T. Plantenga, C. Seshadhri",http://arxiv.org/pdf/1302.6636v3.pdf,A Scalable Generative Graph Model with Community Structure,Mathematics of Computing,"Discrete Mathematics, Graph Algorithms, Approximation Algorithms",G.2.2
@@ -13,21 +13,3 @@ GRAPHS,Sandia National Laboratories,"J. W. Berry, L.K. Fostvedt, D.J. Nordman, C
 GRAPHS,Sandia National Laboratories,"R. Gupta, T. Roughgarden, C. Seshadhri",http://arxiv.org/pdf/1309.7440v3.pdf,Decompositions of Triangle-dense Graphs,Mathematics of Computing,"Discrete Mathematics, Graph Algorithms, Approximation Algorithms",
 GRAPHS,Sandia National Laboratories,"C. Klymko, D.F. Gleich, T.G. Kolda",http://arxiv.org/pdf/1404.5874v1.pdf,Using Triangles to Improve Community Detection in Directed Networks,Mathematics of Computing,"Discrete Mathematics, Graph Algorithms, Approximation Algorithms",
 GRAPHS,"Stanford University, Sandia National Laboratories","P. Lofgren, S. Banerjee, A. Goel, A. Seshadhri",http://arxiv.org/pdf/1404.3181v1.pdf,FAST-PPR: Scaling Personalized PageRank Estimation for Large Graphs,Mathematics of Computing,"Discrete Mathematics, Graph Algorithms, Approximation Algorithms",
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
-GRAPHS,,,,,,,
