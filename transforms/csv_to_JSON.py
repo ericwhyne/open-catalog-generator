@@ -5,6 +5,7 @@ import os
 import re
 import copy
 
+programName_template = "DARPA Program Name"
 # Parses a csv document in a mode (pub, project, program)
 # using a schema that it can attach JSON information to.
 # The end result is an array of JSON information which includes
@@ -77,7 +78,7 @@ def parse_csv(document, mode, schema, template):
               darpa = 'DARPA Program Name'
             else: 
               darpa = 'DARPA Program'
-            index = template_fields[darpa]
+            index = template_fields[programName_template]
             program_name = row[index].strip()
             schema[darpa] = program_name
             file_name = program_name + '-' + mode + '.json'
@@ -94,15 +95,19 @@ def parse_csv(document, mode, schema, template):
               # Splits Excel cells that have comma separated values
               # into a list then trims each value of excess whitespace
               item_list = row[index].split(',')
-              if len(item_list) > 1:
+              if isinstance(schema[key], list):
                 new_list = []
                 for item in item_list:
-                  new_list.append(item.strip())
+                  item = item.strip()
+                  if item.endswith('.'):
+                    item = item[:-1]
+                  new_list.append(item)
+
                 schema_copy[key] = new_list
               else:
                 # Simply stores the value in the schema
                 # if it isn't a list.
-                schema_copy[key] = row[index]
+                schema_copy[key] = row[index].strip()
           
           JSON_Information.append(schema_copy)           
       else:
