@@ -93,7 +93,7 @@
 {
         "Program Name": "GRAPHS",
         "Program File": "GRAPHS-program.json",
-        "Pubs File": "",
+        "Pubs File": "GRAPHS-pubs.json",
         "Software File": "",
         "Banner":"NEW"
 },
@@ -117,6 +117,13 @@
         "Pubs File": "PROCEED-pubs.json",
         "Software File": "",
         "Banner": ""
+},
+{
+        "Program Name": "RP",
+        "Program File": "RP-program.json",
+        "Pubs File": "RP-pubs.json",
+        "Software File": "",
+        "Banner":"NEW"
 },
 {
         "Program Name": "SAFER",
