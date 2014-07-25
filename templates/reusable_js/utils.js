@@ -1,25 +1,10 @@
-
-function getPrograms() {
-	var programs;
-	$.ajax({
-		async: false, 
-		cache: false, 
-		url: 'active_content.json',
-		dataType: 'json',
-		success: function(response){
-		   programs = response;
-		}
-	});
-	return programs;
-}
-
-function getProgramDetails(filename) {
+function ajaxCall(url, type, async, cache){
 	var data;
 	$.ajax({
-		async: false, 
-		cache: false, 
-		url: filename,
-		dataType: 'json',
+		async: async, 
+		cache: cache, 
+		url: url,
+		dataType: type,
 		success: function(response){
 		   data = response;
 		}
@@ -27,18 +12,23 @@ function getProgramDetails(filename) {
 	return data;
 }
 
+function getOfficeDetails(office){
+	var office_details = ajaxCall('01-DARPA-'+ office + '.json', 'json', false, false);
+	return office_details;
+}
+
+function getPrograms() {
+	var programs  = ajaxCall('active_content.json', 'json', false, false);
+	return programs;
+}
+
+function getProgramDetails(filename) {
+	var program_details = ajaxCall(filename, 'json', false, false);
+	return program_details;
+}
+
 function getLicenses() {
-	var licenses;
-	$.ajax({
-		async: false, 
-		cache: false, 
-		url: 'license-content.json',
-		dataType: 'json',
-		success: function(response){
-		   licenses = response;
-		}
-	});
-	
+	var licenses = ajaxCall('license-content.json', 'json', false, false);
 	return licenses;
 }
 
@@ -158,16 +148,12 @@ function getModificationDate(new_date, update_date){
 
 
 function getLastBuildDate(){
-	var build_date;
-	$.ajax({
-		async: false, 
-		cache: false, 
-		url: 'last-build-date.txt',
-		dataType: 'text',
-		success: function(response){
-		   build_date = response;
-		}
-	});
+	var build_date = ajaxCall('last-build-date.txt', 'text', false, false);
+	return build_date;
+}
+
+function getBuildDate(){
+	var build_date = ajaxCall('build-date.txt', 'text', false, false);
 	return build_date;
 }
 

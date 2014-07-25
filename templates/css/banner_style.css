@@ -111,12 +111,14 @@
   background-image:     -ms-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
   background-image:      -o-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
   color: #40403F; /*color of text gray*/
+  font-weight:bold;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #FFFF00;
   
   -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.4);
   -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.4);
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
+  padding: 1px 3px 1px 3px;
 }
 
 .vertical-red {
@@ -126,13 +128,14 @@
   background-image:     -ms-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
   background-image:      -o-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
   color: #EBDDE2;
+  font-weight:bold;
   text-shadow: 0 1px 0 rgba(15, 15, 15, 0.5);
   background-color: #F70D1A;
 	
   -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.7);
   -moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.7);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);
-
+  padding: 1px 3px 1px 3px;
 }
 
 .vertical-blue {
@@ -141,6 +144,7 @@
   background-image:    -moz-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
   background-image:     -ms-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
   background-image:      -o-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
+  padding: 1px 3px 1px 3px;
 }
 
 .ribbon-dialog{
@@ -149,9 +153,10 @@
   /*max-height: 26px !important;*/
   text-align: center;
   margin: 1px;
-  padding-top:4px;
+  padding:3px;
   font-weight:bold !important;
   font-size: 14pt !important;
+  background: #000000 !important;
 }
 
 .ribbon-dialog-text{
