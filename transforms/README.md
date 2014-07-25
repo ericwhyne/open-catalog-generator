@@ -4,7 +4,7 @@ try to help automate the process of converting information into the Open Catalog
 JSON schemas.
 
 # docx Files
-**docx** files that contain publications can be parsed i.e. a list of academic references. See **ADAMS-scrubbed.docx** or **SMISC-scrubbed.docx** in the
+docx files that contain publications can be parsed i.e. a list of academic references. See **ADAMS-scrubbed.docx** or **SMISC-scrubbed.docx** in the
 **transforms** folder to see what a transformable document looks like.
 
 ## Proper Format
@@ -77,13 +77,15 @@ Column headers should match the names in the **00-schema-examples.json** file so
 values to the JSON Schema. Below is an example of correct headers for the Publication schema.
 
 **Right:**
+
 | DARPA Program Name | Program Teams |
-| ------------------ | --------- |
+| --- | --- |
 | XDATA | IBM, Data Tactics, Stanford |
 
 **Wrong:**
+
 | XDATA Program | Teams |
-| ------------- | ----- |
+| --- | --- |
 | XDATA | IBM, Data Tactics, Stanford |
 
 Please check **00-schema-examples.json** or the Excel template if you are ensure of the proper header names.
@@ -93,13 +95,15 @@ In columns where multiple values are to be expected such as Authors in the Publi
 should be separated by commas. Using newline characters will lead to incorrect parsing.
 
 **Right:**
+
 | Authors |
-| ------- |
+| --- |
 | J. Query, J. Script |
 
 ** Wrong: **
+
 | Authors |
-| ------- |
+| --- |
 | J. Query and J. Script |
 
 The above examples will lead to the following JSON results:
