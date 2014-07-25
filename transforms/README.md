@@ -100,7 +100,7 @@ should be separated by commas. Using newline characters will lead to incorrect p
 | --- |
 | J. Query, J. Script |
 
-** Wrong: **
+**Wrong:**
 
 | Authors |
 | --- |
@@ -141,9 +141,9 @@ Use the command below:
 -t will indicate to use template mode although it will only work with
 csv files.
 ```
-**mode** needs to be **pubs**, **software**, or **program**
+**mode** needs to be **pubs**, **software**, or **program**.
 
-**list_of_files** means the name of each file to be transformed separated by a space
+**list_of_files** means the name of each file to be transformed separated by a space.
 ```
 example.csv words.docx
 ```
@@ -152,7 +152,7 @@ file names with spaces in them must be enclosed by double quotes
 ``` 
 "example file.csv"
 ```
-**Note:** Only csv and docx files are supported for now
+**Note:** Only csv and docx files are supported for now.
 
 The completed JSON file will be inside the **new_json** folder
 inside the **transforms** folder.
