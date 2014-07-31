@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 def timeline_head():
-  return """
+  head = """
   <!DOCTYPE html>
   <html lang='en'>
   <head>
@@ -10,6 +10,7 @@ def timeline_head():
   <link href="css/banner_style.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="css/header_footer.css"/>  
   <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
+  <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
   <script type='text/javascript' src="d3.v3.js"></script>
   <script type='text/javascript' src="nv.d3.js"></script>
   <script type='text/javascript' src="tooltip.js"></script>
@@ -31,26 +32,22 @@ def timeline_head():
     padding: 0;
     background-color: #C0C0C0 /*#868686*/; 
   }
-  
-  #timeline {
-    border: 0;
-    margin: 0;
-  }
-  
+
   </style>
     
   <body>
-"""
-
+  """
+  
+  head += "<header class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
+  head += "<div class='darpa-header-text no-space'><span><font color='white'> / </font><a href=\"change_timeline.html\"' class='programlink visheader'>What's New Timeline</a></span></div></header>"
+  
+  return head
+  
 def timeline_html():
-  html = "<header class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
-  html += "<div class='darpa-header-text no-space'><span><font color='white'> / </font><a href=\"change_timeline.html\"' class='programlink visheader'>What's New Timeline</a></span></div></header>"
-
-  html += """
-    <br>
+  html = """
 	<div id="feed" class="slider">
 	</div>
-    <div id="offsetDiv"  style="float:left; width:76%">
+    <div id="offset_div">
       <div id="timeline" class='with-3d-shadow with-transitions'>
         <svg></svg>
       </div>
@@ -72,6 +69,9 @@ def timeline_script():
   var active_offices = [];
   var url_href = window.location.href;
   var url_path = url_href.substring(0, url_href.lastIndexOf("/"));
+  var change_dates = new Array();
+  var minus_feed = 440;
+  var minus_timeline = 380;
 
 
   $( document ).ready(function() {
@@ -83,8 +83,6 @@ def timeline_script():
   	window.onresize = function () {
 		window_height = $(window).height();
 		window_width = $(window).width();
-		$('.slider').height(window_height - 250);
-		$('#timeline svg').height(window_height - 220);
 	};
   });
  
@@ -93,87 +91,96 @@ def timeline_script():
 	var slider = $('.slider'); // class or id of carousel slider
 	var slide = 'div';
 	var transition_in_time = 1500; // 1.5 second
-	var time_between_slides = 30000; // 30 seconds
+	var time_between_slides = 15000; // 15 seconds
 	var transition_out_time = 0;
 	
-	var html = "";
+	var html = [];
 	var prev_program = "";
-
-	for(office in store.offices){
-		var office_data = store.offices[store.offices[office]];
-		for (data in office_data) {
-			var type_class = "";
-			if(prev_program != office_data[data].program){
-				html = "<div class='slider-div' style='font-size:75%; display:none; height:98%;'>";
-				html += "<p style='width:100%; display:inline-block; background-color: black; margin:0; border-bottom:solid 2px white;'>";
-				html += "<span style='color: #" + office_data[data].office["DARPA Office Color"] + "; width:34%; float:left; font-size:20px; font-weight:bold; padding-left:4px;'>" + office_data[data].program + "</span>"; //get color of I2O office
-				
-				if(!office_data[data].projects){
-					
-					if(office_data[data]["Date Type"].toLowerCase() == "updated")
-						type_class = "vertical-green";
-					else
-						type_class = "vertical-red";
-				
-					html += "<span style='font-size:13px; width:62%; float:right; line-height:26px; text-align:right; padding-right:4px; color:white;'><span class='" + type_class + "'>" + office_data[data]["Date Type"] + "</span> PROGRAM : " + dateToString(office_data[data]["Date"], "-") + "</span>";
-				}	
-				html += "</p>";
-			}
-			else{
-					html = "";	
-			}
-				
-			if(office_data[data].projects){
-				var projects = office_data[data].projects;
-				 projects.sort(sortByProperty('Date'));
+	change_dates.sort();
+	
+	for (i = 0; i < change_dates.length; i++){
+		for(office in store.offices){
+			var office_data = store.offices[store.offices[office]];
+			for (data in office_data) {
+				var type_class = "";
 				var url_redirect =  url_path + "/" + office_data[data].program + ".html";
-				html += "<div class='projects-div' style='overflow-x: hidden; overflow-y: auto; height:90%; margin:0px 2px 0px 5px;'>";
-				for (project in projects) {
-					
-					if(projects[project]["Date Type"].toLowerCase() == "updated")
-						type_class = "vertical-green";
-					else
-						type_class = "vertical-red";
-						
-					html += "<p style='text-align:center; width:100%;'><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> : " + dateToString(projects[project]["Date"], "-") + "</p>";
-					
-					if(projects[project]["Publications"]){
-						var publications = projects[project]["Publications"];
-						for(pb in publications){
-							html += "<p style='width:100%;'>Publication : <a href=" + url_redirect + "?tab=tabs1&term=" + encodeURIComponent(publications[pb]) + ">" + publications[pb] + "</a></p>"; //redirect to publications search
-						}
-					}
-					if(projects[project]["Software"]){
-						var software = projects[project]["Software"];
-						for(sw in software){
-							html += "<p style='width:100%;'>Software : <a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a></p>"; //redirect to software search
-						}
-					}
-					html += "<hr>";
-				}
-				html += "</div>";
-			}
-			else{
-				if ((typeof(office_data[parseInt(data) + 1]) == "object" && (office_data[data].program != office_data[parseInt(data) + 1].program)) || typeof(office_data[parseInt(data) + 1]) == "undefined" && !office_data[data].projects)
-					html += "<p style='text-align:center; width:100%;'>No projects for this program have been updated in the past 31 days.</p>";
-			}
 
-			if(prev_program != office_data[data].program){
-				html += "</div>";
-				slider.append(html);
+				if(office_data[data].projects){
+					var projects = office_data[data].projects;
+					for (project in projects) {
+						if(change_dates[i] == projects[project]["Date"].getTime()){
+							if(typeof(html[i]) == "undefined"){
+								html[i] = "<div class='slider_div'>";
+								html[i] += "<p class='slide_header_p'>";
+								html[i] += "<span class='slide_header_span' style='color:yellow;'>What's New</span>";
+								html[i] += "<span class='slide_header_update'>" + dateToString(projects[project]["Date"], "-") + "</span>";
+								html[i] += "</p>";
+								
+								html[i] += "<div class='projects_div'>";
+							}
+							
+							html[i] += "<p style='text-align:center; width:100%;'><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></p>";
+							
+							if(projects[project]["Date Type"].toLowerCase() == "updated")
+								type_class = "vertical-green";
+							else
+								type_class = "vertical-red";
+															
+							if(projects[project]["Publications"]){
+								var publications = projects[project]["Publications"];
+								for(pb in publications){
+									html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Publication : <a href=" + url_redirect + "?tab=tabs1&term=" + encodeURIComponent(publications[pb]) + ">" + publications[pb] + "</a></p>"; //redirect to publications search
+								}
+							}
+							if(projects[project]["Software"]){
+								var software = projects[project]["Software"];
+								for(sw in software){
+									html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Software : <a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a></p>"; //redirect to software search
+								}
+							}
+						}	
+					}
+					
+				}
+				else{
+					if(change_dates[i] == office_data[data]["Date"].getTime()){
+						if(typeof(html[i]) == "undefined"){
+							html[i] = "<div class='slider_div'>";
+							html[i] += "<p class='slide_header_p'>";
+							html[i] += "<span class='slide_header_span' style='color:yellow;'>What's New</span>";
+							html[i] += "<span class='slide_header_update'>" + dateToString(office_data[data]["Date"], "-") + "</span>";
+							html[i] += "</p>";
+							
+							html[i] += "<div class='projects_div'>";
+						}
+						
+						if(office_data[data]["Date Type"].toLowerCase() == "updated")
+							type_class = "vertical-green";
+						else
+							type_class = "vertical-red";
+							
+						html[i] += "<p style='text-align:center; width:100%;'><span class='" + type_class + "'>" + office_data[data]["Date Type"] + "</span> <a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
+						
+						if ((typeof(office_data[parseInt(data) + 1]) == "object" && (office_data[data].program != office_data[parseInt(data) + 1].program)) || typeof(office_data[parseInt(data) + 1]) == "undefined" && !office_data[data].projects)
+						html[i] += "<p style='text-align:center; width:100%;'>No projects for this program have been updated in the past 31 days.</p>";
+					}
+				}
+				if(typeof(html[i]) != "undefined" && $(html[i])[0].lastChild.childNodes[$(html[i])[0].lastChild.childElementCount - 1].localName == "p"){
+					html[i] += "<hr>";
+				}
 			}
-			else{
-				slider[0].lastChild.innerHTML = slider[0].lastChild.innerHTML + html;
-			}
-			prev_program = office_data[data].program; //AA
 		}
+		
+		if(html[i])
+			html[i] += "</div></div>";
 	}
-	  
-	slider.height(window_height - 250);
+	
+	slider.append(html.join(""));
+	slider.height(window_height - minus_feed);
 	slider.css("display", "inline");
 	
 	function slides(){
-	  return $(".slider-div"); 
+	  return $(".slider_div"); 
 	}
 
 	slides().first().addClass('active');
@@ -198,31 +205,39 @@ def timeline_script():
 
   }	
   
+	  
   function createTimeline(store){
-	  var chart;
-	  var chars = ""; 
-	  var char_array = [];
+		var chart;
+		var chars = ""; 
+		var char_array = [];
+		var id  = Math.floor(Math.random() * 100000);
+		var root = fetchTimelineData(store);
+		var nodes = [];
+		var single_point = false;
+		
+		for(branch in root){
+			for(node in root[branch].values)
+				nodes.push(root[branch].values[node]);
+		}
+		
+		if (nodes.length == 1)
+			single_point = true;
 
-	  for(i=65; i<=90; i++){
-		 chars += String.fromCharCode(i);
-		 char_array[i - 65] = String.fromCharCode(i);
-	  }	 
-
-	  //console.log(nv);
-	  nv.addGraph(function() {
+	 nv.addGraph(function() {
 		chart = nv.models.scatterChart()
 			.showDistX(true) //show ticks on x-axis
 			.showDistY(true) //show ticks on y-axis
+			.id(id) 
 			.size(1).sizeRange([130,130]) //size of plot points all the same
-			.transitionDuration(300);
-		
-		var margin = {top: 30, right: 20, bottom: 30, left: 40},
+			.transitionDuration(300)
+			.margin({top: 0, right: 8, bottom: 54, left: 50});
+
+		var margin = {top: 0, right: 8, bottom: 54, left: 50},
 		width = 960 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
 		
-		var x = d3.scale.ordinal()
-			.domain(chars.split(""))
-			.rangePoints([0, width]);
+		var x = d3.scale.linear()
+			.range([0, width]);
 
 		var y = d3.scale.linear()
 			.range([height, 0]);
@@ -230,7 +245,8 @@ def timeline_script():
 		chart.xAxis.tickSize(3).scale(x)
 			.ticks(4)
 			.orient("bottom")
-			.rotateLabels(-30) 			
+			.rotateLabels(-30)
+			.domain([date_start, date_end]).range([0, width]) 				
 			.tickFormat(function(d) {
 				var date = new Date(d);
 				return d3.time.format('%m-%d-%Y')(date);
@@ -240,9 +256,8 @@ def timeline_script():
 			.ticks(5)
 			.orient("left")    
 			.tickFormat(function(d,i){ /*console.log(d);*/ return d; });
-				
+
 		chart.scatter.onlyCircles(false); //We want to show shapes other than circles.
-	  
 		chart.tooltipContent(function(office, date, total, values) {
 			var type_class = "";
 			if(values.point.date_type.toLowerCase() == "updated")
@@ -279,22 +294,27 @@ def timeline_script():
 			return div.outerHTML;
 		});
 
-		d3.select('#timeline svg')
-			.datum(fetchTimelineData(store))
-			.attr("height", window_height - 220)
-			.style("margin-left", "-10")
-			.call(chart);
+		var root = fetchTimelineData(store);
+		var nodes = [];
+		
+		for(branch in root){
+			for(node in root[branch].values)
+				nodes.push(root[branch].values[node]);
+		}
+		
+		var svg = d3.select("#timeline").select("svg")
+				.datum(root)
+				.attr("height", window_height - minus_timeline)
+				.call(chart);
 
+		chart.update();
 		nv.utils.windowResize(chart.update);
+		//chart.dispatch.on('areaClick', function(e) { console.log("clicked"); });
 		chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
 		return chart;
 	  });
   }
-
-  function randomDate(start, end) {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-  }
-
+  
   function fetchTimelineData(store) { //# groups,# points per group
     var data = [], random = d3.random.normal();
 	
@@ -311,7 +331,6 @@ def timeline_script():
 			for (office in office_data) {
 			  if(office_data[office].office["DARPA Office"] == active_offices[i].name){
 				if(office_data[office].projects){
-					//console.log(office_data[office].projects);
 					var projects = office_data[office].projects;
 					for(project in projects){
 						var date = stringToDate(projects[project].Date);
@@ -363,8 +382,6 @@ def timeline_script():
 		
 		for (program in programs){
 		  var program_nm = programs[program]["Program Name"];
-		  //var program_office = programs[program]["DARPA Office"];
-		  var dates = new Array();
 		  var office_details = new Array();
 		  var sw = new Array();
 		  var pub = new Array();
@@ -381,10 +398,10 @@ def timeline_script():
 		  
 		 if(programs[program]["Banner"] != ""){
 			var build_date = stringToDate(getBuildDate());
-			//console.log(office_details);
-			//if (office_details["DARPA Office"] == "DSO")
-				//build_date = new Date("July 25, 2014 11:13:00");
 			node.push({"office":office_details, "program":program_nm, "Date": build_date, "Date Type": programs[program]["Banner"]});
+			
+			if(!isInArray(build_date.getTime(), change_dates))
+				change_dates.push(build_date.getTime());
 		  }
 		  	  
 		  if(programs[program]["Software File"] != ""){
@@ -394,8 +411,11 @@ def timeline_script():
 				var modification = getModificationDate(sw_object["New Date"], sw_object["Update Date"]);
 				var mod_date = stringToDate(modification["Date"]);
 				if(modification["Date"] && (mod_date >= date_start && mod_date <= date_end)){
-					if(edge.length < 1)
+					if(edge.length < 1){
 						edge.push({"Software" : [sw_object["Software"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
+						if(!isInArray(mod_date.getTime(), change_dates))
+							change_dates.push(mod_date.getTime());
+					}
 					else{
 						for (project in edge){
 							var curr_entry = edge[project];
@@ -407,8 +427,11 @@ def timeline_script():
 								
 								break;
 							}
-							if(project == edge.length - 1)
+							if(project == edge.length - 1){
 								edge.push({"Software" : [sw_object["Software"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
+								if(!isInArray(mod_date.getTime(), change_dates))
+									change_dates.push(mod_date.getTime());
+							}
 						}
 						
 					}
@@ -426,6 +449,8 @@ def timeline_script():
 				if(modification["Date"] && mod_date >= date_start && mod_date <= date_end){
 					if(edge.length < 1){
 						edge.push({"Publications" : [pub_object["Title"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
+						if(!isInArray(mod_date.getTime(), change_dates))
+							change_dates.push(mod_date.getTime());
 					}
 					else{
 						for (project in edge){
@@ -438,8 +463,11 @@ def timeline_script():
 									
 								break;
 							}
-							if(project == edge.length - 1)
+							if(project == edge.length - 1){
 								edge.push({"Publications" : [pub_object["Title"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
+								if(!isInArray(mod_date.getTime(), change_dates))
+									change_dates.push(mod_date.getTime());
+							}
 						}
 					}
 				}
@@ -450,12 +478,10 @@ def timeline_script():
 			node.push({"office":office_details, "program":program_nm, "projects": edge});
 		}
 		
-		//console.log(node);
-		root = {"offices": office_checker}; //offices
+		root = {"offices": office_checker}; //top level of object - offices
 
 		for (n in node){
 			for (r_office in root.offices){
-				//console.log(root.offices[root.office[r_office]]);
 				var curr_office = node[n].office["DARPA Office"];
 				if(curr_office == root.offices[r_office]){
 					if (typeof(root.offices[curr_office]) == "undefined")
