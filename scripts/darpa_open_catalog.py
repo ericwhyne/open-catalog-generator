@@ -27,8 +27,6 @@ def html_head():
   <script type='text/javascript' src="legend.js"></script>
   <script type='text/javascript' src="axis.js"></script>
   <script type='text/javascript' src="distribution.js"></script>
-  <script type='text/javascript' src="scatter.js"></script>
-  <script type='text/javascript'  src="scatterChart.js"></script>
   <script type='text/javascript' src='jquery-latest.js'></script>
   <script type='text/javascript' src="jquery-1.9.1.js"></script>
   <script type='text/javascript' src="jquery-ui.js"></script>

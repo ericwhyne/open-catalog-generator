@@ -19,8 +19,6 @@ def timeline_head():
   <script type='text/javascript' src="legend.js"></script>
   <script type='text/javascript' src="axis.js"></script>
   <script type='text/javascript' src="distribution.js"></script>
-  <script type='text/javascript' src="scatter.js"></script>
-  <script type='text/javascript'  src="scatterChart.js"></script>
   <script type='text/javascript' src='jquery-latest.js'></script>
 
   </head>
@@ -45,7 +43,14 @@ def timeline_head():
   
 def timeline_html():
   html = """
-	<div id="feed" class="slider">
+	<div id="feed">
+		<div id="controller">
+			<input type="button" id="back" class="slide_buttons" value="<<" onclick="controlAction(this);" />
+			<input type="button" id="scroll" class="slide_buttons" value="||" onclick="controlAction(this);" />
+			<input type="button" id="forward" class="slide_buttons" value=">>" onclick="controlAction(this);" />
+		</div>
+		<div id="slide_view" class="slider">
+		</div>
 	</div>
     <div id="offset_div">
       <div id="timeline" class='with-3d-shadow with-transitions'>
@@ -59,19 +64,28 @@ def timeline_script():
   return """
   
   <script type='text/javascript'>
-  var window_height = $(window).height();
-  var window_width = $(window).width();
-  var date_start = new Date();
-  date_start.setDate(date_start.getDate() - 31);
-  var date_end = new Date();
-  var min = 1;
-  var max = 30;
   var active_offices = [];
-  var url_href = window.location.href;
-  var url_path = url_href.substring(0, url_href.lastIndexOf("/"));
-  var change_dates = new Array();
-  var minus_feed = 440;
-  var minus_timeline = 380;
+  var window_height = $(window).height(),
+	window_width = $(window).width(),
+	minus_feed = 440,
+	minus_timeline = 380;
+	
+  var change_dates = new Array(),
+	date_start = new Date(),
+	date_end = new Date();
+	date_start.setDate(date_start.getDate() - 31);
+	
+  var min = 1,
+	max = 30;
+	
+  var url_href = window.location.href,
+	url_path = url_href.substring(0, url_href.lastIndexOf("/"));
+	
+  var slider = null, // class or id of carousel slider
+	interval = null,
+	transition_in_time = 1000, // 1.0 second
+	time_between_slides = 7000, // 7 seconds
+	transition_out_time = 0;
 
 
   $( document ).ready(function() {
@@ -88,15 +102,12 @@ def timeline_script():
  
   function activateDataCarousel(store){
 	// settings
-	var slider = $('.slider'); // class or id of carousel slider
-	var slide = 'div';
-	var transition_in_time = 1500; // 1.5 second
-	var time_between_slides = 15000; // 15 seconds
-	var transition_out_time = 0;
-	
 	var html = [];
 	var prev_program = "";
+	
+	slider = $('.slider'); // class or id of carousel slider
 	change_dates.sort();
+	
 	
 	for (i = 0; i < change_dates.length; i++){
 		for(office in store.offices){
@@ -119,21 +130,21 @@ def timeline_script():
 								html[i] += "<div class='projects_div'>";
 							}
 							
-							html[i] += "<p style='text-align:center; width:100%;'><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></p>";
+							html[i] += "<p style='text-align:center; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
 							
 							if(projects[project]["Date Type"].toLowerCase() == "updated")
 								type_class = "vertical-green";
 							else
 								type_class = "vertical-red";
-															
+													
 							if(projects[project]["Publications"]){
-								var publications = projects[project]["Publications"];
+								var publications = projects[project]["Publications"].sort();
 								for(pb in publications){
 									html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Publication : <a href=" + url_redirect + "?tab=tabs1&term=" + encodeURIComponent(publications[pb]) + ">" + publications[pb] + "</a></p>"; //redirect to publications search
 								}
 							}
 							if(projects[project]["Software"]){
-								var software = projects[project]["Software"];
+								var software = projects[project]["Software"].sort();
 								for(sw in software){
 									html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Software : <a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a></p>"; //redirect to software search
 								}
@@ -160,9 +171,6 @@ def timeline_script():
 							type_class = "vertical-red";
 							
 						html[i] += "<p style='text-align:center; width:100%;'><span class='" + type_class + "'>" + office_data[data]["Date Type"] + "</span> <a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
-						
-						if ((typeof(office_data[parseInt(data) + 1]) == "object" && (office_data[data].program != office_data[parseInt(data) + 1].program)) || typeof(office_data[parseInt(data) + 1]) == "undefined" && !office_data[data].projects)
-						html[i] += "<p style='text-align:center; width:100%;'>No projects for this program have been updated in the past 31 days.</p>";
 					}
 				}
 				if(typeof(html[i]) != "undefined" && $(html[i])[0].lastChild.childNodes[$(html[i])[0].lastChild.childElementCount - 1].localName == "p"){
@@ -179,32 +187,63 @@ def timeline_script():
 	slider.height(window_height - minus_feed);
 	slider.css("display", "inline");
 	
-	function slides(){
-	  return $(".slider_div"); 
-	}
-
 	slides().first().addClass('active');
 	slides().first().fadeIn(transition_in_time);
 	
 	// auto scroll 
-	interval = setInterval(
-		function(){
-		  var i = slider.find(slide + '.active').index();
-		  slides().eq(i).fadeOut(transition_out_time);		  
-		  slides().eq(i).removeClass('active');
-
-		  if (slides().length == i + 1)
-			i = -1; // loop to start from the beginning
-
-		  slides().eq(i + 1).addClass('active');
-		  slides().eq(i + 1).fadeIn(transition_in_time);
-		  
-		}
-		, transition_in_time +  time_between_slides 
-	);
-
+	interval = startInterval();
   }	
   
+  function slides(){
+	return $(".slider_div"); 
+  }
+  
+  function startInterval(){
+	return setInterval(
+		function(){ slideControl(1);},
+		transition_in_time +  time_between_slides 
+	);
+  }
+  
+  function slideControl(direction){
+   
+	var i = slider.find('div.active').index();
+	//console.log(i, slider.find('div.active').value);
+	slides().eq(i).fadeOut(transition_out_time);		  
+	slides().eq(i).removeClass('active');
+	
+	//console.log(slides().length);
+	if (slides().length == i + direction)
+		i = -1; // loop to start from the beginning
+		
+	//console.log(i, slider.find('div.active').val());
+	slides().eq(i + direction).addClass('active');
+	slides().eq(i + direction).fadeIn(transition_in_time);
+  }
+  
+  function controlAction(control){
+	if(control.id == "scroll")
+	{
+		if(control.value == "||"){
+			clearInterval(interval);
+			$("#" + control.id).val(">");
+		}
+		else if(control.value == ">"){
+			interval = startInterval();
+			$("#" + control.id).val("||");
+		}
+	}
+	else if(control.id == "back"){
+		slideControl(-1);
+		$("#" + control.id).attr("disabled", "disabled");
+		setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
+		
+	}
+	else
+		slideControl(1);
+		$("#" + control.id).attr("disabled", "disabled");
+		setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
+  }  
 	  
   function createTimeline(store){
 		var chart;
@@ -224,18 +263,19 @@ def timeline_script():
 			single_point = true;
 
 	 nv.addGraph(function() {
+	 
+	 	var margin = {top: 40, right: 10, bottom: 60, left: 50},
+		width = 960 - margin.left - margin.right,
+		height = 500 - margin.top - margin.bottom;
+		
 		chart = nv.models.scatterChart()
 			.showDistX(true) //show ticks on x-axis
 			.showDistY(true) //show ticks on y-axis
 			.id(id) 
 			.size(1).sizeRange([130,130]) //size of plot points all the same
 			.transitionDuration(300)
-			.margin({top: 0, right: 8, bottom: 54, left: 50});
+			.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
 
-		var margin = {top: 0, right: 8, bottom: 54, left: 50},
-		width = 960 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom;
-		
 		var x = d3.scale.linear()
 			.range([0, width]);
 
@@ -309,7 +349,6 @@ def timeline_script():
 
 		chart.update();
 		nv.utils.windowResize(chart.update);
-		//chart.dispatch.on('areaClick', function(e) { console.log("clicked"); });
 		chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
 		return chart;
 	  });
@@ -410,6 +449,7 @@ def timeline_script():
 				var sw_object = program_sw_file[sw_item];
 				var modification = getModificationDate(sw_object["New Date"], sw_object["Update Date"]);
 				var mod_date = stringToDate(modification["Date"]);
+
 				if(modification["Date"] && (mod_date >= date_start && mod_date <= date_end)){
 					if(edge.length < 1){
 						edge.push({"Software" : [sw_object["Software"]], "Date Type" : modification["Date Type"], "Date" : mod_date});
@@ -441,11 +481,12 @@ def timeline_script():
   		
 		  if(programs[program]["Pubs File"] != ""){
 			  var program_pub_file = getProgramDetails(programs[program]["Pubs File"]);
-			  
+
 			  for (pub_item in program_pub_file){
 				var pub_object = program_pub_file[pub_item];
 				var modification = getModificationDate(pub_object["New Date"], pub_object["Update Date"]);
 				var mod_date = stringToDate(modification["Date"]);
+				
 				if(modification["Date"] && mod_date >= date_start && mod_date <= date_end){
 					if(edge.length < 1){
 						edge.push({"Publications" : [pub_object["Title"]], "Date Type" : modification["Date Type"], "Date" : mod_date});

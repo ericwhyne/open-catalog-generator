@@ -10975,7 +10975,8 @@ nv.models.scatter = function() {
     , forceY       = [] // List of numbers to Force into the Y scale
     , forceSize    = [] // List of numbers to Force into the Size scale
     , interactive  = true // If true, plots a voronoi overlay for advanced point intersection
-    , pointKey     = null
+    , points	   = null
+	, pointKey     = null
     , pointActive  = function(d) { return !d.notActive } // any points that return false will be filtered out
     , padData      = false // If true, adds half a data points width to front and back, for lining up a line chart with a bar chart
     , padDataOuter = .1 //outerPadding to imitate ordinal scale outer padding
@@ -11242,7 +11243,7 @@ nv.models.scatter = function() {
               //.data(dataWithPoints)
               //.style('pointer-events', 'auto') // recativate events, disabled by css
               .on('click', function(d,i) {
-                //nv.log('test', d, i);
+                nv.log('test', d, i);
                 if (needsUpdate || !data[d.series]) return 0; //check if this is a dummy point
                 var series = data[d.series],
                     point  = series.values[i];
@@ -11307,7 +11308,7 @@ nv.models.scatter = function() {
 
       if (onlyCircles) {
 
-        var points = groups.selectAll('circle.nv-point')
+        points = groups.selectAll('circle.nv-point')
             .data(function(d) { return d.values }, pointKey);
         points.enter().append('circle')
             .style('fill', function (d,i) { return d.color })
@@ -11334,7 +11335,7 @@ nv.models.scatter = function() {
 
       } else {
 
-        var points = groups.selectAll('path.nv-point')
+        points = groups.selectAll('path.nv-point')
             .data(function(d) { return d.values });
         points.enter().append('path')
             .style('fill', function (d,i) { return d.color })
@@ -11538,7 +11539,13 @@ nv.models.scatter = function() {
     interactive = _;
     return chart;
   };
-
+  
+  chart.points = function(_) {
+    if (!arguments.length) return points;
+    points = _;
+    return chart;
+  };
+  
   chart.pointKey = function(_) {
     if (!arguments.length) return pointKey;
     pointKey = _;
@@ -11640,7 +11647,7 @@ nv.models.scatterChart = function() {
     , distY        = nv.models.distribution()
     ;
 
-  var margin       = {top: 30, right: 20, bottom: 50, left: 75}
+  var margin       = {top: 40, right: 20, bottom: 50, left: 75}
     , width        = null
     , height       = null
     , color        = nv.utils.defaultColor()
@@ -11729,7 +11736,6 @@ nv.models.scatterChart = function() {
     selection.each(function(data) {
       var container = d3.select(this),
           that = this;
-
       var availableWidth = (width  || parseInt(container.style('width')) || 960)
                              - margin.left - margin.right,
           availableHeight = (height || parseInt(container.style('height')) || 400)
@@ -11787,7 +11793,6 @@ nv.models.scatterChart = function() {
 
       //------------------------------------------------------------
       // Setup containers and skeleton of chart
-
       var wrap = container.selectAll('g.nv-wrap.nv-scatterChart').data([data]);
       var wrapEnter = wrap.enter().append('g').attr('class', 'nvd3 nv-wrap nv-scatterChart nv-chart-' + scatter.id());
       var gEnter = wrapEnter.append('g');
@@ -11808,23 +11813,21 @@ nv.models.scatterChart = function() {
 
       //------------------------------------------------------------
       // Legend
-
       if (showLegend) {
-        var legendWidth = (showControls) ? availableWidth / 2 : availableWidth;
+        var legendWidth = (showControls) ? (availableWidth / 2): availableWidth;
         legend.width(legendWidth);
-
         wrap.select('.nv-legendWrap')
             .datum(data)
             .call(legend);
-
-        if ( margin.top != legend.height()) {
+        if ( margin.top != (legend.height() + 10)) {
           margin.top = legend.height();
           availableHeight = (height || parseInt(container.style('height')) || 400)
                              - margin.top - margin.bottom;
         }
 
+		var wrapWidth = (availableWidth - legendWidth) + 20;
         wrap.select('.nv-legendWrap')
-            .attr('transform', 'translate(' + (availableWidth - legendWidth) + ',' + (-margin.top) +')');
+         .attr('transform', 'translate(' + wrapWidth + ',' + (-margin.top) +')');
       }
 
       //------------------------------------------------------------
@@ -11842,7 +11845,6 @@ nv.models.scatterChart = function() {
       }
 
       //------------------------------------------------------------
-
 
       wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -11997,12 +11999,34 @@ nv.models.scatterChart = function() {
             .call(distY);
       }
 
+      //------------------------------------------------------------
 
+
+      //------------------------------------------------------------
+      // Setup Points
+	  // add event handlers to points
+	  wrap.select('.nv-groups').selectAll('.nv-group')
+		.selectAll('.nv-point')
+		  //.data(dataWithPoints)
+		  //.style('pointer-events', 'auto') // recativate events, disabled by css
+		  .on('click', function(d,i) {
+			//nv.log('test', d, i);
+			if (needsUpdate || !data[d.series]) return 0; //check if this is a dummy point
+			var series = data[d.series],
+				point  = series.values[i];
+
+			dispatch.elementClick({
+			  point: point,
+			  series: series,
+			  pos: [x(getX(point, i)) + margin.left, y(getY(point, i)) + margin.top],
+			  seriesIndex: d.series,
+			  pointIndex: i
+			});
+		  });
 
       //============================================================
       // Event Handling/Dispatching (in chart's scope)
       //------------------------------------------------------------
-
       controls.dispatch.on('legendClick', function(d,i) {
         d.disabled = !d.disabled;
 
@@ -12029,6 +12053,16 @@ nv.models.scatterChart = function() {
         dispatch.stateChange(state);
         chart.update();
       });
+	  
+	  scatter.dispatch.on('elementClick.point', function(e) {
+		//nv.log('total', nv.logs.totalTime); 
+		console.log(e);
+		
+		if($('.slider'))
+		{
+		 console.log("got slider");
+		}
+	  });
 
       scatter.dispatch.on('elementMouseover.tooltip', function(e) {
         d3.select('.nv-chart-' + scatter.id() + ' .nv-series-' + e.seriesIndex + ' .nv-distx-' + e.pointIndex)
