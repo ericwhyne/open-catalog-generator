@@ -83,8 +83,8 @@ def timeline_script():
 	
   var slider = null, // class or id of carousel slider
 	interval = null,
-	transition_in_time = 1000, // 1.0 second
-	time_between_slides = 7000, // 7 seconds
+	transition_in_time = 1200, // 1.2 second
+	time_between_slides = 10000, // 10 seconds
 	transition_out_time = 0;
 
 
