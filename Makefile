@@ -76,10 +76,11 @@ metrics:
 chart:
 	$(OC_SCRIPTS_DIR)area_chart.py $(OC_METRICS_DIR)metrics.csv
 
-addjsonfields:$(OC_DEFAULT_TEMPLATE_DIR)
+addfields:$(OC_DEFAULT_TEMPLATE_DIR)
 	mkdir -p $(NEW_JSON_DIR)
-	$(OC_SCRIPTS_DIR)add_json_fields.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR) $(OC_SCHEMA_FILE)
+	$(OC_SCRIPTS_DIR)add_json_fields.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR) $(OC_SCHEMA_FILE) ${FILES} $(FIELDS) $(INSERT_AFTER)
 	
-allascii:$(OC_DEFAULT_TEMPLATE_DIR)
-	$(OC_SCRIPTS_DIR)convert_non_ascii_chars.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR)
+fileascii:$(OC_DEFAULT_TEMPLATE_DIR)
+	mkdir -p $(NEW_JSON_DIR)
+	$(OC_SCRIPTS_DIR)convert_non_ascii_chars.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR) $(FILES)
 

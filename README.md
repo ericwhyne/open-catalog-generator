@@ -73,7 +73,9 @@ Steps for adding json fields to a specific file type:
   3b. fields_to_add: This variable is a key-value pair object that takes the field name as the key and the field value as the value. There is no limit to the number of key-value pairs that can be added.
   3c. insert_after: The added field will be placed after the given field name
  
-4. The Makefile contains a executable definition that can be used to quickly run this script after adjusting the two variables. Using the CYGWIN command line, run the following command "make addjsonfields"
+4. The Makefile contains a executable definition that can be used to quickly run this script after adjusting the two variables. Using the CYGWIN command line, run the following command:
+
+	make addfields FILES="pubs,software" FIELDS="Test:pass,fail" INSERT_AFTER="Link"
 
 5. Verify that the fields were added correctly and to the appropriate files by reviewing the new files in the "darpa_open_catalog/new_json" directory. If the files are correct, move them to the "darpa_open_catalog" directory and done! Now there are new json files for the next build!
 
@@ -87,16 +89,14 @@ convert_non_ascii_chars.py
 Steps for converting/removing non-ascii characters from json files:
 
 1. In the "darpa_open_catalog" directory, record the name of the file(s) that include non-ascii characters. 
-
-2. From the scripts directory, open the convert_non_ascii_chars.py script in an editor and enter the name of the file(s) in the "files_to_fix" variable. See the following example:
-
-   files_to_fix = ["CRASH-program.json", "CRASH-pubs.json"]
  
-3. The Makefile contains a executable definition that can be used to quickly run this script after modifying the variable. Using the CYGWIN command line, run the following command "make allascii"
+2. The Makefile contains an executable definition that can be used to quickly run this script after modifying the variable. Using the CYGWIN command line, run the following command:
+   
+   make fileascii FILES="filename1,filename2,filename3"
 
-4. Verify that the non-ascii characters were replaced/removed by opening the new files in the "darpa_open_catalog/new_json" directory. If the files are correct, move them to the "darpa_open_catalog" directory and done! Now there are new json files for the next build!
+3. Verify that the non-ascii characters were replaced/removed by opening the new files in the "darpa_open_catalog/new_json" directory. If the files are correct, move them to the "darpa_open_catalog" directory and done! Now there are new json files for the next build!
 
-5. Be sure to delete the "new_json" directory from the "darpa_open_catalog" directory so that it is not mistakenly committed to the project repository. 
+4. Be sure to delete the "new_json" directory from the "darpa_open_catalog" directory so that it is not mistakenly committed to the project repository. 
 
 Note: In some cases, a non-ascii character may not be mapped to an ascii character, therefore causing the character to be replaced with another non-ascii character or removed completely. If the character needs an ascii equivalent, an exception will need to be added to the "hex2ascii" method in the script to identify an ascii character to replace the character.
 
