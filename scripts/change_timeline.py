@@ -45,9 +45,9 @@ def timeline_html():
   html = """
 	<div id="feed">
 		<div id="controller">
-			<input type="button" id="back" class="slide_buttons" value="<<" onclick="controlAction(this);" />
-			<input type="button" id="scroll" class="slide_buttons" value="||" onclick="controlAction(this);" />
-			<input type="button" id="forward" class="slide_buttons" value=">>" onclick="controlAction(this);" />
+			<input type="button" id="back" class="slide_buttons" value="<<" onclick="buttonAction(this);" />
+			<input type="button" id="scroll" class="slide_buttons" value="||" onclick="buttonAction(this);" />
+			<input type="button" id="forward" class="slide_buttons" value=">>" onclick="buttonAction(this);" />
 		</div>
 		<div id="slide_view" class="slider">
 		</div>
@@ -64,8 +64,8 @@ def timeline_script():
   return """
   
   <script type='text/javascript'>
-  var active_offices = [];
-  var window_height = $(window).height(),
+  var active_offices = [],
+	window_height = $(window).height(),
 	window_width = $(window).width(),
 	minus_feed = 440,
 	minus_timeline = 380;
@@ -89,39 +89,34 @@ def timeline_script():
 
 
   $( document ).ready(function() {
-  
     var programs = getPrograms();
     var data_store = createDataStore(programs);
 	activateDataCarousel(data_store);
 	createTimeline(data_store);
-  	window.onresize = function () {
-		window_height = $(window).height();
-		window_width = $(window).width();
-	};
   });
  
+  //Setup for What's New feed
   function activateDataCarousel(store){
-	// settings
-	var html = [];
-	var prev_program = "";
+	var html = [],
+		prev_program = "";
 	
 	slider = $('.slider'); // class or id of carousel slider
 	change_dates.sort();
 	
-	
-	for (i = 0; i < change_dates.length; i++){
-		for(office in store.offices){
+	//creates the html for each slide based on change date
+	for (i = 0; i < change_dates.length; i++){ 	//for each date that a change was made
+		for(office in store.offices){	//for each DARPA office
 			var office_data = store.offices[store.offices[office]];
-			for (data in office_data) {
+			for (data in office_data) {	//for each program within an office
 				var type_class = "";
 				var url_redirect =  url_path + "/" + office_data[data].program + ".html";
 
-				if(office_data[data].projects){
+				if(office_data[data].projects){ //The program has projects that were added or updated 
 					var projects = office_data[data].projects;
-					for (project in projects) {
+					for (project in projects) { 
 						if(change_dates[i] == projects[project]["Date"].getTime()){
 							if(typeof(html[i]) == "undefined"){
-								html[i] = "<div class='slider_div'>";
+								html[i] = "<div id='" + dateToString(projects[project]["Date"], "-") + "' class='slider_div'>";
 								html[i] += "<p class='slide_header_p'>";
 								html[i] += "<span class='slide_header_span' style='color:yellow;'>What's New</span>";
 								html[i] += "<span class='slide_header_update'>" + dateToString(projects[project]["Date"], "-") + "</span>";
@@ -153,7 +148,7 @@ def timeline_script():
 					}
 					
 				}
-				else{
+				else{ //the program itself was added or updated
 					if(change_dates[i] == office_data[data]["Date"].getTime()){
 						if(typeof(html[i]) == "undefined"){
 							html[i] = "<div class='slider_div'>";
@@ -183,6 +178,7 @@ def timeline_script():
 			html[i] += "</div></div>";
 	}
 	
+	//set up for initial slides
 	slider.append(html.join(""));
 	slider.height(window_height - minus_feed);
 	slider.css("display", "inline");
@@ -190,7 +186,7 @@ def timeline_script():
 	slides().first().addClass('active');
 	slides().first().fadeIn(transition_in_time);
 	
-	// auto scroll 
+	// auto scroll activated 
 	interval = startInterval();
   }	
   
@@ -205,23 +201,22 @@ def timeline_script():
 	);
   }
   
+  //scrolls the slides based on given direction(previous or next)
   function slideControl(direction){
    
 	var i = slider.find('div.active').index();
-	//console.log(i, slider.find('div.active').value);
 	slides().eq(i).fadeOut(transition_out_time);		  
 	slides().eq(i).removeClass('active');
 	
-	//console.log(slides().length);
 	if (slides().length == i + direction)
 		i = -1; // loop to start from the beginning
 		
-	//console.log(i, slider.find('div.active').val());
 	slides().eq(i + direction).addClass('active');
 	slides().eq(i + direction).fadeIn(transition_in_time);
   }
   
-  function controlAction(control){
+  //user selected button which allows manual control of the slides
+  function buttonAction(control){
 	if(control.id == "scroll")
 	{
 		if(control.value == "||"){
@@ -244,7 +239,8 @@ def timeline_script():
 		$("#" + control.id).attr("disabled", "disabled");
 		setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
   }  
-	  
+
+  //creates the timeline chart with data points  
   function createTimeline(store){
 		var chart;
 		var chars = ""; 
@@ -354,10 +350,11 @@ def timeline_script():
 	  });
   }
   
+  //Returns the data for the legend and timeline data points
   function fetchTimelineData(store) { //# groups,# points per group
     var data = [], random = d3.random.normal();
 	
-    //builds group array in this case, active_offices
+    //builds group array for timeline legend, in this case, active offices
 	for (i = 0; i < active_offices.length; i++) {
       data.push({
         key: active_offices[i].name,
@@ -365,6 +362,7 @@ def timeline_script():
 	    color: "#" + active_offices[i].color
       });
       
+	  //builds group array for data points in the timeline, in this case, programs and projects
 	  for (j = 0; j < store.offices.length; j++) {
 		    var office_data = store.offices[store.offices[j]];
 			for (office in office_data) {
@@ -414,6 +412,7 @@ def timeline_script():
     return data;
   }
   
+  //Creates the structured data store used for the timeline and What's New feed
   function createDataStore(programs){
   		var node = new Array();
 		var root = new Array();
@@ -426,6 +425,7 @@ def timeline_script():
 		  var pub = new Array();
 		  var edge = new Array();
 		  
+		  //sets the offices that are currently active and a temporary array to ensure that the offices are not duplicated
 		  if(programs[program]["DARPA Office"] != ""){
 			office_details = getOfficeDetails(programs[program]["DARPA Office"]);
 
@@ -435,6 +435,7 @@ def timeline_script():
 			}
 		  }
 		  
+		 //collects all of the programs that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		 if(programs[program]["Banner"] != ""){
 			var build_date = stringToDate(getBuildDate());
 			node.push({"office":office_details, "program":program_nm, "Date": build_date, "Date Type": programs[program]["Banner"]});
@@ -442,7 +443,8 @@ def timeline_script():
 			if(!isInArray(build_date.getTime(), change_dates))
 				change_dates.push(build_date.getTime());
 		  }
-		  	  
+		  
+		  //collects all of the software projects that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		  if(programs[program]["Software File"] != ""){
 			  var program_sw_file = getProgramDetails(programs[program]["Software File"]);
 			  for (sw_item in program_sw_file){
@@ -479,6 +481,7 @@ def timeline_script():
 			  }
 		  }
   		
+		  //collects all of the publication projects that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		  if(programs[program]["Pubs File"] != ""){
 			  var program_pub_file = getProgramDetails(programs[program]["Pubs File"]);
 
@@ -514,13 +517,13 @@ def timeline_script():
 				}
 			  }
 		  }
-		  
 		  if(edge.length != 0)
 			node.push({"office":office_details, "program":program_nm, "projects": edge});
 		}
 		
 		root = {"offices": office_checker}; //top level of object - offices
-
+		
+		//programs and projects that were added to the node array are then added to it's corresponding office
 		for (n in node){
 			for (r_office in root.offices){
 				var curr_office = node[n].office["DARPA Office"];

@@ -12054,13 +12054,25 @@ nv.models.scatterChart = function() {
         chart.update();
       });
 	  
+	  function slides(){
+		return $(".slider_div"); 
+	  }
+	  
 	  scatter.dispatch.on('elementClick.point', function(e) {
-		//nv.log('total', nv.logs.totalTime); 
-		console.log(e);
-		
 		if($('.slider'))
 		{
-		 console.log("got slider");
+			var transition_in_time = 1200, // 1.2 second
+			time_between_slides = 10000, // 10 seconds
+			transition_out_time = 0;
+			
+			var new_index = $('.slider').find('div[id="'+e.point.string_date+'"]').index();
+			var curr_index = slider.find('div.active').index();
+
+			slides().eq(curr_index).fadeOut(transition_out_time);		  
+			slides().eq(curr_index).removeClass('active');
+			slides().eq(new_index).addClass('active');
+			slides().eq(new_index).fadeIn(transition_in_time);
+		 
 		}
 	  });
 
