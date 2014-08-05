@@ -44,7 +44,7 @@ def timeline_head():
 def timeline_html():
   html = """
 	<div id="feed">
-		<div id="controller">
+		<div id="controller" style="display: none;">
 			<input type="button" id="back" class="slide_buttons" value="<<" onclick="buttonAction(this);" />
 			<input type="button" id="scroll" class="slide_buttons" value="||" onclick="buttonAction(this);" />
 			<input type="button" id="forward" class="slide_buttons" value=">>" onclick="buttonAction(this);" />
@@ -93,155 +93,156 @@ def timeline_script():
     var data_store = createDataStore(programs);
 	activateDataCarousel(data_store);
 	createTimeline(data_store);
-  });
- 
-  //Setup for What's New feed
-  function activateDataCarousel(store){
-	var html = [],
-		prev_program = "";
-	
-	slider = $('.slider'); // class or id of carousel slider
-	change_dates.sort();
-	
-	//creates the html for each slide based on change date
-	for (i = 0; i < change_dates.length; i++){ 	//for each date that a change was made
-		for(office in store.offices){	//for each DARPA office
-			var office_data = store.offices[store.offices[office]];
-			for (data in office_data) {	//for each program within an office
-				var type_class = "";
-				var url_redirect =  url_path + "/" + office_data[data].program + ".html";
 
-				if(office_data[data].projects){ //The program has projects that were added or updated 
-					var projects = office_data[data].projects;
-					for (project in projects) { 
-						if(change_dates[i] == projects[project]["Date"].getTime()){
+	//Setup for What's New feed
+	function activateDataCarousel(store){
+		var html = [],
+			prev_program = "";
+
+		slider = $('.slider'); // class or id of carousel slider
+		change_dates.sort();
+
+		//creates the html for each slide based on change date
+		for (i = 0; i < change_dates.length; i++){ 	//for each date that a change was made
+			for(office in store.offices){	//for each DARPA office
+				var office_data = store.offices[store.offices[office]];
+				for (data in office_data) {	//for each program within an office
+					var type_class = "";
+					var url_redirect =  url_path + "/" + office_data[data].program + ".html";
+
+					if(office_data[data].projects){ //The program has projects that were added or updated 
+						var projects = office_data[data].projects;
+						for (project in projects) { 
+							if(change_dates[i] == projects[project]["Date"].getTime()){
+								if(typeof(html[i]) == "undefined"){
+									html[i] = "<div id='" + dateToString(projects[project]["Date"], "-") + "' class='slider_div'>";
+									html[i] += "<p class='slide_header_p'>";
+									html[i] += "<span class='slide_header_span' style='color:yellow;'>What's New</span>";
+									html[i] += "<span class='slide_header_update'>" + dateToString(projects[project]["Date"], "-") + "</span>";
+									html[i] += "</p>";
+									
+									html[i] += "<div class='projects_div'>";
+								}
+								
+								html[i] += "<p style='text-align:center; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
+								
+								if(projects[project]["Date Type"].toLowerCase() == "updated")
+									type_class = "vertical-green";
+								else
+									type_class = "vertical-red";
+														
+								if(projects[project]["Publications"]){
+									var publications = projects[project]["Publications"].sort();
+									for(pb in publications){
+										html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Publication : <a href=" + url_redirect + "?tab=tabs1&term=" + encodeURIComponent(publications[pb]) + ">" + publications[pb] + "</a></p>"; //redirect to publications search
+									}
+								}
+								if(projects[project]["Software"]){
+									var software = projects[project]["Software"].sort();
+									for(sw in software){
+										html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Software : <a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a></p>"; //redirect to software search
+									}
+								}
+							}	
+						}
+						
+					}
+					else{ //the program itself was added or updated
+						if(change_dates[i] == office_data[data]["Date"].getTime()){
 							if(typeof(html[i]) == "undefined"){
-								html[i] = "<div id='" + dateToString(projects[project]["Date"], "-") + "' class='slider_div'>";
+								html[i] = "<div class='slider_div'>";
 								html[i] += "<p class='slide_header_p'>";
 								html[i] += "<span class='slide_header_span' style='color:yellow;'>What's New</span>";
-								html[i] += "<span class='slide_header_update'>" + dateToString(projects[project]["Date"], "-") + "</span>";
+								html[i] += "<span class='slide_header_update'>" + dateToString(office_data[data]["Date"], "-") + "</span>";
 								html[i] += "</p>";
 								
 								html[i] += "<div class='projects_div'>";
 							}
 							
-							html[i] += "<p style='text-align:center; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
-							
-							if(projects[project]["Date Type"].toLowerCase() == "updated")
+							if(office_data[data]["Date Type"].toLowerCase() == "updated")
 								type_class = "vertical-green";
 							else
 								type_class = "vertical-red";
-													
-							if(projects[project]["Publications"]){
-								var publications = projects[project]["Publications"].sort();
-								for(pb in publications){
-									html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Publication : <a href=" + url_redirect + "?tab=tabs1&term=" + encodeURIComponent(publications[pb]) + ">" + publications[pb] + "</a></p>"; //redirect to publications search
-								}
-							}
-							if(projects[project]["Software"]){
-								var software = projects[project]["Software"].sort();
-								for(sw in software){
-									html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Software : <a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a></p>"; //redirect to software search
-								}
-							}
-						}	
-					}
-					
-				}
-				else{ //the program itself was added or updated
-					if(change_dates[i] == office_data[data]["Date"].getTime()){
-						if(typeof(html[i]) == "undefined"){
-							html[i] = "<div class='slider_div'>";
-							html[i] += "<p class='slide_header_p'>";
-							html[i] += "<span class='slide_header_span' style='color:yellow;'>What's New</span>";
-							html[i] += "<span class='slide_header_update'>" + dateToString(office_data[data]["Date"], "-") + "</span>";
-							html[i] += "</p>";
-							
-							html[i] += "<div class='projects_div'>";
+								
+							html[i] += "<p style='text-align:center; width:100%;'><span class='" + type_class + "'>" + office_data[data]["Date Type"] + "</span> <a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
 						}
-						
-						if(office_data[data]["Date Type"].toLowerCase() == "updated")
-							type_class = "vertical-green";
-						else
-							type_class = "vertical-red";
-							
-						html[i] += "<p style='text-align:center; width:100%;'><span class='" + type_class + "'>" + office_data[data]["Date Type"] + "</span> <a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
 					}
-				}
-				if(typeof(html[i]) != "undefined" && $(html[i])[0].lastChild.childNodes[$(html[i])[0].lastChild.childElementCount - 1].localName == "p"){
-					html[i] += "<hr>";
+					if(typeof(html[i]) != "undefined" && $(html[i])[0].lastChild.childNodes[$(html[i])[0].lastChild.childElementCount - 1].localName == "p"){
+						html[i] += "<hr>";
+					}
 				}
 			}
+			
+			if(html[i])
+				html[i] += "</div></div>";
 		}
-		
-		if(html[i])
-			html[i] += "</div></div>";
-	}
-	
-	//set up for initial slides
-	slider.append(html.join(""));
-	slider.height(window_height - minus_feed);
-	slider.css("display", "inline");
-	
-	slides().first().addClass('active');
-	slides().first().fadeIn(transition_in_time);
-	
-	// auto scroll activated 
-	interval = startInterval();
-  }	
-  
-  function slides(){
-	return $(".slider_div"); 
-  }
-  
-  function startInterval(){
-	return setInterval(
-		function(){ slideControl(1);},
-		transition_in_time +  time_between_slides 
-	);
-  }
-  
-  //scrolls the slides based on given direction(previous or next)
-  function slideControl(direction){
-   
-	var i = slider.find('div.active').index();
-	slides().eq(i).fadeOut(transition_out_time);		  
-	slides().eq(i).removeClass('active');
-	
-	if (slides().length == i + direction)
-		i = -1; // loop to start from the beginning
-		
-	slides().eq(i + direction).addClass('active');
-	slides().eq(i + direction).fadeIn(transition_in_time);
-  }
-  
-  //user selected button which allows manual control of the slides
-  function buttonAction(control){
-	if(control.id == "scroll")
-	{
-		if(control.value == "||"){
-			clearInterval(interval);
-			$("#" + control.id).val(">");
-		}
-		else if(control.value == ">"){
-			interval = startInterval();
-			$("#" + control.id).val("||");
-		}
-	}
-	else if(control.id == "back"){
-		slideControl(-1);
-		$("#" + control.id).attr("disabled", "disabled");
-		setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
-		
-	}
-	else
-		slideControl(1);
-		$("#" + control.id).attr("disabled", "disabled");
-		setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
-  }  
 
-  //creates the timeline chart with data points  
-  function createTimeline(store){
+		//set up for initial slides
+		slider.append(html.join(""));
+		slider.height(window_height - minus_feed);
+		slider.css("display", "inline");
+
+		slides().first().addClass('active');
+		slides().first().fadeIn(transition_in_time);
+
+		// auto scroll activated 
+		interval = startInterval();
+		
+		$("#controller").css("display", "inline");
+	}	
+
+	function slides(){
+		return $(".slider_div"); 
+	}
+
+	function startInterval(){
+		return setInterval(
+			function(){ slideControl(1);},
+			transition_in_time +  time_between_slides 
+		);
+	}
+
+	//scrolls the slides based on given direction(previous or next)
+	function slideControl(direction){
+		var i = slider.find('div.active').index();
+		slides().eq(i).fadeOut(transition_out_time);		  
+		slides().eq(i).removeClass('active');
+
+		if (slides().length == i + direction)
+			i = -1; // loop to start from the beginning
+			
+		slides().eq(i + direction).addClass('active');
+		slides().eq(i + direction).fadeIn(transition_in_time);
+	}
+
+	//user selected button which allows manual control of the slides
+	function buttonAction(control){
+		if(control.id == "scroll")
+		{
+			if(control.value == "||"){
+				clearInterval(interval);
+				$("#" + control.id).val(">");
+			}
+			else if(control.value == ">"){
+				interval = startInterval();
+				$("#" + control.id).val("||");
+			}
+		}
+		else if(control.id == "back"){
+			slideControl(-1);
+			$("#" + control.id).attr("disabled", "disabled");
+			setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
+			
+		}
+		else{
+			slideControl(1);
+			$("#" + control.id).attr("disabled", "disabled");
+			setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
+		}
+	}  
+
+	//creates the timeline chart with data points  
+	function createTimeline(store){
 		var chart;
 		var chars = ""; 
 		var char_array = [];
@@ -258,12 +259,12 @@ def timeline_script():
 		if (nodes.length == 1)
 			single_point = true;
 
-	 nv.addGraph(function() {
-	 
-	 	var margin = {top: 40, right: 10, bottom: 60, left: 50},
+		nv.addGraph(function() {
+
+		var margin = {top: 40, right: 10, bottom: 60, left: 50},
 		width = 960 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
-		
+
 		chart = nv.models.scatterChart()
 			.showDistX(true) //show ticks on x-axis
 			.showDistY(true) //show ticks on y-axis
@@ -277,7 +278,7 @@ def timeline_script():
 
 		var y = d3.scale.linear()
 			.range([height, 0]);
-		
+
 		chart.xAxis.tickSize(3).scale(x)
 			.ticks(4)
 			.orient("bottom")
@@ -300,7 +301,7 @@ def timeline_script():
 				type_class = "vertical-green";
 			if(values.point.date_type.toLowerCase() == "new")
 				type_class = "vertical-red";
-		
+
 			var p = document.createElement("p");
 			p.id = "tooltip-content";
 			p.setAttribute("class", "ribbon-dialog-text");
@@ -332,12 +333,12 @@ def timeline_script():
 
 		var root = fetchTimelineData(store);
 		var nodes = [];
-		
+
 		for(branch in root){
 			for(node in root[branch].values)
 				nodes.push(root[branch].values[node]);
 		}
-		
+
 		var svg = d3.select("#timeline").select("svg")
 				.datum(root)
 				.attr("height", window_height - minus_timeline)
@@ -347,74 +348,74 @@ def timeline_script():
 		nv.utils.windowResize(chart.update);
 		chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
 		return chart;
-	  });
-  }
-  
-  //Returns the data for the legend and timeline data points
-  function fetchTimelineData(store) { //# groups,# points per group
-    var data = [], random = d3.random.normal();
-	
-    //builds group array for timeline legend, in this case, active offices
-	for (i = 0; i < active_offices.length; i++) {
-      data.push({
-        key: active_offices[i].name,
-        values: [],
-	    color: "#" + active_offices[i].color
-      });
-      
-	  //builds group array for data points in the timeline, in this case, programs and projects
-	  for (j = 0; j < store.offices.length; j++) {
-		    var office_data = store.offices[store.offices[j]];
-			for (office in office_data) {
-			  if(office_data[office].office["DARPA Office"] == active_offices[i].name){
-				if(office_data[office].projects){
-					var projects = office_data[office].projects;
-					for(project in projects){
-						var date = stringToDate(projects[project].Date);
-						var sw_count = pb_count = 0;
-						if (projects[project]["Software"])
-							sw_count = projects[project]["Software"].length;
-						if (projects[project]["Publications"])
-							pb_count = projects[project]["Publications"].length;	
-						var total_count = sw_count + pb_count;
-	
+		});
+	}
+
+	//Returns the data for the legend and timeline data points
+	function fetchTimelineData(store) { //# groups,# points per group
+		var data = [], random = d3.random.normal();
+
+		//builds group array for timeline legend, in this case, active offices
+		for (i = 0; i < active_offices.length; i++) {
+		  data.push({
+			key: active_offices[i].name,
+			values: [],
+			color: "#" + active_offices[i].color
+		  });
+		  
+		  //builds group array for data points in the timeline, in this case, programs and projects
+		  for (j = 0; j < store.offices.length; j++) {
+				var office_data = store.offices[store.offices[j]];
+				for (office in office_data) {
+				  if(office_data[office].office["DARPA Office"] == active_offices[i].name){
+					if(office_data[office].projects){
+						var projects = office_data[office].projects;
+						for(project in projects){
+							var date = stringToDate(projects[project].Date);
+							var sw_count = pb_count = 0;
+							if (projects[project]["Software"])
+								sw_count = projects[project]["Software"].length;
+							if (projects[project]["Publications"])
+								pb_count = projects[project]["Publications"].length;	
+							var total_count = sw_count + pb_count;
+
+							data[i].values.push({
+							  y: total_count, 
+							  x: date,
+							  color: "#" + active_offices[i].color,
+							  shape: "circle",
+							  program: office_data[office].program,
+							  date_type: projects[project]["Date Type"],
+							  string_date: dateToString(date, "-"),
+							  sw_count: sw_count,
+							  pb_count: pb_count
+							});
+						}
+					}
+					else{
+						var date = stringToDate(office_data[office].Date);
+						
 						data[i].values.push({
-						  y: total_count, 
+						  y: 1, 
 						  x: date,
 						  color: "#" + active_offices[i].color,
 						  shape: "circle",
 						  program: office_data[office].program,
-						  date_type: projects[project]["Date Type"],
-						  string_date: dateToString(date, "-"),
-						  sw_count: sw_count,
-						  pb_count: pb_count
+						  date_type: office_data[office]["Date Type"],
+						  string_date: dateToString(date, "-")
 						});
 					}
-				}
-				else{
-					var date = stringToDate(office_data[office].Date);
-					
-					data[i].values.push({
-					  y: 1, 
-					  x: date,
-					  color: "#" + active_offices[i].color,
-					  shape: "circle",
-					  program: office_data[office].program,
-					  date_type: office_data[office]["Date Type"],
-					  string_date: dateToString(date, "-")
-					});
-				}
-			  }
+				  }
 
-			}
-	  }
-    }
-    return data;
-  }
-  
-  //Creates the structured data store used for the timeline and What's New feed
-  function createDataStore(programs){
-  		var node = new Array();
+				}
+		  }
+		}
+		return data;
+	}
+
+	//Creates the structured data store used for the timeline and What's New feed
+	function createDataStore(programs){
+		var node = new Array();
 		var root = new Array();
 		var office_checker = new Array();
 		
@@ -480,7 +481,7 @@ def timeline_script():
 				}
 			  }
 		  }
-  		
+		
 		  //collects all of the publication projects that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		  if(programs[program]["Pubs File"] != ""){
 			  var program_pub_file = getProgramDetails(programs[program]["Pubs File"]);
@@ -540,7 +541,8 @@ def timeline_script():
 		}
 		//console.log(root);
 		return root;
-  }
-    
+	}
+   });  
+   
   </script>
 """

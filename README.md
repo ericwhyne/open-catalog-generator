@@ -68,14 +68,15 @@ Steps for adding json fields to a specific file type:
 
 2. From the scripts directory, open the add_json_fields.py script in an editor. 
 
-3. There are three variables to adjust(files_to_change, fields_to_add, insert_after) depending on the field and file specifications.
-  3a. files_to_change: This variable should contain only the files that you wish to add fields to. The values can be "program", "software" and "pubs"
+3. There are three parameters to adjust(files_types, fields_to_add, insert_after) depending on the field and file specifications.
+  3a. file_types: This variable should contain only the files that you wish to add fields to. The values can be "office", "program", "software" and "pubs"
   3b. fields_to_add: This variable is a key-value pair object that takes the field name as the key and the field value as the value. There is no limit to the number of key-value pairs that can be added.
   3c. insert_after: The added field will be placed after the given field name
  
-4. The Makefile contains a executable definition that can be used to quickly run this script after adjusting the two variables. Using the CYGWIN command line, run the following command:
+4. The Makefile contains a executable definition that can be used to quickly run this script after adjusting the two variables. Using the CYGWIN command line, run the following command with NO SPACES between the values:
 
-	make addfields FILES="pubs,software" FIELDS="Test:pass,fail" INSERT_AFTER="Link"
+	make addfields FILE_TYPES="file_type1,file_type2" FIELDS="field1:value1,field2:value2" INSERT_AFTER="field_name"
+	e.g. make addfields FILE_TYPES="pubs,software" FIELDS="Test1:pass,Test2:fail,'Test Options':[pass,fail]" INSERT_AFTER="Link"
 
 5. Verify that the fields were added correctly and to the appropriate files by reviewing the new files in the "darpa_open_catalog/new_json" directory. If the files are correct, move them to the "darpa_open_catalog" directory and done! Now there are new json files for the next build!
 
@@ -88,11 +89,12 @@ convert_non_ascii_chars.py
 =========================
 Steps for converting/removing non-ascii characters from json files:
 
-1. In the "darpa_open_catalog" directory, record the name of the file(s) that include non-ascii characters. 
+1. In the "darpa_open_catalog" directory, record the name of the file(s) that include non-ascii characters in order to use them as parameters in the script. 
  
-2. The Makefile contains an executable definition that can be used to quickly run this script after modifying the variable. Using the CYGWIN command line, run the following command with no spaces between the filenames:
+2. The Makefile contains an executable definition that can be used to quickly run this script after modifying the variable. Using the CYGWIN command line, run the following command with NO SPACES between the filenames:
    
    make fileascii FILES="filename1,filename2,filename3"
+   e.g. make fileascii FILES="CRASH-program.json,CRASH-pubs.json"
 
 3. Verify that the non-ascii characters were replaced/removed by opening the new files in the "darpa_open_catalog/new_json" directory. If the files are correct, move them to the "darpa_open_catalog" directory and done! Now there are new json files for the next build!
 
