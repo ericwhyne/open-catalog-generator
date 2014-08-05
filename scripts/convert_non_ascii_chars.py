@@ -9,14 +9,22 @@ import chardet
 active_content_file = sys.argv[1]
 data_dir = sys.argv[2]
 new_json_dir = sys.argv[3]
+files_to_fix = []
+files = ""
+
+if len(sys.argv) > 3:
+  files = re.split('\,',sys.argv[4])
+
+  for i in range(0, len(files)):
+    #print 'i in loop:', i
+    files_to_fix.append(files[i])
 
 print """
 Active content file: %s
 Data directory: %s
 New JSON directory: %s
-""" % (active_content_file, data_dir, new_json_dir)
-	
-files_to_fix = ["CRASH-program.json", "CRASH-pubs.json"] #file list that needs to be converted
+Files to convert: %s
+""" % (active_content_file, data_dir, new_json_dir, files_to_fix)
 
 def hex2ascii(hex):
   uni_num = int(hex,16)
@@ -33,7 +41,7 @@ def hex2ascii(hex):
   return char_out
 
 def to_bytes(t, nbytes):
-    "Format text t as a sequence of nbyte long values separated by spaces."
+    #Format text t as a sequence of nbyte long values separated by spaces
     chars_per_item = nbytes * 2
     hex_version = binascii.hexlify(t)
     num_chunks = len(hex_version) / chars_per_item
@@ -47,12 +55,9 @@ try:
     json_file = open(data_dir + file)
     raw_string = json_file.read()	
     for m in re.finditer(r"[^\x00-\x7F]+", raw_string):
-      #print chardet.detect(m.group())['encoding'] #char encoding type UTF-8	  
-      #print unicodedata.name(m.group().decode('utf-8')) #char unicode name
-      #print to_bytes(m.group(), 1) #char in bytes
-      #print m.group().decode('utf-8').encode('ascii','xmlcharrefreplace') #html code
+      print "bytes: %s" % to_bytes(m.group(), 1) #char in bytes
       utf_literal = json.dumps(m.group(), ensure_ascii=False)
-      print "utf-8 literal: %s" % utf_literal 
+      print "utf-8 literal before conversion: %s" % utf_literal 
       normalize_char = unicodedata.normalize('NFKD', utf_literal.decode('utf-8')).encode('ascii','ignore')
       normalize_char = re.sub(r'^"|"$', '', normalize_char)
       final_conversion = ''
@@ -62,7 +67,7 @@ try:
         final_conversion = hex2ascii(hex_code)
       else:
         final_conversion = normalize_char;
-      print "final conversion: %s \n\r" % final_conversion
+      print "ascii character after conversion: %s \n\r" % final_conversion
       raw_string = raw_string.replace(m.group(), final_conversion.encode('ascii','ignore'))
     try:
       new_json_file = new_json_dir + file
