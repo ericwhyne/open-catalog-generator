@@ -90,7 +90,7 @@ Steps for converting/removing non-ascii characters from json files:
 
 1. In the "darpa_open_catalog" directory, record the name of the file(s) that include non-ascii characters. 
  
-2. The Makefile contains an executable definition that can be used to quickly run this script after modifying the variable. Using the CYGWIN command line, run the following command:
+2. The Makefile contains an executable definition that can be used to quickly run this script after modifying the variable. Using the CYGWIN command line, run the following command with no spaces between the filenames:
    
    make fileascii FILES="filename1,filename2,filename3"
 

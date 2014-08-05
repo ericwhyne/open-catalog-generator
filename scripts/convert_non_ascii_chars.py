@@ -55,7 +55,7 @@ try:
     json_file = open(data_dir + file)
     raw_string = json_file.read()	
     for m in re.finditer(r"[^\x00-\x7F]+", raw_string):
-      print to_bytes(m.group(), 1) #char in bytes
+      print "bytes: %s" % to_bytes(m.group(), 1) #char in bytes
       utf_literal = json.dumps(m.group(), ensure_ascii=False)
       print "utf-8 literal before conversion: %s" % utf_literal 
       normalize_char = unicodedata.normalize('NFKD', utf_literal.decode('utf-8')).encode('ascii','ignore')
