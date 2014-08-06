@@ -68,15 +68,15 @@ Steps for adding json fields to a specific file type:
 
 2. From the scripts directory, open the add_json_fields.py script in an editor. 
 
-3. There are three parameters to adjust(files_types, fields_to_add, insert_after) depending on the field and file specifications.
-  3a. file_types: This variable should contain only the files that you wish to add fields to. The values can be "office", "program", "software" and "pubs"
-  3b. fields_to_add: This variable is a key-value pair object that takes the field name as the key and the field value as the value. There is no limit to the number of key-value pairs that can be added.
-  3c. insert_after: The added field will be placed after the given field name
- 
-4. The Makefile contains a executable definition that can be used to quickly run this script after adjusting the two variables. Using the CYGWIN command line, run the following command with NO SPACES between the values:
+3. There are three parameters that need to be passed into the make script:
+  3a. file_types: This parameter should contain only the type(s) of files that you wish to add fields to. Valid values are "office", "program", "software" and "pubs"
+  3b. new_fields: This parameter is a key-value pair object that takes the field name as the key and the field value as the value. There is no limit to the number of key-value pairs that can be added.
+  3c. insert_after: The added field(s) will be placed after the given field name. The given field name can also be left empty "", which by default appends the added fields to the end of the json object 
+  
+4. The Makefile contains an executable definition that can be used to quickly run this script. Using the CYGWIN command line, run the following command with NO SPACES between commas:
 
-	make addfields FILE_TYPES="file_type1,file_type2" FIELDS="field1:value1,field2:value2" INSERT_AFTER="field_name"
-	e.g. make addfields FILE_TYPES="pubs,software" FIELDS="Test1:pass,Test2:fail,'Test Options':[pass,fail]" INSERT_AFTER="Link"
+	make addfields FILE_TYPES="file_type1" NEW_FIELDS="field1:value1,field2:value2" INSERT_AFTER="field_name"
+	e.g. make addfields FILE_TYPES="pubs,software" NEW_FIELDS="Test 1:pass,Test 2:fail,Test Options:[pass,fail]" INSERT_AFTER="Program Teams"
 
 5. Verify that the fields were added correctly and to the appropriate files by reviewing the new files in the "darpa_open_catalog/new_json" directory. If the files are correct, move them to the "darpa_open_catalog" directory and done! Now there are new json files for the next build!
 

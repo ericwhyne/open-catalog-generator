@@ -76,9 +76,13 @@ metrics:
 chart:
 	$(OC_SCRIPTS_DIR)area_chart.py $(OC_METRICS_DIR)metrics.csv
 
+semi:= \;
+empty:=
+space:= $(empty) $(empty)
 addfields:$(OC_DEFAULT_TEMPLATE_DIR)
 	mkdir -p $(NEW_JSON_DIR)
-	$(OC_SCRIPTS_DIR)add_json_fields.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR) $(OC_SCHEMA_FILE) $(FILE_TYPES) $(NEW_FIELDS) $(INSERT_AFTER)
+
+	$(OC_SCRIPTS_DIR)add_json_fields.py $(OC_ACTIVE_CONTENT_FILE) $(OC_DATA_DIR) $(NEW_JSON_DIR) $(OC_SCHEMA_FILE) $(subst $(space),$(semi),$(FILE_TYPES)) $(subst $(space),$(semi),$(NEW_FIELDS)) $(subst $(space),$(semi),$(INSERT_AFTER))
 	
 fileascii:$(OC_DEFAULT_TEMPLATE_DIR)
 	mkdir -p $(NEW_JSON_DIR)
