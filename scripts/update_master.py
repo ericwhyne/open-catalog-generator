@@ -6,25 +6,27 @@
 import json
 import sys
 import collections
+import argparse
 
-# Ensures that enough arguments on the command line
-# are present
-if len(sys.argv) < 3:
-  print "Error: You must supply 2 arguments.\nThe path of the schema \
-file to update, followed by the folder where the JSON files with updated \
-schemas are. \ne.g. ./update_master.py ../darpa_open_catalog/00-schema-examples.json ../darpa_open_catalog"
-  sys.exit(1)
+# Builds command line menu, requires three string arguments, and provides a help menu when the -h option is used.
+parser = argparse.ArgumentParser(description='Update the JSON schema template file with JSON schemas from a given DARPA Program Name.')
+parser.add_argument('Schema_File', type=str, help='The name of the schema/template file.')
+parser.add_argument('JSON_Files', type=str, help='Directory that contains the JSON files from which the template will be updated.')
+parser.add_argument('DARPA_Program', type=str, help='Name of DARPA Program from which to pull schema updates from.')
 
+args = vars(parser.parse_args())
 # Locations of important files/folders
-schema_file = sys.argv[1] # Location of master schema file
-json_files = sys.argv[2] # Location of JSON files with updates
+schema_file = args['Schema_File'] # Name of schema file.
+json_files = args['JSON_Files'] # Location of JSON files with updates
+program_name = args['DARPA_Program'] # DARPA Program Name
 json_object = None
 
-program_name = "update master" # program name for error printouts
+schema_file = json_files + schema_file
+
 # Locations of files to copy/update from
-updated_pub = json_files + 'XDATA-pubs.json'
-updated_software = json_files + 'XDATA-software.json'
-updated_program = json_files + 'XDATA-program.json'
+updated_pub = json_files + program_name +'-pubs.json'
+updated_software = json_files + program_name + '-software.json'
+updated_program = json_files + program_name + '-program.json'
 
 # Given a copy of the old schema, and the file location of
 # a new schema to update from, it will match the old one
