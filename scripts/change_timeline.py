@@ -191,56 +191,6 @@ def timeline_script():
 		$("#controller").css("display", "inline");
 	}	
 
-	function slides(){
-		return $(".slider_div"); 
-	}
-
-	function startInterval(){
-		return setInterval(
-			function(){ slideControl(1);},
-			transition_in_time +  time_between_slides 
-		);
-	}
-
-	//scrolls the slides based on given direction(previous or next)
-	function slideControl(direction){
-		var i = slider.find('div.active').index();
-		slides().eq(i).fadeOut(transition_out_time);		  
-		slides().eq(i).removeClass('active');
-
-		if (slides().length == i + direction)
-			i = -1; // loop to start from the beginning
-			
-		slides().eq(i + direction).addClass('active');
-		slides().eq(i + direction).fadeIn(transition_in_time);
-	}
-
-	//user selected button which allows manual control of the slides
-	function buttonAction(control){
-		if(control.id == "scroll")
-		{
-			if(control.value == "||"){
-				clearInterval(interval);
-				$("#" + control.id).val(">");
-			}
-			else if(control.value == ">"){
-				interval = startInterval();
-				$("#" + control.id).val("||");
-			}
-		}
-		else if(control.id == "back"){
-			slideControl(-1);
-			$("#" + control.id).attr("disabled", "disabled");
-			setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
-			
-		}
-		else{
-			slideControl(1);
-			$("#" + control.id).attr("disabled", "disabled");
-			setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
-		}
-	}  
-
 	//creates the timeline chart with data points  
 	function createTimeline(store){
 		var chart;
@@ -542,7 +492,57 @@ def timeline_script():
 		//console.log(root);
 		return root;
 	}
-   });  
+   });
+   
+   	function startInterval(){
+		return setInterval(
+			function(){ slideControl(1);},
+			transition_in_time +  time_between_slides 
+		);
+	}
+	
+	function slides(){
+		return $(".slider_div"); 
+	}   
+   
+  	//scrolls the slides based on given direction(previous or next)
+	function slideControl(direction){
+		var i = slider.find('div.active').index();
+		slides().eq(i).fadeOut(transition_out_time);		  
+		slides().eq(i).removeClass('active');
+
+		if (slides().length == i + direction)
+			i = -1; // loop to start from the beginning
+			
+		slides().eq(i + direction).addClass('active');
+		slides().eq(i + direction).fadeIn(transition_in_time);
+	} 
+	
+   //user selected button which allows manual control of the slides
+   function buttonAction(control){
+	  if(control.id == "scroll")
+  	  {
+		  if(control.value == "||"){
+			  clearInterval(interval);
+  			$("#" + control.id).val(">");
+		  }
+  		else if(control.value == ">"){
+			  interval = startInterval();
+  			$("#" + control.id).val("||");
+		  }
+	  }
+    	else if(control.id == "back"){
+		  slideControl(-1);
+  		$("#" + control.id).attr("disabled", "disabled");
+		  setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
+  		
+	  }
+  	  else{
+		  slideControl(1);
+  		$("#" + control.id).attr("disabled", "disabled");
+		  setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
+	  }
+   }  
    
   </script>
 """
