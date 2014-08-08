@@ -5,30 +5,37 @@ function ajaxCall(url, type, async, cache){
 		cache: cache, 
 		url: url,
 		dataType: type,
+		dataFilter: function(data) {
+			var response; 
+			if (type === 'json')
+              return JSON.stringify(JSON.parse(data));
+			else
+			 return response = data;
+		},
 		success: function(response){
-		   data = response;
+			data = response;
 		}
 	});
 	return data;
 }
 
 function getOfficeDetails(office){
-	var office_details = ajaxCall('01-DARPA-'+ office + '.json', 'json', false, false);
+	var office_details = ajaxCall('01-DARPA-'+ office + '.json', 'json', false, true);
 	return office_details;
 }
 
 function getPrograms() {
-	var programs  = ajaxCall('active_content.json', 'json', false, false);
+	var programs  = ajaxCall('active_content.json', 'json', false, true);
 	return programs;
 }
 
 function getProgramDetails(filename) {
-	var program_details = ajaxCall(filename, 'json', false, false);
+	var program_details = ajaxCall(filename, 'json', false, true);
 	return program_details;
 }
 
 function getLicenses() {
-	var licenses = ajaxCall('license-content.json', 'json', false, false);
+	var licenses = ajaxCall('license-content.json', 'json', false, true);
 	return licenses;
 }
 
@@ -148,12 +155,12 @@ function getModificationDate(new_date, update_date){
 
 
 function getLastBuildDate(){
-	var build_date = ajaxCall('last-build-date.txt', 'text', false, false);
+	var build_date = ajaxCall('last-build-date.txt', 'text', false, true);
 	return build_date;
 }
 
 function getBuildDate(){
-	var build_date = ajaxCall('build-date.txt', 'text', false, false);
+	var build_date = ajaxCall('build-date.txt', 'text', false, true);
 	return build_date;
 }
 
