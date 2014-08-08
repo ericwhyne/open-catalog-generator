@@ -440,6 +440,7 @@ svg .title {
   stroke-opacity: 0;
   fill: #eee;
   fill-opacity: 0;
+  cursor: pointer;
 }
 
 

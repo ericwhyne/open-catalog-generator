@@ -11,6 +11,7 @@ def timeline_head():
   <link rel="stylesheet" type="text/css" href="css/header_footer.css"/>  
   <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
   <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
+  <link rel='stylesheet' href="css/nv.d3.css" rel="stylesheet" type="text/css"> 
   <script type='text/javascript' src="d3.v3.js"></script>
   <script type='text/javascript' src="nv.d3.js"></script>
   <script type='text/javascript' src="tooltip.js"></script>
@@ -19,7 +20,7 @@ def timeline_head():
   <script type='text/javascript' src="legend.js"></script>
   <script type='text/javascript' src="axis.js"></script>
   <script type='text/javascript' src="distribution.js"></script>
-  <script type='text/javascript' src='jquery-latest.js'></script>
+  <script type='text/javascript' src='jquery-1.9.1.js'></script>
 
   </head>
   <style>
@@ -93,6 +94,7 @@ def timeline_script():
     var data_store = createDataStore(programs);
 	activateDataCarousel(data_store);
 	createTimeline(data_store);
+	$("#timeline_body").css("background-color", "#C0C0C0");
 
 	//Setup for What's New feed
 	function activateDataCarousel(store){

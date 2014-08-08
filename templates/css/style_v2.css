@@ -19,17 +19,17 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 }
 
 table.tablesorter thead tr .header {
-    background-image: url(bg.gif);
+    background-image: url(../bg.gif);
     background-repeat: no-repeat;
     background-position: right;
     cursor: pointer;
 }
 
 table.tablesorter thead tr .headerSortUp {
-    background-image: url(asc.gif);
+    background-image: url(../asc.gif);
 }
 table.tablesorter thead tr .headerSortDown {
-    background-image: url(desc.gif);
+    background-image: url(../desc.gif);
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
     background-color: #8dbdd8;
@@ -166,7 +166,7 @@ path {
 overflow: hidden;
 margin: 0;
 padding: 0;
-background-color: #C0C0C0 /*#868686*/; 
+background-color: white; 
 float:left; 
 width:67.5%;
 }
