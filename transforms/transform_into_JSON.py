@@ -90,7 +90,7 @@ def output_JSON(file_name):
     print "Error: %s could not be created." % outfile_path
     print "Details: %s" % str(e)
 
-  #print "%s has successfully been created." % outfile_name
+  print "%s has successfully been created." % outfile_name
   return
 
 for doc in args['file_name']:

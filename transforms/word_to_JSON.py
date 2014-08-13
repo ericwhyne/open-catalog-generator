@@ -158,7 +158,9 @@ def parse_text(document, mode, schema):
 
   for line in text:
     line = line.encode('ascii','ignore')
-    if mode == "pub":
+    if mode == "pubs":
+      if i == 0:
+        research_team = ""
       # Extracts useful pieces of the string
       team_name = is_pub(line)
       link = is_link(line)
