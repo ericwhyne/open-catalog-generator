@@ -11307,20 +11307,50 @@ nv.models.scatter = function() {
 
 
       if (onlyCircles) {
-
+	    
         points = groups.selectAll('circle.nv-point')
             .data(function(d) { return d.values }, pointKey);
         points.enter().append('circle')
             .style('fill', function (d,i) { return d.color })
             .style('stroke', function (d,i) { return d.color })
-            .attr('cx', function(d,i) { return nv.utils.NaNtoZero(x0(getX(d,i))) })
+            .attr('cx', function(d,i,n) { /*var next_x = i++; console.log(d, i, n); console.log(x0(getX(d,i)), x0(getX(d,(next_x))));*/ return nv.utils.NaNtoZero(x0(getX(d,i)))})
             .attr('cy', function(d,i) { return nv.utils.NaNtoZero(y0(getY(d,i))) })
             .attr('r', function(d,i) { return Math.sqrt(z(getSize(d,i))/Math.PI) });
         points.exit().remove();
+		
+				var i = 0;
+		var nodes = points;
+		console.log(nodes);
+		console.log(nodes.length);
+		while (++i < nodes.length) { //curr node
+			console.log(nodes[i]);
+			
+			points.each(function(d,j) {
+				if (i < 5)
+				{
+					console.log(nodes[i], d.y);
+				}
+				
+				if (nodes[i].y == d.y && nodes[i].x == x0(getX(d,j)))
+				{	console.log("y & x match");
+				}
+			 /* d3.select(this)
+				.classed('nv-point', true)
+				.classed('nv-point-' + i, true)
+				.classed('hover',false)
+				;*/
+			});			
+		};
+
         groups.exit().selectAll('path.nv-point').transition()
             .attr('cx', function(d,i) { return nv.utils.NaNtoZero(x(getX(d,i))) })
             .attr('cy', function(d,i) { return nv.utils.NaNtoZero(y(getY(d,i))) })
             .remove();
+		
+
+
+			
+			
         points.each(function(d,i) {
           d3.select(this)
             .classed('nv-point', true)
