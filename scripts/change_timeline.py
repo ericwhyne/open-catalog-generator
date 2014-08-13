@@ -90,11 +90,29 @@ def timeline_script():
 
 
   $( document ).ready(function() {
-    var programs = getPrograms();
+    /*var programs = getPrograms();
+	alert(programs);
     var data_store = createDataStore(programs);
 	activateDataCarousel(data_store);
 	createTimeline(data_store);
+	$("#timeline_body").css("background-color", "#C0C0C0");*/
+	
+    $.ajax({
+        type: "GET",
+        url: "active_content.json",
+        dataType: "json",
+        success: function(data) 
+		{
+			alert(data);
+			var data_store = createDataStore(data);
+			
+			activateDataCarousel(data_store);
+			createTimeline(data_store);
+		}
+    });
+	
 	$("#timeline_body").css("background-color", "#C0C0C0");
+});
 
 	//Setup for What's New feed
 	function activateDataCarousel(store){
@@ -232,7 +250,7 @@ def timeline_script():
 			.range([height, 0]);
 
 		chart.xAxis.tickSize(3).scale(x)
-			.ticks(4)
+			.ticks(10)
 			.orient("bottom")
 			.rotateLabels(-30)
 			.domain([date_start, date_end]).range([0, width]) 				
@@ -242,11 +260,11 @@ def timeline_script():
 			});
 
 		chart.yAxis.tickSize(3).scale(y)
-			.ticks(5)
+			.ticks(10)
 			.orient("left")    
 			.tickFormat(function(d,i){ /*console.log(d);*/ return d; });
 
-		chart.scatter.onlyCircles(false); //We want to show shapes other than circles.
+		chart.scatter.onlyCircles(true); //We want to show shapes other than circles.
 		chart.tooltipContent(function(office, date, total, values) {
 			var type_class = "";
 			if(values.point.date_type.toLowerCase() == "updated")
@@ -494,7 +512,7 @@ def timeline_script():
 		//console.log(root);
 		return root;
 	}
-   });
+   //});
    
    	function startInterval(){
 		return setInterval(
