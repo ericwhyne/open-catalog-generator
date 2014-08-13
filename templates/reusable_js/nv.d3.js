@@ -11320,19 +11320,19 @@ nv.models.scatter = function() {
 		
 				var i = 0;
 		var nodes = points;
-		console.log(nodes);
-		console.log(nodes.length);
+		//console.log(nodes);
+		//console.log(nodes.length);
 		while (++i < nodes.length) { //curr node
-			console.log(nodes[i]);
+			//console.log(nodes[i]);
 			
 			points.each(function(d,j) {
 				if (i < 5)
 				{
-					console.log(nodes[i], d.y);
+					//console.log(nodes[i], d.y);
 				}
 				
 				if (nodes[i].y == d.y && nodes[i].x == x0(getX(d,j)))
-				{	console.log("y & x match");
+				{	//console.log("y & x match");
 				}
 			 /* d3.select(this)
 				.classed('nv-point', true)

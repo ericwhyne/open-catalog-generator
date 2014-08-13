@@ -228,7 +228,7 @@ svg .title {
 
 .nvd3 .nv-axis line {
   fill: none;
-  stroke: #e5e5e5;
+  stroke: #C0C0C0/*#e5e5e5*/;
   shape-rendering: crispEdges;
 }
 
