@@ -1,3 +1,29 @@
+var months = new Array(12);
+months[0] = "January";
+months[1] = "February";
+months[2] = "March";
+months[3] = "April";
+months[4] = "May";
+months[5] = "June";
+months[6] = "July";
+months[7] = "August";
+months[8] = "September";
+months[9] = "October";
+months[10] = "November";
+months[11] = "December";
+
+Number.prototype.ordinate = function(){
+    var num = this,
+        ones = num % 10, //gets the last digit
+        tens = num % 100, //gets the last two digits
+        ord = ["st","nd","rd"][ tens > 10 && tens < 20 ? null : ones-1 ] || 'th';
+    return num.toString() + ord;
+};
+
+String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, '');
+}
+
 function ajaxCall(url, type, async, cache){
 	var data;
 	$.ajax({
@@ -183,10 +209,26 @@ function stringToDate(text){
 
 
 function dateToString(date, separator){
-	var date_month = (date.getMonth() + 1).toString().length == 1? "0" + (date.getMonth() + 1).toString() : date.getMonth() + 1;
-	var date_day = (date.getDate()).toString().length == 1? "0" + (date.getDate()).toString() : date.getDate();
-	var date_year = date.getFullYear();
+    console.log(date, separator);
+	var date_month = "",
+	date_day = "",
+	date_year = "",
+	string_date = "";
 	
-	var string_date = date_month + separator + date_day + separator + date_year;
+	if(separator == "ordinal"){
+		date_month = date.getMonth();
+		date_day = date.getDate();
+		
+		string_date = months[date_month] + ' ' + date_day.ordinate();
+	}
+	else{
+		date_month = (date.getMonth() + 1).toString().length == 1? "0" + (date.getMonth() + 1).toString() : date.getMonth() + 1;
+		date_day = (date.getDate()).toString().length == 1? "0" + (date.getDate()).toString() : date.getDate();
+		date_year = date.getFullYear();
+		
+		string_date = date_month + separator + date_day + separator + date_year;
+	}
+	
+	
 	return string_date;
 }

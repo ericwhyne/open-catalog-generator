@@ -103,7 +103,7 @@ def timeline_script():
         dataType: "json",
         success: function(data) 
 		{
-			alert(data);
+			//alert(data);
 			var data_store = createDataStore(data);
 			
 			activateDataCarousel(data_store);

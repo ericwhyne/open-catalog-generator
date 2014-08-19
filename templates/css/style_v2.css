@@ -166,22 +166,28 @@ path {
 overflow: hidden;
 margin: 0;
 padding: 0;
-background-color: white; 
+background-color: #F1F1F1 /*#E6EEEE*/;
 float:left; 
-width:67.5%;
+width:62.5%;
+border: solid 1.6px #C0C0C0;
 }
 
 #timeline {
 border: 0;
 margin: 0;
+height:100%;
 }
 
 #splash_desc{
 float:left; 
-width:30%; 
-padding-right:5px;
+width:35%; 
 padding-top:0;
 margin-top:0;
+}
+
+#splash_desc p{
+margin-bottom: 1.0em !important;
+margin-top: 0 !important;
 }
 
 .slider{
@@ -190,18 +196,26 @@ margin: 2px 0 0 0 !important;
 }
 
 .slide_buttons{
-border: 1px solid gray;
-border-radius: 5px;
-margin: 2px 0 2px 0;
-padding: 2px 2px;
-font-weight:bold; 
+background-color: #E6EEEE  /*#BCC6CC #8DBDD8 #CCCCCC*/;
+border: 1px solid #808080;
+border-radius: 3px;
 cursor: pointer;
+font-family: Arial,Helvetica,sans-serif;
+font-size: 0.8em;
+font-weight: bold;
+height: 1.7em;
+margin-bottom: 2px;
+min-width: 6px;
+padding: 0 2px;
+text-align: center;
+vertical-align: middle;
 }
 
 #feed{
 width:30%;
 float:left;	
 margin: 5px 0 0 12px;
+height: 97%;
 }
 
 #controller{
@@ -217,11 +231,12 @@ float:left;
 #offset_div{
 float:left; 
 width:68%;
+height:100%;
 }
 
 .slider_div{
 display:none;
-height:97%;
+height:94%;
 float:left;
 width:100%;
 }
@@ -244,20 +259,21 @@ border-bottom:solid 2px white;
 .slide_header_span{
 width:50%; 
 float:left; 
-font-size:19px; 
+font-size:14.8px; 
 font-weight:bold; 
-padding:4px 0px 0px 4px;
+padding:2px 0px 0px 4px;
 font-style:italic;
+color: white;
 }
 
 .slide_header_update{
 font-size:14px; 
 width:36%; 
 float:right; 
-line-height:26px; 
+line-height:22px; 
 text-align:right; 
 font-weight:500; 
-padding: 0px 2px 2px 0px; 
+padding: 0px 4px 2px 0px; 
 color:white;
 }
 
@@ -275,14 +291,19 @@ padding: 0;
 margin: 0px 0px 2px 0px;
 }
 
+.projects_div span{
+vertical-align: middle;
+}
+
 .projects_div a{
 text-decoration: none;
 }
 
 .slide_project_span{
 width:100%; 
-font-size:16px;
+font-size:14px;
 font-weight:bold; 
-line-height:36px; 
+line-height:20px; 
 margin-top:4px;
+padding-right: 2px;
 }
