@@ -196,9 +196,9 @@ margin: 2px 0 0 0 !important;
 }
 
 .slide_buttons{
-background-color: #8DBDD8/* #CCCCCC*/;
+background-color: #E6EEEE  /*#BCC6CC #8DBDD8 #CCCCCC*/;
 border: 1px solid #808080;
-border-radius: 4px;
+border-radius: 3px;
 cursor: pointer;
 font-family: Arial,Helvetica,sans-serif;
 font-size: 0.8em;
@@ -259,9 +259,9 @@ border-bottom:solid 2px white;
 .slide_header_span{
 width:50%; 
 float:left; 
-font-size:19px; 
+font-size:14.8px; 
 font-weight:bold; 
-padding:4px 0px 0px 4px;
+padding:2px 0px 0px 4px;
 font-style:italic;
 color: white;
 }
@@ -270,10 +270,10 @@ color: white;
 font-size:14px; 
 width:36%; 
 float:right; 
-line-height:26px; 
+line-height:22px; 
 text-align:right; 
 font-weight:500; 
-padding: 0px 2px 2px 0px; 
+padding: 0px 4px 2px 0px; 
 color:white;
 }
 
@@ -291,14 +291,19 @@ padding: 0;
 margin: 0px 0px 2px 0px;
 }
 
+.projects_div span{
+vertical-align: middle;
+}
+
 .projects_div a{
 text-decoration: none;
 }
 
 .slide_project_span{
 width:100%; 
-font-size:16px;
+font-size:14px;
 font-weight:bold; 
-line-height:36px; 
+line-height:20px; 
 margin-top:4px;
+padding-right: 2px;
 }

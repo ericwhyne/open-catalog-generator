@@ -20,6 +20,10 @@ Number.prototype.ordinate = function(){
     return num.toString() + ord;
 };
 
+String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, '');
+}
+
 function ajaxCall(url, type, async, cache){
 	var data;
 	$.ajax({

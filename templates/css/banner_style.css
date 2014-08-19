@@ -92,10 +92,12 @@
 }
 
 .vertical {
-    height: 100%;
-    position: relative;
-    width: 16px;
-    z-index: 90;
+	z-index: 90;
+	font: bold 10px serif;
+	text-align: center;
+	/*width: 50px;*/
+	letter-spacing: .6px;
+	padding: 2px 3px 2px 3px;
 }
 
 .vertical-text{
@@ -110,41 +112,46 @@
   background-image:    -moz-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
   background-image:     -ms-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
   background-image:      -o-linear-gradient(bottom, #8EBF45, #FFFF00) !important; 
-  color: #40403F; /*color of text gray*/
-  font-weight:bold;
+  color: #6a6340; /*shading*/
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #FFFF00;
   
   -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.4);
   -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.4);
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
-  padding: 1px 3px 1px 3px;
 }
 
 .vertical-red {
   /*gradient*/
-  background-image: -webkit-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
-  background-image:    -moz-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
-  background-image:     -ms-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
-  background-image:      -o-linear-gradient(bottom, #9F000F, #F70D1A) !important; 
-  color: #EBDDE2;
-  font-weight:bold;
-  text-shadow: 0 1px 0 rgba(15, 15, 15, 0.5);
+  /*color: #FFFFFF; color of text white*/
   background-color: #F70D1A;
-	
+  background-image: -webkit-linear-gradient(bottom, #9F000F, #F70D1A, red) !important; 
+  background-image:    -moz-linear-gradient(bottom, #9F000F, #F70D1A, red) !important; 
+  background-image:     -ms-linear-gradient(bottom, #9F000F, #F70D1A, red) !important; 
+  background-image:      -o-linear-gradient(bottom, #9F000F, #F70D1A, red) !important; 
+  color: #EBDDE2;
+  text-shadow: rgba(15,15,15,0.5) 0px 1px 0px;
+
   -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.7);
   -moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.7);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);
-  padding: 1px 3px 1px 3px;
 }
 
 .vertical-blue {
   /*gradient*/
+  color: #333; /*color of text dark gray*/
+  background-color: #1569C7;
   background-image: -webkit-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
   background-image:    -moz-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
   background-image:     -ms-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
   background-image:      -o-linear-gradient(bottom, #1569C7, #5CB3FF) !important; 
-  padding: 1px 3px 1px 3px;
+
+  text-shadow: rgba(0,0,0,0.2) 0px 2px 0px;  
+  color: #C2DFFF; /*shading*/
+  
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.5);
+  box-shadow:         0px 0px 3px rgba(0,0,0,0.5);
 }
 
 .ribbon-dialog{
@@ -155,12 +162,13 @@
   margin: 1px;
   padding:3px;
   font-weight:bold !important;
-  font-size: 14pt !important;
+  font-size: 11.5pt !important;
   background: #000000 !important;
 }
 
 .ribbon-dialog-text{
-  background: #FFFFFF !important; 
-  margin: 0px 4px 0px 4px;
-  font-weight:bold !important;
+  background: #FFFFFF; 
+  margin: 0px 3px 0px 3px;
+  font-weight:bold;
+  font-size: 9pt;
 }
