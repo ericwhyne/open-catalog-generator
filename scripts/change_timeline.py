@@ -12,15 +12,15 @@ def timeline_head():
   <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
   <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
   <link rel='stylesheet' href="css/nv.d3.css" rel="stylesheet" type="text/css"> 
-  <script type='text/javascript' src="d3.v3.js"></script>
-  <script type='text/javascript' src="nv.d3.js"></script>
-  <script type='text/javascript' src="tooltip.js"></script>
-  <script type='text/javascript' src="nv.utils.js"></script>
-  <script type='text/javascript' src="utils.js"></script>
-  <script type='text/javascript' src="legend.js"></script>
-  <script type='text/javascript' src="axis.js"></script>
-  <script type='text/javascript' src="distribution.js"></script>
-  <script type='text/javascript' src='jquery-1.9.1.js'></script>
+  <script language="javascript" type='text/javascript' src="d3.v3.js"></script>
+  <script language="javascript" type='text/javascript' src="nv.d3.js"></script>
+  <script language="javascript" type='text/javascript' src="tooltip.js"></script>
+  <script language="javascript" type='text/javascript' src="nv.utils.js"></script>
+  <script language="javascript" type='text/javascript' src="utils.js"></script>
+  <script language="javascript" type='text/javascript' src="legend.js"></script>
+  <script language="javascript" type='text/javascript' src="axis.js"></script>
+  <script language="javascript" type='text/javascript' src="distribution.js"></script>
+  <script language="javascript" type="text/javascript" src="jquery-1.11.1.min.js"></script>
 
   </head>
   <style>
@@ -65,54 +65,37 @@ def timeline_script():
   return """
   
   <script type='text/javascript'>
-  var active_offices = [],
-	window_height = $(window).height(),
-	window_width = $(window).width(),
-	minus_feed = 440,
-	minus_timeline = 380;
-	
-  var change_dates = new Array(),
-	date_start = new Date(),
-	date_end = new Date();
-	date_start.setDate(date_start.getDate() - 31);
-	
-  var min = 1,
-	max = 30;
-	
-  var url_href = window.location.href,
-	url_path = url_href.substring(0, url_href.lastIndexOf("/"));
-	
-  var slider = null, // class or id of carousel slider
-	interval = null,
-	transition_in_time = 1200, // 1.2 second
-	time_between_slides = 10000, // 10 seconds
-	transition_out_time = 0;
+	var active_offices = [],
+		window_height = $(window).height(),
+		window_width = $(window).width(),
+		minus_feed = 440,
+		minus_timeline = 380;
 
+	var change_dates = new Array(),
+		date_start = new Date(),
+		date_end = new Date();
+		date_start.setDate(date_start.getDate() - 31);
 
-  $( document ).ready(function() {
-    /*var programs = getPrograms();
-	alert(programs);
-    var data_store = createDataStore(programs);
-	activateDataCarousel(data_store);
-	createTimeline(data_store);
-	$("#timeline_body").css("background-color", "#C0C0C0");*/
-	
-    $.ajax({
-        type: "GET",
-        url: "active_content.json",
-        dataType: "json",
-        success: function(data) 
-		{
-			//alert(data);
-			var data_store = createDataStore(data);
-			
-			activateDataCarousel(data_store);
-			createTimeline(data_store);
-		}
-    });
-	
-	$("#timeline_body").css("background-color", "#C0C0C0");
-});
+	var min_count = 0,
+		max_count = 20,
+		max_y_ticks = 5;
+
+	var url_href = window.location.href,
+		url_path = url_href.substring(0, url_href.lastIndexOf("/"));
+
+	var slider = null, // class or id of carousel slider
+		interval = null,
+		transition_in_time = 1200, // 1.2 second
+		time_between_slides = 10000, // 10 seconds
+		transition_out_time = 0;
+
+	$( document ).ready(function() {
+		var programs = getPrograms();
+		var data_store = createDataStore(programs);
+		activateDataCarousel(data_store);
+		createTimeline(data_store);
+		$('#timeline_body').height($('#splash_desc').height());		
+	});
 
 	//Setup for What's New feed
 	function activateDataCarousel(store){
@@ -126,10 +109,11 @@ def timeline_script():
 		for (i = 0; i < change_dates.length; i++){ 	//for each date that a change was made
 			for(office in store.offices){	//for each DARPA office
 				var office_data = store.offices[store.offices[office]];
+				var show_office = true;
 				for (data in office_data) {	//for each program within an office
 					var type_class = "";
 					var url_redirect =  url_path + "/" + office_data[data].program + ".html";
-
+					
 					if(office_data[data].projects){ //The program has projects that were added or updated 
 						var projects = office_data[data].projects;
 						for (project in projects) { 
@@ -137,14 +121,28 @@ def timeline_script():
 								if(typeof(html[i]) == "undefined"){
 									html[i] = "<div id='" + dateToString(projects[project]["Date"], "-") + "' class='slider_div'>";
 									html[i] += "<p class='slide_header_p'>";
-									html[i] += "<span class='slide_header_span' style='color:yellow;'>What's New</span>";
-									html[i] += "<span class='slide_header_update'>" + dateToString(projects[project]["Date"], "-") + "</span>";
+									html[i] += "<span class='slide_header_span'>What's New</span>";
+									html[i] += "<span class='slide_header_update'>" + dateToString(projects[project]["Date"], "ordinal") + "</span>";
 									html[i] += "</p>";
 									
 									html[i] += "<div class='projects_div'>";
 								}
 								
-								html[i] += "<p style='text-align:center; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
+								//Program header code
+								/*console.log(data);
+								console.log(parseInt(data) + 1);
+								if(office_data[parseInt(data) - 1].program == office_data[data].program && show_office)
+								{
+									html[i] += "<p style='text-align:left; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
+									show_office = false;
+								}
+								else if(office_data[data].program != office_data[parseInt(data) + 1].program)
+								{
+									html[i] += "<p style='text-align:left; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
+									show_office = true;
+								}
+								else
+									show_office = true;*/
 								
 								if(projects[project]["Date Type"].toLowerCase() == "updated")
 									type_class = "vertical-green";
@@ -154,13 +152,13 @@ def timeline_script():
 								if(projects[project]["Publications"]){
 									var publications = projects[project]["Publications"].sort();
 									for(pb in publications){
-										html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Publication : <a href=" + url_redirect + "?tab=tabs1&term=" + encodeURIComponent(publications[pb]) + ">" + publications[pb] + "</a></p>"; //redirect to publications search
+										html[i] += "<p><a href=" + url_redirect + "?tab=tabs1&term=" + encodeURIComponent(publications[pb]) + ">" + publications[pb] + "</a> : Publication <span class='vertical " + type_class + "'>" + projects[project]["Date Type"] + "</span></p>"; //redirect to publications search
 									}
 								}
 								if(projects[project]["Software"]){
 									var software = projects[project]["Software"].sort();
 									for(sw in software){
-										html[i] += "<p><span class='" + type_class + "'>" + projects[project]["Date Type"] + "</span> Software : <a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a></p>"; //redirect to software search
+										html[i] += "<p><a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a> : Software <span class='vertical " + type_class + "'>" + projects[project]["Date Type"] + "</span></p>"; //redirect to software search
 									}
 								}
 							}	
@@ -172,8 +170,8 @@ def timeline_script():
 							if(typeof(html[i]) == "undefined"){
 								html[i] = "<div class='slider_div'>";
 								html[i] += "<p class='slide_header_p'>";
-								html[i] += "<span class='slide_header_span' style='color:yellow;'>What's New</span>";
-								html[i] += "<span class='slide_header_update'>" + dateToString(office_data[data]["Date"], "-") + "</span>";
+								html[i] += "<span class='slide_header_span'>What's New</span>";
+								html[i] += "<span class='slide_header_update'>" + dateToString(office_data[data]["Date"], "ordinal") + "</span>";
 								html[i] += "</p>";
 								
 								html[i] += "<div class='projects_div'>";
@@ -184,7 +182,7 @@ def timeline_script():
 							else
 								type_class = "vertical-red";
 								
-							html[i] += "<p style='text-align:center; width:100%;'><span class='" + type_class + "'>" + office_data[data]["Date Type"] + "</span> <a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
+							html[i] += "<p style='text-align:left; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a><span class='vertical " + type_class + "'>" + office_data[data]["Date Type"] + "</span></p>";
 						}
 					}
 					if(typeof(html[i]) != "undefined" && $(html[i])[0].lastChild.childNodes[$(html[i])[0].lastChild.childElementCount - 1].localName == "p"){
@@ -199,7 +197,7 @@ def timeline_script():
 
 		//set up for initial slides
 		slider.append(html.join(""));
-		slider.height(window_height - minus_feed);
+		slider.height("85%");
 		slider.css("display", "inline");
 
 		slides().first().addClass('active');
@@ -244,27 +242,42 @@ def timeline_script():
 			.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
 
 		var x = d3.scale.linear()
-			.range([0, width]);
-
-		var y = d3.scale.linear()
-			.range([height, 0]);
-
-		chart.xAxis.tickSize(3).scale(x)
-			.ticks(10)
+			.domain([date_start, date_end]);
+			
+		chart.xAxis.tickSize(2).scale(x)
 			.orient("bottom")
-			.rotateLabels(-30)
-			.domain([date_start, date_end]).range([0, width]) 				
+			.rotateLabels(-30)	
+			.ticks(10)	
 			.tickFormat(function(d) {
 				var date = new Date(d);
 				return d3.time.format('%m-%d-%Y')(date);
 			});
 
-		chart.yAxis.tickSize(3).scale(y)
-			.ticks(10)
-			.orient("left")    
-			.tickFormat(function(d,i){ /*console.log(d);*/ return d; });
+		var y = d3.scale.linear()
+			.domain([min_count, max_count]);
 
+		chart.forceY([min_count, max_count]);
+		var maxTicks = max_y_ticks, yMin = y.domain()[0], yMax = y.domain()[1], 
+			yDiff = (yMax - yMin)/maxTicks, tickInterval = [];
+		tickInterval[0] = yMin;
+
+		for(i=1; i<maxTicks; i++){
+			var current = yMin + i*yDiff;
+			tickInterval[i] = Math.floor(current);
+		}
+		
+		tickInterval[maxTicks] = yMax;
+
+		chart.yAxis.scale(y)
+			.orient("left")
+			.ticks(max_count)			
+			.tickFormat(d3.format('')/*function(d,i){ console.log(d); return d; }*/)
+			.tickValues(tickInterval);
+			
 		chart.scatter.onlyCircles(true); //We want to show shapes other than circles.
+		chart.tooltipXContent(null); //Hide separate tooltip for x axis
+		chart.tooltipYContent(null); //Hide separate tooltip for y axis
+		
 		chart.tooltipContent(function(office, date, total, values) {
 			var type_class = "";
 			if(values.point.date_type.toLowerCase() == "updated")
@@ -275,7 +288,7 @@ def timeline_script():
 			var p = document.createElement("p");
 			p.id = "tooltip-content";
 			p.setAttribute("class", "ribbon-dialog-text");
-			var html =  "<span class='" + type_class + "'>" + values.point.date_type + "</span> : " + values.point.string_date;
+			var html =  values.point.string_date + " : <span class='vertical " + type_class + "'>" + values.point.date_type + "</span>";
 			
 			if (values.point.sw_count)
 				html += "<br>Software Count : "  + values.point.sw_count;
@@ -311,9 +324,10 @@ def timeline_script():
 
 		var svg = d3.select("#timeline").select("svg")
 				.datum(root)
-				.attr("height", window_height - minus_timeline)
+				.style({ 'width': width, 'height': height })
+				//.attr("height", window_height - minus_timeline)
 				.call(chart);
-
+				
 		chart.update();
 		nv.utils.windowResize(chart.update);
 		chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
@@ -348,7 +362,8 @@ def timeline_script():
 							if (projects[project]["Publications"])
 								pb_count = projects[project]["Publications"].length;	
 							var total_count = sw_count + pb_count;
-
+							if (parseInt(total_count) > parseInt(max_count))
+								max_count = total_count;
 							data[i].values.push({
 							  y: total_count, 
 							  x: date,
@@ -512,20 +527,20 @@ def timeline_script():
 		//console.log(root);
 		return root;
 	}
-   //});
-   
-   	function startInterval(){
+	//});
+
+	function startInterval(){
 		return setInterval(
 			function(){ slideControl(1);},
 			transition_in_time +  time_between_slides 
 		);
 	}
-	
+
 	function slides(){
 		return $(".slider_div"); 
 	}   
-   
-  	//scrolls the slides based on given direction(previous or next)
+
+	//scrolls the slides based on given direction(previous or next)
 	function slideControl(direction){
 		var i = slider.find('div.active').index();
 		slides().eq(i).fadeOut(transition_out_time);		  
@@ -537,32 +552,32 @@ def timeline_script():
 		slides().eq(i + direction).addClass('active');
 		slides().eq(i + direction).fadeIn(transition_in_time);
 	} 
-	
-   //user selected button which allows manual control of the slides
-   function buttonAction(control){
+
+	//user selected button which allows manual control of the slides
+	function buttonAction(control){
 	  if(control.id == "scroll")
-  	  {
+	  {
 		  if(control.value == "||"){
 			  clearInterval(interval);
-  			$("#" + control.id).val(">");
+			$("#" + control.id).val(">");
 		  }
-  		else if(control.value == ">"){
+		else if(control.value == ">"){
 			  interval = startInterval();
-  			$("#" + control.id).val("||");
+			$("#" + control.id).val("||");
 		  }
 	  }
-    	else if(control.id == "back"){
+		else if(control.id == "back"){
 		  slideControl(-1);
-  		$("#" + control.id).attr("disabled", "disabled");
+		$("#" + control.id).attr("disabled", "disabled");
 		  setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
-  		
+		
 	  }
-  	  else{
+	  else{
 		  slideControl(1);
-  		$("#" + control.id).attr("disabled", "disabled");
+		$("#" + control.id).attr("disabled", "disabled");
 		  setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
 	  }
-   }  
+	}  
    
   </script>
 """
