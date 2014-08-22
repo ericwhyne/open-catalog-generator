@@ -128,7 +128,7 @@ for program in active_content:
       banner = "<div class='wrapper'><a href='%s'>%s</a><div class='ribbon-wrapper'><div class='ribbon-standard ribbon-green'>%s</div></div></div>"  % (program_page_filename, program_details['DARPA Program Name'], program['Banner'].upper())
     else:
      banner = "<a href='%s'>%s</a>" % (program_page_filename, program_details['DARPA Program Name'])
-    splash_page += "<TR>\n <TD width=157> %s</TD>\n <TD width=65>%s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['DARPA Office'], program_details['Description']) 
+    splash_page += "<TR>\n <TD width=157> %s</TD>\n <TD width=70>%s</TD>\n <TD>%s</TD>\n</TR>" % (banner, program_details['DARPA Office'], program_details['Description']) 
     software_columns = program_details['Display Software Columns']
     print "program details: %s \n\r" % program_details
     pubs_columns = program_details['Display Pubs Columns']
