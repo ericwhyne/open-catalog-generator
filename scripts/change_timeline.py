@@ -29,7 +29,6 @@ def timeline_head():
     overflow: hidden;
     margin: 0;
     padding: 0;
-    background-color: #C0C0C0 /*#868686*/; 
   }
 
   </style>
@@ -94,7 +93,7 @@ def timeline_script():
 		var data_store = createDataStore(programs);
 		activateDataCarousel(data_store);
 		createTimeline(data_store);
-		$('#timeline_body').height($('#splash_desc').height());		
+		$('#timeline_body').height($(window).height() - 150);		
 	});
 
 	//Setup for What's New feed
@@ -128,6 +127,8 @@ def timeline_script():
 									html[i] += "<div class='projects_div'>";
 								}
 								
+								
+								html[i] += "<p style='text-align:center; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
 								//Program header code
 								/*console.log(data);
 								console.log(parseInt(data) + 1);
