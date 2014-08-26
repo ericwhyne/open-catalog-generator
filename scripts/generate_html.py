@@ -59,7 +59,7 @@ filter_page += filter.filter_html()
 
 timeline_page = timeline.timeline_head()
 timeline_page += timeline.timeline_script()
-timeline_page += "<div id='timeline_body'>" + timeline.timeline_html() + "</div>"
+timeline_page += "<div id='timeline_page'>" + timeline.timeline_html() + "</div>"
 
 
 for program in active_content:

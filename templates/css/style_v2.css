@@ -162,13 +162,23 @@ path {
     background-color: #color;*/
 }
 
+#timeline_page {
+overflow: auto;
+margin: 0;
+padding: 0;
+background-color: #F1F1F1 /*#E6EEEE*/;
+float:left; 
+width:100%;
+border: solid 1.6px #C0C0C0;
+}
+
 #timeline_body {
 overflow: hidden;
 margin: 0;
 padding: 0;
 background-color: #F1F1F1 /*#E6EEEE*/;
 float:left; 
-width:100%;
+width:62.5%;
 border: solid 1.6px #C0C0C0;
 }
 

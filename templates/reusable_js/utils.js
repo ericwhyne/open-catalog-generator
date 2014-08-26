@@ -209,7 +209,6 @@ function stringToDate(text){
 
 
 function dateToString(date, separator){
-    console.log(date, separator);
 	var date_month = "",
 	date_day = "",
 	date_year = "",
