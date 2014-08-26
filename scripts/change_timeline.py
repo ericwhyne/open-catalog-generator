@@ -65,8 +65,6 @@ def timeline_script():
   
   <script type='text/javascript'>
 	var active_offices = [],
-		window_height = $(window).height(),
-		window_width = $(window).width(),
 		minus_feed = 440,
 		minus_timeline = 380;
 
@@ -93,7 +91,17 @@ def timeline_script():
 		var data_store = createDataStore(programs);
 		activateDataCarousel(data_store);
 		createTimeline(data_store);
-		$('#timeline_body').height($(window).height() - 150);		
+		
+		if(document.getElementById("splash_desc") != null)
+			$('#timeline_body').height($('#splash_desc').height());
+		else{
+			$('#timeline_page').height($(window).height() - 150);
+			$('.projects_div').height($('#slide_view').height() - 38);
+		}
+		window.onresize = function () {
+			$('#timeline_page').height($(window).height() - 150);
+$('.projects_div').height($('#slide_view').height() - 38);			
+		};			
 	});
 
 	//Setup for What's New feed
@@ -108,13 +116,15 @@ def timeline_script():
 		for (i = 0; i < change_dates.length; i++){ 	//for each date that a change was made
 			for(office in store.offices){	//for each DARPA office
 				var office_data = store.offices[store.offices[office]];
-				var show_office = true;
+				var previous_office = null;
+				var previous_date = null;
 				for (data in office_data) {	//for each program within an office
 					var type_class = "";
 					var url_redirect =  url_path + "/" + office_data[data].program + ".html";
 					
 					if(office_data[data].projects){ //The program has projects that were added or updated 
 						var projects = office_data[data].projects;
+
 						for (project in projects) { 
 							if(change_dates[i] == projects[project]["Date"].getTime()){
 								if(typeof(html[i]) == "undefined"){
@@ -126,24 +136,17 @@ def timeline_script():
 									
 									html[i] += "<div class='projects_div'>";
 								}
-								
-								
-								html[i] += "<p style='text-align:center; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
+
 								//Program header code
-								/*console.log(data);
-								console.log(parseInt(data) + 1);
-								if(office_data[parseInt(data) - 1].program == office_data[data].program && show_office)
-								{
-									html[i] += "<p style='text-align:left; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
-									show_office = false;
+								if(previous_date == null){
+									html[i] += "<p style='width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
 								}
-								else if(office_data[data].program != office_data[parseInt(data) + 1].program)
-								{
-									html[i] += "<p style='text-align:left; width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
-									show_office = true;
+								else{
+									if(projects[project]["Date"].getTime() == previous_date.getTime() && office_data[data].program == previous_office)
+										html[i] += "" /*don't show office*/
+									else 
+										html[i] += "<p style='width:100%;'><a href=" + url_redirect + "><span class='slide_project_span' style='color: #" + office_data[data].office["DARPA Office Color"] + ";'>" + office_data[data].program + "</span></a></p>";
 								}
-								else
-									show_office = true;*/
 								
 								if(projects[project]["Date Type"].toLowerCase() == "updated")
 									type_class = "vertical-green";
@@ -162,9 +165,12 @@ def timeline_script():
 										html[i] += "<p><a href=" + url_redirect + "?tab=tabs0&term=" + encodeURIComponent(software[sw]) + ">" + software[sw] + "</a> : Software <span class='vertical " + type_class + "'>" + projects[project]["Date Type"] + "</span></p>"; //redirect to software search
 									}
 								}
+
+								previous_date = projects[project]["Date"];
+								previous_office = office_data[data].program;
 							}	
 						}
-						
+						//console.log(html);
 					}
 					else{ //the program itself was added or updated
 						if(change_dates[i] == office_data[data]["Date"].getTime()){
@@ -326,7 +332,6 @@ def timeline_script():
 		var svg = d3.select("#timeline").select("svg")
 				.datum(root)
 				.style({ 'width': width, 'height': height })
-				//.attr("height", window_height - minus_timeline)
 				.call(chart);
 				
 		chart.update();
