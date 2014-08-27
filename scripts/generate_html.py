@@ -212,7 +212,7 @@ for program in active_content:
 			
           if program['Banner'].upper() != "NEW":
             entry_ribbon = doc.project_banner(software['Update Date'], software['New Date'], last_update_file, entry_title)
-            program_page += "<TD class='" + column.lower() + "'>" + entry_ribbon + "</TD>"
+            program_page += "<TD width='202' class='" + column.lower() + "'>" + entry_ribbon + "</TD>"
           else:  
             program_page += "<TD class='" + column.lower() + "'>" + entry_title + "</TD>"
         # Category
