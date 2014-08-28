@@ -2,33 +2,32 @@
     {
         "DARPA Program": "XDATA", 
         "Program Teams": [
-            "Paradigm4 Inc. Development Team"
+            "Carnegie Mellon University"
         ], 
         "Contributors": [
-            "Paradigm4"
+            "Carnegie Mellon University"
         ], 
         "Sub-contractors": [
-            ""
+            "Not Applicable"
         ], 
-        "Software": "SciDB Community Edition", 
-        "Internal Link": "http://www.scidb.org/forum/viewtopic.php?f=16&t=364", 
-        "External Link": "http://scidb.org/forum/viewtopic.php?f=14&t=1329", 
-        "Public Code Repo": "Source code is available with the product download.", 
+        "Software": "Active Search", 
+        "Internal Link": "Not Applicable", 
+        "External Link": "https://github.com/AutonlabCMU/ActiveSearch", 
+        "Public Code Repo": "https://github.com/AutonlabCMU/ActiveSearch.git", 
         "Instructional Material": "", 
         "Stats": "", 
-        "Description": "SciDB is a massively parallel DBMS and complex analytics platform. It was conceived and designed to support very large scale quantitative analytics on images, time-series, numerical data and \"whole graph\" analytics in problem domains like bio-informatics, financial analytics, industrial and scientific sensor networks, and social network applications.", 
-        "Internal Code Repo": "", 
+        "Description": "ActiveSearch takes a collection of emails (or any dataset where a similarity can be generated between elements) and recommends related messages based on user feedback. The user provides an initial seed email then enters into a cycle where ActiveSearch provides a similar email and the user reports whether or not the email was interesting.\n\nActiveSearch is useful for anyone navigating a large set of emails and looking for related messages on a specific topic. As it considers the similarities between emails as well as user feedback, it is an improvement in accuracy, time, and effort over basic text search or a brute force search.", 
+        "Internal Code Repo": "Not Applicable", 
         "License": [
-            "Affero-GPL"
+            "MIT"
         ], 
         "Languages": [
-            "C/C++", 
-            "R", 
-            "Python"
+            "Java", 
+            "Perl"
         ], 
         "Platform Requirements": [
-            "RedHat / CentOS 6.4", 
-            "Ubuntu 12.04. We will be providing steps to the next versions of RedHat/CentOS and Ubuntu in the 14.7 release"
+            "Linux (untested", 
+            "but may work on other platforms)"
         ], 
         "Dependent modules": [
             ""
@@ -43,17 +42,15 @@
             ""
         ], 
         "Industry": [
-            "Life-Sciences", 
-            "industrial and scientific sensor networks", 
-            "financial analytics", 
-            "mapping and GIS", 
-            "image processing"
+            "Not Applicable"
         ], 
         "Functionality": [
-            "Data Management (MPP Database) with integrated massively scalable complex analytics"
+            "Email", 
+            "Search"
         ], 
         "Categories": [
-            "Data Management and Quantitative Analytics"
+            "Information Retrieval", 
+            "Search"
         ], 
         "New Date": "", 
         "Update Date": ""

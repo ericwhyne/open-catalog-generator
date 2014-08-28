@@ -4,30 +4,6 @@
         "Program Teams": [
             ""
         ], 
-        "Title": "Model-based Parametric Features for Emotion Recognition from Speech", 
-        "Authors": [
-            "S. Ananthakrishnan", 
-            "A.N. Vembu", 
-            "R. Prasad"
-        ], 
-        "Link": "http://ieeexplore.ieee.org/xpl/articleDetails.jsp?reload=true&arnumber=6163987", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
         "Title": "SimSensei Kiosk: A Virtual Human Interviewer for Healthcare Decision Support", 
         "Authors": [
             "David DeVault", 
@@ -100,7 +76,7 @@
         "Program Teams": [
             ""
         ], 
-        "Title": "Its only a computer: The impact of human-agent interaction in clinical interviews.", 
+        "Title": "Its Only a Computer: The Impact of Human-agent Interaction in Clinical Interviews", 
         "Authors": [
             "J. Gratch", 
             "G. M. Lucas", 
@@ -209,172 +185,12 @@
         "Program Teams": [
             ""
         ], 
-        "Title": "User-State Sensing for Virtual Health Agents and TeleHealth Applications", 
-        "Authors": [
-            "Jon Gratch", 
-            "Louis-Philippe Morency", 
-            "Stefan Scherer", 
-            "Giota Stratou", 
-            "Jill Boberg", 
-            "Sebastian Koenig", 
-            "Todd Adamson", 
-            "Albert Rizzo"
-        ], 
-        "Link": "http://bit.ly/1sRDKGi", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
-        "Title": "", 
-        "Authors": [
-            "E. Suma", 
-            "B. Lange", 
-            "A. Rizzo", 
-            "D. Krum", 
-            "M. Bolas"
-        ], 
-        "Link": "http://bit.ly/1kx8axk", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
-        "Title": "A Mixed-Initiative Conversational Dialogue System for Healthcare", 
-        "Authors": [
-            "Fabrizio Morbini", 
-            "Eric Forbell", 
-            "David DeVault", 
-            "Kenji Sagae", 
-            "David Traum", 
-            "Albert Rizzo"
-        ], 
-        "Link": "http://www.aclweb.org/anthology/W12-1620", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
         "Title": "Context-based Signal Descriptors of Heart-rate Variability for Anxiety Assessment", 
         "Authors": [
             "Moitreya Chatterjee", 
             "Louis-Philippe Morency"
         ], 
         "Link": "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6854278", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
-        "Title": "Unobtrusive Measurement of Subtle Nonverbal Behaviors with the Microsoft Kinect", 
-        "Authors": [
-            "N. Burba", 
-            "M. Bolas", 
-            "D. Krum", 
-            "E. Suma"
-        ], 
-        "Link": "http://dl.acm.org/citation.cfm?id=2224479.2224790", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
-        "Title": "Ensemble of SVM Trees for Multimodal Emotion Recognition", 
-        "Authors": [
-            "V. Rozgic", 
-            "S. Ananthakrishnan", 
-            "S. Saleem", 
-            "R. Kumar", 
-            "R. Prasad"
-        ], 
-        "Link": "http://www.apsipa.org/proceedings_2012/papers/157.pdf", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
-        "Title": "Emotion Recognition using Acoustic and Lexical Features", 
-        "Authors": [
-            "V. Rozgic", 
-            "S. Ananthakrishnan", 
-            "S. Saleem", 
-            "R. Kumar", 
-            "A.N. Vembu", 
-            "R. Prasad"
-        ], 
-        "Link": "http://interspeech2012.org/accepted-abstract.html?id=1130", 
         "Categories": [
             ""
         ], 
@@ -399,37 +215,6 @@
             "Rohit Prasad"
         ], 
         "Link": "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6637858", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
-        "Title": "Automatic Detection of Psychological Distress Indicators in Online Forum Posts", 
-        "Authors": [
-            "S. Saleem", 
-            "M. Pacula", 
-            "R. Chasin", 
-            "R. Kumar", 
-            "R. Prasad", 
-            "M. Crystal", 
-            "B. Marx", 
-            "D. Sloan", 
-            "J. Vasterling", 
-            "T. Speroff"
-        ], 
-        "Link": "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6412004", 
         "Categories": [
             ""
         ], 
@@ -472,29 +257,6 @@
         "Program Teams": [
             ""
         ], 
-        "Title": "Crowdsourcing Micro-Level Multimedia Annotations: The Challenges of Evaluation and Interface", 
-        "Authors": [
-            "Sunghyun Park", 
-            "Louis-Philippe Morency"
-        ], 
-        "Link": "http://dl.acm.org/citation.cfm?id=2390816", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
         "Title": "Perception Markup Language: Towards a Standardized Representation of Perceived Nonverbal Behaviors", 
         "Authors": [
             "Stefan Scherer", 
@@ -507,33 +269,6 @@
             "Louis-Philippe Morency"
         ], 
         "Link": "http://link.springer.com/chapter/10.1007/978-3-642-33197-8_47", 
-        "Categories": [
-            ""
-        ], 
-        "Subcategories": [
-            ""
-        ], 
-        "ACM 1998 classification code": [
-            ""
-        ], 
-        "New Date": "20140813", 
-        "Update Date": ""
-    }, 
-    {
-        "DARPA Program": "DCAPS", 
-        "Program Teams": [
-            ""
-        ], 
-        "Title": "Automatic Behavior Descriptors for Psychological Disorder Analysis", 
-        "Authors": [
-            "S. Scherer", 
-            "G. Stratou", 
-            "J. Boberg", 
-            "J. Gratch", 
-            "A. Rizzo", 
-            "L.-P. Morency"
-        ], 
-        "Link": "http://dx.doi.org/10.1109/FG.2013.6553789", 
         "Categories": [
             ""
         ], 
