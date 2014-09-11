@@ -17,7 +17,8 @@ CUR_BUILD_DATE=$(OC_BUILD_DIR)/build-date.txt
 LAST_BUILD_DATE=$(OC_BUILD_DIR)/last-build-date.txt
 NEW_JSON_DIR = $(OC_DATA_DIR)new_json/
 
-website: $(OC_DEFAULT_TEMPLATE_DIR) 
+website: $(OC_DEFAULT_TEMPLATE_DIR)
+	make clean 
 	mkdir -p $(OC_BUILD_DIR)
 	mkdir -p $(OC_BUILD_DIR)/css
 	cp -r $(OC_DEFAULT_TEMPLATE_DIR)/* $(OC_BUILD_DIR)

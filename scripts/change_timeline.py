@@ -100,7 +100,7 @@ def timeline_script():
 		}
 		window.onresize = function () {
 			$('#timeline_page').height($(window).height() - 150);
-$('.projects_div').height($('#slide_view').height() - 38);			
+			$('.projects_div').height($('#slide_view').height() - 38);			
 		};			
 	});
 
