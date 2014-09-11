@@ -137,7 +137,7 @@ def project_banner(update_date, new_date, last_update_file, title):
   last_build_date = f.read()
   f.close()	
   if change_date > last_build_date:
-    #formatted_date = datetime.date.strftime(datetime.datetime.strptime(change_date, '%Y%m%d'), "%Y-%m-%d")
+	#Convert timestamp into a date in order to format the date into a string
     formatted_month = datetime.date.strftime(datetime.datetime.strptime(change_date, '%Y%m%d'), "%b");
     formatted_day =  ordinal(int(datetime.date.strftime(datetime.datetime.strptime(change_date, '%Y%m%d'), "%d")))
     formatted_date = formatted_month + " " + formatted_day 
