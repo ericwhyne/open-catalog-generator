@@ -419,7 +419,7 @@ def timeline_script():
 		  
 		  //sets the offices that are currently active and a temporary array to ensure that the offices are not duplicated
 		  if(programs[program]["DARPA Office"] != ""){
-			office_details = getOffices(programs[program]["DARPA Office"]);
+			office_details = getOfficeDetails(programs[program]["DARPA Office"]);
 
 			if(!isInArray(office_details["DARPA Office"] , office_checker)){
 				active_offices.push({"name":office_details["DARPA Office"], "color":office_details["DARPA Office Color"]});
