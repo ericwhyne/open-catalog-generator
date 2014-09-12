@@ -419,7 +419,7 @@ def timeline_script():
 		  
 		  //sets the offices that are currently active and a temporary array to ensure that the offices are not duplicated
 		  if(programs[program]["DARPA Office"] != ""){
-			office_details = getOfficeDetails(programs[program]["DARPA Office"]);
+			office_details = getOffices(programs[program]["DARPA Office"]);
 
 			if(!isInArray(office_details["DARPA Office"] , office_checker)){
 				active_offices.push({"name":office_details["DARPA Office"], "color":office_details["DARPA Office Color"]});
@@ -438,7 +438,7 @@ def timeline_script():
 		  
 		  //collects all of the software projects that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		  if(programs[program]["Software File"] != ""){
-			  var program_sw_file = getProgramDetails(programs[program]["Software File"]);
+			  var program_sw_file = getDetails(programs[program]["Software File"]);
 			  for (sw_item in program_sw_file){
 				var sw_object = program_sw_file[sw_item];
 				var modification = getModificationDate(sw_object["New Date"], sw_object["Update Date"]);
@@ -475,7 +475,7 @@ def timeline_script():
 		
 		  //collects all of the publication projects that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		  if(programs[program]["Pubs File"] != ""){
-			  var program_pub_file = getProgramDetails(programs[program]["Pubs File"]);
+			  var program_pub_file = getDetails(programs[program]["Pubs File"]);
 
 			  for (pub_item in program_pub_file){
 				var pub_object = program_pub_file[pub_item];

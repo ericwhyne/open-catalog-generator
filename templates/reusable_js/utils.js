@@ -45,7 +45,7 @@ function ajaxCall(url, type, async, cache){
 	return data;
 }
 
-function getOfficeDetails(office){
+function getOffices(office){
 	var office_details = ajaxCall('01-DARPA-'+ office + '.json', 'json', false, true);
 	return office_details;
 }
@@ -55,9 +55,9 @@ function getPrograms() {
 	return programs;
 }
 
-function getProgramDetails(filename) {
-	var program_details = ajaxCall(filename, 'json', false, true);
-	return program_details;
+function getDetails(filename) {
+	var details = ajaxCall(filename, 'json', false, true);
+	return details;
 }
 
 function getLicenses() {
