@@ -1,0 +1,27 @@
+Publication Meta Data Fields,,,,,,,,
+DARPA Program Name,Program Teams,Authors,Link,Title,Categories,Subcategories,ACM 1998 classification code,AMS 2010 classification code
+GRAPHS,"Pennsylvania State University, Carnegie Mellon University","Alessandro Rinaldo, Sonja Petrovi?, Stephen E. Fienberg",http://projecteuclid.org/euclid.aos/1371150894,Maximum Likelihood Estimation in the Beta Model,,,,62F99
+GRAPHS,Carnegie Mellon University,"Xiaolin Yang,
+Alessandro Rinaldo,
+Stephen E. Fienberg",jalgstat.com/download/55/86/jas-2014_5_39-63.pdf,Estimation for Dyadic-Dependent Exponential Random Graph Models,,,,"62F10, 05C82"
+GRAPHS,Carnegie Mellon University,"Cosma Shalizi, Alessandro Rinaldo",http://projecteuclid.org/euclid.aos/1366980556,Consistency under Sampling of Exponential Random Graph Models,,,,"91D30, 62B05, 60G51, 62M99, 62M09"
+GRAPHS,Pennsylvania State University,"Luis Garcia-Puente, Sonja Petrovi?, Seth Sullivant",http://msp.org/jsag/2013/5-1/jsag-v5-n1-p01-s.pdf,Graphical Models in Macaulay2,,,,"13P25, 14Q99, 62H99, 68W30"
+GRAPHS,Carnegie Mellon University,Stephen E. Fienberg,http://dx.doi.org/10.1080/10618600.2012.738106,A Brief History of Statistical Models for Network Analysis and Open Challenges,,,,"62-00, 62-02"
+GRAPHS,Carnegie Mellon University,Mauricio Sadinle,http://arxiv.org/pdf/1211.0312v2.pdf,The Strength of Arcs and Edges in Interaction Networks: Elements of a Model-Based Approach,,,,91D30
+GRAPHS,Pennsylvania State University/ Illinois Institute of Technology,"Elizabeth Gross, Sonja Petrovi?",http://www.worldscientific.com/doi/abs/10.1142/S0218196713500331,A Combinatorial Degree Bound for Toric Ideals of Hypergraphs,,,,"05E15, 05E40, 05C65, 14M25, 68R05"
+GRAPHS,Carnegie Mellon University,Stephen E. Fienberg,http://repository.cmu.edu/cgi/viewcontent.cgi?article=1097&context=jpc,Is the Privacy of Network Data an Oxymoron? ,,,,91D30
+GRAPHS,Illinois Institute of Technology,"Sonja Petrovi?, Despina Stasi",http://link.springer.com/article/10.1007%2Fs10801-013-0444-y,Toric Algebra of Hypergraphs,,,,"68R05,91D30,13P25"
+GRAPHS,Carnegie Mellon University,"Jing Lei, Alessandro Rinaldo",http://arxiv.org/pdf/1312.2050v1.pdf,Consistency of Spectral Clustering in Sparse Stochastic Block Models,,,,62F12
+GRAPHS,Carnegie Mellon University,Kayvan Sadeghi,http://projecteuclid.org/euclid.bj/1386078605,Stable Mixed Graphs,,,,62-09
+GRAPHS,Carnegie Mellon University,"Kayvan Sadeghi, Steffen Lauritzen",http://projecteuclid.org/euclid.bj/1393594002,Markov Properties for Mixed Graphs,,,,62-09
+GRAPHS,Carnegie Mellon University,"Mei Yin, Alessandro Rinaldo, Sukhada Fadnavis",http://arxiv.org/pdf/1311.1738v2.pdf,Asymptotic Quantization of Exponential Random Graphs,,,,62 E20
+GRAPHS,Illinois Institute of Technology,"Elizabeth Gross, Sonja Petrovi?, Despina Stasi",http://arxiv.org/pdf/1401.4896v1.pdf,Goodness-of-fit for Log-linear Network Models: Dynamic Markov Bases Using Hypergraphs,,,,"62F03, 62M02,91D30,90C35,13P25"
+GRAPHS,ORNL-Stanford-Berkeley (Tree-like structure),"W. Chen, W. Fang, G. Hu, and M. W. Mahoney, ",http://www.tandfonline.com/doi/full/10.1080/15427951.2013.828336#.VAQIz0igSqQ,On the Hyperbolicity of Small-World and Tree-Like Random Graphs,"Mathematics of Computing, PROBABILITY AND STATISTICS",NA,G.3,
+GRAPHS,ORNL-Stanford-Berkeley (Tree-like structure),"A. B. Adcock, B. D. Sullivan, O. R. Hernandez, and M. W. Mahoney, ",http://link.springer.com/chapter/10.1007%2F978-3-642-40698-0_6,Evaluating OpenMP Tasking at Scale for the Computation of Graph Hyperbolicity,"Computer Systems Organization, PROCESSOR ARCHITECTURES, Parallel Architectures",NA,C.1.4,
+GRAPHS,ORNL-Stanford-Berkeley (Tree-like structure),"A. B. Adcock, B. D. Sullivan, and M. W. Mahoney, ",http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6729484,Tree-like Structure in Large Social and Information Networks,"Data, DATA STRUCTURES, Graphs and networks",NA,E.1,
+GRAPHS,ORNL-Stanford-Berkeley (Tree-like structure),"L. G. S. Jeub, P. Balachandran, M. A. Porter, P. J. Mucha, and M. W. Mahoney, ",http://arxiv.org/abs/1403.3795,"Think Locally, Act Locally: The Detection of Small, Medium-Sized, and Large Communities in Large Networks","Data, DATA STRUCTURES, Graphs and networks",NA,E.1,
+GRAPHS,ORNL-Stanford-Berkeley (Tree-like structure),"D. F. Gleich and M. W. Mahoney, ",http://jmlr.org/proceedings/papers/v32/gleich14.html,"Anti-differentiating Approximation Algorithms: A case study with Min-cuts, Spectral, and Flow","Mathematics of Computing, DISCRETE MATHEMATICS, Graph Theory",NA,G.2.2,
+GRAPHS,ORNL-Stanford-Berkeley (Tree-like structure),"A. B. Adcock, B. D. Sullivan, and M. W. Mahoney,","Submitted, not yet published",Tree Decompositions and Social Graphs,"Data, DATA STRUCTURES, Graphs and networks",NA,E.1,
+GRAPHS,"University of California, Santa Barbara","Kevin Verbeek, Subhash Suri",http://dl.acm.org/citation.cfm?id=2582139,"Metric Embedding, Hyperbolic Space, and Social Networks",Graph Theory,Graphs,G.2.2,
+GRAPHS,Hewlett-Packard Labs,"Rumi Ghosh, Sitaram Asur",http://www.hpl.hp.com/research/scl/papers/socialmedia/IntegrateSources.pdf,Mining Information from Heterogeneous Sources: A Topic Modeling Approach,Information Systems,Information Search and Retrieval,H.3.3,
+GRAPHS,"University of California, Santa Barbara","Kevin Verbeek, Subhash Suri",to be published in ISAAC 2014,On the Most Likely Voronoi Diagram and Nearest Neighbor Searching,Computational Geometry,Data uncertainty,F.2.2,
