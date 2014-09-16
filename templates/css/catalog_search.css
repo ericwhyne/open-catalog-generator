@@ -1,0 +1,55 @@
+body {
+  
+  font-family: 'Helvetica Neue';
+  font-size: 16px;
+}
+
+a {
+  color: #2076c7;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input {
+  width: 200px;
+  font-size: 1.0em;
+}
+#filter-wrap {
+  width: 20%;
+}
+#search-wrap {
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#results-heading {
+  height:50px;
+}
+#results-container {
+  width: 100%;
+}
+.controls {
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+
+.project_header{
+  margin-bottom: 2px; 
+  margin-top: 6px; 
+}
+
+.project_path{
+  color: #708284;
+  margin-top: 2px; 
+  margin-bottom: 4px; 
+}
+
+.project_description{
+	color: black;
+	margin:0;
+}
+
+

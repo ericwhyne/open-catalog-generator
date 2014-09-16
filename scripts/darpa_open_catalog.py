@@ -36,9 +36,10 @@ def html_head():
 
 def catalog_page_header(office_link):
   header = "<header class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
+  header += "<div class='darpa-header-text no-space'>"
   if (office_link != ""):
-    header += "<div class='darpa-header-text no-space'><span><font color='white'> / </font>%s</span></div></header>" % office_link
-  header += "</header>"
+    header += "<span><font color='white'> / </font>%s</span>" % office_link
+  header += "</div><div style='display:table-cell; vertical-align:middle; white-space: nowrap; width: 250px;'><input id='header_search' type='search' style='margin-right:10px; display:inline-block; '></input><button id='header_button'>Search</button></div></header>"
   return header
 
 def get_current_user():
@@ -154,6 +155,16 @@ var swList = pubList = spubList = ssftList = "";
 
 $(document).ready(function() 
     { 
+	   
+	   $('#header_button').click(function(){
+			window.location = 'catalog_search.html?term=' +  $('#header_search').val();
+	   });
+	   
+		$("#header_search").keyup(function(event){
+			if(event.keyCode == 13)
+				$('#header_button').click();
+		});
+	   
 	   $('#sftwr').tablesorter({
 		// sort on the first column and second column, order asc 
         	sortList: [[0,0],[1,0]] 
@@ -175,23 +186,27 @@ $(document).ready(function()
 			$( "#tabs" ).tabs
 			var param_tab = decodeURIComponent(getUrlParams("tab"));
 			var param_term = decodeURIComponent(getUrlParams("term"));
-			if(param_tab == "false"){ 
-				if($("#tabs0"))
-					$("#tabs").tabs({active: 0}); //software tab
-				else
-					$("#tabs").tabs({active: 1}); //publications tab
+
+			if(param_tab && !param_term){
+				console.log("tab");
+				if (param_tab == "tabs0")
+					$("#tabs").tabs({active: 0});  //software tab
+				else if (param_tab == "tabs1")
+					$("#tabs").tabs({active: 1});  //publications tab
 			}
 			else if(param_tab && param_term){
+				console.log("tab and term");
 				if (param_tab == "tabs0")
 					swSearch(param_term);
 				else if (param_tab == "tabs1")
 					pubSearch(param_term);
 			}
 			else{
-				if (param_tab == "tabs0")
-					$("#tabs").tabs({active: 0});  //software tab
-				else if (param_tab == "tabs1")
-					$("#tabs").tabs({active: 1});  //publications tab
+				console.log("nothing");
+				if($("#tabs0"))
+					$("#tabs").tabs({active: 0}); //software tab
+				else
+					$("#tabs").tabs({active: 1}); //publications tab
 			}
 
 		});
@@ -396,17 +411,6 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 			 $( "#dialog" ).dialog( "close" );
 		  });
 	}
-}
-
-function getUrlParams(param_name)
-{
-       var query = window.location.search.substring(1);
-       var params = query.split("&");
-       for (var i=0;i<params.length;i++) {
-               var pair = params[i].split("=");
-               if(pair[0] == param_name){return pair[1];}
-       }
-       return(false);
 }
 
 function dateInfo(ribbon, event){
