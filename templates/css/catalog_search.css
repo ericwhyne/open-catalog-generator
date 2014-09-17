@@ -1,7 +1,5 @@
 body {
-  
-  font-family: 'Helvetica Neue';
-  font-size: 16px;
+  font: 12pt/1.5em Arial,Helvetica,sans-serif;
 }
 
 a {
@@ -13,27 +11,36 @@ a:hover {
   text-decoration: underline;
 }
 
-input {
-  width: 200px;
-  font-size: 1.0em;
-}
 #filter-wrap {
   width: 20%;
 }
 #search-wrap {
-  width: 98%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
 #results-heading {
-  height:50px;
+  height:50px;  
 }
+
+#results-heading p{
+padding-left: 10px;
+padding-right: 10px;
+}
+
 #results-container {
   width: 100%;
 }
 .controls {
-  padding-top: 30px;
-  padding-bottom: 10px;
+  width: 100%;
+  background-color: #e6eeee;
+  padding-top: 20px;
+}
+
+.results{
+  width:98%;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .project_header{
@@ -52,4 +59,23 @@ input {
 	margin:0;
 }
 
+#search_button{
+  font-size: 1.0em;
+}
+#search_box{
+  border: 1px solid #ccc;
+  font-size: 1.0em; 
+  margin-right:10px;
+  margin-left: 10px;
+  padding: 3px 4px;  
+  height: 1.2em;
+  width: 220px; 
+  border-radius: 2px;
+  display:inline-block;
+}
+
+#search_box:focus {
+  outline:none;
+  border-color:black;
+}
 

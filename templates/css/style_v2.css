@@ -50,6 +50,28 @@ table.tablesorter tbody tr:nth-child(even) {
      background-color: #FFF;
 }
 
+input{
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  height: 1.2em;
+  margin-right:10px;
+  padding: 3px 4px;
+  display:inline-block;
+  width: 180px; 
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: .9em;  
+}
+
+button{
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: .9em; 
+}
+
+#header_search:focus {
+  outline:none;
+  border-color:black;
+}
+
 #splash{
 margin-left:2%;
 width: 96%;
@@ -316,4 +338,17 @@ font-weight:bold;
 line-height:20px; 
 margin-top:4px;
 padding-right: 6px;
+}
+
+.catalog_search_outer{
+display:table-cell; 
+vertical-align:middle; 
+white-space: nowrap; 
+width: 300px;
+}
+.catalog_search_inner{
+background-color:gray; 
+display:table-cell; 
+vertical-align:middle; 
+padding: 6px 10px;
 }

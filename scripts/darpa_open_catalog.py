@@ -39,7 +39,7 @@ def catalog_page_header(office_link):
   header += "<div class='darpa-header-text no-space'>"
   if (office_link != ""):
     header += "<span><font color='white'> / </font>%s</span>" % office_link
-  header += "</div><div style='display:table-cell; vertical-align:middle; white-space: nowrap; width: 250px;'><input id='header_search' type='search' style='margin-right:10px; display:inline-block; '></input><button id='header_button'>Search</button></div></header>"
+  header += "</div><div class='catalog_search_outer'><div class='catalog_search_inner'><input id='header_search' type='search'></input><button id='header_button'>Search</button></div></div></header>"
   return header
 
 def get_current_user():

@@ -25,7 +25,6 @@ def search_html():
 
   html += """
   <div id='page-content'>
-	<br>
 	<div id="search-wrap">
 		<div class="controls">
 		  <input id="search_box" type="search"></input>
@@ -93,9 +92,12 @@ def search_script():
 					}
 					else if(key == "Link" || key == "Public Code Repo"){
 						if(type == "Publication")
-							res["URL Link"] = "/" + raw["DARPA Program"] + ".html?tab=tabs1";
+							res["URL Link"] = raw["DARPA Program"] + ".html?tab=tabs1";
 						else
-							res["URL Link"] = "/" + raw["DARPA Program"] + ".html?tab=tabs0";
+							res["URL Link"] = raw["DARPA Program"] + ".html?tab=tabs0";
+					}
+					else if(key == "Description"){
+							res["Description"] = raw["Description"].replace(/\<br\/\>/g, "\\r\\n");
 					}
 					else
 						res[key] = raw[key];
@@ -130,10 +132,9 @@ def search_script():
 		
 		var template = "<div id='results-table'>{{#results}}";
 		template += "<div data-question-id='{{id}}'>";
-		template += "<h3 class='project_header'>{{Display Name}}</h3>";
-		//<a href='{{URL Link}}' >{{Display Name}}</a>, $("#search_box").val()
+		template += "<h3 class='project_header'><a href='{{URL Link}}&term={{Display Name}}' >{{Display Name}}</a></h3>";
 		template += "<p class='project_path'>{{Office}} | {{DARPA Program}} | {{Type}}</p>";
-		template += "<p class='project_description'>{{Description}}</p>";
+		template += "<p class='project_description'>" + '{{Description}}' + "</p>";
 		template += "</div><br>";
 		template += "{{/results}}</div>";
 		
@@ -147,7 +148,7 @@ def search_script():
 		//fetch the results
 		var renderResultsTable = function (rs) {
 			$("#results-heading").empty();
-			$("#results-heading").append('<p style="float:left; width:50%;"> Search Results for : "' + query_term + '"</p><p style="float:right; width:50%; text-align:right;">Total Results : ' + rs.length + '</p>');
+			$("#results-heading").append('<p style="float:left; width:60%;"> Search Results for : "' + query_term + '"</p><p style="float:right; width:20%; text-align:right;">Total Results : ' + rs.length + '</p>');
 			$("#results-heading").css("border-bottom", "2.5px solid #708284");
 			$("#results-container").empty();
 			$("#results-container").append(Mustache.to_html(resultsTableTemplate, {results: rs}));		 
