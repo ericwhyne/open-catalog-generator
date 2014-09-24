@@ -153,8 +153,8 @@ def search_script():
 			$("#results-container").empty();
 			$("#results-container").append(Mustache.to_html(resultsTableTemplate, {results: rs}));
 			
-			//$("#results-container").html().match(term);
-			$("#results-container").html().replace('Raytheon', '<span style="background-color:yellow;">' + term + '</span>');
+			//var new_html = $("#results-container").html().replace(/term/g, '<span style="background-color:yellow;">' + term + '</span>');
+			//$("#results-container").html(new_html);
 		}
 		
 		results.forEach(function (record) {
