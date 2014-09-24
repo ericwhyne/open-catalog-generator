@@ -87,7 +87,7 @@ def timeline_script():
 
 	var slider = null, // class or id of carousel slider
 		interval = null,
-		transition_in_time = 1200, // 1.2 second
+		transition_in_time = 10, // .01 second
 		time_between_slides = 10000, // 10 seconds
 		transition_out_time = 0;
 
@@ -106,7 +106,12 @@ def timeline_script():
 		window.onresize = function () {
 			$('#timeline_page').height($(window).height() - 150);
 			$('.projects_div').height($('#slide_view').height() - 38);			
-		};			
+		};
+
+		if(window.location.href.indexOf("change_timeline.html") != -1)
+			$('#expand').val("-");
+		else
+			$('#expand').val("+");	
 	});
 
 	//Setup for What's New feed
