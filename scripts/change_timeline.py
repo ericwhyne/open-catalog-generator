@@ -45,9 +45,14 @@ def timeline_html():
   html = """
 	<div id="feed">
 		<div id="controller" style="display: none;">
-			<input type="button" id="back" class="slide_buttons" value="<<" onclick="buttonAction(this);" />
-			<input type="button" id="scroll" class="slide_buttons" value="||" onclick="buttonAction(this);" />
-			<input type="button" id="forward" class="slide_buttons" value=">>" onclick="buttonAction(this);" />
+			<div id="left_control">
+				<input type="button" id="back" class="slide_buttons" value="<<" onclick="buttonAction(this);" />
+				<input type="button" id="scroll" class="slide_buttons" value="||" onclick="buttonAction(this);" />
+				<input type="button" id="forward" class="slide_buttons" value=">>" onclick="buttonAction(this);" />
+			</div>
+			<div id="right_control">								
+				<input type="button" id="expand" class="slide_buttons" value="+" onclick="buttonAction(this);" />
+			</div>
 		</div>
 		<div id="slide_view" class="slider">
 		</div>
@@ -213,7 +218,7 @@ def timeline_script():
 		// auto scroll activated 
 		interval = startInterval();
 		
-		$("#controller").css("display", "inline");
+		$("#controller").css("display", "inline-flex");
 	}	
 
 	//creates the timeline chart with data points  
@@ -563,20 +568,32 @@ def timeline_script():
 	function buttonAction(control){
 	  if(control.id == "scroll")
 	  {
+		  //toggling pause and play buttons
 		  if(control.value == "||"){
-			  clearInterval(interval);
+			clearInterval(interval);
 			$("#" + control.id).val(">");
 		  }
-		else if(control.value == ">"){
-			  interval = startInterval();
+		  else if(control.value == ">"){
+			interval = startInterval();
 			$("#" + control.id).val("||");
 		  }
 	  }
-		else if(control.id == "back"){
+	  else if(control.id == "expand")
+	  {
+		  //toggling maximize and minimize buttons
+		  if(control.value == "+"){
+			clearInterval(interval);
+			window.location.href = "change_timeline.html";
+		  }
+		  else if(control.value == "-"){
+			interval = startInterval();
+			window.location.href = "index.html";
+		  }
+	  }
+	  else if(control.id == "back"){
 		  slideControl(-1);
-		$("#" + control.id).attr("disabled", "disabled");
+		  $("#" + control.id).attr("disabled", "disabled");
 		  setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
-		
 	  }
 	  else{
 		  slideControl(1);

@@ -9,7 +9,7 @@ def search_head():
   <title>DARPA - Catalog Search</title>
   <script type='text/javascript' src='jquery-1.9.1.js'></script>
   <script src="mustache.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lunr.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lunr.js" type="text/javascript" charset="utf-8"></script>
   <script src="utils.js" type="text/javascript" charset="utf-8"></script>
   <link rel="stylesheet" type="text/css" href="css/catalog_search.css"/>
   <link rel='stylesheet' href='css/header_footer.css' type='text/css'/>  
@@ -134,7 +134,7 @@ def search_script():
 		template += "<div data-question-id='{{id}}'>";
 		template += "<h3 class='project_header'><a href='{{URL Link}}&term={{Display Name}}' >{{Display Name}}</a></h3>";
 		template += "<p class='project_path'>{{Office}} | {{DARPA Program}} | {{Type}}</p>";
-		template += "<p class='project_description'>" + '{{Description}}' + "</p>";
+		template += "<p class='project_description'>{{Description}}</p>";
 		template += "</div><br>";
 		template += "{{/results}}</div>";
 		
@@ -146,12 +146,15 @@ def search_script():
 	   
 	   
 		//fetch the results
-		var renderResultsTable = function (rs) {
+		var renderResultsTable = function (rs, term) {
 			$("#results-heading").empty();
 			$("#results-heading").append('<p style="float:left; width:60%;"> Search Results for : "' + query_term + '"</p><p style="float:right; width:20%; text-align:right;">Total Results : ' + rs.length + '</p>');
 			$("#results-heading").css("border-bottom", "2.5px solid #708284");
 			$("#results-container").empty();
-			$("#results-container").append(Mustache.to_html(resultsTableTemplate, {results: rs}));		 
+			$("#results-container").append(Mustache.to_html(resultsTableTemplate, {results: rs}));
+			
+			//$("#results-container").html().match(term);
+			$("#results-container").html().replace('Raytheon', '<span style="background-color:yellow;">' + term + '</span>');
 		}
 		
 		results.forEach(function (record) {
@@ -171,11 +174,11 @@ def search_script():
 				clearTimeout(timeout)
 				timeout = setTimeout(function () {
 				  fn.apply(ctx, args);
-				  if (ctx.val() == "" || ctx.val().length < 3){
+				  if (ctx.val() == ""){
 					$("#results-table").css({'display' : 'none'});
 				  }
 				  else{
-					console.log("return query results");
+					//console.log("return query results");
 					$("#results-table").css({'display' : 'inline'});
 					}
 					
@@ -186,12 +189,15 @@ def search_script():
 		$('#search_button').bind('click', debounce(function () {
 			  query_term = $('#search_box').val()
 			  var match = "";
-			  
 			  var documents = idx.search(query_term).map(function (result) { 
-				return results.filter(function (q) { match += result.ref + ","; return q.id === parseInt(result.ref, 10) })[0]})
-			
+				return results.filter(function (q) {
+					match += result.ref + ","; return q.id === parseInt(result.ref, 10) 
+				})
+			  [0]});
+
+			 // console.log(documents);
 			  documents.sort(sortByProperty('Display Name'));
-			  renderResultsTable(documents)	
+			  renderResultsTable(documents, query_term)	
         }))
 		
 		$("#search_box").keyup(function(event){

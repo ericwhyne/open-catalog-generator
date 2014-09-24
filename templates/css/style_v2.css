@@ -237,7 +237,7 @@ font-size: 0.8em;
 font-weight: bold;
 height: 1.7em;
 margin-bottom: 2px;
-min-width: 6px;
+width: 22px;
 padding: 0 2px;
 text-align: center;
 vertical-align: middle;
@@ -253,6 +253,7 @@ height: 97%;
 #controller{
 margin-left: auto;
 margin-right: auto;
+width:98% !important;
 }
 
 #controller_div{
@@ -264,6 +265,20 @@ float:left;
 float:left; 
 width:68%;
 height:100%;
+}
+
+#left_control{
+float:left; 
+width:90%;
+}
+#right_control{
+float:right; 
+width:10%;
+}
+
+#right_control input{
+margin-right:0 !important;
+float:right;
 }
 
 .slider_div{
