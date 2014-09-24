@@ -139,7 +139,7 @@ def filter_script():
 		  var program_nm = programs[program]["Program Name"];
   		
 		  if(programs[program]["Software File"] != ""){
-			  program_sw_file = getProgramDetails(programs[program]["Software File"]);
+			  program_sw_file = getDetails(programs[program]["Software File"]);
   			for (sw_item in program_sw_file){
 				var sw_object = program_sw_file[sw_item];
   				entries.push(sw_object);
@@ -150,7 +150,7 @@ def filter_script():
 		  }
   		
 		  if(programs[program]["Pubs File"] != ""){
-			  program_pub_file = getProgramDetails(programs[program]["Pubs File"])
+			  program_pub_file = getDetails(programs[program]["Pubs File"])
   			for (pub_item in program_pub_file){
 				var pub_object = program_pub_file[pub_item];
   				entries.push(pub_object);

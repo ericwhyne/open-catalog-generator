@@ -50,6 +50,28 @@ table.tablesorter tbody tr:nth-child(even) {
      background-color: #FFF;
 }
 
+input{
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  height: 1.2em;
+  margin-right:10px;
+  padding: 3px 4px;
+  display:inline-block;
+  width: 180px; 
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: .9em;  
+}
+
+button{
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: .9em; 
+}
+
+#header_search:focus {
+  outline:none;
+  border-color:black;
+}
+
 #splash{
 margin-left:2%;
 width: 96%;
@@ -215,7 +237,7 @@ font-size: 0.8em;
 font-weight: bold;
 height: 1.7em;
 margin-bottom: 2px;
-min-width: 6px;
+width: 22px;
 padding: 0 2px;
 text-align: center;
 vertical-align: middle;
@@ -231,6 +253,7 @@ height: 97%;
 #controller{
 margin-left: auto;
 margin-right: auto;
+width:98% !important;
 }
 
 #controller_div{
@@ -242,6 +265,20 @@ float:left;
 float:left; 
 width:68%;
 height:100%;
+}
+
+#left_control{
+float:left; 
+width:90%;
+}
+#right_control{
+float:right; 
+width:10%;
+}
+
+#right_control input{
+margin-right:0 !important;
+float:right;
 }
 
 .slider_div{
@@ -278,7 +315,7 @@ color: white;
 
 .slide_header_update{
 font-size:14px; 
-width:36%; 
+width:40%; 
 float:right; 
 line-height:22px; 
 text-align:right; 
@@ -316,4 +353,17 @@ font-weight:bold;
 line-height:20px; 
 margin-top:4px;
 padding-right: 6px;
+}
+
+.catalog_search_outer{
+display:table-cell; 
+vertical-align:middle; 
+white-space: nowrap; 
+width: 300px;
+}
+.catalog_search_inner{
+background-color:gray; 
+display:table-cell; 
+vertical-align:middle; 
+padding: 6px 10px;
 }

@@ -25,13 +25,11 @@ h3 {
   margin:0;
 }*/
 
-input {
-  border:solid 1px #ccc;
-  border-radius: 5px;
-  padding:7px 14px;
-  margin-bottom:10px
+input.search{
+  margin-bottom: 10px;
 }
-input:focus {
+
+input.search:focus {
   outline:none;
   border-color:#aaa;
 }
@@ -86,6 +84,3 @@ input:focus {
   right:-5px;
 }
 
-.search{
- margin-right:14px;
-}

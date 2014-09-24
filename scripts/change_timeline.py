@@ -45,9 +45,14 @@ def timeline_html():
   html = """
 	<div id="feed">
 		<div id="controller" style="display: none;">
-			<input type="button" id="back" class="slide_buttons" value="<<" onclick="buttonAction(this);" />
-			<input type="button" id="scroll" class="slide_buttons" value="||" onclick="buttonAction(this);" />
-			<input type="button" id="forward" class="slide_buttons" value=">>" onclick="buttonAction(this);" />
+			<div id="left_control">
+				<input type="button" id="back" class="slide_buttons" value="<<" onclick="buttonAction(this);" />
+				<input type="button" id="scroll" class="slide_buttons" value="||" onclick="buttonAction(this);" />
+				<input type="button" id="forward" class="slide_buttons" value=">>" onclick="buttonAction(this);" />
+			</div>
+			<div id="right_control">								
+				<input type="button" id="expand" class="slide_buttons" value="+" onclick="buttonAction(this);" />
+			</div>
 		</div>
 		<div id="slide_view" class="slider">
 		</div>
@@ -82,7 +87,7 @@ def timeline_script():
 
 	var slider = null, // class or id of carousel slider
 		interval = null,
-		transition_in_time = 1200, // 1.2 second
+		transition_in_time = 10, // .01 second
 		time_between_slides = 10000, // 10 seconds
 		transition_out_time = 0;
 
@@ -101,7 +106,12 @@ def timeline_script():
 		window.onresize = function () {
 			$('#timeline_page').height($(window).height() - 150);
 			$('.projects_div').height($('#slide_view').height() - 38);			
-		};			
+		};
+
+		if(window.location.href.indexOf("change_timeline.html") != -1)
+			$('#expand').val("-");
+		else
+			$('#expand').val("+");	
 	});
 
 	//Setup for What's New feed
@@ -213,7 +223,7 @@ def timeline_script():
 		// auto scroll activated 
 		interval = startInterval();
 		
-		$("#controller").css("display", "inline");
+		$("#controller").css("display", "inline-flex");
 	}	
 
 	//creates the timeline chart with data points  
@@ -438,7 +448,7 @@ def timeline_script():
 		  
 		  //collects all of the software projects that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		  if(programs[program]["Software File"] != ""){
-			  var program_sw_file = getProgramDetails(programs[program]["Software File"]);
+			  var program_sw_file = getDetails(programs[program]["Software File"]);
 			  for (sw_item in program_sw_file){
 				var sw_object = program_sw_file[sw_item];
 				var modification = getModificationDate(sw_object["New Date"], sw_object["Update Date"]);
@@ -475,7 +485,7 @@ def timeline_script():
 		
 		  //collects all of the publication projects that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		  if(programs[program]["Pubs File"] != ""){
-			  var program_pub_file = getProgramDetails(programs[program]["Pubs File"]);
+			  var program_pub_file = getDetails(programs[program]["Pubs File"]);
 
 			  for (pub_item in program_pub_file){
 				var pub_object = program_pub_file[pub_item];
@@ -563,20 +573,32 @@ def timeline_script():
 	function buttonAction(control){
 	  if(control.id == "scroll")
 	  {
+		  //toggling pause and play buttons
 		  if(control.value == "||"){
-			  clearInterval(interval);
+			clearInterval(interval);
 			$("#" + control.id).val(">");
 		  }
-		else if(control.value == ">"){
-			  interval = startInterval();
+		  else if(control.value == ">"){
+			interval = startInterval();
 			$("#" + control.id).val("||");
 		  }
 	  }
-		else if(control.id == "back"){
+	  else if(control.id == "expand")
+	  {
+		  //toggling maximize and minimize buttons
+		  if(control.value == "+"){
+			clearInterval(interval);
+			window.location.href = "change_timeline.html";
+		  }
+		  else if(control.value == "-"){
+			interval = startInterval();
+			window.location.href = "index.html";
+		  }
+	  }
+	  else if(control.id == "back"){
 		  slideControl(-1);
-		$("#" + control.id).attr("disabled", "disabled");
+		  $("#" + control.id).attr("disabled", "disabled");
 		  setTimeout(function(){$("#" + control.id).removeAttr("disabled");}, 1000);
-		
 	  }
 	  else{
 		  slideControl(1);

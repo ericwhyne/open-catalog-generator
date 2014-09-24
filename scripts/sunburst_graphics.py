@@ -138,7 +138,7 @@ function adjustvisView(query_array){
       }
 	  else if(query_array.length == 1){ //Create Individual Program Pages
 
-		var program_data = getProgramDetails(query_array[0].toUpperCase() + "-program.json");
+		var program_data = getDetails(query_array[0].toUpperCase() + "-program.json");
 		var html = Mustache.to_html(templates.Program, program_data);
 		var curr_program = new Array();
 		
@@ -159,7 +159,7 @@ function adjustvisView(query_array){
 		else
 			file_type = "pubs";
 			
-		var program_data = getProgramDetails(query_array[0].toUpperCase() + "-" + file_type + ".json");
+		var program_data = getDetails(query_array[0].toUpperCase() + "-" + file_type + ".json");
 		var template = "";
 
 		if(query_array.length == 3){
@@ -276,7 +276,7 @@ function getProgramView(){
 	
 	$.each(active_programs, function (program) {
 		var program_file = active_programs[program]['Program File'] 
-		var program_data = getProgramDetails(program_file);
+		var program_data = getDetails(program_file);
 		html += Mustache.to_html(template, program_data);
 		html += getProgramLinks(active_programs[program]);
 		html += '<hr class="hr-light">';		
@@ -316,12 +316,12 @@ function getSunburstJSON(){
 		var _program_node = new Array();
 		
 		if(program_data[program]["Software File"] != ""){
-			var details_node = getDetailsNode(getProgramDetails(program_data[program]["Software File"]), sw_edges, "Software", 2000); 
+			var details_node = getDetailsNode(getDetails(program_data[program]["Software File"]), sw_edges, "Software", 2000); 
 			_program_edge.push(details_node);
 		}
 		
 		if(program_data[program]["Pubs File"] != ""){
-			var details_node = getDetailsNode(getProgramDetails(program_data[program]["Pubs File"]), pubs_edges, "Publications", 3000); 
+			var details_node = getDetailsNode(getDetails(program_data[program]["Pubs File"]), pubs_edges, "Publications", 3000); 
 			_program_edge.push(details_node);
 			
 		}

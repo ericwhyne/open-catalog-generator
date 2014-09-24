@@ -12091,7 +12091,7 @@ nv.models.scatterChart = function() {
 	  scatter.dispatch.on('elementClick.point', function(e) {
 		if($('.slider'))
 		{
-			var transition_in_time = 1200, // 1.2 second
+			var transition_in_time = 10, // .01 second
 			time_between_slides = 10000, // 10 seconds
 			transition_out_time = 0;
 			

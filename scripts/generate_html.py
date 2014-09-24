@@ -9,6 +9,7 @@ import darpa_open_catalog as doc
 import sunburst_graphics as graph
 import catalog_filter as filter
 import change_timeline as timeline
+import catalog_search as lookup
 from pprint import pprint
 
 active_content_file = sys.argv[1]
@@ -61,6 +62,9 @@ timeline_page = timeline.timeline_head()
 timeline_page += timeline.timeline_script()
 timeline_page += "<div id='timeline_page'>" + timeline.timeline_html() + "</div>"
 
+lookup_page = lookup.search_head()
+lookup_page += lookup.search_script()
+lookup_page += lookup.search_html()
 
 for program in active_content:
   program_name = program['Program Name']
@@ -357,3 +361,6 @@ doc.write_file(filter_page, build_dir + '/catalog_filter.html')
 
 timeline_page += doc.catalog_page_footer()
 doc.write_file(timeline_page, build_dir + '/change_timeline.html')
+
+lookup_page += doc.catalog_page_footer()
+doc.write_file(lookup_page, build_dir + '/catalog_search.html')
