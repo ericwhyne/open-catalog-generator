@@ -161,7 +161,6 @@ def search_script():
 			idx.add(record)
 		})
 		
-        //renderResultsTable(results);
 		$("#results-table").hide();
 
 		//timer for searching the index

@@ -667,12 +667,15 @@ lunr.SortedSet.prototype.locationFor = function (elem, start, end) {
  * @memberOf SortedSet
  */
 lunr.SortedSet.prototype.intersect = function (otherSet) {
-  var intersectSet = new lunr.SortedSet,
+  //original lunr intersect code that does not work
+  /*var intersectSet = new lunr.SortedSet,
       i = 0, j = 0,
       a_len = this.length, b_len = otherSet.length,
       a = this.elements, b = otherSet.elements
-
-  while (true) {
+	  
+	while (true) {
+	console.log(i, a_len, j, b_len);
+	console.log(a[i], b[i]);
     if (i > a_len - 1 || j > b_len - 1) break
 
     if (a[i] === b[j]) {
@@ -690,7 +693,14 @@ lunr.SortedSet.prototype.intersect = function (otherSet) {
       j++
       continue
     }
-  };
+  };*/
+  
+	var intersectSet = this;
+	otherSet.forEach(function(record){
+		if(intersectSet.indexOf(record) == -1){
+			intersectSet.add(record);
+		}
+	})
 
   return intersectSet
 }
@@ -1029,12 +1039,14 @@ lunr.Index.prototype.idf = function (term) {
  * @memberOf Index
  */
 lunr.Index.prototype.search = function (query) {
+ console.log(query);
   var queryTokens = this.pipeline.run(lunr.tokenizer(query)),
       queryArr = lunr.utils.zeroFillArray(this.corpusTokens.length),
       documentSets = [],
 	  querySets = [],
       fieldBoosts = this._fields.reduce(function (memo, f) { return memo + f.boost }, 0)
 
+  console.log(queryTokens);
   var hasSomeToken = queryTokens.some(function (token) {
     return this.tokenStore.has(token)
   }, this)
@@ -1076,11 +1088,16 @@ lunr.Index.prototype.search = function (query) {
 
       documentSets.push(set)
     }, this)
+	
+	console.log(documentSets);
 
   var documentSet = documentSets.reduce(function (memo, set) {
+	console.log("reduce");
+	console.log(memo);
+	console.log(set);
     return memo.intersect(set);
   })
-
+  
   var queryVector = new lunr.Vector (queryArr)
 
   return documentSet
