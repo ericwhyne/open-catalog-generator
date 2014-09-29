@@ -101,11 +101,11 @@ def timeline_script():
 			$('#timeline_body').height($('#splash_desc').height());
 		else{
 			$('#timeline_page').height($(window).height() - 150);
-			$('.projects_div').height($('#slide_view').height() - 38);
+			//$('.projects_div').height($('#slide_view').height() - 38);
 		}
 		window.onresize = function () {
 			$('#timeline_page').height($(window).height() - 150);
-			$('.projects_div').height($('#slide_view').height() - 38);			
+			//$('.projects_div').height($('#slide_view').height() - 38);			
 		};
 
 		if(window.location.href.indexOf("change_timeline.html") != -1)
@@ -267,7 +267,7 @@ def timeline_script():
 			.ticks(10)	
 			.tickFormat(function(d) {
 				var date = new Date(d);
-				return d3.time.format('%m-%d-%Y')(date);
+				return d3.time.format('%b ')(date) + date.getDate().ordinate();
 			});
 
 		var y = d3.scale.linear()

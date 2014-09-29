@@ -667,12 +667,15 @@ lunr.SortedSet.prototype.locationFor = function (elem, start, end) {
  * @memberOf SortedSet
  */
 lunr.SortedSet.prototype.intersect = function (otherSet) {
-  var intersectSet = new lunr.SortedSet,
+  //original lunr intersect code that does not work
+  /*var intersectSet = new lunr.SortedSet,
       i = 0, j = 0,
       a_len = this.length, b_len = otherSet.length,
       a = this.elements, b = otherSet.elements
-
-  while (true) {
+	  
+	while (true) {
+	console.log(i, a_len, j, b_len);
+	console.log(a[i], b[i]);
     if (i > a_len - 1 || j > b_len - 1) break
 
     if (a[i] === b[j]) {
@@ -690,7 +693,14 @@ lunr.SortedSet.prototype.intersect = function (otherSet) {
       j++
       continue
     }
-  };
+  };*/
+  
+	var intersectSet = this;
+	otherSet.forEach(function(record){
+		if(intersectSet.indexOf(record) == -1){
+			intersectSet.add(record);
+		}
+	})
 
   return intersectSet
 }
@@ -1029,13 +1039,18 @@ lunr.Index.prototype.idf = function (term) {
  * @memberOf Index
  */
 lunr.Index.prototype.search = function (query) {
+ //console.log(query);
   var queryTokens = this.pipeline.run(lunr.tokenizer(query)),
       queryArr = lunr.utils.zeroFillArray(this.corpusTokens.length),
       documentSets = [],
 	  querySets = [],
       fieldBoosts = this._fields.reduce(function (memo, f) { return memo + f.boost }, 0)
 
+  //console.log(queryTokens);
   var hasSomeToken = queryTokens.some(function (token) {
+	/*console.log(token);
+	console.log(this.tokenStore);
+	console.log(this.tokenStore.has(token));*/
     return this.tokenStore.has(token)
   }, this)
 
@@ -1076,11 +1091,13 @@ lunr.Index.prototype.search = function (query) {
 
       documentSets.push(set)
     }, this)
+	
+	//console.log(documentSets);
 
   var documentSet = documentSets.reduce(function (memo, set) {
     return memo.intersect(set);
   })
-
+  
   var queryVector = new lunr.Vector (queryArr)
 
   return documentSet
@@ -1632,19 +1649,72 @@ lunr.TokenStore.load = function (serialisedData) {
  * is used.
  * @memberOf TokenStore
  */
+
 lunr.TokenStore.prototype.add = function (token, doc, root) {
+	
+	/*var no_repeat = false; //new
+
+	if((token == "gtri" || token == "georgia tech") && no_repeat == false ){ //new
+		console.log("token store add");
+		console.log(token);
+		console.log(doc);
+		console.log("root");
+		console.log(root);
+	}
+	var node_root = null; //new
+
+	if(root){//new
+	node_root = root;
+	}*/
+	  
   var root = root || this.root,
       key = token[0],
       rest = token.slice(1)
 
+	/*
+	if((token == "gtri" || token == "georgia tech") && no_repeat == false ){//new
+		console.log("main, root, and node_root");
+		console.log(this);
+		console.log(root);
+		console.log(node_root);
+		console.log("key: " + key + "rest: " + rest);
+	}  */
+	  
+	  
+	  
   if (!(key in root)) root[key] = {docs: {}}
 
+ 
   if (rest.length === 0) {
-    root[key].docs[doc.ref] = doc
-    this.length += 1
-    return
+		root[key].docs[doc.ref] = doc
+		this.length += 1
+		return
   } else {
-    return this.add(rest, doc, root[key])
+	  /*if((token == "gtri" || token == "georgia tech") && no_repeat == false ){//new
+		console.log("root[key]");
+		console.log(root[key]);
+		no_repeat = true;
+
+		if(node_root != null){
+			console.log("add node to root[key]");
+			console.log(rest[0]);
+			console.log(this.root);
+			if(!(rest[0] in this.root[key])){
+				console.log("not there");
+				console.log(this.root[key][rest[0]]);
+				console.log(root[key][rest[0]]);
+				this.root[key][rest[0]] = root[key][rest[0]];
+				console.log(this);
+				return this.add(rest, doc, root[key]);
+			}
+			//return this.add(rest, doc, root[key])
+		}
+		else
+			return this.add(rest, doc, root[key])
+		
+		}  */
+
+		return this.add(rest, doc, root[key])
   }
 }
 
@@ -1659,6 +1729,7 @@ lunr.TokenStore.prototype.add = function (token, doc, root) {
  * @memberOf TokenStore
  */
 lunr.TokenStore.prototype.has = function (token) {
+//console.log("has:" + token);
   if (!token) return false
 
   var node = this.root

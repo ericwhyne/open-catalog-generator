@@ -1,16 +1,16 @@
 var months = new Array(12);
-months[0] = "January";
-months[1] = "February";
-months[2] = "March";
-months[3] = "April";
-months[4] = "May";
-months[5] = "June";
-months[6] = "July";
-months[7] = "August";
-months[8] = "September";
-months[9] = "October";
-months[10] = "November";
-months[11] = "December";
+months[0] = {"long_name":"January", "short_name":"Jan"};
+months[1] = {"long_name":"February", "short_name":"Feb"};
+months[2] = {"long_name":"March", "short_name":"Mar"};
+months[3] = {"long_name":"April", "short_name":"Apr"};
+months[4] = {"long_name":"May", "short_name":"May"};
+months[5] = {"long_name":"June", "short_name":"Jun"};
+months[6] = {"long_name":"July", "short_name":"Jul"};
+months[7] = {"long_name":"August", "short_name":"Aug"};
+months[8] = {"long_name":"September", "short_name":"Sep"};
+months[9] = {"long_name":"October", "short_name":"Oct"};
+months[10] = {"long_name":"November", "short_name":"Nov"};
+months[11] = {"long_name":"December", "short_name":"Dec"};
 
 Number.prototype.ordinate = function(){
     var num = this,
@@ -218,7 +218,7 @@ function dateToString(date, separator){
 		date_month = date.getMonth();
 		date_day = date.getDate();
 		
-		string_date = months[date_month] + ' ' + date_day.ordinate();
+		string_date = months[date_month].short_name + ' ' + date_day.ordinate();
 	}
 	else{
 		date_month = (date.getMonth() + 1).toString().length == 1? "0" + (date.getMonth() + 1).toString() : date.getMonth() + 1;
