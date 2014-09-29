@@ -1729,7 +1729,7 @@ lunr.TokenStore.prototype.add = function (token, doc, root) {
  * @memberOf TokenStore
  */
 lunr.TokenStore.prototype.has = function (token) {
-	console.log("has:" + token);
+//console.log("has:" + token);
   if (!token) return false
 
   var node = this.root
