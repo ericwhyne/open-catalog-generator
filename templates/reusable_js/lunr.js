@@ -1039,15 +1039,18 @@ lunr.Index.prototype.idf = function (term) {
  * @memberOf Index
  */
 lunr.Index.prototype.search = function (query) {
- console.log(query);
+ //console.log(query);
   var queryTokens = this.pipeline.run(lunr.tokenizer(query)),
       queryArr = lunr.utils.zeroFillArray(this.corpusTokens.length),
       documentSets = [],
 	  querySets = [],
       fieldBoosts = this._fields.reduce(function (memo, f) { return memo + f.boost }, 0)
 
-  console.log(queryTokens);
+  //console.log(queryTokens);
   var hasSomeToken = queryTokens.some(function (token) {
+	/*console.log(token);
+	console.log(this.tokenStore);
+	console.log(this.tokenStore.has(token));*/
     return this.tokenStore.has(token)
   }, this)
 
@@ -1089,12 +1092,9 @@ lunr.Index.prototype.search = function (query) {
       documentSets.push(set)
     }, this)
 	
-	console.log(documentSets);
+	//console.log(documentSets);
 
   var documentSet = documentSets.reduce(function (memo, set) {
-	console.log("reduce");
-	console.log(memo);
-	console.log(set);
     return memo.intersect(set);
   })
   
@@ -1649,19 +1649,72 @@ lunr.TokenStore.load = function (serialisedData) {
  * is used.
  * @memberOf TokenStore
  */
+
 lunr.TokenStore.prototype.add = function (token, doc, root) {
+	
+	/*var no_repeat = false; //new
+
+	if((token == "gtri" || token == "georgia tech") && no_repeat == false ){ //new
+		console.log("token store add");
+		console.log(token);
+		console.log(doc);
+		console.log("root");
+		console.log(root);
+	}
+	var node_root = null; //new
+
+	if(root){//new
+	node_root = root;
+	}*/
+	  
   var root = root || this.root,
       key = token[0],
       rest = token.slice(1)
 
+	/*
+	if((token == "gtri" || token == "georgia tech") && no_repeat == false ){//new
+		console.log("main, root, and node_root");
+		console.log(this);
+		console.log(root);
+		console.log(node_root);
+		console.log("key: " + key + "rest: " + rest);
+	}  */
+	  
+	  
+	  
   if (!(key in root)) root[key] = {docs: {}}
 
+ 
   if (rest.length === 0) {
-    root[key].docs[doc.ref] = doc
-    this.length += 1
-    return
+		root[key].docs[doc.ref] = doc
+		this.length += 1
+		return
   } else {
-    return this.add(rest, doc, root[key])
+	  /*if((token == "gtri" || token == "georgia tech") && no_repeat == false ){//new
+		console.log("root[key]");
+		console.log(root[key]);
+		no_repeat = true;
+
+		if(node_root != null){
+			console.log("add node to root[key]");
+			console.log(rest[0]);
+			console.log(this.root);
+			if(!(rest[0] in this.root[key])){
+				console.log("not there");
+				console.log(this.root[key][rest[0]]);
+				console.log(root[key][rest[0]]);
+				this.root[key][rest[0]] = root[key][rest[0]];
+				console.log(this);
+				return this.add(rest, doc, root[key]);
+			}
+			//return this.add(rest, doc, root[key])
+		}
+		else
+			return this.add(rest, doc, root[key])
+		
+		}  */
+
+		return this.add(rest, doc, root[key])
   }
 }
 
@@ -1676,6 +1729,7 @@ lunr.TokenStore.prototype.add = function (token, doc, root) {
  * @memberOf TokenStore
  */
 lunr.TokenStore.prototype.has = function (token) {
+	console.log("has:" + token);
   if (!token) return false
 
   var node = this.root

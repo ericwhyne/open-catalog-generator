@@ -2,7 +2,7 @@
 import json
 import re
 import sys
-import time
+import datetime
 import os
 import shutil
 import darpa_open_catalog as doc
@@ -18,7 +18,8 @@ data_dir = sys.argv[3]
 build_dir = sys.argv[4]
 last_update_file = sys.argv[5]
 darpa_links = sys.argv[6]
-date = time.strftime("%Y-%m-%d", time.localtime())
+date = datetime.datetime.now()
+formatted_date = date.strftime("%B") + " " + date.strftime("%d") + ", " + date.strftime("%Y")
 
 print """
 Active content file: %s
@@ -116,7 +117,7 @@ for program in active_content:
     if program['Pubs File'] != "":
       program_page += "<ul><li>The Publications Table contains author(s), title, and links to peer-reviewed articles related to specific DARPA programs.</li></ul>"
     program_page += "<p>Report a problem: <a href=\"mailto:opencatalog@darpa.mil\">opencatalog@darpa.mil</a></p>"
-    program_page += "<p>Last updated: %s</p></div>" % date
+    program_page += "<p>Last updated: %s</p></div>" % formatted_date
     if 'Image' in program_details.keys():
       if program_details['Image'] != "":
         program_page += "\n<div class='right-image'><img src=\"%s\"/></div>" % program_details['Image']

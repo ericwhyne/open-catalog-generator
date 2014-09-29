@@ -1,5 +1,4 @@
 #!/usr/bin/python
-import time
 import getpass
 import re
 import datetime
@@ -46,7 +45,8 @@ def get_current_user():
   return getpass.getuser()
     
 def catalog_splash_content():
-  date = time.strftime("%Y-%m-%d", time.localtime())
+  date = datetime.datetime.now()
+  formatted_date = date.strftime("%B") + " " + date.strftime("%d") + ", " + date.strftime("%Y")
   splash = """
 <div width='98%'><p>Welcome to the DARPA Open Catalog, which contains a curated list of DARPA-sponsored software and peer-reviewed publications. DARPA sponsors fundamental and applied research in a variety of areas that may lead to experimental results and reusable technology designed to benefit multiple government domains.</p>
 <p>The DARPA Open Catalog organizes publicly releasable material from DARPA programs. DARPA has an open strategy to help increase the impact of government investments.</p>
@@ -58,7 +58,7 @@ Dr. Christopher White<br>
 <a href='mailto:christopher.white@darpa.mil'>christopher.white@darpa.mil</a></p>
 <p>Report a problem: <a href="mailto:opencatalog@darpa.mil">opencatalog@darpa.mil</a></p>
 <p>Last updated: """ 
-  splash += date + "</p></div>"
+  splash += formatted_date + "</p></div>"
   splash += "<div id='timeline_body'>" + timeline.timeline_html() + "</div>"
   splash += timeline.timeline_script()
   return splash
@@ -188,21 +188,21 @@ $(document).ready(function()
 			var param_term = decodeURIComponent(getUrlParams("term"));
 
 			if(param_tab && !param_term){
-				console.log("tab");
+				//console.log("tab");
 				if (param_tab == "tabs0")
 					$("#tabs").tabs({active: 0});  //software tab
 				else if (param_tab == "tabs1")
 					$("#tabs").tabs({active: 1});  //publications tab
 			}
 			else if(param_tab && param_term){
-				console.log("tab and term");
+				//console.log("tab and term");
 				if (param_tab == "tabs0")
 					swSearch(param_term);
 				else if (param_tab == "tabs1")
 					pubSearch(param_term);
 			}
 			else{
-				console.log("nothing");
+				//console.log("no params");
 				if($("#tabs0"))
 					$("#tabs").tabs({active: 0}); //software tab
 				else
@@ -299,7 +299,6 @@ function jump(h){
 }
 
 function swSearch(link){
-	console.log(link);
 	var search_text = "";
 	if(link.hash)
 		search_text = link.hash.replace("#", "");
@@ -321,7 +320,6 @@ function swSearch(link){
 }
 
 function pubSearch(link){
-	console.log(link);
 	var search_text = "";
 	if(link.hash)
 		search_text = link.hash.replace("#", "");
