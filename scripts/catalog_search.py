@@ -99,6 +99,9 @@ def search_script():
 					else if(key == "Description"){
 							res["Description"] = raw["Description"].replace(/\<br\/\>/g, "\\r\\n");
 					}
+					else if(key == "Team"){
+							res["Team"] = raw["Team"].replace(/\//g, " ");
+					}
 					else
 						res[key] = raw[key];
 					
@@ -117,7 +120,7 @@ def search_script():
 		var idx = lunr(function () {
 			for(var i=0; i<headers.length; i++){
 				  var field = headers[i];
-				  
+
 				  if (field == 'id')
 					this.ref(field)
 				  else if(field == "Description")	
@@ -129,6 +132,8 @@ def search_script():
 			 }
 			 return this;
 		})
+		
+		//console.log(idx);
 		
 		var template = "<div id='results-table'>{{#results}}";
 		template += "<div data-question-id='{{id}}'>";
