@@ -220,7 +220,7 @@ def timeline_script():
 				html[i] += "</div></div>";
 		}
 		
-		//stop spinner and set up for initial slides		
+		//set up for initial slides		
 		slider.append(html.join(""));
 		slider.height("85%");
 		slider.css("display", "inline");
@@ -357,6 +357,7 @@ def timeline_script():
 			return chart;
 		});
 		
+		//stop loading spinner now that timeline is loaded
 		spinner.stop();
 	}
 
