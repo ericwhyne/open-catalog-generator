@@ -102,7 +102,6 @@ def timeline_script():
 			$('#timeline_body').height($('#splash_desc').height());
 		}
 		else{
-			console.log($(window).height());
 			$('#timeline_page').height($(window).height() - 150);
 			$('#timeline_page').append(spinner.el);
 		}
