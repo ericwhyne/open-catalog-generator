@@ -51,7 +51,13 @@ function getOfficeDetails(office){
 }
 
 function getPrograms() {
-	var programs  = ajaxCall('active_content.json', 'json', false, true);
+	var active_file = "";
+	if (window.location.href.contains("deploy"))
+		active_file = "active_content_deployed.json";
+	else
+		active_file = "active_content.json";
+		
+	var programs  = ajaxCall(active_file, 'json', false, true);
 	return programs;
 }
 
