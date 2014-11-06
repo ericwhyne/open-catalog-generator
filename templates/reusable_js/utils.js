@@ -52,7 +52,7 @@ function getOfficeDetails(office){
 
 function getPrograms() {
 	var active_file = "";
-	if (window.location.href.contains("deploy"))
+	if (window.location.href.indexOf("deploy") != -1)
 		active_file = "active_content_deployed.json";
 	else
 		active_file = "active_content.json";
