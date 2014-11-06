@@ -6,21 +6,25 @@ def timeline_head():
   <html lang='en'>
   <head>
   <meta charset="utf-8">
-  <link href="css/nv.d3.css" rel="stylesheet" type="text/css">
-  <link href="css/banner_style.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="css/header_footer.css"/>  
-  <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
-  <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
-  <link rel='stylesheet' href="css/nv.d3.css" rel="stylesheet" type="text/css"> 
-  <script language="javascript" type='text/javascript' src="d3.v3.js"></script>
-  <script language="javascript" type='text/javascript' src="nv.d3.js"></script>
+  <!--
   <script language="javascript" type='text/javascript' src="tooltip.js"></script>
   <script language="javascript" type='text/javascript' src="nv.utils.js"></script>
-  <script language="javascript" type='text/javascript' src="utils.js"></script>
   <script language="javascript" type='text/javascript' src="legend.js"></script>
   <script language="javascript" type='text/javascript' src="axis.js"></script>
   <script language="javascript" type='text/javascript' src="distribution.js"></script>
+  -->
+  
+  <link href="css/banner_style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="css/header_footer.css"/>
+  <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
+  <link rel='stylesheet' href='css/flick/jquery-ui-1.10.4.custom.css' type='text/css'/>
+  <link rel='stylesheet' href="css/nv.d3.css" rel="stylesheet" type="text/css">   
   <script language="javascript" type="text/javascript" src="jquery-1.11.1.min.js"></script>
+  <script language="javascript" type='text/javascript' src="d3.v3.js"></script>
+  <script language="javascript" type='text/javascript' src="nv.d3.js"></script>
+  <script language="javascript" type='text/javascript' src="utils.js"></script>
+  <script language="javascript" type='text/javascript' src="spin.js"></script>
+
 
   </head>
   <style>
@@ -69,7 +73,7 @@ def timeline_script():
   return """
   
   <script type='text/javascript'>
-	var active_offices = [],
+	var office_attributes = [],
 		minus_feed = 440,
 		minus_timeline = 380;
 
@@ -90,23 +94,27 @@ def timeline_script():
 		transition_in_time = 10, // .01 second
 		time_between_slides = 10000, // 10 seconds
 		transition_out_time = 0;
+		
+	var spinner = new Spinner().spin(); //timeline loading spinner graphic
 
 	$( document ).ready(function() {
+		if(document.getElementById("splash_desc") != null){
+			$('#timeline_body').height($('#splash_desc').height());
+			$('#timeline_body').append(spinner.el);
+		}
+		else{
+			$('#timeline_page').height($(window).height() - 150);
+			$('#timeline_page').append(spinner.el);
+		}
+
+		window.onresize = function () {
+			$('#timeline_page').height($(window).height() - 150);			
+		};
+		
 		var programs = getPrograms();
 		var data_store = createDataStore(programs);
 		activateDataCarousel(data_store);
 		createTimeline(data_store);
-		
-		if(document.getElementById("splash_desc") != null)
-			$('#timeline_body').height($('#splash_desc').height());
-		else{
-			$('#timeline_page').height($(window).height() - 150);
-			//$('.projects_div').height($('#slide_view').height() - 38);
-		}
-		window.onresize = function () {
-			$('#timeline_page').height($(window).height() - 150);
-			//$('.projects_div').height($('#slide_view').height() - 38);			
-		};
 
 		if(window.location.href.indexOf("change_timeline.html") != -1)
 			$('#expand').val("-");
@@ -211,8 +219,8 @@ def timeline_script():
 			if(html[i])
 				html[i] += "</div></div>";
 		}
-
-		//set up for initial slides
+		
+		//set up for initial slides		
 		slider.append(html.join(""));
 		slider.height("85%");
 		slider.css("display", "inline");
@@ -245,110 +253,112 @@ def timeline_script():
 			single_point = true;
 
 		nv.addGraph(function() {
+			var margin = {top: 40, right: 10, bottom: 60, left: 50},
+			width = 960 - margin.left - margin.right,
+			height = 500 - margin.top - margin.bottom;
 
-		var margin = {top: 40, right: 10, bottom: 60, left: 50},
-		width = 960 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom;
+			chart = nv.models.scatterChart()
+				.showDistX(true) //show ticks on x-axis
+				.showDistY(true) //show ticks on y-axis
+				.id(id) 
+				.size(1).sizeRange([130,130]) //size of plot points all the same
+				.transitionDuration(300)
+				.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
 
-		chart = nv.models.scatterChart()
-			.showDistX(true) //show ticks on x-axis
-			.showDistY(true) //show ticks on y-axis
-			.id(id) 
-			.size(1).sizeRange([130,130]) //size of plot points all the same
-			.transitionDuration(300)
-			.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
+			var x = d3.scale.linear()
+				.domain([date_start, date_end]);
+				
+			chart.xAxis.tickSize(2).scale(x)
+				.orient("bottom")
+				.rotateLabels(-30)	
+				.ticks(10)	
+				.tickFormat(function(d) {
+					var date = new Date(d);
+					return d3.time.format('%b ')(date) + date.getDate().ordinate();
+				});
 
-		var x = d3.scale.linear()
-			.domain([date_start, date_end]);
+			var y = d3.scale.linear()
+				.domain([min_count, max_count]);
+
+			chart.forceY([min_count, max_count]);
+			var maxTicks = max_y_ticks, yMin = y.domain()[0], yMax = y.domain()[1], 
+				yDiff = (yMax - yMin)/maxTicks, tickInterval = [];
+			tickInterval[0] = yMin;
+
+			for(i=1; i<maxTicks; i++){
+				var current = yMin + i*yDiff;
+				tickInterval[i] = Math.floor(current);
+			}
 			
-		chart.xAxis.tickSize(2).scale(x)
-			.orient("bottom")
-			.rotateLabels(-30)	
-			.ticks(10)	
-			.tickFormat(function(d) {
-				var date = new Date(d);
-				return d3.time.format('%b ')(date) + date.getDate().ordinate();
+			tickInterval[maxTicks] = yMax;
+
+			chart.yAxis.scale(y)
+				.orient("left")
+				.ticks(max_count)			
+				.tickFormat(d3.format('')/*function(d,i){ console.log(d); return d; }*/)
+				.tickValues(tickInterval);
+				
+			chart.scatter.onlyCircles(true); //We want to show shapes other than circles.
+			chart.tooltipXContent(null); //Hide separate tooltip for x axis
+			chart.tooltipYContent(null); //Hide separate tooltip for y axis
+			
+			chart.tooltipContent(function(office, date, total, values) {
+				var type_class = "";
+				if(values.point.date_type.toLowerCase() == "updated")
+					type_class = "vertical-green";
+				if(values.point.date_type.toLowerCase() == "new")
+					type_class = "vertical-red";
+
+				var p = document.createElement("p");
+				p.id = "tooltip-content";
+				p.setAttribute("class", "ribbon-dialog-text");
+				var html =  values.point.string_date + " : <span class='vertical " + type_class + "'>" + values.point.date_type + "</span>";
+				
+				if (values.point.sw_count)
+					html += "<br>Software Count : "  + values.point.sw_count;
+				if (values.point.pb_count)
+					html += "<br>Publications Count : "  + values.point.pb_count;						
+				p.innerHTML = html;
+				
+				var title_div = document.createElement("div");
+				title_div.id = "tooltip-title";
+				title_div.setAttribute("class", "ribbon-dialog");
+
+				if (values.point.sw_count || values.point.pb_count)	
+					title_div.innerHTML = "<span style=' color:#" + values.point.color + ";'>" + values.point.program + " Projects</span>";
+				else
+					title_div.innerHTML = "<span style=' color:#" + values.point.color + ";'>" + values.point.program + " Program</span>";
+
+				title_div.style.color = values.point.color;
+				var div = document.createElement("div");
+				div.id = "tooltip";
+				
+				div.appendChild(title_div);
+				div.appendChild(p);
+				return div.outerHTML;
 			});
 
-		var y = d3.scale.linear()
-			.domain([min_count, max_count]);
+			var root = fetchTimelineData(store);
+			var nodes = [];
 
-		chart.forceY([min_count, max_count]);
-		var maxTicks = max_y_ticks, yMin = y.domain()[0], yMax = y.domain()[1], 
-			yDiff = (yMax - yMin)/maxTicks, tickInterval = [];
-		tickInterval[0] = yMin;
+			for(branch in root){
+				for(node in root[branch].values)
+					nodes.push(root[branch].values[node]);
+			}
 
-		for(i=1; i<maxTicks; i++){
-			var current = yMin + i*yDiff;
-			tickInterval[i] = Math.floor(current);
-		}
-		
-		tickInterval[maxTicks] = yMax;
-
-		chart.yAxis.scale(y)
-			.orient("left")
-			.ticks(max_count)			
-			.tickFormat(d3.format('')/*function(d,i){ console.log(d); return d; }*/)
-			.tickValues(tickInterval);
-			
-		chart.scatter.onlyCircles(true); //We want to show shapes other than circles.
-		chart.tooltipXContent(null); //Hide separate tooltip for x axis
-		chart.tooltipYContent(null); //Hide separate tooltip for y axis
-		
-		chart.tooltipContent(function(office, date, total, values) {
-			var type_class = "";
-			if(values.point.date_type.toLowerCase() == "updated")
-				type_class = "vertical-green";
-			if(values.point.date_type.toLowerCase() == "new")
-				type_class = "vertical-red";
-
-			var p = document.createElement("p");
-			p.id = "tooltip-content";
-			p.setAttribute("class", "ribbon-dialog-text");
-			var html =  values.point.string_date + " : <span class='vertical " + type_class + "'>" + values.point.date_type + "</span>";
-			
-			if (values.point.sw_count)
-				html += "<br>Software Count : "  + values.point.sw_count;
-			if (values.point.pb_count)
-				html += "<br>Publications Count : "  + values.point.pb_count;						
-			p.innerHTML = html;
-			
-			var title_div = document.createElement("div");
-			title_div.id = "tooltip-title";
-			title_div.setAttribute("class", "ribbon-dialog");
-
-			if (values.point.sw_count || values.point.pb_count)	
-				title_div.innerHTML = "<span style=' color:#" + values.point.color + ";'>" + values.point.program + " Projects</span>";
-			else
-				title_div.innerHTML = "<span style=' color:#" + values.point.color + ";'>" + values.point.program + " Program</span>";
-
-			title_div.style.color = values.point.color;
-			var div = document.createElement("div");
-			div.id = "tooltip";
-			
-			div.appendChild(title_div);
-			div.appendChild(p);
-			return div.outerHTML;
+			var svg = d3.select("#timeline").select("svg")
+					.datum(root)
+					.style({ 'width': width, 'height': height })
+					.call(chart);
+					
+			chart.update();
+			nv.utils.windowResize(chart.update);
+			chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
+			return chart;
 		});
-
-		var root = fetchTimelineData(store);
-		var nodes = [];
-
-		for(branch in root){
-			for(node in root[branch].values)
-				nodes.push(root[branch].values[node]);
-		}
-
-		var svg = d3.select("#timeline").select("svg")
-				.datum(root)
-				.style({ 'width': width, 'height': height })
-				.call(chart);
-				
-		chart.update();
-		nv.utils.windowResize(chart.update);
-		chart.dispatch.on('stateChange', function(e) { ('New State:', JSON.stringify(e)); });
-		return chart;
-		});
+		
+		//stop loading spinner now that timeline is loaded
+		spinner.stop();
 	}
 
 	//Returns the data for the legend and timeline data points
@@ -356,18 +366,18 @@ def timeline_script():
 		var data = [], random = d3.random.normal();
 
 		//builds group array for timeline legend, in this case, active offices
-		for (i = 0; i < active_offices.length; i++) {
+		for (i = 0; i < office_attributes.length; i++) {
 		  data.push({
-			key: active_offices[i].name,
+			key: office_attributes[i].name,
 			values: [],
-			color: "#" + active_offices[i].color
+			color: "#" + office_attributes[i].color
 		  });
 		  
 		  //builds group array for data points in the timeline, in this case, programs and projects
 		  for (j = 0; j < store.offices.length; j++) {
 				var office_data = store.offices[store.offices[j]];
 				for (office in office_data) {
-				  if(office_data[office].office["DARPA Office"] == active_offices[i].name){
+				  if(office_data[office].office["DARPA Office"] == office_attributes[i].name){
 					if(office_data[office].projects){
 						var projects = office_data[office].projects;
 						for(project in projects){
@@ -383,7 +393,7 @@ def timeline_script():
 							data[i].values.push({
 							  y: total_count, 
 							  x: date,
-							  color: "#" + active_offices[i].color,
+							  color: "#" + office_attributes[i].color,
 							  shape: "circle",
 							  program: office_data[office].program,
 							  date_type: projects[project]["Date Type"],
@@ -399,7 +409,7 @@ def timeline_script():
 						data[i].values.push({
 						  y: 1, 
 						  x: date,
-						  color: "#" + active_offices[i].color,
+						  color: "#" + office_attributes[i].color,
 						  shape: "circle",
 						  program: office_data[office].program,
 						  date_type: office_data[office]["Date Type"],
@@ -418,29 +428,32 @@ def timeline_script():
 	function createDataStore(programs){
 		var node = new Array();
 		var root = new Array();
+		var active_offices = new Array();
 		var office_checker = new Array();
 		
 		for (program in programs){
 		  var program_nm = programs[program]["Program Name"];
-		  var office_details = new Array();
+		  var current_office = new Array();
 		  var sw = new Array();
 		  var pub = new Array();
 		  var edge = new Array();
 		  
 		  //sets the offices that are currently active and a temporary array to ensure that the offices are not duplicated
 		  if(programs[program]["DARPA Office"] != ""){
-			office_details = getOfficeDetails(programs[program]["DARPA Office"]);
-
-			if(!isInArray(office_details["DARPA Office"] , office_checker)){
-				active_offices.push({"name":office_details["DARPA Office"], "color":office_details["DARPA Office Color"]});
-				office_checker.push(office_details["DARPA Office"]);
+			if(!isInArray(programs[program]["DARPA Office"], office_checker)){ 
+				active_offices[programs[program]["DARPA Office"]] = getOfficeDetails(programs[program]["DARPA Office"]);
+				office_checker.push(active_offices[programs[program]["DARPA Office"]]["DARPA Office"]);
+				office_attributes.push({"name":active_offices[programs[program]["DARPA Office"]]["DARPA Office"], "color":active_offices[programs[program]["DARPA Office"]]["DARPA Office Color"]});
 			}
+
+			current_office = active_offices[programs[program]["DARPA Office"]];
+			
 		  }
 		  
 		 //collects all of the programs that are new or updated and adds their change date to an array in order to keep track of all changes dates
 		 if(programs[program]["Banner"] != ""){
 			var build_date = stringToDate(getBuildDate());
-			node.push({"office":office_details, "program":program_nm, "Date": build_date, "Date Type": programs[program]["Banner"]});
+			node.push({"office":current_office, "program":program_nm, "Date": build_date, "Date Type": programs[program]["Banner"]});
 			
 			if(!isInArray(build_date.getTime(), change_dates))
 				change_dates.push(build_date.getTime());
@@ -520,7 +533,7 @@ def timeline_script():
 			  }
 		  }
 		  if(edge.length != 0)
-			node.push({"office":office_details, "program":program_nm, "projects": edge});
+			node.push({"office":current_office, "program":program_nm, "projects": edge});
 		}
 		
 		root = {"offices": office_checker}; //top level of object - offices
@@ -543,7 +556,6 @@ def timeline_script():
 		//console.log(root);
 		return root;
 	}
-	//});
 
 	function startInterval(){
 		return setInterval(
