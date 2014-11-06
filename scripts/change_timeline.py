@@ -100,6 +100,7 @@ def timeline_script():
 	$( document ).ready(function() {
 		if(document.getElementById("splash_desc") != null){
 			$('#timeline_body').height($('#splash_desc').height());
+			$('#timeline_body').append(spinner.el);
 		}
 		else{
 			$('#timeline_page').height($(window).height() - 150);
