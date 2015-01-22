@@ -1,0 +1,78 @@
+DARPA Program Name,Program Teams,Authors,Link,Title,Categories,Subcategories,ACM 1998 classification code,AMS 2010 classification code
+GRAPHS ,MIT,"Hamid Mahini, Anshul Sawant",http://arxiv.org/abs/1311.5925,Scheduling a Cascade with Opposing Influences,,,F.2.2,05C85  
+GRAPHS ,MIT,"Erik D. Demaine, Fedor V. Fomin, Mohammad Taghi Hajiaghayi, Dimitrois M. Thilikos ",http://drops.dagstuhl.de/opus/volltexte/2013/4013/,"Bidimensional Structures: Algorithms, Combinatorics and Logic",,,F.2.2,05C85  
+GRAPHS ,MIT,"Rajesh H. Chitnis, Mohammad Taghi Hajiaghayi, Jonathan Katz, Koyel Mukherjee",http://dl.acm.org/citation.cfm?id=2486160,"Brief Announcement: A Game-Theoretic Model Motivated by the DARPA 
+Network Challenge",,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Taghi Hajiaghayi, Wei Hu, Jian Li, Shi Li, Barna Saha ",http://epubs.siam.org/doi/pdf/10.1137/1.9781611973402.129,"A Constant 
+Factor Approximation Algorithm for Fault-Tolerant k-Median",,,F.2.2,05C85  
+GRAPHS ,MIT,"Rajesh Chitnis, Guy Kortsarz",http://link.springer.com/chapter/10.1007%2F978-3-319-03898-8_11#page-1,Fixed-Parameter and Approximation Algorithms: A New Look,,,F.2.2,05C85  
+GRAPHS ,MIT,"Erik D. Demaine, Mohammad Taghi Hajiaghayi, Hamid Mahini, David Malec, S. Raghavan, Anshul Sawant, Morteza Zadimoghaddam ",http://dl.acm.org/citation.cfm?doid=2566486.2568039,"How to Influence People with 
+Partial Incentives",,,F.2.2,05C85  
+GRAPHS ,MIT,"Anshul Sawant, John P. Dickerson, Mohammad Taghi Hajiaghayi, V.S. Subrahmanian ",Not Yet Published,"PREVE: A Policy Recommendation Engine based on Vector Equilibria in 
+Multiplayer Games",,,F.2.2,05C85  
+GRAPHS ,MIT,"John Dickerson, Anshul Sawant, V.S. Subrahmanian ",Not Yet Published,"PREVE: A Policy Recommendation Engine Based on Vector Equilibria Applied to 
+Reducing LeT's Attacks",,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Hossein Bateni, Mohammad Taghi Hajiaghayi, Philip N. Klein, Claire Mathieu",http://delivery.acm.org/10.1145/2100000/2095170/p639-bateni.pdf?ip=128.30.51.205&id=2095170&acc=ACTIVE%20SERVICE&key=7777116298C9657D.DE5F786C30E1A3B4.4D4702B0C3E38B35.4D4702B0C3E38B35&CFID=575912280&CFTOKEN=52871898&__acm__=1411758208_9d9c97f7f57d81f995f0de4857a8a645,A Polynomial-Time Approximation Scheme for Planar Multiway Cut,,,F.2.2,05C85  
+GRAPHS ,MIT,"Amir Mahdi Ahmadinejad, Sina Dehghani, Mohammad Taghi Hajiaghayi, Hamid Mahini, Saeed Seddighin, Sadra Yazdanbod ",Not Yet Published,How Effective We Can Form Opinions,,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Taghayi Hajiaghayi, Hamid Mahini, David Malec",Not Yet Published,The Polarizing Effect of Network Influences,,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Taghi Hajiaghayi, Rohit Khandekar, Guy Kortsarz, Zeev Nutov",http://link.springer.com/chapter/10.1007%2F978-3-642-13036-6_6#page-1,The Prize-Collecting Steiner Network Problems,,,F.2.2,05C85  
+GRAPHS ,MIT,"MohammadTaghi Hajiaghayi, Rohit Khandekar, M. Reza Khani, Guy Kortsarz ",http://arxiv.org/abs/1306.3739,Approximation Algorithms for Movement Repairmen,,,F.2.2,05C85  
+GRAPHS ,MIT,"Marek Cygan, Mohammad Taghi Hajiaghayi, Samir Khuller ",http://arxiv.org/abs/1208.3054,"LP Rounding for 
+k-Centers with Non-uniform Hard Capacities",,,F.2.2,05C85  
+GRAPHS ,MIT,"Vahid Liaghat, Debmalya Panigrahi ",http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6686192,Online Node-Weighted Steiner Forest and Extensions Via Disk Paintings,,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Hossein Bateni Mohammad Taghi Hajiaghayi, Vahid Liaghat",http://link.springer.com/chapter/10.1007/978-3-642-39206-1_8#page-1,"Improved 
+Approximation Algorithms for (Budgeted) Node-Weighted Steiner Problems",,,F.2.2,05C85  
+GRAPHS ,MIT,"Rajesh Chitnis, Daniel Marx",http://epubs.siam.org/doi/pdf/10.1137/1.9781611973402.129,"Tight Bounds for Planar strongly Connected Steiner Subgraph with Fixed Number 
+of Terminals (and Extensions)",,,F.2.2,05C85  
+GRAPHS ,MIT,"Noga Alon, Erik D. Demaine, Mohammad Taghi Hajiaghayi, Tom Leighton ",http://www.tau.ac.il/~nogaa/PDFS/adhl4.pdf,Basic Network Creation Games,,,F.2.2,05C85  
+GRAPHS ,MIT,"Erik D. Demaine, Mohammad Taghi Hajiaghayi, Daniel Marx ",http://link.springer.com/chapter/10.1007/978-3-642-04128-0_64#page-1,Minimizing Movement: Fixed-Parameter Tractability,,,F.2.2,05C85  
+GRAPHS ,MIT,"Erik D. Demaine, Mohammad Ghodsi, Mohammad Taghi Hajiaghayi, Amin S. Sayedi-Roshkhar, Morteza Zadimoghaddam",http://link.springer.com/article/10.1007%2Fs10951-012-0309-6#page-1,Scheduling to Minimize Gaps and Power Consumption,,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Hossein Bateni, Mohammad Taghi Hajiaghayi, Vahid Liaghat",http://link.springer.com/chapter/10.1007%2F978-3-642-39206-1_8,"Improved Approximation Algorithms for (Budgeted) Node-weighted Steiner 
+Problems",,,F.2.2,05C85  
+GRAPHS ,MIT,"Rajesh H. Chitnis, Marek Cygan, Mohammad Taghi Hajiaghayi, Marcin Pilipczuk, Michal Pilipczuk",http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6375324&tag=1,"Designing FPT Algorithms for Cut Problems Using 
+Randomized Contractions",,,F.2.2,05C85  
+GRAPHS ,MIT,"Rajesh H. Chitnis, Marek Cygan, Mohammad Taghi Hajiaghayi, Daniel Marx ",http://link.springer.com/chapter/10.1007%2F978-3-642-31594-7_20,Directed Subset Feedback Vertex Set Is Fixed-Parameter Tractable,,,F.2.2,05C85  
+GRAPHS ,MIT,"Takehiro Ito, Erik D. Demaine",http://link.springer.com/article/10.1007%2Fs10878-012-9562-z#page-1,"Approximability of the Subset Sum 
+Reconfiguration Problem",,,F.2.2,05C85  
+GRAPHS ,MIT,"Piotr Berman, Erik D. Demaine, Morteza Zadimoghaddam",http://link.springer.com/chapter/10.1007%2F978-3-642-22935-0_6#page-1,"O(1)-Approximations 
+for Maximum Movement Problems",,,F.2.2,05C85  
+GRAPHS ,MIT,"Glencora Borradaile, Erik D. Demaine, Siamak Tazari",http://link.springer.com/article/10.1007%2Fs00453-012-9662-2#page-1,"Polynomial-Time 
+Approximation Schemes for Subset-Connectivity Problems in Bounded-Genus Graphs",,,F.2.2,05C85  
+GRAPHS ,MIT,"Rajesh H. Chitnis, Mohammad Taghi Hajiaghayi, Daniel Marx",http://siam.omnibooksonline.com/2012SODA/data/papers/010.pdf,"Fixed-Parameter 
+Tractability of Directed Multiway Cut Parameterized by the Size of the Cutset",,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Hossein Bateni, Mohammad Taghi Hajiaghayi",http://epubs.siam.org/doi/pdf/10.1137/1.9781611973068.88,Assignment Problem in Content Distribution Networks: Unsplittable Hard-Capacitated Facility Location,,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Hossein Bateni, Mohammad Taghi Hajiaghayi ",http://link.springer.com/article/10.1007%2Fs00453-011-9491-8#page-1,"Euclidean Prize-Collecting 
+Steiner Forest",,,F.2.2,05C85  
+GRAPHS ,MIT,"Mohammad Taghi Hajiaghayi, Rohit Khandekar, Guy Kortsarz ",http://link.springer.com/article/10.1007%2Fs00453-011-9547-9#page-1,Algorithms for the Red-Blue Median Problem,,,F.2.2,05C85  
+GRAPHS,MIT,"Katsuhisa Yamamaka, Erik Demaine, Takehiro Ito, Jun Kawahara, Masashi Kiyomi, Yoshio Okamoto, Toshiki Saitoh, Akira Suzuki, Kei Uchizawa, Takeaki Uno",http://link.springer.com/chapter/10.1007%2F978-3-319-07890-8_31#page-1,Swapping Labeled Tokens on Graphs,,,F.2.2,05C85  
+GRAPHS,MIT,"Erik D. Demaine, Piotr Indyk, Sepideh Mahabadi, Ali Vakilian",http://link.springer.com/chapter/10.1007%2F978-3-662-45174-8_33,On Streaming and Communication Complexity of the Set Cover Problem,,,F.2.2,05C85  
+GRAPHS,MIT,"Mohammad Taghi Hajiaghayi, Rohit Khandekar, Guy Kortsarz, Vahid Liaghat",http://link.springer.com/article/10.1007%2Fs00224-013-9500-1,On a Local Protocol for Concurrent File Transfers,,,F.2.2,05C85  
+GRAPHS,MIT,"Mahdi Hajiaghayi, Carl Wijting, Cássio B. Ribeiro, Mohammad Taghi Hajiaghayi",http://link.springer.com/article/10.1007%2Fs11276-013-0626-5#page-1,Efficient and Practical Resource Block Allocation for LTE-Based D2D Network via Graph Coloring,,,F.2.2,05C85  
+GRAPHS,MIT,"Hossein Esfandiari, Mohammad Taghi Hajiaghayi, Vahid Liaghat, Morteza Monemizadeh, Krzysztof Onak ",Not Yet Published,Streaming Algorithms for Estimating the Matching Size in Planar Graphs and Beyond,,,F.2.2,05C85  
+GRAPHS,MIT,"Rajesh Chitnis, Graham Cormode, Mohammad Taghi Hajiaghayi, Morteza Monemizadeh",Not Yet Published,Parameterized Streaming: Maximal Matching and Vertex Cover,,,F.2.2,05C85  
+GRAPHS,MIT,"Mohammad Taghi Hajiaghayi, Hamid Mahini, Anshul Sawant, Mohammad Hossein Bateni, Melika Abolhassani",Not Yet Published,Network Cournot Competition,,,F.2.2,05C85  
+GRAPHS,MIT,"Gagan Goel, Mohammadtaghi Hajiaghayi, Mohammad Reza Khani",Not Yet Published,Randomized Revenue Monotone Mechanisms for Online Advertising,,,F.2.2,05C85  
+GRAPHS,MIT,"Rajesh Chitnis, Hossein Esfandiari, Mohammadtaghi Hajiaghayi, Rohit Khandekar, Guy Kortsarz, Saeedreza Seddighin",Not Yet Published,"A Tight Algorithm for Strongly Connected Steiner Subgraph On Two Terminals 
+With Demands
+",,,F.2.2,05C85  
+GRAPHS,"UCSD, NEU","F. Papadopoulos, M. Kitsak, M. Angeles Serrano, M. Boguna, D. Krioukov",http://dx.doi.org/10.1038/nature11459,Popularity Versus Similarity in Growing Networks,,,,
+GRAPHS,"UCSD, NEU","D. Krioukov, M. Kitsak, R. Sinkovits, D. Rideout, D. Meyer, M. Boguna",http://dx.doi.org/10.1038/srep00793,Network Cosmology,,,,
+GRAPHS,"UCSD, NEU","D. Krioukov, M. Ostilli",http://dx.doi.org/10.1103/PhysRevE.88.022808,Duality Between Equilibrium and Growing Networks,,,,
+GRAPHS,"UCSD, NEU","K. Anand, D. Krioukov, G. Bianconi",http://dx.doi.org/10.1103/PhysRevE.89.062807,Entropy Distribution and Condensation in Random Networks with a Given Degree Distribution,,,,
+GRAPHS,"UCSD, NEU","F. Papadopoulos, C. Psomas, D. Krioukov",http://dx.doi.org/10.1109/TNET.2013.2294052,Network Mapping by Replaying Hyperbolic Growth,,,,
+GRAPHS,"UCSD, NEU","M. Boguna, M. Kitsak, D. Krioukov",http://arxiv.org/abs/1310.6272,Cosmological Networks,,,,
+GRAPHS,"UCSD, NEU","C. Orsini, R. Aldecoa",http://named-data.github.io/Hyperbolic-Graph-Generator/,Hyperbolic Graph Generator,,,,
+GRAPHS,"UCSD, NEU","O. Bucicovschi, R. Douglass, D. Meyer, M. Ram, D. Rideout, D. Song",http://perso.uclouvain.be/vincent.blondel/netmob/2013/D4D-book.pdf,Analyzing Social Divisions Using Cell Phone Data,,,,
+GRAPHS,"University of California, Santa Barbara","Alessandra Sala, Ben Y. Zhao, Gian P. Rossi, Haitao Zheng, Matteo Zignani, Sabrina Gaito, Xiaohan Zhao",http://dl.acm.org/citation.cfm?id=2392623,On the Bursty Evolution of Online Social Networks,Computing Milieux,"Online social networks, Network dynamics ",K.4.m,
+GRAPHS,"University of California, Santa Barbara","Alessandra Sala, Ben Y. Zhao, Christo Wilson, Krishna P.N. Puttaswamy",http://dl.acm.org/citation.cfm?id=2382620,Beyond Social Graphs: User Interactions in Online Social Networks and their Implications,Distributed Systems: Computer Applications,"Social networks, Interaction graphs, Facebook","C.2.4, J.4",
+GRAPHS,Hewlett-Packard Labs,"Alvin AuYoung, Indrajit Roy, Rob Schreiber, Shivaram Venkataraman",https://www.usenix.org/conference/hotcloud12/workshop-program/presentation/venkataraman,Using R for Iterative and Incremental Processing,Distributed Systems,"Machine Learning, Graphs",C.2.4,
+GRAPHS,"University of California, Santa Barbara","Alessandra Sala, Ben Y. Zhao, Christo Wilson, Haitao Zheng, Sabrina Gaito, Xiao Wang, Xiaohan Zhao",http://dl.acm.org/citation.cfm?id=2398795,Multi-scale Dynamics in a Massive Online Social Network,"Computer Applications, Information Storage and Retrieval","Dynamic Graphs, Online Social Networks","J.4, H.3.5",
+GRAPHS,"University of California, Santa Barbara","Ben Y. Zhao, Christo Wilson, Gang Wang, Haitao Zheng, Manish Mohanlal, Miriam Metzger, Xiao Wang",http://arxiv.org/pdf/1205.3856v2,Social Turing Tests: Crowdsourcing Sybil Detection,Computer Applications,Social and Behavioral Sciences,J.4,
+GRAPHS,"University of California, Santa Barbara","Ben Y. Zhao, Christo Wilson, Jing Jiang, Peng Huang, Wenpeng Sha, Xiao Wang, Yafei Dai",http://dl.acm.org/citation.cfm?id=2517040,Understanding Latent Interactions in Online Social Networks,"Computer Applications, Information Storage and Retrieval",Online Social Networks,"J.4, H.3.5",
+GRAPHS,Hewlett-Packard Labs,"Alvin AuYoung, Erik Bodzsar, Indrajit Roy, Rob Schreiber, Shivaram Venkataraman",http://dl.acm.org/citation.cfm?id=2465371,Presto: Distributed Machine Learning and Graph Processing with Sparse Matrices,Distributed Systems,"Machine Learning, Graphs",C.2.4,
+GRAPHS,"University of California, Santa Barbara","Ben Y. Zhao, Gang Wang, Haitao Zheng, Konark Gill, Manish Mohanlal",http://dl.acm.org/citation.cfm?id=2488506,Wisdom in the Social Crowd: an Analysis of Quora,"Information Storage and Retrieval, Computer Applications","Q&A System, Online Social Networks, Graphs","H.3.5, J.4",
+GRAPHS,"University of California, Santa Barbara","Ben Y. Zhao, Gang Wang, Haitao Zheng, Xiao Zhou, Xiaoxiao Yu, Zengbin Zhang",http://dl.acm.org/citation.cfm?id=2465545,Practical Conflict Graphs for Dynamic Spectrum Distribution,Network operations,"Dynamic spectrum access, Conflict graphs, interference",C.2.3,
+GRAPHS,"University of California, Santa Barbara","Ben Y. Zhao, Christo Wilson, Gang Wang, Haitao Zheng, Tristan Konolige, Xiao Wang",https://www.usenix.org/conference/usenixsecurity13/technical-sessions/presentation/wang,You are How You Click: Clickstream Analysis for Sybil Detection,Computing Milieux,"Sybils, Online social networks",K.4.m,
+GRAPHS,"University of California, Santa Barbara","Ben Y. Zhao, Christopher Kruegel, Gang Wang, Gianluca Stringhini, Giovanni Vigna, Haitao Zheng, Manuel Egele",http://conferences.sigcomm.org/imc/2013/papers/imc018-stringhiniA.pdf,Follow the Green: Growth and Dynamics in Twitter Follower Markets,"Computer Applications, Management of Computing and Information Systems","Twitter, Follower Markets, Sybils, Online social networks","J.4, K.6",
+GRAPHS,"University of California, Santa Barbara","Dinesh Ramasamy, Sriram Venkateswaran, Upamanyu Madhow",http://dl.acm.org/citation.cfm?id=2512960,Inferring User Interests from Tweet Times,"Probability and Statistics, Database Applications","Bayesian inference, Metadata, Online social networks","G.3, H.2.8",
+GRAPHS,"University of California, Santa Barbara","Ben Y. Zhao, Haitao Zheng, Gang Wang, Lin Zhou, Miriam Metzger, Xiaohan Zhao, Yu Su, Zengbin Zhang",http://dl.acm.org/citation.cfm?id=2535786,On the Validity of Geosocial Mobility Traces,Information Systems,"Human factors, Measurements",H.1.2,

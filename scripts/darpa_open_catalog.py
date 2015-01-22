@@ -60,8 +60,8 @@ def catalog_splash_content():
 #<div id='splash_desc'><p>The table below lists the programs currently participating in the catalog. The graph to the right displays the latest changes to the program data.</p>
   splash += """<div id=''><p>The table on this page lists the programs currently participating in the catalog.</p>
 <p>Program Manager:<br>
-Dr. Christopher White<br>
-<a href='mailto:christopher.white@darpa.mil'>christopher.white@darpa.mil</a></p>
+Mr. Wade Shen<br>
+<a href='mailto:wade.shen@darpa.mil'>wade.shen@darpa.mil</a></p>
 <p>Report a problem: <a href="mailto:opencatalog@darpa.mil">opencatalog@darpa.mil</a></p>
 <p>Last updated: """ 
   splash += formatted_date + "</p></div>"
