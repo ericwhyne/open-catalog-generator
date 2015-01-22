@@ -207,13 +207,20 @@ lunr.tokenizer = function (obj) { //headers for fields(Software, Description, et
       break
     }
   }
-	
-  return str
-	.split(/\s+/)
-	.map(function (token) {
-	  return token.replace(/^\W+/, '').replace(/\W+$/, '').toLowerCase()
-	})
 
+  /*if((str.indexOf('"') == 0 && str.lastIndexOf('"') == (str.length - 1)) || str.contains(/\s+/)){
+	console.log("clean token: " + str.replace(/^\W+/, '').replace(/\W+$/, '').toLowerCase());
+	return str.replace(/^\W+/, '').replace(/\W+$/, '').toLowerCase();
+  }
+  else{*/
+	  return str
+		.split(/\s+/)
+		.map(function (token) {
+			if(token.contains("georgia"))
+				console.log("split token: "  + token);
+		  return token.replace(/^\W+/, '').replace(/\W+$/, '').toLowerCase()
+		})
+	//}
 }
 ;
 /*!
@@ -391,12 +398,16 @@ lunr.Pipeline.prototype.remove = function (fn) {
  */
  
 lunr.Pipeline.prototype.run = function (tokens) {
-  var out = [],
-      tokenLength = tokens.length,
+  var out = [];
+      var tokenLength = tokens.length,
       stackLength = this._stack.length
- 
+
   for (var i = 0; i < tokenLength; i++) {
     var token = tokens[i]
+	if(token.contains("georgia") || token == "g"){
+		console.log("token g: " + token);
+		console.log("tokens: " + tokens);
+	}
     for (var j = 0; j < stackLength; j++) {
       token = this._stack[j](token, i, tokens)
       if (token === void 0) break
@@ -404,7 +415,7 @@ lunr.Pipeline.prototype.run = function (tokens) {
     if (token !== void 0) out.push(token)
   };
   
-
+  
   return out
 }
 
@@ -891,7 +902,7 @@ lunr.Index.prototype.ref = function (refName) {
  * @param {Boolean} emitEvent Whether or not to emit events, default true.
  * @memberOf Index
  */
-
+ var stopper = false;
 lunr.Index.prototype.add = function (doc, emitEvent) {
   var docTokens = {},
       allDocumentTokens = new lunr.SortedSet,
@@ -919,6 +930,11 @@ lunr.Index.prototype.add = function (doc, emitEvent) {
 
       return memo + (tokenCount / fieldLength * field.boost)
     }, 0)
+	
+	/*if(token.contains('gtri'))
+		console.log(token);*/
+	
+
 	
 	this.tokenStore.add(token, { ref: docRef, tf: tf })
 	
@@ -1053,18 +1069,23 @@ lunr.Index.prototype.idf = function (term) {
  * @memberOf Index
  */
 lunr.Index.prototype.search = function (query) {
-
- //console.log("term: " + query);
- //console.log("tokenizer: " + lunr.tokenizer(query));
- 
+ console.log("term: " + query);
+ console.log("tokenizer: " + lunr.tokenizer(query));
   var queryTokens = this.pipeline.run(lunr.tokenizer(query)),
       queryArr = lunr.utils.zeroFillArray(this.corpusTokens.length),
       documentSets = [],
 	  querySets = [],
       fieldBoosts = this._fields.reduce(function (memo, f) { return memo + f.boost }, 0)
 
- //console.log(queryTokens);
+  console.log(queryTokens);
+  if(query.indexOf('"') == 0 && query.lastIndexOf('"') == (query.length - 1)){
+	gueryTokens = [query.replace(/"/g, "")];
+	console.log("do not separate: " );
+	console.log(gueryTokens);
+}
   var hasSomeToken = queryTokens.some(function (token) {
+	if(token.contains("georgia"))
+		console.log(this.tokenStore.has(token));
     return this.tokenStore.has(token)
   }, this)
 
@@ -1150,11 +1171,16 @@ lunr.Index.prototype.documentVector = function (documentRef) {
 
   for (var i = 0; i < documentTokensLength; i++) {
     var token = documentTokens.elements[i];
-    //if(this.tokenStore.get(token)[documentRef]){ //new
+    if(this.tokenStore.get(token)[documentRef]){ //new
 		var tf = this.tokenStore.get(token)[documentRef].tf;
 		var idf = this.idf(token);
+
 		documentArr[this.corpusTokens.indexOf(token)] = tf * idf
-	//}
+	}
+	else{//new
+		console.log(token,documentRef);
+		console.log(this.tokenStore.get(token));
+	}
   };
 
   return new lunr.Vector (documentArr)
@@ -1346,7 +1372,7 @@ lunr.stemmer = (function(){ //where I left off
 
     if (w.length < 3) { return w; }
 
-	/*if(w.contains("cnr")) //new
+	/*if(w.contains("gtri")) //new
 		console.log("wordbegin: " + w);*/
 		
     firstch = w.substr(0,1);
@@ -1357,11 +1383,14 @@ lunr.stemmer = (function(){ //where I left off
     // Step 1a
     re = /^(.+?)(ss|i)es$/;
 	//re2 = /^(.+?)([^s])s$/; //original
+    //re2 = /^(.{3}?.+?)([^s])s$/; //did not work for terms that included slashes
+	//re2 = /^(.{3}+[^\/]*)(\/.{3}+[^\/]*)*([^s])s$/;
 	re2 = /^(.{3}[^\/]*)([^s])s$/;
-	 
+	
     if (re.test(w)) { w = w.replace(re,"$1$2"); }
     else if (re2.test(w)) { w = w.replace(re2,"$1$2"); }
-		
+	
+
     // Step 1b
     re = /^(.+?)eed$/;
     re2 = /^(.+?)(ed|ing)$/;
@@ -1460,13 +1489,13 @@ lunr.stemmer = (function(){ //where I left off
     }
 
     // and turn initial Y back to y
+
     if (firstch == "y") {
       w = firstch.toLowerCase() + w.substr(1);
     }
 	
-	/*if(w.contains("cnr"))//new testing
-		console.log("word end: " + w);*/
-		
+	/*if(w.contains("gtri"))//new testing
+		console.log("word end: " + w); */
     return w;
   }
 })();

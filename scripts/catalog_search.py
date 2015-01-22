@@ -1,4 +1,23 @@
 #!/usr/bin/python
+import sys
+import datetime
+
+active_content_file = sys.argv[1]
+data_dir = sys.argv[2]
+build_dir = sys.argv[3]
+last_update_file = sys.argv[4]
+darpa_links = sys.argv[5]
+date = datetime.datetime.now()
+formatted_date = date.strftime("%B") + " " + date.strftime("%d") + ", " + date.strftime("%Y")
+
+print """
+Active content file: %s
+Data directory: %s
+Build directory: %s
+Last Update file: %s
+DARPA links: %s
+Date: %s
+""" % (active_content_file, data_dir, build_dir, last_update_file, darpa_links, date)
 
 def search_head():
   return """
@@ -8,12 +27,15 @@ def search_head():
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
   <title>DARPA - Catalog Search</title>
   <script type='text/javascript' src='jquery-1.9.1.js'></script>
-  <script src="mustache.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lunr.js" type="text/javascript" charset="utf-8"></script>
-  <script src="utils.js" type="text/javascript" charset="utf-8"></script>
+  <script type='text/javascript' src="jstorage.js"></script>
+  <script type='text/javascript' src="mustache.js"></script>
+  <script type='text/javascript' src="lunr.js"></script>
+  <script type='text/javascript' src="utils.js"></script>
+  <script type='text/javascript' src="spin.js"></script>  
+  <script id="results-table-template" type="text/mustache"></script>
+  
   <link rel="stylesheet" type="text/css" href="css/catalog_search.css"/>
   <link rel='stylesheet' href='css/header_footer.css' type='text/css'/>  
-  <script id="results-table-template" type="text/mustache"></script>
   </head>
   
   <body>
@@ -48,9 +70,11 @@ def search_script():
 		var headers = ["id", "Type", "Display Name"];
 		var results = [];
 		var query_term = '';
+		var spinner = new Spinner().spin(); //timeline loading spinner graphic
 		
 		$(function() {
-			var param_term = decodeURIComponent(getUrlParams("term"));
+			$("#results-container").append(spinner.el);
+			var param_term = $.jStorage.get("searchTerm");
 			if(param_term){
 				$('#search_box').val(param_term);
 				$('#search_button').click();
@@ -191,7 +215,10 @@ def search_script():
         }
 		
 		$('#search_button').bind('click', debounce(function () {
+			  $("#results-container").empty();
+			  $("#results-container").append(spinner.el);
 			  query_term = $('#search_box').val()
+			  $.jStorage.set("searchTerm", query_term);
 			  var match = "";
 			  var documents = idx.search(query_term).map(function (result) { 
 				return results.filter(function (q) {
