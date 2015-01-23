@@ -77,7 +77,7 @@ def timeline_script():
 	var change_dates = new Array(),
 		date_start = new Date(),
 		date_end = new Date();
-		date_start.setDate(date_start.getDate() - 31);
+		date_start.setDate(date_start.getDate() - 90);
 
 	var min_count = 0,
 		max_count = 20,
@@ -263,10 +263,13 @@ def timeline_script():
 				.transitionDuration(300)
 				.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
 			
-			var x = d3.scale.linear()
-				.domain([date_start, date_end]);
-			
-			chart.xAxis.tickSize(2).scale(x)
+			//d3.time.scale()
+			var x = d3.time.scale()
+				.domain([date_start, date_end])
+				.range([0, width]);
+				
+			var low_date = null, high_date = null;
+			chart.xAxis.tickSize(5).scale(x)
 				.ticks(10)
 				.orient("bottom")
 				.rotateLabels(-30)	
