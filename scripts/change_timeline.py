@@ -6,14 +6,6 @@ def timeline_head():
   <html lang='en'>
   <head>
   <meta charset="utf-8">
-  <!--
-  <script language="javascript" type='text/javascript' src="tooltip.js"></script>
-  <script language="javascript" type='text/javascript' src="nv.utils.js"></script>
-  <script language="javascript" type='text/javascript' src="legend.js"></script>
-  <script language="javascript" type='text/javascript' src="axis.js"></script>
-  <script language="javascript" type='text/javascript' src="distribution.js"></script>
-  -->
-  
   <link href="css/banner_style.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="css/header_footer.css"/>
   <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
@@ -23,7 +15,12 @@ def timeline_head():
   <script language="javascript" type='text/javascript' src="d3.v3.js"></script>
   <script language="javascript" type='text/javascript' src="nv.d3.js"></script>
   <script language="javascript" type='text/javascript' src="utils.js"></script>
-  <script language="javascript" type='text/javascript' src="spin.js"></script>
+  <script language="javascript" type='text/javascript' src="spin.js"></script>  
+  <script language="javascript" type='text/javascript' src="tooltip.js"></script>
+  <script language="javascript" type='text/javascript' src="nv.utils.js"></script>
+  <script language="javascript" type='text/javascript' src="legend.js"></script>
+  <script language="javascript" type='text/javascript' src="axis.js"></script>
+  <script language="javascript" type='text/javascript' src="distribution.js"></script>
 
 
   </head>
@@ -98,9 +95,10 @@ def timeline_script():
 	var spinner = new Spinner().spin(); //timeline loading spinner graphic
 
 	$( document ).ready(function() {
+		//Add a spinner to indicate that the timeline is loading for both the timelines on the splash page and the timeline page itself
 		if(document.getElementById("splash_desc") != null){
-			$('#timeline_body').height($('#splash_desc').height());
-			$('#timeline_body').append(spinner.el);
+			$('#timeline_splash').height($('#splash_desc').height());
+			$('#timeline_splash').append(spinner.el);
 		}
 		else{
 			$('#timeline_page').height($(window).height() - 150);
@@ -264,14 +262,14 @@ def timeline_script():
 				.size(1).sizeRange([130,130]) //size of plot points all the same
 				.transitionDuration(300)
 				.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
-
+			
 			var x = d3.scale.linear()
 				.domain([date_start, date_end]);
-				
+			
 			chart.xAxis.tickSize(2).scale(x)
+				.ticks(10)
 				.orient("bottom")
 				.rotateLabels(-30)	
-				.ticks(10)	
 				.tickFormat(function(d) {
 					var date = new Date(d);
 					return d3.time.format('%b ')(date) + date.getDate().ordinate();
@@ -279,6 +277,7 @@ def timeline_script():
 
 			var y = d3.scale.linear()
 				.domain([min_count, max_count]);
+				
 
 			chart.forceY([min_count, max_count]);
 			var maxTicks = max_y_ticks, yMin = y.domain()[0], yMax = y.domain()[1], 
