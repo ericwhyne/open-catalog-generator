@@ -265,10 +265,8 @@ def timeline_script():
 			
 			//d3.time.scale()
 			var x = d3.time.scale()
-				.domain([date_start, date_end])
-				.range([0, width]);
+				.domain([date_start, date_end]);
 				
-			var low_date = null, high_date = null;
 			chart.xAxis.tickSize(5).scale(x)
 				.ticks(10)
 				.orient("bottom")
