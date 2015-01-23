@@ -216,8 +216,8 @@ lunr.tokenizer = function (obj) { //headers for fields(Software, Description, et
 	  return str
 		.split(/\s+/)
 		.map(function (token) {
-			if(token.contains("georgia"))
-				console.log("split token: "  + token);
+			//if(token.contains("georgia"))
+				//console.log("split token: "  + token);
 		  return token.replace(/^\W+/, '').replace(/\W+$/, '').toLowerCase()
 		})
 	//}
@@ -404,10 +404,10 @@ lunr.Pipeline.prototype.run = function (tokens) {
 
   for (var i = 0; i < tokenLength; i++) {
     var token = tokens[i]
-	if(token.contains("georgia") || token == "g"){
+	/*if(token.contains("georgia") || token == "g"){
 		console.log("token g: " + token);
 		console.log("tokens: " + tokens);
-	}
+	}*/
     for (var j = 0; j < stackLength; j++) {
       token = this._stack[j](token, i, tokens)
       if (token === void 0) break
@@ -1069,23 +1069,19 @@ lunr.Index.prototype.idf = function (term) {
  * @memberOf Index
  */
 lunr.Index.prototype.search = function (query) {
- console.log("term: " + query);
- console.log("tokenizer: " + lunr.tokenizer(query));
+ //console.log("term: " + query);
+ //console.log("tokenizer: " + lunr.tokenizer(query));
   var queryTokens = this.pipeline.run(lunr.tokenizer(query)),
       queryArr = lunr.utils.zeroFillArray(this.corpusTokens.length),
       documentSets = [],
 	  querySets = [],
       fieldBoosts = this._fields.reduce(function (memo, f) { return memo + f.boost }, 0)
 
-  console.log(queryTokens);
+  //console.log(queryTokens);
   if(query.indexOf('"') == 0 && query.lastIndexOf('"') == (query.length - 1)){
 	gueryTokens = [query.replace(/"/g, "")];
-	console.log("do not separate: " );
-	console.log(gueryTokens);
 }
   var hasSomeToken = queryTokens.some(function (token) {
-	if(token.contains("georgia"))
-		console.log(this.tokenStore.has(token));
     return this.tokenStore.has(token)
   }, this)
 
@@ -1176,10 +1172,6 @@ lunr.Index.prototype.documentVector = function (documentRef) {
 		var idf = this.idf(token);
 
 		documentArr[this.corpusTokens.indexOf(token)] = tf * idf
-	}
-	else{//new
-		console.log(token,documentRef);
-		console.log(this.tokenStore.get(token));
 	}
   };
 

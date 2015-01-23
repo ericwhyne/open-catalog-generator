@@ -6,10 +6,6 @@ def timeline_head():
   <html lang='en'>
   <head>
   <meta charset="utf-8">
-  <!--
-
-  -->
-  
   <link href="css/banner_style.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="css/header_footer.css"/>
   <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
