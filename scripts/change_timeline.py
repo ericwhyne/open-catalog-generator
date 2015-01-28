@@ -93,20 +93,22 @@ def timeline_script():
 		transition_out_time = 0;
 		
 	var spinner = new Spinner().spin(); //timeline loading spinner graphic
+	var page_type = 'timeline_splash';
 
 	$( document ).ready(function() {
 		//Add a spinner to indicate that the timeline is loading for both the timelines on the splash page and the timeline page itself
 		if(document.getElementById("splash_desc") != null){
-			$('#timeline_splash').height($('#splash_desc').height());
-			$('#timeline_splash').append(spinner.el);
+			$('#' + page_type).height($('#splash_desc').height());
+			$('#' + page_type).append(spinner.el);
 		}
 		else{
-			$('#timeline_page').height($(window).height() - 150);
-			$('#timeline_page').append(spinner.el);
+			page_type = "timeline_page";
+			$('#' + page_type).height($(window).height() - 150);
+			$('#' + page_type).append(spinner.el);
 		}
 
 		window.onresize = function () {
-			$('#timeline_page').height($(window).height() - 150);			
+			$('#timeline_page').height($(window).height() - 150);						
 		};
 		
 		var programs = getPrograms();
@@ -229,7 +231,7 @@ def timeline_script():
 		// auto scroll activated 
 		interval = startInterval();
 		
-		$("#controller").css("display", "inline-flex");
+		$("#controller").css("display", "inline");
 	}	
 
 	//creates the timeline chart with data points  
@@ -250,11 +252,12 @@ def timeline_script():
 		if (nodes.length == 1)
 			single_point = true;
 
+		console.log("id = " + id);
+			
 		nv.addGraph(function() {
 			var margin = {top: 40, right: 10, bottom: 60, left: 50},
 			width = 960 - margin.left - margin.right,
 			height = 500 - margin.top - margin.bottom;
-
 			chart = nv.models.scatterChart()
 				.showDistX(true) //show ticks on x-axis
 				.showDistY(true) //show ticks on y-axis
@@ -346,10 +349,49 @@ def timeline_script():
 					nodes.push(root[branch].values[node]);
 			}
 
-			var svg = d3.select("#timeline").select("svg")
-					.datum(root)
-					.style({ 'width': width, 'height': height })
-					.call(chart);
+			if(isSafari()){
+			
+				console.log("window: " + $(window).height(), $(window).width());
+				console.log();
+				
+				if(page_type == "timeline_page"){
+					width = $(window).width() - ($(window).width() * .33); //1150 - margin.left - margin.right;
+					height = $(window).height() - 150; //700 - margin.top - margin.bottom;
+					
+				}
+				else{
+					width = $(window).width() - ($(window).width() * .58);
+					height = 227;
+				}
+				var svg = d3.select("#timeline").select("svg")
+						.datum(root)
+						.style({ 'width': width , 'height': height })
+						.call(chart);
+			
+				window.onresize = function () {
+					var new_height = new_width = 0;
+					if(page_type == "timeline_page"){
+						new_width = $(window).width() - ($(window).width() * .33);
+						new_height = $(window).height() - 150;
+					}
+					else{
+						new_width = $(window).width() - ($(window).width() * .58);
+						new_height = 227;
+					}
+					
+					if( new_width > width || new_height > height)
+						svg.style({"width" : width, "height" : height});
+					else
+						svg.style({"width" : new_width, "height" : new_height});
+					
+					$('#timeline_page').height($(window).height() - 150);				
+				};
+			}
+			else{
+				var svg = d3.select("#timeline").select("svg")
+				.datum(root)
+				.call(chart);
+			}
 					
 			chart.update();
 			nv.utils.windowResize(chart.update);

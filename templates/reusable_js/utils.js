@@ -86,6 +86,13 @@ function isIE() {
 		return false;
 }
 
+
+function isSafari(){
+	isSafari = !!window.navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+	return isSafari;
+
+}
+
 function sortByProperty(property) {
 	//sorts json array by a given property name
     return function (a, b) {
