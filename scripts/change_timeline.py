@@ -239,7 +239,6 @@ def timeline_script():
 		var chart;
 		var chars = ""; 
 		var char_array = [];
-		var id  = Math.floor(Math.random() * 100000);
 		var root = fetchTimelineData(store);
 		var nodes = [];
 		var single_point = false;
@@ -252,8 +251,6 @@ def timeline_script():
 		if (nodes.length == 1)
 			single_point = true;
 
-		console.log("id = " + id);
-			
 		nv.addGraph(function() {
 			var margin = {top: 40, right: 10, bottom: 60, left: 50},
 			width = 960 - margin.left - margin.right,
@@ -261,7 +258,6 @@ def timeline_script():
 			chart = nv.models.scatterChart()
 				.showDistX(true) //show ticks on x-axis
 				.showDistY(true) //show ticks on y-axis
-				.id(id) 
 				.size(1).sizeRange([130,130]) //size of plot points all the same
 				.transitionDuration(300)
 				.margin({top: margin.top, right: margin.right, bottom: margin.bottom, left: margin.left});
