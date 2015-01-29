@@ -346,14 +346,9 @@ def timeline_script():
 			}
 
 			if(isSafari()){
-			
-				console.log("window: " + $(window).height(), $(window).width());
-				console.log();
-				
 				if(page_type == "timeline_page"){
-					width = $(window).width() - ($(window).width() * .33); //1150 - margin.left - margin.right;
-					height = $(window).height() - 150; //700 - margin.top - margin.bottom;
-					
+					width = $(window).width() - ($(window).width() * .33);
+					height = $(window).height() - 150;
 				}
 				else{
 					width = $(window).width() - ($(window).width() * .58);
