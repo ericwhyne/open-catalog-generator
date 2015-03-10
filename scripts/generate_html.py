@@ -75,6 +75,7 @@ for program in active_content:
   program_image_file = ""
   software_columns = []
   pubs_columns = []
+  data_columns = []
   if program['Program File'] == "":
     print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
     sys.exit(1)
@@ -114,8 +115,10 @@ for program in active_content:
 	#if Software File has a value and it is not all whitespace
     if program['Software File'] and not program['Software File'].isspace():
       program_page += "<ul><li>The Software Table lists performers with one row per piece of software. Each piece of software has licensing information, a link to an external project page or contact information, and where possible a link to the code repository for the project.</li></ul>"
-    if program['Pubs File'] != "":
+    if program['Pubs File'] and not program['Pubs File'].isspace():
       program_page += "<ul><li>The Publications Table contains author(s), title, and links to peer-reviewed articles related to specific DARPA programs.</li></ul>"
+    if program['Data File'] and not program['Data File'].isspace():
+      program_page += "<ul><li>The Data Set table includes a description and industry, as well as size indicators. Contact the program for access.</li></ul>"
     program_page += "<p>Report a problem: <a href=\"mailto:opencatalog@darpa.mil\">opencatalog@darpa.mil</a></p>"
     program_page += "<p>Last updated: %s</p></div>" % formatted_date
     if 'Image' in program_details.keys():
@@ -137,10 +140,11 @@ for program in active_content:
     software_columns = program_details['Display Software Columns']
     print "program details: %s \n\r" % program_details
     pubs_columns = program_details['Display Pubs Columns']
+    data_columns = program_details['Display Data Columns']
 
   # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table.
   pubs_exist = {}
-  if program['Pubs File'] != "" and program['Software File'] != "":
+  if program['Pubs File'] != "" and program['Software File'] != "" and program['Data File'] != "":
       pubs_file = open(data_dir + program['Pubs File'])
       try:
         pubs = json.load(pubs_file)
@@ -160,22 +164,24 @@ for program in active_content:
   program_page += "<div id='dialog'></div><div id='tabs' class='table-tabs'><ul>"
   if program['Software File'] != "":
     program_page += "<li><a href='#tabs0'>Software</a></li>"
-    search_tab += "<div id='allSearch'><div id='tabs2'>"
-    search_tab += "<div id='softwareSearch'><input class='search' placeholder='Search' id='search2' onkeyup='allSearch(this)'/>"
-    search_tab += "<button class='clear_button' id='clear2'>Clear</button><div id='sftwrTable'><h2>Software</h2></div></div>"
+    search_tab += "<div id='allSearch'><div id='tabs300'>"
+    search_tab += "<div id='softwareSearch'><input class='search' placeholder='Search' id='search300' onkeyup='allSearch(this)'/>"
+    search_tab += "<button class='clear_button' id='clear300'>Clear</button><div id='sftwrTable'><h2>Software</h2></div></div>"
   if program['Pubs File'] != "":
     program_page += "<li><a href='#tabs1'>Publications</a></li>"
     search_tab += "<div id='publicationsSearch'><div id='pubTable'><h2>Publications</h2></div></div>"
-  if program['Software File'] != "" and program['Pubs File'] != "":
-    program_page += "<li><a href='#tabs2'>Search</a></li>"
+  if program['Data File'] != "":
+    program_page += "<li><a href='#tabs2'>Data</a></li>"
+    search_tab += "<div id='dataSearch'><div id='dataTable'><h2>Data</h2></div></div>"
+  if program['Software File'] != "" and program['Pubs File'] != ""  and program['Data File'] != "":
+    program_page += "<li><a href='#tabs300'>Search</a></li>"
   program_page += "</ul>"
   search_footer += "</div></div>"
   if search_tab != "":
     search_tab += search_footer
   
   
-  ###### SOFTWARE
-  # ["Team","Project","Category","Code","Stats","Description","License"]
+###### SOFTWARE
   if program['Software File'] != "":
     program_page += "<div id='software'><div id='tabs0'>"
     program_page += "<input class='search' placeholder='Search' id='search0'/>"
@@ -308,14 +314,14 @@ for program in active_content:
       for column in pubs_columns:
         # Team
         if column == "Team":  
-          program_page += "<TR>\n  <TD class='team'>"
+          program_page += "<TR>\n  <TD class='" + column.lower() + "'>"
           for team in pub['Program Teams']:
             program_page += team + "<a name='" + team + "'></a>, "
           program_page = program_page[:-2]
           program_page += "</TD>\n" 
         # Title		  
         if column == "Title":
-          program_page += "<TD class='title'>"
+          program_page += "<TD class='" + column.lower() + "'>"
           entry_ribbon = ""
           if program['Banner'].upper() != "NEW":
             entry_ribbon = doc.project_banner(pub['Update Date'], pub['New Date'], last_update_file, pub['Title'])
@@ -327,15 +333,57 @@ for program in active_content:
           link = pub['Link']
           if re.search('^http',link) or re.search('^ftp',link):
             if darpa_links == "darpalinks":
-              program_page += "  <TD class='link'><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
+              program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
             else:
-              program_page += "  <TD class='link'><a href='" + link + "'>" + link + "</a></TD>\n"
+              program_page += "  <TD class='" + column.lower() + "'><a href='" + link + "'>" + link + "</a></TD>\n"
           else:
-            program_page += "  <TD class='link'>" + link + "</TD>\n"
+            program_page += "  <TD class='" + column.lower() + "'>" + link + "</TD>\n"
           program_page += "</TR>\n"
     program_page += doc.table_footer()  
     program_page += doc.pubs_table_footer() + "</div></div>"
-	
+
+###### DATA
+  if program['Data File'] != "":
+    program_page += "<div id='dataset'><div id='tabs2'>"
+    program_page += "<input class='search' placeholder='Search' id='search2'/>"
+    program_page += "<button class='clear_button' id='clear2'>Clear</button>"
+    try:
+      data = json.load(open(data_dir + program['Data File']))   
+    except Exception, e:
+      print "\nFAILED! JSON error in file %s" % program['Data File']
+      print " Details: %s" % str(e)
+      sys.exit(1)
+    program_page += doc.data_table_header(data_columns)
+    for datum in data:
+      for column in data_columns:
+	    # Industry
+        if column == "Industry":
+          industries = ""
+          if 'Industry' in datum.keys():
+            for industry in datum['Industry']:
+              industries += industry + ", "
+            industries = industries[:-2]
+          program_page += "  <TD class=" + column.lower() + ">" + industries + "</TD>\n"	
+        # Name
+        if column == "Name":
+          program_page += "<TD class='" + column.lower() + "'>"
+          entry_ribbon = ""
+          if program['Banner'].upper() != "NEW":
+            entry_ribbon = doc.project_banner(datum['Update Date'], datum['New Date'], last_update_file, datum['Data Set Name'])
+          else:
+            entry_ribbon = datum['Data Set Name']
+          program_page +=  entry_ribbon + "</TD>"
+        # Description
+        if column == "Description":
+          program_page += " <TD class=" + column.lower() + "> " + datum['Description'] + " </TD>\n"
+        # Total Rows
+        if column == "Total Rows":
+          program_page += " <TD class=" + column.lower() + "> " + datum['Number of Rows'] + " </TD>\n"
+		# Total Columns
+        if column == "Total Columns":
+          program_page += " <TD class=" + column.lower() + "> " + datum['Number of Columns'] + " </TD>\n"	  
+    program_page += doc.table_footer()
+    program_page += "</div></div>"
 	
 ###### Add search tab only if software and publications tab exists   
   if program['Software File'] != "" and program['Pubs File'] != "":
