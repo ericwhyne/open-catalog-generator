@@ -99,6 +99,13 @@ def search_script():
 				var i = pub_projects.length, key;
 				while (i--) { key = pub_projects[i]; results.push(key); }
 			}
+			
+			if(programs[program]["Data File"] != ""){
+				var program_data_details = getDetails( programs[program]["Data File"]);
+				var data_projects = restructureDetails(program_data_details, "Data Set", program_office);
+				var i = data_projects.length, key;
+				while (i--) { key = data_projects[i]; results.push(key); }
+			}
 		}
 		
 		function restructureDetails(data, type, office){
@@ -108,17 +115,19 @@ def search_script():
 				res["Type"] = type;
 				res["Office"] = office;
 				for (var key in raw){
-					if(key == "Software" || key == "Title"){
-						if(type == "Publication")
+					if(key == "Software" || key == "Title" || key == "Data Set Name" ){
+						if(type == "Data Set"){
+							res["Display Name"] = raw["Data Set Name"];
+							res["URL Link"] = raw["DARPA Program"] + ".html?tab=tabs2";
+						}
+						else if(type == "Publication"){
 							res["Display Name"] = raw["Title"];
-						else
-							res["Display Name"] = raw["Software"];
-					}
-					else if(key == "Link" || key == "Public Code Repo"){
-						if(type == "Publication")
 							res["URL Link"] = raw["DARPA Program"] + ".html?tab=tabs1";
-						else
+						}
+						else{
+							res["Display Name"] = raw["Software"];
 							res["URL Link"] = raw["DARPA Program"] + ".html?tab=tabs0";
+						}
 					}
 					else if(key == "Description"){
 							res["Description"] = raw["Description"].replace(/\<br\/\>/g, "\\r\\n");

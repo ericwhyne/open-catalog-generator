@@ -109,6 +109,14 @@ def pubs_table_header(columns):
     header += "<th>%s</th>" % column
   header += "</tr>\n </thead>\n <tbody  class='list'>"
   return header
+ 
+def data_table_header(columns):
+
+  header = "<table id='data' class='tablesorter'>\n <thead>\n <tr>"
+  for column in columns:
+    header += "<th>%s</th>" % column
+  header += "</tr>\n </thead>\n <tbody  class='list'>"
+  return header
 
 def pubs_table_footer():
   return """
@@ -156,7 +164,7 @@ def catalog_program_script():
   return """ 
 
 <script type='text/javascript'>
-var swList = pubList = spubList = ssftList = "";
+var swList = ssftList = pubList = spubList = dataList = sdtList = "";
 
 $(document).ready(function() 
     { 
@@ -176,6 +184,9 @@ $(document).ready(function()
         	sortList: [[0,0],[1,0]] 
     	}); 
         $('#pubs').tablesorter({
+        	sortList: [[0,0],[1,0]] 
+    	});
+        $('#data').tablesorter({
         	sortList: [[0,0],[1,0]] 
     	});
         $('#splash').tablesorter({
@@ -199,6 +210,8 @@ $(document).ready(function()
 					$("#tabs").tabs({active: 0});  //software tab
 				else if (param_tab == "tabs1")
 					$("#tabs").tabs({active: 1});  //publications tab
+				else if (param_tab == "tabs2")
+					$("#tabs").tabs({active: 2});  //data tab
 			}
 			else if(param_tab && param_term){
 				//console.log("tab and term");
@@ -206,18 +219,22 @@ $(document).ready(function()
 					swSearch(param_term);
 				else if (param_tab == "tabs1")
 					pubSearch(param_term);
+				else if (param_tab == "tabs2")
+					dataSearch(param_term);
 			}
 			else{
 				//console.log("no params");
 				if($("#tabs0"))
 					$("#tabs").tabs({active: 0}); //software tab
-				else
+				else if($("#tabs1"))
 					$("#tabs").tabs({active: 1}); //publications tab
+				else
+					$("#tabs").tabs({active: 2}); //data tab
 			}
 
 		});
 
-		//configure table search and clear button for software and publications table
+		//configure table search and clear button for software, publications, and data table
 		for (var i=0; i<tabCount; i++){
 			
 			var tabName = tabList[i].textContent.toLowerCase(); //name of tab
@@ -257,6 +274,23 @@ $(document).ready(function()
 				
 			}
 			
+			if(tabName == "data"){
+				var tabTable = $('#tabs2 table'); //table within this tab
+				var tabHeaders = getTableHeaders(tabTable);	
+				
+				var data_options = {
+				  valueNames: tabHeaders
+				};
+
+				dataList = new List(tabName, data_options);
+
+				$("#clear2").click(function() {
+					var currId = this.id.match(/\d+/g);
+					$("#search" + currId[0]).val("");
+					dataList.search();
+				});
+				
+			}
 			if(tabName == "search"){
 
 				var table_clone = $('#tabs table').clone();
@@ -272,24 +306,34 @@ $(document).ready(function()
 						$("#softwareSearch #sftwrTable").hide();
 						ssftList = new List("softwareSearch", search_options);					
 					}
-					else{
+					else if (table_clone[k].id == "pubs"){
+
 						$("#publicationsSearch #pubTable").append(table_clone[k]);
 						$("#publicationsSearch #pubTable").hide();
 						spubList = new List("publicationsSearch", search_options);
 					}
+					else{
+						$("#dataSearch #dataTable").append(table_clone[k]);
+						$("#dataSearch #dataTable").hide();
+						sdtList = new List("dataSearch", search_options);
+					}
+
 					
 				}
 
-				$("#clear2").click(function() {
+				$("#clear300").click(function() {
 					var currId = this.id.match(/\d+/g);
 					$("#search" + currId[0]).val("");
 					if (ssftList != "")
 						ssftList.search();
 					if (spubList != "")
 						spubList.search();
+					if (sdtList != "")
+						sdtList.search();
 					//when search is cleared tables need to be hidden
 					$("#softwareSearch #sftwrTable").hide();
 					$("#publicationsSearch #pubTable").hide();
+					$("#dataSearch #dataTable").hide();
 						
 				});
 
@@ -345,6 +389,25 @@ function pubSearch(link){
 	},300);
 }
 
+function dataSearch(link){
+	var search_text = "";
+	if(link.hash)
+		search_text = link.hash.replace("#", "");
+	else
+		search_text = link;
+	$('#tabs').tabs({active: 2}); //publications tab
+	var search_box = $("#search2");
+	search_box.val(search_text);
+
+	setTimeout(function(){
+		$('html, body').animate({
+			scrollTop: $("#tabs").offset().top
+		}, 0);
+		search_box.focus();
+		search_box.select();
+		dataList.search(search_text);		
+	},300);
+}
 function allSearch(this_search){
 	if(this_search.value != "" && this_search.value.length >= 3){
 		var value = this_search.value; 
@@ -366,11 +429,23 @@ function allSearch(this_search){
 			else
 				$("#publicationsSearch #pubTable").hide();
 		}
+		
+		if(sdtList != ""){
+			var value = this_search.value;
+			sdtList.search(value);
+			
+			if ($("#dataSearch #dataTable tbody").children().length != 0)
+				$("#dataSearch #dataTable").show();
+			else
+				$("#dataSearch #dataTable").hide();
+		}
+		
 	}
 	else{
 		//if search_term is empty or not 3 chars in length, make sure the tables are hidden
 		$("#publicationsSearch #pubTable").hide();
 		$("#softwareSearch #sftwrTable").hide();
+		$("#dataSearch #dataTable").hide();
 	}
 }
 
