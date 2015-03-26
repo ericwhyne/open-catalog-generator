@@ -173,7 +173,7 @@ for program in active_content:
   if program['Data File'] != "":
     program_page += "<li><a href='#tabs2'>Data</a></li>"
     search_tab += "<div id='dataSearch'><div id='dataTable'><h2>Data</h2></div></div>"
-  if program['Software File'] != "" and program['Pubs File'] != ""  and program['Data File'] != "":
+  if program['Software File'] != "" and program['Pubs File'] != "":
     program_page += "<li><a href='#tabs300'>Search</a></li>"
   program_page += "</ul>"
   search_footer += "</div></div>"
