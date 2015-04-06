@@ -101,10 +101,11 @@ for program in active_content:
       program_page += "<h2>%s</h2>" % program_details['Long Name']
     
     program_page += "<div class='left-paragraph'><p>%s<p>" % program_details['Description']
-    if re.search('^http',program_details['Program Manager Link']):
-      program_page += "<p>Program Manager: <a href='%s' class='programmanagerlink'>%s</a></p>" % (program_details['Program Manager Link'], program_details['Program Manager'])
-    else:
-      program_page += "<p>Program Manager: %s</p>" % program_details['Program Manager'] 
+    if program_details['Program Manager'] != "":    
+      if re.search('^http',program_details['Program Manager Link']):
+        program_page += "<p>Program Manager: <a href='%s' class='programmanagerlink'>%s</a></p>" % (program_details['Program Manager Link'], program_details['Program Manager'])
+      else:
+        program_page += "<p>Program Manager: %s</p>" % program_details['Program Manager'] 
 
     if program_details['Program Manager Email'] != "":
       try:
