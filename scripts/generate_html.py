@@ -366,7 +366,7 @@ for program in active_content:
             for industry in datum['Industry']:
               industries += industry + ", "
             industries = industries[:-2]
-          program_page += "  <TD class=" + column.lower() + ">" + industries + "</TD>\n"	
+          program_page += "<TR>\n <TD class=" + column.lower() + ">" + industries + "</TD>\n"	
         # Name
         if column == "Name":
           program_page += "<TD class='" + column.lower() + "'>"
@@ -384,7 +384,8 @@ for program in active_content:
           program_page += " <TD class=" + column.lower() + "> " + datum['Number of Rows'] + " </TD>\n"
 		# Total Columns
         if column == "Total Columns":
-          program_page += " <TD class=" + column.lower() + "> " + datum['Number of Columns'] + " </TD>\n"	  
+          program_page += " <TD class=" + column.lower() + "> " + datum['Number of Columns'] + " </TD>\n"
+          program_page += "</TR>\n"	  
     program_page += doc.table_footer()
     program_page += "</div></div>"
 	
