@@ -46,6 +46,7 @@ makefile/build process
 
 add_json_fields.py
 =========================
+Prerequesites - Cygwin installation includes the following packages: json, re, sys, time, os, shutil, pprint, collections. If these packages are not installed, install them through Cygwin setup executable.
 Steps for adding json fields to a specific file type:
 
 1. Open the json file for the program that needs to be added or modified. Add a blank("") entry to the program json for both the "Display Software Columns" and "Display Pubs Columns" fields. See the following example:
@@ -87,6 +88,7 @@ Note: The json files that are reproduced are based on the active_content.json fi
 
 convert_non_ascii_chars.py
 =========================
+Prerequesites - Cygwin installation includes the following packages: json, re, sys, unicodedata, binascii, chardet. If these packages are not installed, install them through Cygwin setup executable.
 Steps for converting/removing non-ascii characters from json files:
 
 1. In the "darpa_open_catalog" directory, record the name of the file(s) that include non-ascii characters in order to use them as parameters in the script. 
