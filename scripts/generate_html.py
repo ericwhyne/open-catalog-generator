@@ -259,6 +259,9 @@ for program in active_content:
                 clink = "<a href='mailto:%s'>%s</a>" % (code_email, code_email)
               except Exception:
                 raise
+            elif re.search('^http',software['Public Code Repo']):
+              codeurl = software['Public Code Repo']
+              clink = "<a href='%s'>%s</a>" % (codeurl, codeurl)
             else:
               clink = software['Public Code Repo']			
           program_page += "  <TD class=" + column.lower() + "> " + clink + " </TD>\n"
