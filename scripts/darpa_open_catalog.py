@@ -12,7 +12,7 @@ def html_head():
   <meta charset="utf-8">
   <title>DARPA - Open Catalog</title>
 
-  <link rel='stylesheet' href="css/nv.d3.css" rel="stylesheet" type="text/css">  
+  <link rel='stylesheet' href="css/nv.d3.css" rel="stylesheet" type="text/css">
   <link rel='stylesheet' href='css/style_v2.css' type='text/css'/>
   <link rel='stylesheet' href='css/banner_style.css' type='text/css'/>
   <link rel='stylesheet' href='css/header_footer.css' type='text/css'/>
@@ -48,7 +48,7 @@ def catalog_page_header(office_link):
 
 def get_current_user():
   return getpass.getuser()
-    
+
 def catalog_splash_content():
   date = datetime.datetime.now()
   formatted_date = date.strftime("%B") + " " + date.strftime("%d") + ", " + date.strftime("%Y")
@@ -62,29 +62,29 @@ def catalog_splash_content():
 Mr. Wade Shen<br>
 <a href='mailto:wade.shen@darpa.mil'>wade.shen@darpa.mil</a></p>
 <p>Report a problem: <a href="mailto:opencatalog@darpa.mil">opencatalog@darpa.mil</a></p>
-<p>Last updated: """ 
+<p>Last updated: """
   splash += formatted_date + "</p></div>"
   #splash += "<div id='timeline_splash'>" + timeline.timeline_html() + "</div>"
   #splash += timeline.timeline_script()
   return splash
-  
+
 def splash_table_header():
   return """
 <div style = 'width:100%; float:left;'><h2>Current Catalog Programs:</h2></div>
-<table id='splash' class='tablesorter'> 
-<thead> 
-<tr> 
+<table id='splash' class='tablesorter'>
+<thead>
+<tr>
     <th>DARPA Program</th>
-    <th>Office</th> 	
-    <th>Description</th> 
-</tr> 
-</thead> 
-<tbody> 
+    <th>Office</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
 """
 
 def splash_table_footer():
   return """
-</tbody> 
+</tbody>
 </table>
 <br>
 """
@@ -98,7 +98,7 @@ def software_table_header(columns):
 
 def table_footer():
   return """
-</tbody> 
+</tbody>
 </table>
 """
 
@@ -109,7 +109,7 @@ def pubs_table_header(columns):
     header += "<th>%s</th>" % column
   header += "</tr>\n </thead>\n <tbody  class='list'>"
   return header
- 
+
 def data_table_header(columns):
 
   header = "<table id='data' class='tablesorter'>\n <thead>\n <tr>"
@@ -120,7 +120,7 @@ def data_table_header(columns):
 
 def pubs_table_footer():
   return """
-</tbody> 
+</tbody>
 </table>
 <br>
 """
@@ -149,55 +149,56 @@ def project_banner(update_date, new_date, last_update_file, title):
     ribbon_text = "UPD"
   f = open(last_update_file,"r")
   last_build_date = f.read()
-  f.close()	
+  f.close()
   if change_date > last_build_date:
     #Convert timestamp into a date in order to format the date into a string
+    change_date = re.sub('-','',change_date)
     formatted_month = datetime.date.strftime(datetime.datetime.strptime(change_date, '%Y%m%d'), "%b");
     formatted_day =  ordinal(int(datetime.date.strftime(datetime.datetime.strptime(change_date, '%Y%m%d'), "%d")))
-    formatted_date = formatted_month + " " + formatted_day 
+    formatted_date = formatted_month + " " + formatted_day
     html = "<div class='wrapper'><div class='wrapper-text'>" + title + "</div><div class='ribbon-wrapper'><div class='"  + ribbon_class + "'>" + ribbon_text + " " + formatted_date + "</div></div></div>"
   else:
     html = title
   return html
-  
-def catalog_program_script(): 
-  return """ 
+
+def catalog_program_script():
+  return """
 
 <script type='text/javascript'>
 var swList = ssftList = pubList = spubList = dataList = sdtList = "";
 
-$(document).ready(function() 
-    { 
-	   
+$(document).ready(function()
+    {
+
 	   $('#header_button').click(function(){
 			$.jStorage.set("searchTerm", $('#header_search').val());
 			window.location = 'catalog_search.html';
 	   });
-	   
+
 		$("#header_search").keyup(function(event){
 			if(event.keyCode == 13)
 				$('#header_button').click();
 		});
-	   
+
 	   $('#sftwr').tablesorter({
-		// sort on the first column and second column, order asc 
-        	sortList: [[0,0],[1,0]] 
-    	}); 
+		// sort on the first column and second column, order asc
+        	sortList: [[0,0],[1,0]]
+    	});
         $('#pubs').tablesorter({
-        	sortList: [[0,0],[1,0]] 
+        	sortList: [[0,0],[1,0]]
     	});
         $('#data').tablesorter({
-        	sortList: [[0,0],[1,0]] 
+        	sortList: [[0,0],[1,0]]
     	});
         $('#splash').tablesorter({
-		// sort on the first column, order asc 
-        	sortList: [[0,0]] 
+		// sort on the first column, order asc
+        	sortList: [[0,0]]
     	});
-		
+
 		//get the list of tabs and the number of tabs
 		var tabList = $('#tabs >ul >li');
 		var tabCount = $('#tabs >ul >li').size();
-		
+
 		//create table tabs
 		$(function() {
 			$( "#tabs" ).tabs
@@ -236,17 +237,17 @@ $(document).ready(function()
 
 		//configure table search and clear button for software, publications, and data table
 		for (var i=0; i<tabCount; i++){
-			
+
 			var tabName = tabList[i].textContent.toLowerCase(); //name of tab
 
 			if(tabName == "software"){
 				var tabTable = $('#tabs0 table'); //table within this tab
-				var tabHeaders = getTableHeaders(tabTable);	
-				
+				var tabHeaders = getTableHeaders(tabTable);
+
 				var sw_options = {
 				  valueNames: tabHeaders
 				};
-				
+
 				swList = new List(tabName, sw_options);
 
 				$("#clear0").click(function() {
@@ -255,11 +256,11 @@ $(document).ready(function()
 					swList.search();
 				});
 			}
-			
+
 			if(tabName == "publications"){
 				var tabTable = $('#tabs1 table'); //table within this tab
-				var tabHeaders = getTableHeaders(tabTable);	
-				
+				var tabHeaders = getTableHeaders(tabTable);
+
 				var pub_options = {
 				  valueNames: tabHeaders
 				};
@@ -271,13 +272,13 @@ $(document).ready(function()
 					$("#search" + currId[0]).val("");
 					pubList.search();
 				});
-				
+
 			}
-			
+
 			if(tabName == "data"){
 				var tabTable = $('#tabs2 table'); //table within this tab
-				var tabHeaders = getTableHeaders(tabTable);	
-				
+				var tabHeaders = getTableHeaders(tabTable);
+
 				var data_options = {
 				  valueNames: tabHeaders
 				};
@@ -289,7 +290,7 @@ $(document).ready(function()
 					$("#search" + currId[0]).val("");
 					dataList.search();
 				});
-				
+
 			}
 			if(tabName == "search"){
 
@@ -299,12 +300,12 @@ $(document).ready(function()
 					var search_options = {
 						  valueNames: searchHeaders
 					};
-					
+
 					if (table_clone[k].id == "sftwr"){
 						$("#softwareSearch #sftwrTable").append(table_clone[k]);
 						//tables are hidden initially
 						$("#softwareSearch #sftwrTable").hide();
-						ssftList = new List("softwareSearch", search_options);					
+						ssftList = new List("softwareSearch", search_options);
 					}
 					else if (table_clone[k].id == "pubs"){
 
@@ -318,7 +319,7 @@ $(document).ready(function()
 						sdtList = new List("dataSearch", search_options);
 					}
 
-					
+
 				}
 
 				$("#clear300").click(function() {
@@ -334,12 +335,12 @@ $(document).ready(function()
 					$("#softwareSearch #sftwrTable").hide();
 					$("#publicationsSearch #pubTable").hide();
 					$("#dataSearch #dataTable").hide();
-						
+
 				});
 
 			}
-		}   
-    } 
+		}
+    }
 );
 
 function jump(h){
@@ -365,7 +366,7 @@ function swSearch(link){
 		search_box.focus();
 		search_box.select();
 		swList.search(search_text);
-		
+
 	},300);
 }
 
@@ -385,7 +386,7 @@ function pubSearch(link){
 		}, 0);
 		search_box.focus();
 		search_box.select();
-		pubList.search(search_text);		
+		pubList.search(search_text);
 	},300);
 }
 
@@ -405,41 +406,41 @@ function dataSearch(link){
 		}, 0);
 		search_box.focus();
 		search_box.select();
-		dataList.search(search_text);		
+		dataList.search(search_text);
 	},300);
 }
 function allSearch(this_search){
 	if(this_search.value != "" && this_search.value.length >= 3){
-		var value = this_search.value; 
+		var value = this_search.value;
 		//TODO: Implement Stop Words
 		ssftList.search(value);
-		
+
 		//hide table if there are no rows that match the search term
 		if ($("#softwareSearch #sftwrTable tbody").children().length != 0)
 			$("#softwareSearch #sftwrTable").show();
 		else
 			$("#softwareSearch #sftwrTable").hide();
-		
+
 		if(spubList != ""){
 			var value = this_search.value;
 			spubList.search(value);
-			
+
 			if ($("#publicationsSearch #pubTable tbody").children().length != 0)
 				$("#publicationsSearch #pubTable").show();
 			else
 				$("#publicationsSearch #pubTable").hide();
 		}
-		
+
 		if(sdtList != ""){
 			var value = this_search.value;
 			sdtList.search(value);
-			
+
 			if ($("#dataSearch #dataTable tbody").children().length != 0)
 				$("#dataSearch #dataTable").show();
 			else
 				$("#dataSearch #dataTable").hide();
 		}
-		
+
 	}
 	else{
 		//if search_term is empty or not 3 chars in length, make sure the tables are hidden
@@ -451,30 +452,30 @@ function allSearch(this_search){
 
 function getTableHeaders(table){
 	var this_table;
-	 
+
 	if(table[0])
 		this_table = table[0];
 	else
 		this_table = table;
-		
+
 	var headerRow = this_table.tHead.rows[0].cells; //header row of table
 	var tableHeaders = [];
 
-	for (var j=0; j<headerRow.length; j++) 
+	for (var j=0; j<headerRow.length; j++)
 		tableHeaders.push(headerRow[j].textContent.toLowerCase());
 
-	return tableHeaders;		
+	return tableHeaders;
 }
 
 function licenseInfo(short_nm, long_nm, link, description, event){
 
 	var x=event.clientX;
 	var y=event.clientY;
-	
+
 	$( "#dialog" ).removeClass("ribbon-dialog");
 	$(".ui-dialog").removeClass("ribbon-dialog vertical-green vertical-red");
 	$(".ui-dialog-titlebar").removeClass("ribbon-dialog-text");
-	
+
 	if(short_nm != ""){
 		$( "#dialog" ).empty().dialog({
 		position: [x , y - 20],
@@ -485,7 +486,7 @@ function licenseInfo(short_nm, long_nm, link, description, event){
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>: " + description);
 		else
 			$("#dialog").html("<a href='" + link + "'>" + long_nm + "</a>");
-	
+
 		$(".ui-dialog").mouseleave( function () {
 			 $( "#dialog" ).dialog( "close" );
 		  });
@@ -499,12 +500,12 @@ function dateInfo(ribbon, event){
 		var str_pattern = /(\d{4})(\d{2})(\d{2})/;
 		var date = date_id.replace(str_pattern,"$2-$3-$1"); //full date string
 
-		var ribbon_type = document.getElementById(ribbon).firstChild.getAttribute("name"); 
+		var ribbon_type = document.getElementById(ribbon).firstChild.getAttribute("name");
 		var x=event.clientX;
 		var y=event.clientY;
 		var text = "";
 		var background = "";
-		
+
 		if(ribbon_type == "NEW"){
 			text = "CREATED";
 			$(".ui-dialog").removeClass('vertical-green');
@@ -519,12 +520,12 @@ function dateInfo(ribbon, event){
 		$( "#dialog" ).empty().dialog({
 		position: [x , y - 20],
 		title: text + ": " + date,
-		});		
-		
+		});
+
 		$( "#dialog" ).addClass("ribbon-dialog");
 		$(".ui-dialog").addClass(background + " ribbon-dialog");
 		$(".ui-dialog-titlebar").addClass("ribbon-dialog-text");
-		
+
 
 
 		$(".ui-dialog").mouseleave( function () {
@@ -539,8 +540,8 @@ def catalog_page_footer():
   return """
 <footer>
 <div class='footer-style'>
-<hr>  
-<p><a href='http://www.darpa.mil/FOIA.aspx'>FOIA</a> | <a href='http://www.darpa.mil/Privacy_Security_Notice.aspx'>Privacy and Security</a> | 
+<hr>
+<p><a href='http://www.darpa.mil/FOIA.aspx'>FOIA</a> | <a href='http://www.darpa.mil/Privacy_Security_Notice.aspx'>Privacy and Security</a> |
 <a href='http://www.darpa.mil/NoFearAct.aspx'>No Fear Act</a> | <a href='http://www.darpa.mil/External_Link.aspx?url=http://dodcio.defense.gov/DoDSection508/Std_Stmt.aspx'>Accessibility/Section 508</a></p>
 </div>
 </footer>
@@ -558,7 +559,7 @@ def write_file(html, file):
 def valid_email(email, program):
   if re.match(r"^(([a-zA-Z0-9\-?\.?]+)@(([a-zA-Z0-9\-_]+\.)+)([a-z]{2,3}))+$", email)!=None:
     return email
-  else: 
+  else:
     raise ValueError( "%s is an invalid email address.  Please fix this in %s files and restart the build." % (email, program))
 
 def ordinal(n):
