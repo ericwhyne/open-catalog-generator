@@ -25,6 +25,13 @@ def html_head():
   <script language="javascript" type='text/javascript' src="spin.js"></script>
   <script language="javascript" type='text/javascript' src='jquery.tablesorter.min.js'></script>
   <script language="javascript" type='text/javascript' src="list.min.js"></script>
+  <link href="/Portals/_default/default.css?cdv=49" media="all" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Skins/DDM/skin.css?cdv=49" media="all" type="text/css" rel="stylesheet"/><link href="/Portals/0/portal.css?cdv=49" media="all" type="text/css" rel="stylesheet"/><script src="/Resources/libraries/jQuery/01_09_01/jquery.js?cdv=49" type="text/javascript"></script><script src="/Resources/libraries/jQuery-Migrate/01_02_01/jquery-migrate.js?cdv=49" type="text/javascript"></script><script src="/Resources/libraries/jQuery-UI/01_10_03/jquery-ui.js?cdv=49" type="text/javascript"></script><link href="http://dtdnnp-01.darpa.mil/news-events/2015-06-06" rel="canonical" /><link rel="alternate" type="application/rss+xml" title="DARPA RSS Feed" href="/rss" /><meta name="image" content="/DDM_Gallery/DRCFinalsRobosimian619-316_thumb.jpg" /><meta name="Topic" content="Autonomy" /><meta name="Topic" content="Robotics" /><meta name="image" content="/DDM_Gallery/DRCFinalsIHMC619-316_thumb.jpg" /><meta name="image" content="/DDM_Gallery/DRCFINALSMIT619-316_thumb.jpg" /><meta name="image" content="/DDM_Gallery/DRCFinalsRobosimian619-316_thumb.jpg" />
+                  <script type="text/javascript">
+                    var AKSB=AKSB||{};AKSB.q=[];AKSB.mark=function(c,a){AKSB.q.push(["mark",c,a||(new Date).getTime()])};AKSB.measure=function(c,a,b){AKSB.q.push(["measure",c,a,b||(new Date).getTime()])};AKSB.done=function(c){AKSB.q.push(["done",c])};AKSB.mark("firstbyte",(new Date).getTime());
+                    AKSB.prof={custid:"109434",ustr:"",originlat:0,clientrtt:16,ghostip:"96.6.113.93",ipv6:false,pct:10,xhrtest:false,clientip:"108.18.120.15",requestid:"2d6c8909",protocol:"",akM:"dscg",akN:""};
+                    (function(c){var a=document.createElement("iframe");a.src="javascript:false";(a.frameElement||a).style.cssText="width: 0; height: 0; border: 0; display: none";var b=document.getElementsByTagName("script"),b=b[b.length-1];b.parentNode.insertBefore(a,b);a=a.contentWindow.document;b=String.fromCharCode;c=b(60)+"body onload=\"var js = document.createElement('script');js.id = 'aksb-ifr';js.src = '"+c+"';document.body.appendChild(js);\""+b(62);a.open().write(c);a.close()})(("https:"===document.location.protocol?
+                    "https:":"http:")+"//ds-aksb-a.akamaihd.net/aksb.min.js");
+                  </script>
  <!--
   <script language="javascript" type='text/javascript' src="d3.v3.js"></script>
   <script language="javascript" type='text/javascript' src="nv.d3.js"></script>
@@ -542,7 +549,7 @@ def catalog_page_footer():
 <div class='footer-style'>
 <hr>
 <p><a href='http://www.darpa.mil/policy/foia'>FOIA</a> | <a href='http://www.darpa.mil/policy/privacy-policy'>Privacy and Security</a> |
-<a href='http://www.darpa.mil/policy/no-fear-act'>No Fear Act</a> | <a href='http://www.darpa.mil/External_Link.aspx?url=http://dodcio.defense.gov/DoDSection508/Std_Stmt.aspx'>Accessibility/Section 508</a></p>
+<a href='http://www.darpa.mil/policy/no-fear-act'>No Fear Act</a> | <a href='http://dodcio.defense.gov/DoDSection508/Std_Stmt.aspx'>Accessibility/Section 508</a></p>
 </div>
 </footer>
 </div>

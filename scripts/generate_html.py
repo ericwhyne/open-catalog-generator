@@ -218,7 +218,7 @@ for program in active_content:
           entry_title = ""
           if re.search('^http',elink) and elink != "":
             if darpa_links == "darpalinks":
-              entry_title = "<a href='http://www.darpa.mil/External_Link.aspx?url=" + elink + "'>" + software['Software'] + "</a>"
+              entry_title = "<a href='elink + class="external" target="_blank"'>" + software['Software'] + "</a>"
             else:
               entry_title = "<a href='" + elink + "'>" + software['Software'] + "</a>"
           else:
