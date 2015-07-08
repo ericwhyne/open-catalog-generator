@@ -50,6 +50,7 @@ splash_page += doc.catalog_program_script()
 splash_page += doc.catalog_page_header("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
+splash_page += doc.leaving_popup()
 
 datavis_page = graph.sunburst_head()
 datavis_page += graph.sunburst_script()
@@ -72,6 +73,7 @@ for program in active_content:
   program_page_filename = program_name + ".html"
   program_page = doc.html_head()
   program_page += doc.catalog_program_script()
+  program_page += doc.leaving_popup()
   program_image_file = ""
   software_columns = []
   pubs_columns = []
@@ -244,7 +246,7 @@ for program in active_content:
             instructional_material = software['Instructional Material']
           if re.search('^http',instructional_material):
             if darpa_links == "darpalinks":
-              program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + instructional_material + "'> Available </a></TD>\n"
+              program_page += "  <TD class='" + column.lower() + "'><a href='" + instructional_material + "' class='external' target='_blank'>Available </a></TD>\n"
             else:
               program_page += "  <TD class=" + column.lower() + "><a href='" + instructional_material + "'> Available </a></TD>\n"
           else:
@@ -262,7 +264,7 @@ for program in active_content:
             elif re.search('^http',software['Public Code Repo']):
               codeurl = software['Public Code Repo']
               if darpa_links == "darpalinks":
-                clink = "<a href='http://www.darpa.mil/External_Link.aspx?url=%s'>%s</a>" % (codeurl, codeurl)
+                clink = "<a href=%s class='external' target='_blank'>%s</a>" % (codeurl, codeurl)
               else:
                 clink = "<a href='%s'>%s</a>" % (codeurl, codeurl)
             else:
@@ -342,7 +344,7 @@ for program in active_content:
           link = pub['Link']
           if re.search('^http',link) or re.search('^ftp',link):
             if darpa_links == "darpalinks":
-              program_page += "  <TD class='" + column.lower() + "'><a href='http://www.darpa.mil/External_Link.aspx?url=" + link + "'>" + link + "</a></TD>\n"
+              program_page += "  <TD class='" + column.lower() + "'><a href='" + link + "' class='external' target='_blank'>" + link + "</a></TD>\n"
             else:
               program_page += "  <TD class='" + column.lower() + "'><a href='" + link + "'>" + link + "</a></TD>\n"
           else:

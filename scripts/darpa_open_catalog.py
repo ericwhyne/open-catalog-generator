@@ -25,13 +25,51 @@ def html_head():
   <script language="javascript" type='text/javascript' src="spin.js"></script>
   <script language="javascript" type='text/javascript' src='jquery.tablesorter.min.js'></script>
   <script language="javascript" type='text/javascript' src="list.min.js"></script>
-  <link href="/Portals/_default/default.css?cdv=49" media="all" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Skins/DDM/skin.css?cdv=49" media="all" type="text/css" rel="stylesheet"/><link href="/Portals/0/portal.css?cdv=49" media="all" type="text/css" rel="stylesheet"/><script src="/Resources/libraries/jQuery/01_09_01/jquery.js?cdv=49" type="text/javascript"></script><script src="/Resources/libraries/jQuery-Migrate/01_02_01/jquery-migrate.js?cdv=49" type="text/javascript"></script><script src="/Resources/libraries/jQuery-UI/01_10_03/jquery-ui.js?cdv=49" type="text/javascript"></script><link href="http://dtdnnp-01.darpa.mil/news-events/2015-06-06" rel="canonical" /><link rel="alternate" type="application/rss+xml" title="DARPA RSS Feed" href="/rss" /><meta name="image" content="/DDM_Gallery/DRCFinalsRobosimian619-316_thumb.jpg" /><meta name="Topic" content="Autonomy" /><meta name="Topic" content="Robotics" /><meta name="image" content="/DDM_Gallery/DRCFinalsIHMC619-316_thumb.jpg" /><meta name="image" content="/DDM_Gallery/DRCFINALSMIT619-316_thumb.jpg" /><meta name="image" content="/DDM_Gallery/DRCFinalsRobosimian619-316_thumb.jpg" />
-                  <script type="text/javascript">
-                    var AKSB=AKSB||{};AKSB.q=[];AKSB.mark=function(c,a){AKSB.q.push(["mark",c,a||(new Date).getTime()])};AKSB.measure=function(c,a,b){AKSB.q.push(["measure",c,a,b||(new Date).getTime()])};AKSB.done=function(c){AKSB.q.push(["done",c])};AKSB.mark("firstbyte",(new Date).getTime());
-                    AKSB.prof={custid:"109434",ustr:"",originlat:0,clientrtt:16,ghostip:"96.6.113.93",ipv6:false,pct:10,xhrtest:false,clientip:"108.18.120.15",requestid:"2d6c8909",protocol:"",akM:"dscg",akN:""};
-                    (function(c){var a=document.createElement("iframe");a.src="javascript:false";(a.frameElement||a).style.cssText="width: 0; height: 0; border: 0; display: none";var b=document.getElementsByTagName("script"),b=b[b.length-1];b.parentNode.insertBefore(a,b);a=a.contentWindow.document;b=String.fromCharCode;c=b(60)+"body onload=\"var js = document.createElement('script');js.id = 'aksb-ifr';js.src = '"+c+"';document.body.appendChild(js);\""+b(62);a.open().write(c);a.close()})(("https:"===document.location.protocol?
-                    "https:":"http:")+"//ds-aksb-a.akamaihd.net/aksb.min.js");
-                  </script>
+
+<script  type="text/javascript" >
+    var leaving_timeout;
+
+    //set the click action for the back button on the leaving window.
+    $('#back').click(function () {
+        cancelLeaving(); //cancel leaving, user clicks 'back'
+    });
+
+    //for any links with the 'external' class, set the click event
+    $('a.external').click(function (ev) {
+        //prevent the default action of the event, this will stop the href in the anchor being followed
+        //before the animation has started, u can also use return false;
+        ev.preventDefault();
+        //stop any actions if a new link is clicked.
+        cancelLeaving();
+        //store a reference to the anchor tag
+        var $self = $(this);
+        showLeavingMessage($self);
+
+        leaving_timeout = setTimeout(function () { leave($self); }, 15000); //leave in 15 seconds
+    });
+
+
+    function leave(leavingLink) {
+        //open an external link
+        window.open(leavingLink.attr('href'));
+        cancelLeaving(); //cancel leaving, user has left.
+    }
+
+    function showLeavingMessage(leavingLink) {
+        //show the leaving message
+        $('#goto_link').html("<a href='" + leavingLink.attr('href') + "' target='_bl' onclick='cancelLeaving();'>" + leavingLink.attr('href') + "</a>");
+        //$("body").css("background-color", "grey");
+        $('#overlay').show();
+
+    }
+
+    function cancelLeaving() {
+        //cancel leaving.  hide the leaving box
+        clearTimeout(leaving_timeout); //if the timer is set to leave in 15 seconds, this will cancel it.
+        $('#overlay').hide();
+      }
+
+</script>
  <!--
   <script language="javascript" type='text/javascript' src="d3.v3.js"></script>
   <script language="javascript" type='text/javascript' src="nv.d3.js"></script>
@@ -44,6 +82,16 @@ def html_head():
   </head>
   <body>
 """
+
+def leaving_popup():
+    header = '<div id="overlay">'
+    header += '<div class="leavingbox">'
+    header += '<p>You are now leaving the DARPA.mil website that is under the control and  management of DARPA. The appearance of hyperlinks does not constitute endorsement by DARPA of non-U.S. Government sites or the information, products, or services contained therein. Although DARPA may or may not use these sites as additional distribution channels for Department of Defense information, it does not exercise editorial control over all of the information that you may find at these locations. Such links are provided consistent with the stated purpose of this website.</p>'
+    header += '<p>After reading this message, click <span id=goto_link></span> to continue immediately.</p>'
+    header += '<p><a id="back" href="#">Go Back</a></p>'
+    header += '</div>'
+    header += '</div>'
+    return header
 
 def catalog_page_header(office_link):
   header = "<header class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
