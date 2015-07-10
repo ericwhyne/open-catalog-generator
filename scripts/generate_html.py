@@ -50,7 +50,6 @@ splash_page += doc.catalog_program_script()
 splash_page += doc.catalog_page_header("")
 splash_page += doc.catalog_splash_content()
 splash_page += doc.splash_table_header()
-splash_page += doc.leaving_popup()
 
 datavis_page = graph.sunburst_head()
 datavis_page += graph.sunburst_script()
@@ -411,6 +410,7 @@ for program in active_content:
       shutil.copy(data_dir + program_image_file, build_dir)
 
 splash_page += doc.splash_table_footer()
+splash_page += doc.leaving_popup()
 splash_page += doc.catalog_page_footer()
 doc.write_file(splash_page, build_dir + '/index.html')
 

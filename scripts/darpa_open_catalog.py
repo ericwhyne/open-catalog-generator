@@ -26,50 +26,6 @@ def html_head():
   <script language="javascript" type='text/javascript' src='jquery.tablesorter.min.js'></script>
   <script language="javascript" type='text/javascript' src="list.min.js"></script>
 
-<script  type="text/javascript" >
-    var leaving_timeout;
-
-    //set the click action for the back button on the leaving window.
-    $('#back').click(function () {
-        cancelLeaving(); //cancel leaving, user clicks 'back'
-    });
-
-    //for any links with the 'external' class, set the click event
-    $('a.external').click(function (ev) {
-        //prevent the default action of the event, this will stop the href in the anchor being followed
-        //before the animation has started, u can also use return false;
-        ev.preventDefault();
-        //stop any actions if a new link is clicked.
-        cancelLeaving();
-        //store a reference to the anchor tag
-        var $self = $(this);
-        showLeavingMessage($self);
-
-        leaving_timeout = setTimeout(function () { leave($self); }, 15000); //leave in 15 seconds
-    });
-
-
-    function leave(leavingLink) {
-        //open an external link
-        window.open(leavingLink.attr('href'));
-        cancelLeaving(); //cancel leaving, user has left.
-    }
-
-    function showLeavingMessage(leavingLink) {
-        //show the leaving message
-        $('#goto_link').html("<a href='" + leavingLink.attr('href') + "' target='_bl' onclick='cancelLeaving();'>" + leavingLink.attr('href') + "</a>");
-        //$("body").css("background-color", "grey");
-        $('#overlay').show();
-
-    }
-
-    function cancelLeaving() {
-        //cancel leaving.  hide the leaving box
-        clearTimeout(leaving_timeout); //if the timer is set to leave in 15 seconds, this will cancel it.
-        $('#overlay').hide();
-      }
-
-</script>
  <!--
   <script language="javascript" type='text/javascript' src="d3.v3.js"></script>
   <script language="javascript" type='text/javascript' src="nv.d3.js"></script>
@@ -84,14 +40,14 @@ def html_head():
 """
 
 def leaving_popup():
-    header = '<div id="overlay">'
-    header += '<div class="leavingbox">'
-    header += '<p>You are now leaving the DARPA.mil website that is under the control and  management of DARPA. The appearance of hyperlinks does not constitute endorsement by DARPA of non-U.S. Government sites or the information, products, or services contained therein. Although DARPA may or may not use these sites as additional distribution channels for Department of Defense information, it does not exercise editorial control over all of the information that you may find at these locations. Such links are provided consistent with the stated purpose of this website.</p>'
-    header += '<p>After reading this message, click <span id=goto_link></span> to continue immediately.</p>'
-    header += '<p><a id="back" href="#">Go Back</a></p>'
-    header += '</div>'
-    header += '</div>'
-    return header
+    popup = '<div id="overlay">'
+    popup += '<div class="leavingbox">'
+    popup += '<p>You are now leaving the DARPA.mil website that is under the control and  management of DARPA. The appearance of hyperlinks does not constitute endorsement by DARPA of non-U.S. Government sites or the information, products, or services contained therein. Although DARPA may or may not use these sites as additional distribution channels for Department of Defense information, it does not exercise editorial control over all of the information that you may find at these locations. Such links are provided consistent with the stated purpose of this website.</p>'
+    popup += '<p>After reading this message, click <span id=goto_link></span> to continue immediately.</p>'
+    popup += '<p><a id="back" href="#">Go Back</a></p>'
+    popup += '</div>'
+    popup += '</div>'
+    return popup
 
 def catalog_page_header(office_link):
   header = "<header class='darpa-header'><div class='darpa-header-images'><a href='http://www.darpa.mil/'><img class='darpa-logo' src='darpa-transparent-v2.png'></a><a href='index.html' class='programlink'><img src='Open-Catalog-Single-Big.png'></a></div>"
@@ -395,6 +351,53 @@ $(document).ready(function()
 
 			}
 		}
+	
+		var leaving_timeout;
+
+		//set the click action for the back button on the leaving window.
+		$('#back').click(function () {
+			cancelLeaving(); //cancel leaving, user clicks 'back'
+		});
+
+		//for any links with the 'external' class, set the click event
+		console.log($('a.external'));
+		$('a.external').click(function (ev) {
+			console.log("link clicked");
+			//prevent the default action of the event, this will stop the href in the anchor being followed
+			//before the animation has started, u can also use return false;
+			ev.preventDefault();
+			//stop any actions if a new link is clicked.
+			cancelLeaving();
+			//store a reference to the anchor tag
+			var $self = $(this);
+			showLeavingMessage($self);
+
+			leaving_timeout = setTimeout(function () { leave($self); }, 15000); //leave in 15 seconds
+		});
+
+
+		function leave(leavingLink) {
+			//open an external link
+			window.open(leavingLink.attr('href'));
+			cancelLeaving(); //cancel leaving, user has left.
+		}
+
+		function showLeavingMessage(leavingLink) {
+			//show the leaving message
+			$('#goto_link').html("<a href='" + leavingLink.attr('href') + "' target='_bl' onclick='cancelLeaving();'>" + leavingLink.attr('href') + "</a>");
+			//$("body").css("background-color", "grey");
+			$('#overlay').show();
+
+		}
+
+		function cancelLeaving() {
+			//cancel leaving.  hide the leaving box
+			clearTimeout(leaving_timeout); //if the timer is set to leave in 15 seconds, this will cancel it.
+			$('#overlay').hide();
+		}	
+				
+		
+		
     }
 );
 
@@ -588,6 +591,7 @@ function dateInfo(ribbon, event){
 		});
 	}
 }
+
 </script>
 """
 
