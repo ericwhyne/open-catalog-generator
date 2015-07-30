@@ -212,7 +212,7 @@ for example purposes, lets name the new tab "Examples"
 					  
 	b. Two lists need to be declared in order to perform the tab search and the all(all-tab) search (line ~179).
 	
-			javascript var swList = ssftList = pubList = spubList ... = exList = srchexList; 			
+			javascript var swList = ssftList = pubList = spubList ... = exList = srchexList;
 
 	c. Define table sort by columns (line ~194)
 	
