@@ -125,7 +125,7 @@ for example purposes, lets name the new tab "Examples"
 		* XDATA-examples.json would be created for the XDATA program, MADCAT-examples.json for the MADCAT program...
  
 2. Update the active_content.json and active_content_deployed.json to include the new examples.json file for each program.
-		```	
+		```json	
 		{
 				"DARPA Office": "I2O",
 				"Program Name": "XDATA",
@@ -139,7 +139,7 @@ for example purposes, lets name the new tab "Examples"
 		```
 
 3. Add the new tab schema to file 00-schema-examples.json. The schema represents the json objects field names and values.
-		```
+		```json
 		{
 			"Type":"Examples",
 			"Schema":[
