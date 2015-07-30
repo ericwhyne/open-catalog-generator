@@ -123,11 +123,10 @@ for example purposes, lets name the new tab "Examples"
 
 1. Create a json file in the "darpa_open_catalog" directory for every program page that will be displaying the new tab. 
 
-		`* XDATA-examples.json would be created for the XDATA program, MADCAT-examples.json for the MADCAT program...`
+		**XDATA-examples.json would be created for the XDATA program, MADCAT-examples.json for the MADCAT program...
  
 2. Update the active_content.json and active_content_deployed.json to include the new examples.json file for each program.
-
-		```javascript	
+	
 		{
 				"DARPA Office": "I2O",
 				"Program Name": "XDATA",
@@ -138,7 +137,6 @@ for example purposes, lets name the new tab "Examples"
 				**"Examples File": "XDATA-examples.json", **
 				"Banner":"UPDATED"
 		}
-		```
 
 3. Add the new tab schema to file 00-schema-examples.json. The schema represents the json objects field names and values.
 
