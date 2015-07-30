@@ -146,9 +146,9 @@ for program in active_content:
     pubs_columns = program_details['Display Pubs Columns']
     data_columns = program_details['Display Data Columns']
 
-  # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table.
+  # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table. So far only XDATA program
   pubs_exist = {}
-  if program['Pubs File'] != "" and program['Software File'] != "" and program['Data File'] != "":
+  if program['Pubs File'] != "" and program['Software File'] != "":
       pubs_file = open(data_dir + program['Pubs File'])
       try:
         pubs = json.load(pubs_file)
