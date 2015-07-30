@@ -122,10 +122,10 @@ All py files named below are contained in the open-catalog-generator/scripts/ di
 for example purposes, lets name the new tab "Examples"
 
 1. Create a json file in the "darpa_open_catalog" directory for every program page that will be displaying the new tab. 
-		* XDATA-examples.json would be created for the XDATA program, MADCAT-examples.json for the MADCAT program...
+		`* XDATA-examples.json would be created for the XDATA program, MADCAT-examples.json for the MADCAT program...`
  
 2. Update the active_content.json and active_content_deployed.json to include the new examples.json file for each program.
-		```json	
+		```javascript	
 		{
 				"DARPA Office": "I2O",
 				"Program Name": "XDATA",
@@ -133,13 +133,13 @@ for example purposes, lets name the new tab "Examples"
 				"Pubs File": "XDATA-pubs.json",
 				"Software File": "XDATA-software.json",
 				"Data File": "XDATA-data.json",
-				**_ "Examples File": "XDATA-examples.json", _**
+				**"Examples File": "XDATA-examples.json", **
 				"Banner":"UPDATED"
 		}
 		```
 
 3. Add the new tab schema to file 00-schema-examples.json. The schema represents the json objects field names and values.
-		```json
+		```javascript
 		{
 			"Type":"Examples",
 			"Schema":[
@@ -152,7 +152,7 @@ for example purposes, lets name the new tab "Examples"
 		
 4. Now that we know the column names from the Examples tab schema, we can choose which columns to display in the tab. 
    Update the display fields in the program schema of file 00-schema-examples.json(line ~25). 
-		```
+		```javascript
 		"Display Examples Columns":[
 			   ...
 		  ],
@@ -214,7 +214,7 @@ for example purposes, lets name the new tab "Examples"
 			```
 					  
 	b. Two lists need to be declared in order to perform the tab search and the all(all-tab) search (line ~179).
-			```javascript var swList = ssftList = pubList = spubList .... = exList = srchexList; ``` 			
+			```javascript var swList = ssftList = pubList = spubList ... = exList = srchexList; ``` 			
 
 	c. Define table sort by columns (line ~194)
 			```javascript
@@ -258,10 +258,10 @@ for example purposes, lets name the new tab "Examples"
 			$("#clear300").click(function() {
 				var currId = this.id.match(/\d+/g);
 				$("#search" + currId[0]).val("");
-				...
+				//...
 				if (srchexList != "")
 					srchexList.search();
-				...
+				//...
 				$("#exSearch #exTable").hide();
 			});
 			```
@@ -279,24 +279,24 @@ for example purposes, lets name the new tab "Examples"
 				var search_box = $("#search3");
 				search_box.val(search_text);
 				
-				...
+				//...
 			}
 			```
 
 	h. Activate tabs in the tabs table function (line ~214). It's important to represent the tab in each section of the if-else statement within this function. 
 			```javaascript
-			...
+			//...
 			else if (param_tab == "tabs3")
 				$("#tabs").tabs({active: 3});  //examples tab
-			...
+			//...
 			else if (param_tab == "tabs3")
 					exSearch(param_term);
-			...	
+			//...	
 			```
 			
 	i. Search value and set table for Examples on the all search tab (line ~471)
 			```javascript
-			...			
+			//...			
 			if(sdtList != ""){
 				var value = this_search.value;
 				sdtList.search(value);
@@ -306,9 +306,9 @@ for example purposes, lets name the new tab "Examples"
 				else
 					$("#dataSearch #dataTable").hide();
 			}
-			...
+			//...
 			else{
-			...
+			//...
 					$("#dataSearch #dataTable").hide();
 			}
 			```
