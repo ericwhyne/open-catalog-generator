@@ -113,3 +113,195 @@ Note: In some cases, a non-ascii character may not be mapped to an ascii charact
 		.
 		.
 		.
+		
+		
+Adding tabs to the program page
+================================
+All json files named below are contained in the open-catalog-generator/darpa_open_catalog/ directory.
+All py files named below are contained in the open-catalog-generator/scripts/ directory.
+for example purposes, lets name the new tab "Items"
+
+1. Create a json file in the "darpa_open_catalog" directory for every program page that will be displaying the new tab. 
+
+		XDATA-items.json would be created for the XDATA program, 
+		MADCAT-items.json for the MADCAT program...
+ 
+2. Update the active_content.json and active_content_deployed.json to include the new items.json file for each program.
+	
+		{
+				"DARPA Office": "I2O",
+				"Program Name": "XDATA",
+				"Program File": "XDATA-program.json",
+				"Pubs File": "XDATA-pubs.json",
+				"Software File": "XDATA-software.json",
+				"Data File": "XDATA-data.json",
+				**"Items File": "XDATA-items.json",**
+				"Banner":"UPDATED"
+		}
+
+3. Add the new tab schema to file 00-schema-examples.json. The schema represents the json objects field names and values.
+
+		{
+			"Type":"Items",
+			"Schema":[
+				{
+					...
+				}
+			]
+		}
+		
+4. Now that we know the column names from the Items tab schema, we can choose which columns to display in the tab. 
+   Update the display fields in the program schema of file 00-schema-examples.json(line ~25). 
+   
+		"Display Items Columns":[
+			   ...
+		  ],
+		
+5. Open generate_html.py. You will need to make several modifications to this file.
+
+	a. At the beginning of the program for loop (line ~79), a new column array will need to be declared.
+	
+		items_columns = []
+	   
+	b. A description will need to be added for the new tab. You will find the tab descriptions listed in the first else statement(line ~120)
+	
+			if program['Items File'] and not program['Items File'].isspace():	  
+				program_page += "<ul><li>The Items Table...</li></ul>"
+			
+	c. Define the column array for the new tab at the end of the first else statement(line ~147)	   
+	
+			items_columns = program_details['Display Items Columns']
+
+	d. Create html for the Items tab of each program that has an items.json file(line ~170). Always increment the previous tab id by 1 to get the new tab id.
+	
+			if program['Items File'] != "":
+				 program_page += "<li><a href='#tabs3'>Items</a></li>"
+				 search_tab += "<div id='itmSearch'><div id='itmTable'><h2>Items</h2></div></div>"
+			
+	e. Create html for the content that will be on the Items tab page similar to the Software, Pubs, and Data html(line ~188).
+	
+				if program['Items File'] != "":
+					program_page += "<div id='items'><div id='tabs3'>"
+					program_page += "<input class='search' placeholder='Search' id='search3'/>"
+					program_page += "<button class='clear_button' id='clear3'>Clear</button>"
+					try:
+					  items = json.load(open(data_dir + program['Items File']))
+					except Exception, e:
+					  print "\nFAILED! JSON error in file %s" % program['Items File']
+					  print " Details: %s" % str(e)
+					  sys.exit(1)
+					program_page += doc.items_table_header(items_columns)
+					for item in items:
+					  for column in items_columns:
+						.
+						.
+						.
+					program_page += doc.table_footer()
+					program_page += "</div></div>"
+			
+6. Open darpa_open_catalog.py. You will need to make several modifications to this file.
+
+	a. Create a table header method for the Items tab page(line ~116).
+	
+			def items_table_header(columns):
+				  header = "<table id='items' class='tablesorter'>\n <thead>\n <tr>"
+				  for column in columns:
+					header += "<th>%s</th>" % column
+				  header += "</tr>\n </thead>\n <tbody  class='list'>"
+				  return header
+					  
+	b. Two lists need to be declared in order to perform the tab search and the all(all-tab) search (line ~179).
+	
+			javascript var swList = ssftList = pubList = spubList ... = itmList = sitmList;
+
+	c. Define table sort by columns (line ~194)
+	
+			$('#items').tablesorter({
+				sortList: [[0,0],[1,0]]
+			});
+			
+	d. Configure the Items table search within the tabs for-loop (line ~252)
+	
+			if(tabName == "items"){
+				var tabTable = $('#tabs3 table'); //table within this tab
+				var tabHeaders = getTableHeaders(tabTable);
+
+				var itm_options = {
+				  valueNames: tabHeaders
+				};
+
+				itmList = new List(tabName, itm_options);
+
+				$("#clear3").click(function() {
+					var currId = this.id.match(/\d+/g);
+					$("#search" + currId[0]).val("");
+					itmList.search();
+				});
+
+			}
+				
+	e. Configure the Items table for Search tab (line ~306)
+	
+			else if (table_clone[k].id == "items"){
+				$("#itmSearch #itmTable").append(table_clone[k]);
+				$("#itmSearch #itmTable").hide();
+				sitmList = new List("itmSearch", search_options);
+			}
+			
+	f. Activate clear button on the Search tab for the Items table 
+	
+			$("#clear300").click(function() {
+				var currId = this.id.match(/\d+/g);
+				$("#search" + currId[0]).val("");
+				...
+				if (sitmList != "")
+					sitmList.search();
+				...
+				$("#itmSearch #itmTable").hide();
+			});
+			
+	g. Create an Items search function for searching content in the Items table (line ~410)
+	
+			function itmSearch(link){
+				var search_text = "";
+				if(link.hash)
+					search_text = link.hash.replace("#", "");
+				else
+					search_text = link;
+					
+				$('#tabs').tabs({active: 3}); //items tab
+				var search_box = $("#search3");
+				search_box.val(search_text);
+				
+				...
+			}
+
+	h. Activate tabs in the tabs table function (line ~214). It's important to represent the tab in each section of the if-else statement within this function. 
+	
+			...
+			else if (param_tab == "tabs3")
+				$("#tabs").tabs({active: 3});  //items tab
+			...
+			else if (param_tab == "tabs3")
+					itmSearch(param_term);
+			...	
+			
+	i. Search value and set table for Items on the all search tab (line ~471)
+	
+			...			
+			if(sitmList != ""){
+				var value = this_search.value;
+				sitmList.search(value);
+
+				if ($("#itmSearch #itmTable tbody").children().length != 0)
+					$("#itmSearch #itmTable").show();
+				else
+					$("#itmSearch #itmTable").hide();
+			}
+			...
+			else{
+			...
+					$("#itmSearch #itmTable").hide();
+			}
+
+   
