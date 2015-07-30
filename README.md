@@ -123,7 +123,8 @@ for example purposes, lets name the new tab "Examples"
 
 1. Create a json file in the "darpa_open_catalog" directory for every program page that will be displaying the new tab. 
 
-		**XDATA-examples.json would be created for the XDATA program, MADCAT-examples.json for the MADCAT program...
+		XDATA-examples.json would be created for the XDATA program, 
+		MADCAT-examples.json for the MADCAT program...
  
 2. Update the active_content.json and active_content_deployed.json to include the new examples.json file for each program.
 	
@@ -140,7 +141,6 @@ for example purposes, lets name the new tab "Examples"
 
 3. Add the new tab schema to file 00-schema-examples.json. The schema represents the json objects field names and values.
 
-		```javascript
 		{
 			"Type":"Examples",
 			"Schema":[
@@ -149,45 +149,37 @@ for example purposes, lets name the new tab "Examples"
 				}
 			]
 		}
-		```
 		
 4. Now that we know the column names from the Examples tab schema, we can choose which columns to display in the tab. 
    Update the display fields in the program schema of file 00-schema-examples.json(line ~25). 
    
-		```javascript
 		"Display Examples Columns":[
 			   ...
 		  ],
-		```
 		
 5. Open generate_html.py. You will need to make several modifications to this file.
 
 	a. At the beginning of the program for loop (line ~79), a new column array will need to be declared.
 	
-			``` examples_columns = [] ```
+		examples_columns = []
 	   
 	b. A description will need to be added for the new tab. You will find the tab descriptions listed in the first else statement(line ~120)
 	
-			```python
 			if program['Examples File'] and not program['Examples File'].isspace():	  
 				program_page += "<ul><li>The Examples Table...</li></ul>"
-			```  
 			
 	c. Define the column array for the new tab at the end of the first else statement(line ~147)	   
 	
-			``` examples_columns = program_details['Display Examples Columns'] ```
+			examples_columns = program_details['Display Examples Columns']
 
 	d. Create html for the Examples tab of each program that has an examples.json file(line ~170). Always increment the previous tab id by 1 to get the new tab id.
 	
-			```python
 			if program['Examples File'] != "":
 				 program_page += "<li><a href='#tabs3'>Examples</a></li>"
 				 search_tab += "<div id='exSearch'><div id='exTable'><h2>Examples</h2></div></div>"
-			```	
 			
 	e. Create html for the content that will be on the Examples tab page similar to the Software, Pubs, and Data html(line ~188).
 	
-			```python
 				if program['Examples File'] != "":
 					program_page += "<div id='examples'><div id='tabs3'>"
 					program_page += "<input class='search' placeholder='Search' id='search3'/>"
@@ -206,36 +198,30 @@ for example purposes, lets name the new tab "Examples"
 						...
 					program_page += doc.table_footer()
 					program_page += "</div></div>"
-			```	
 			
 6. Open darpa_open_catalog.py. You will need to make several modifications to this file.
 
 	a. Create a table header method for the Examples tab page(line ~116).
 	
-			```python
 			def examples_table_header(columns):
 				  header = "<table id='examples' class='tablesorter'>\n <thead>\n <tr>"
 				  for column in columns:
 					header += "<th>%s</th>" % column
 				  header += "</tr>\n </thead>\n <tbody  class='list'>"
 				  return header
-			```
 					  
 	b. Two lists need to be declared in order to perform the tab search and the all(all-tab) search (line ~179).
 	
-			```javascript var swList = ssftList = pubList = spubList ... = exList = srchexList; ``` 			
+			javascript var swList = ssftList = pubList = spubList ... = exList = srchexList; 			
 
 	c. Define table sort by columns (line ~194)
 	
-			```javascript
 			$('#examples').tablesorter({
 				sortList: [[0,0],[1,0]]
 			});
-			```	
 			
 	d. Configure the Examples table search within the tabs for-loop (line ~252)
 	
-			```javascript
 			if(tabName == "examples"){
 				var tabTable = $('#tabs3 table'); //table within this tab
 				var tabHeaders = getTableHeaders(tabTable);
@@ -253,35 +239,29 @@ for example purposes, lets name the new tab "Examples"
 				});
 
 			}
-			```
 				
 	e. Configure the Examples table for Search tab (line ~306)
 	
-			```javascript
 			else if (table_clone[k].id == "examples"){
-					$("#exSearch #exTable").append(table_clone[k]);
-					$("#exSearch #exTable").hide();
-					srchexList = new List("exSearch", search_options);
-				}
-			```	
+				$("#exSearch #exTable").append(table_clone[k]);
+				$("#exSearch #exTable").hide();
+				srchexList = new List("exSearch", search_options);
+			}
 			
 	f. Activate clear button on the Search tab for the Examples table 
 	
-			```javascript
 			$("#clear300").click(function() {
 				var currId = this.id.match(/\d+/g);
 				$("#search" + currId[0]).val("");
-				//...
+				...
 				if (srchexList != "")
 					srchexList.search();
-				//...
+				...
 				$("#exSearch #exTable").hide();
 			});
-			```
 			
 	g. Create an Examples search function for searching content in the Examples table (line ~410)
 	
-			```javascript
 			function exSearch(link){
 				var search_text = "";
 				if(link.hash)
@@ -293,26 +273,22 @@ for example purposes, lets name the new tab "Examples"
 				var search_box = $("#search3");
 				search_box.val(search_text);
 				
-				//...
+				...
 			}
-			```
 
 	h. Activate tabs in the tabs table function (line ~214). It's important to represent the tab in each section of the if-else statement within this function. 
 	
-			```javaascript
-			//...
+			...
 			else if (param_tab == "tabs3")
 				$("#tabs").tabs({active: 3});  //examples tab
-			//...
+			...
 			else if (param_tab == "tabs3")
 					exSearch(param_term);
-			//...	
-			```
+			...	
 			
 	i. Search value and set table for Examples on the all search tab (line ~471)
 	
-			```javascript
-			//...			
+			...			
 			if(sdtList != ""){
 				var value = this_search.value;
 				sdtList.search(value);
@@ -322,10 +298,10 @@ for example purposes, lets name the new tab "Examples"
 				else
 					$("#dataSearch #dataTable").hide();
 			}
-			//...
+			...
 			else{
-			//...
+			...
 					$("#dataSearch #dataTable").hide();
 			}
-			```
+
    
