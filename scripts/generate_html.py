@@ -77,6 +77,7 @@ for program in active_content:
   software_columns = []
   pubs_columns = []
   data_columns = []
+  examples_columns = []
   if program['Program File'] == "":
     print "ERROR: %s has no program details json file, can't continue.  Please fix this and restart the build." % program_name
     sys.exit(1)
@@ -123,6 +124,8 @@ for program in active_content:
       program_page += "<ul><li>The Publications Table contains author(s), title, and links to peer-reviewed articles related to specific DARPA programs.</li></ul>"
     if program['Data File'] and not program['Data File'].isspace():
       program_page += "<ul><li>The Data Set table includes a description and industry, as well as size indicators. Contact the program for access.</li></ul>"
+    if program['Examples File'] and not program['Examples File'].isspace():
+      program_page += "<ul><li>The Examples table includes a description and a link.</li></ul>"
     program_page += "<p>Report a problem: <a href=\"mailto:opencatalog@darpa.mil\">opencatalog@darpa.mil</a></p>"
     program_page += "<p>Last updated: %s</p></div>" % formatted_date
     if 'Image' in program_details.keys():
@@ -145,7 +148,9 @@ for program in active_content:
     #print "program details: %s \n\r" % program_details
     pubs_columns = program_details['Display Pubs Columns']
     data_columns = program_details['Display Data Columns']
-
+    #print program_details
+    examples_columns = program_details['Display Examples Columns']
+    
   # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table. So far only XDATA program
   pubs_exist = {}
   if program['Pubs File'] != "" and program['Software File'] != "":
@@ -177,6 +182,9 @@ for program in active_content:
   if program['Data File'] != "":
     program_page += "<li><a href='#tabs2'>Data</a></li>"
     search_tab += "<div id='dataSearch'><div id='dataTable'><h2>Data</h2></div></div>"
+  if program['Examples File'] != "":
+    program_page += "<li><a href='#tabs3'>Examples</a></li>"
+    search_tab += "<div id='examplesSearch'><div id='examplesTable'><h2>Examples</h2></div></div>"
   if program['Software File'] != "" and program['Pubs File'] != "":
     program_page += "<li><a href='#tabs300'>Search</a></li>"
   program_page += "</ul>"
@@ -395,6 +403,34 @@ for program in active_content:
           program_page += "</TR>\n"
     program_page += doc.table_footer()
     program_page += "</div></div>"
+    #print program_page
+
+###### EXAMPLES
+
+  if program['Examples File'] != "":
+    program_page += "<div id='examples'><div id='tabs3'>"
+    program_page += "<input class='search' placeholder='Search' id='search3'/>"
+    program_page += "<button class='clear_button' id='clear3'>Clear</button>"
+    try:
+      examples = json.load(open(data_dir + program['Examples File']))
+    except Exception, e:
+      print "\nFAILED! JSON error in file %s" % program['Examples File']
+      print " Details: %s" % str(e)
+      sys.exit(1)
+
+    program_page += doc.examples_table_header(examples_columns)
+    for example in examples:
+      for column in examples_columns:
+        # Description
+        if column == "Description":
+          program_page += " <TR><TD class=" + column.lower() + "> " + example['Description'] + " </TD>\n"
+        # Total Rows
+        if column == "Link":
+          program_page += " <TD class=" + column.lower() + "> " + example['Link'] + " </TD>\n"
+          program_page += "</TR>\n"
+    program_page += doc.table_footer()
+    program_page += "</div></div>"
+    #print program_page
 
 ###### Add search tab only if software and publications tab exists
   if program['Software File'] != "" and program['Pubs File'] != "":

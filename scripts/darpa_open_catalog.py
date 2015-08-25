@@ -129,6 +129,14 @@ def data_table_header(columns):
   header += "</tr>\n </thead>\n <tbody  class='list'>"
   return header
 
+def examples_table_header(columns):
+
+  header = "<table id='examples' class='tablesorter'>\n <thead>\n <tr>"
+  for column in columns:
+    header += "<th>%s</th>" % column
+  header += "</tr>\n </thead>\n <tbody  class='list'>"
+  return header
+
 def pubs_table_footer():
   return """
 </tbody>
@@ -176,7 +184,7 @@ def catalog_program_script():
   return """
 
 <script type='text/javascript'>
-var swList = ssftList = pubList = spubList = dataList = sdtList = "";
+var swList = ssftList = pubList = spubList = dataList = sdtList = examplesList = sxamplesList = "";
 
 $(document).ready(function()
     {
@@ -199,6 +207,9 @@ $(document).ready(function()
         	sortList: [[0,0],[1,0]]
     	});
         $('#data').tablesorter({
+        	sortList: [[0,0],[1,0]]
+    	});
+	$('#examples').tablesorter({
         	sortList: [[0,0],[1,0]]
     	});
         $('#splash').tablesorter({
@@ -224,6 +235,8 @@ $(document).ready(function()
 					$("#tabs").tabs({active: 1});  //publications tab
 				else if (param_tab == "tabs2")
 					$("#tabs").tabs({active: 2});  //data tab
+				else if (param_tab == "tabs3")
+					$("#tabs").tabs({active: 3});  //examples tab
 			}
 			else if(param_tab && param_term){
 				//console.log("tab and term");
@@ -233,6 +246,8 @@ $(document).ready(function()
 					pubSearch(param_term);
 				else if (param_tab == "tabs2")
 					dataSearch(param_term);
+				else if (param_tab == "tabs3")
+					exSearch(param_term);
 			}
 			else{
 				//console.log("no params");
@@ -240,8 +255,10 @@ $(document).ready(function()
 					$("#tabs").tabs({active: 0}); //software tab
 				else if($("#tabs1"))
 					$("#tabs").tabs({active: 1}); //publications tab
-				else
-					$("#tabs").tabs({active: 2}); //data tab
+				else if($("#tabs2"))
+                    $("#tabs").tabs({active: 2}); //data tab
+                else
+					$("#tabs").tabs({active: 3}); //examples tab
 			}
 
 		});
@@ -303,6 +320,25 @@ $(document).ready(function()
 				});
 
 			}
+
+			if(tabName == "examples"){
+				var tabTable = $('#tabs3 table'); //table within this tab
+				var tabHeaders = getTableHeaders(tabTable);
+
+				var examples_options = {
+				  valueNames: tabHeaders
+				};
+
+				exList = new List(tabName, examples_options);
+
+				$("#clear3").click(function() {
+					var currId = this.id.match(/\d+/g);
+					$("#search" + currId[0]).val("");
+					exList.search();
+				});
+
+			}
+
 			if(tabName == "search"){
 
 				var table_clone = $('#tabs table').clone();
@@ -324,6 +360,12 @@ $(document).ready(function()
 						$("#publicationsSearch #pubTable").hide();
 						spubList = new List("publicationsSearch", search_options);
 					}
+					else if (table_clone[k].id == "examples"){
+
+						$("#examplesSearch #examplesTable").append(table_clone[k]);
+						$("#examplesSearch #examplesTable").hide();
+						sxampleList = new List("examplesSearch", search_options);
+					}
 					else{
 						$("#dataSearch #dataTable").append(table_clone[k]);
 						$("#dataSearch #dataTable").hide();
@@ -342,10 +384,13 @@ $(document).ready(function()
 						spubList.search();
 					if (sdtList != "")
 						sdtList.search();
+					if (sxampleList != "")
+						sxampleList.search()
 					//when search is cleared tables need to be hidden
 					$("#softwareSearch #sftwrTable").hide();
 					$("#publicationsSearch #pubTable").hide();
 					$("#dataSearch #dataTable").hide();
+					$("#examplesSearch #examplesTable").hide();
 
 				});
 
@@ -467,6 +512,27 @@ function dataSearch(link){
 		dataList.search(search_text);
 	},300);
 }
+
+function exSearch(link){
+	var search_text = "";
+	if(link.hash)
+		search_text = link.hash.replace("#", "");
+	else
+		search_text = link;
+	$('#tabs').tabs({active: 3}); //examples tab
+	var search_box = $("#search3");
+	search_box.val(search_text);
+
+	setTimeout(function(){
+		$('html, body').animate({
+			scrollTop: $("#tabs").offset().top
+		}, 0);
+		search_box.focus();
+		search_box.select();
+		dataList.search(search_text);
+	},300);
+}
+
 function allSearch(this_search){
 	if(this_search.value != "" && this_search.value.length >= 3){
 		var value = this_search.value;
@@ -497,6 +563,16 @@ function allSearch(this_search){
 				$("#dataSearch #dataTable").show();
 			else
 				$("#dataSearch #dataTable").hide();
+		}
+
+		if(sxampleList != ""){
+			var value = this_search.value;
+			sdtList.search(value);
+
+			if ($("#examplesSearch #examplesTable tbody").children().length != 0)
+				$("#examplesSearch #examplesTable").show();
+			else
+				$("#examplesSearch #examplesTable").hide();
 		}
 
 	}
