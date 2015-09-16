@@ -421,10 +421,23 @@ for program in active_content:
     program_page += doc.examples_table_header(examples_columns)
     for example in examples:
       for column in examples_columns:
+        # Application Name
+        if column == "Name":
+          program_page += " <TR>\n <TD class=" + column.lower() + "> " + example['Application Name'] + " </TD>\n"
+        # Team
+        if column == "Team":
+          program_page += "<TD class='" + column.lower() + "'>"
+          for team in example['Teams']:
+            program_page += team + "<a name='" + team + "'></a>, "
+          program_page = program_page[:-2]
+          program_page += "</TD>\n"
         # Description
         if column == "Description":
-          program_page += " <TR><TD class=" + column.lower() + "> " + example['Description'] + " </TD>\n"
-        # Total Rows
+          program_page += " <TD class=" + column.lower() + "> " + example['Description'] + " </TD>\n"
+        # Instructional Material
+        if column == "Instructional Material":
+          program_page += " <TD class=" + column.lower() + "> " + example['Instructional Material'] + " </TD>\n"
+        # Link
         if column == "Link":
           program_page += " <TD class=" + column.lower() + "> " + example['Link'] + " </TD>\n"
           program_page += "</TR>\n"
