@@ -150,7 +150,7 @@ for program in active_content:
     data_columns = program_details['Display Data Columns']
     #print program_details
     examples_columns = program_details['Display Examples Columns']
-    
+
   # This creates a hashed array (dictionary) of teams that have publications. We use this to cross link to them from the software table. So far only XDATA program
   pubs_exist = {}
   if program['Pubs File'] != "" and program['Software File'] != "":
@@ -454,7 +454,8 @@ for program in active_content:
   if program['Banner'].upper() != "COMING SOON":
     #print "Writing to %s" % build_dir + '/' + program_page_filename
     program_outfile = open(build_dir + '/' + program_page_filename, 'w')
-    program_outfile.write(program_page)
+    print program_page_filename
+    program_outfile.write(program_page.encode('utf-8'))
     if program_image_file != "":
       shutil.copy(data_dir + program_image_file, build_dir)
 
